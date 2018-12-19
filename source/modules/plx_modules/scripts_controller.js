@@ -3,8 +3,8 @@ class ScriptsController {
     this.scriptsModel = scriptsModel;
     this.placeholdersModel = this.scriptsModel.placeholdersModel;
   }
-  
-  registerObserver (observer) {
+
+  registerObserver(observer) {
     this.scriptsModel.registerObserver(observer);
   }
 
@@ -15,13 +15,15 @@ class ScriptsController {
     if (currentlySelectedScript) {
       this.checkActive(currentlySelectedScript, scriptIndex);
       this.scriptsModel.notifyAll();
-      // this.scriptsModel.notifyAll(); // this is equal to this.scriptsModel.observers[0].update() // 
+      // this.scriptsModel.notifyAll(); // this is equal to
+      // this.scriptsModel.observers[0].update() //
     }
   }
 
   scriptManager(scriptIndex) {
     this.scriptsModel.currentlySelectedScriptIndex = scriptIndex;
-    this.scriptsModel.observers[0].renderParameters(this.scriptsModel.getParameterNames(scriptIndex));
+    this.scriptsModel.observers[0].renderParameters(
+        this.scriptsModel.getParameterNames(scriptIndex));
     this.scriptsModel.observers[0].checkShow();
   }
 
@@ -32,13 +34,15 @@ class ScriptsController {
     const parameterValue = event.target.value;
     this.scriptsModel.setParameterValue(
         scriptIndex, parameterName, parameterValue);
-    this.scriptsModel.observers[0].renderPlxUrl(this.scriptsController.generatePlxUrl());
+    this.scriptsModel.observers[0].renderPlxUrl(
+        this.scriptsController.generatePlxUrl());
   }
 
   generatePlxUrl() {
     const script = this.scriptsModel.getCurrentSelectedScript();
     const params = Object.entries(script.parameters);
-    this.scriptsModel.url_add_on = this.scriptsModel.basePlxUrl + `${script.id}?p=`;
+    this.scriptsModel.url_add_on =
+        this.scriptsModel.basePlxUrl + `${script.id}?p=`;
     this.scriptsModel.URL = this.scriptsModel.url_add_on;
     this.scriptsModel.params = '';
     params.forEach(([key, value], index) => {

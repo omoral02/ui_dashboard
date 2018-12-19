@@ -11,9 +11,12 @@ class ScriptsView {
     this.scriptsParent = document.createElement('div');
     this.scriptsParent.classList.add('card');
     this.scriptsParent.id = 'scriptsContainer';
-    this.scriptsParentinnerHTML = (() => {return this.scriptsModel.getScriptsParentHTML();})();
+    this.scriptsParentinnerHTML = (() => {
+      return this.scriptsModel.getScriptsParentHTML();
+    })();
     this.scriptsParent.innerHTML = this.scriptsParentinnerHTML;
-    this.popWindowOne.insertBefore(this.scriptsParent, this.popWindowOne.childNodes[0]);
+    this.popWindowOne.insertBefore(
+        this.scriptsParent, this.popWindowOne.childNodes[0]);
     this.scriptList = document.getElementById('scriptList');
     this.ListInnerContainer = document.getElementById('plx-InnerCard');
     this.parametersContainer = document.getElementById('parametersContainer');
@@ -27,9 +30,12 @@ class ScriptsView {
 
   init() {
     this.pullScripts(this.scriptsModel.getScripts());
-    this.toggleButton.addEventListener('click', this.plxButtonToggle.bind(this));
-    this.ListInnerContainer.addEventListener('click', this.scriptsController.onScriptClick.bind(this));
-    this.parametersInnerContainer.addEventListener('input', this.scriptsController.onParameterInput.bind(this));
+    this.toggleButton.addEventListener(
+        'click', this.plxButtonToggle.bind(this));
+    this.ListInnerContainer.addEventListener(
+        'click', this.scriptsController.onScriptClick.bind(this));
+    this.parametersInnerContainer.addEventListener(
+        'input', this.scriptsController.onParameterInput.bind(this));
   }
 
   toggleParamContainer() {
@@ -142,13 +148,12 @@ class ScriptsView {
   }
 
   resetLink() {
-   this.plxOutputButton.classList.remove('showLink');
+    this.plxOutputButton.classList.remove('showLink');
   }
-  
-  update () {
+
+  update() {
     this.scriptsModel.params = '';
     this.scriptsModel.url_add_on = '';
     this.scriptsModel.URL = null;
   }
-  
 }

@@ -6,8 +6,6 @@ const main = (() => {
   const scriptsView = new ScriptsView(scriptsController);
   // scriptsView.scriptsController.scriptsView.init();
   // console.log(scriptsView);
-
 });
 
 window.addEventListener('load' main);
-

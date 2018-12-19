@@ -39,12 +39,12 @@ class PlaceholdersModel {
 
 class ScriptsModel {
   constructor(placeholdersModel) {
-    this.observers = [],
-    this.placeholdersModel = placeholdersModel, 
+    this.observers = [], this.placeholdersModel = placeholdersModel,
     this.currentlySelectedScriptIndex = null,
     this.basePlxUrl = 'http://plx/scripts2/',
     this.currentlySelectedScript = null;
-    this.scriptsParentHtml = `<ul id="scriptList" rel='plxScriptWindow' class=''>
+    this.scriptsParentHtml =
+        `<ul id="scriptList" rel='plxScriptWindow' class=''>
               <h2 class="card-header">Scripts</h2>
               <div class="card-inner" id="plx-InnerCard"></div>
           </ul>
@@ -53,7 +53,7 @@ class ScriptsModel {
                 <h2 class="card-header">Parameters</h2>
                 <div id="parameters"></div>
               </div>
-          </div>`, 
+          </div>`,
     this.scripts = [
       {
         title: ' API usage for specified mafe_weblog API by IP ',
@@ -87,7 +87,7 @@ class ScriptsModel {
     // let url_add_on;
     // Object.defineProperty(this, "url_add_on", {
     // get: () => { return url_add_on; },
-    // set: (value) => { 
+    // set: (value) => {
     //     this.notifyAll();
     //   }
     // });
@@ -97,15 +97,16 @@ class ScriptsModel {
   }
   notifyAll() {
     this.observers.forEach(function observerUpdate(observer) {
-      console.log('This scripts observer will update the href with: '+ observer.scriptsModel.URL);
+      console.log(
+          'This scripts observer will update the href with: ' +
+          observer.scriptsModel.URL);
       observer.update(this);
       console.log(observer.scriptsModel.URL);
     })
   }
-  
-  getScriptsParentHTML () {
-    return this.scriptsParentHtml;
 
+  getScriptsParentHTML() {
+    return this.scriptsParentHtml;
   }
   getScripts() {
     return this.scripts;
@@ -143,9 +144,12 @@ class ScriptsView {
     this.scriptsParent = document.createElement('div');
     this.scriptsParent.classList.add('card');
     this.scriptsParent.id = 'scriptsContainer';
-    this.scriptsParentinnerHTML = (() => {return this.scriptsModel.getScriptsParentHTML();})();
+    this.scriptsParentinnerHTML = (() => {
+      return this.scriptsModel.getScriptsParentHTML();
+    })();
     this.scriptsParent.innerHTML = this.scriptsParentinnerHTML;
-    this.popWindowOne.insertBefore(this.scriptsParent, this.popWindowOne.childNodes[0]);
+    this.popWindowOne.insertBefore(
+        this.scriptsParent, this.popWindowOne.childNodes[0]);
     this.scriptList = document.getElementById('scriptList');
     this.ListInnerContainer = document.getElementById('plx-InnerCard');
     this.parametersContainer = document.getElementById('parametersContainer');
@@ -159,9 +163,12 @@ class ScriptsView {
 
   init() {
     this.pullScripts(this.scriptsModel.getScripts());
-    this.toggleButton.addEventListener('click', this.plxButtonToggle.bind(this));
-    this.ListInnerContainer.addEventListener('click', this.scriptsController.onScriptClick.bind(this));
-    this.parametersInnerContainer.addEventListener('input', this.scriptsController.onParameterInput.bind(this));
+    this.toggleButton.addEventListener(
+        'click', this.plxButtonToggle.bind(this));
+    this.ListInnerContainer.addEventListener(
+        'click', this.scriptsController.onScriptClick.bind(this));
+    this.parametersInnerContainer.addEventListener(
+        'input', this.scriptsController.onParameterInput.bind(this));
   }
 
   toggleParamContainer() {
@@ -274,15 +281,14 @@ class ScriptsView {
   }
 
   resetLink() {
-   this.plxOutputButton.classList.remove('showLink');
+    this.plxOutputButton.classList.remove('showLink');
   }
-  
-  update () {
+
+  update() {
     this.scriptsModel.params = '';
     this.scriptsModel.url_add_on = '';
     this.scriptsModel.URL = null;
   }
-  
 }
 
 class ScriptsController {
@@ -290,8 +296,8 @@ class ScriptsController {
     this.scriptsModel = scriptsModel;
     this.placeholdersModel = this.scriptsModel.placeholdersModel;
   }
-  
-  registerObserver (observer) {
+
+  registerObserver(observer) {
     this.scriptsModel.registerObserver(observer);
   }
 
@@ -302,13 +308,15 @@ class ScriptsController {
     if (currentlySelectedScript) {
       this.checkActive(currentlySelectedScript, scriptIndex);
       this.scriptsModel.notifyAll();
-      // this.scriptsModel.notifyAll(); // this is equal to this.scriptsModel.observers[0].update() // 
+      // this.scriptsModel.notifyAll(); // this is equal to
+      // this.scriptsModel.observers[0].update() //
     }
   }
 
   scriptManager(scriptIndex) {
     this.scriptsModel.currentlySelectedScriptIndex = scriptIndex;
-    this.scriptsModel.observers[0].renderParameters(this.scriptsModel.getParameterNames(scriptIndex));
+    this.scriptsModel.observers[0].renderParameters(
+        this.scriptsModel.getParameterNames(scriptIndex));
     this.scriptsModel.observers[0].checkShow();
   }
 
@@ -319,13 +327,15 @@ class ScriptsController {
     const parameterValue = event.target.value;
     this.scriptsModel.setParameterValue(
         scriptIndex, parameterName, parameterValue);
-    this.scriptsModel.observers[0].renderPlxUrl(this.scriptsController.generatePlxUrl());
+    this.scriptsModel.observers[0].renderPlxUrl(
+        this.scriptsController.generatePlxUrl());
   }
 
   generatePlxUrl() {
     const script = this.scriptsModel.getCurrentSelectedScript();
     const params = Object.entries(script.parameters);
-    this.scriptsModel.url_add_on = this.scriptsModel.basePlxUrl + `${script.id}?p=`;
+    this.scriptsModel.url_add_on =
+        this.scriptsModel.basePlxUrl + `${script.id}?p=`;
     this.scriptsModel.URL = this.scriptsModel.url_add_on;
     this.scriptsModel.params = '';
     params.forEach(([key, value], index) => {
@@ -346,5 +356,4 @@ const main = (() => {
   const scriptsView = new ScriptsView(scriptsController);
   // scriptsView.scriptsController.scriptsView.init();
   // console.log(scriptsView);
-
 })();
