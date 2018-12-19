@@ -1,0 +1,44 @@
+Module HTML
+
+Each HTML definition of a module will begin with `##Div/Module` followed by the #id of the respective module.
+
+
+##Div/Module #scriptsContainer
+	--UL #scriptList
+		H2
+		---Div #plx-InnerCard   
+		//**forEach script list the respective title**//
+
+			li
+			li
+			li
+
+		/---Div
+	/--UL
+
+	--DIV #parametersContainer
+			---Div
+				H2
+				----Div #parameters    
+				//**forEach parameter do the following**//
+
+					-----Div
+						
+						P
+							<Label for="$parameter"> $parameter </label>
+						/P
+
+						P
+							<Input> id="$parameter" placeholder="$parameter"
+							</input>
+						/P
+
+						------Div #linkLister //** append on URL generation **//
+
+								A #plxOutput  //** PLX output button **//
+						/------Div
+					/------Div 
+				/----Div
+			/---Div
+	/--DIV
+//Div/Module #scriptsContainer
