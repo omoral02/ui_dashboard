@@ -1,6 +1,34 @@
 'use strict';
 
+/**
+ *
+ * This is a place-holders model which returns an array with key/value object
+ * entries that are generic field HTML `placeholder` attribute values not
+ * specific to modules; rather specific to field-input formats. This helps the
+ * app_controller replace the listed-item's `placeholder` HTML attribute with
+ * what's found in this model matching the `id` HTML attribute value to the
+ * value found in this generic placeholders_model class.
+ *
+ * @class PlaceholdersModel
+ *
+ * @example - field input format:
+ *   'client_id': 'gme-XXXXX'
+ *
+ * @function getParameterValues() {
+ *    return Object.valueOf(this.placeholders[0].parameters);
+ *  }
+ * @function getParameterKeys() {
+ *    return Object.keys(this.placeholders[0].parameters);
+ *  }
+ *
+ */
 class PlaceholdersModel {
+  /**
+   *
+   *@constructor - Create the key-value object(s) array for parameter input
+   *               `placeholder` attribute value formats.
+   *
+   */
   constructor() {
     this.placeholders = [{
       parameters: {
@@ -19,21 +47,55 @@ class PlaceholdersModel {
       }
     }];
   }
+
+  /**
+   *
+   *@return {array} - The whole array of objects.
+   *
+   */
   getFieldSamples() {
     return this.placeholders;
   }
+
+  /**
+   *
+   * @return {object} - Return first object entry for
+   * `this.placeholders[]` array of objects
+   *
+   */
   getParametersList() {
     return this.placeholders[0];
   }
+
+  /**
+   *
+   *
+   */
   getParameterValues() {
     return Object.valueOf(this.placeholders[0].parameters);
   }
+
+  /**
+   *
+   *
+   */
   getParameterKeys() {
     return Object.keys(this.placeholders[0].parameters);
   }
 }
 
+/**
+ *
+ * PLX Scripts model which returns objects with HTML templates
+ * to be implemented with the ScriptsView module/class.
+ *
+ * @param {object} pModel - PlaceHoldersModel for generic input formats.
+ */
 class ScriptsModel {
+  /**
+   *
+   *
+   */
   constructor(pModel) {
     this.observers = [], this.placeholdersModel = pModel,
     this.currentlySelectedScriptIndex = null,
@@ -89,9 +151,18 @@ class ScriptsModel {
     // });
   }
 
+  /**
+   *
+   *
+   */
   registerObserver(observer) {
     this.observers.push(observer);
   }
+
+  /**
+   *
+   *
+   */
   notifyAll() {
     this.observers.forEach(function observerUpdate(observer) {
       console.log(
@@ -99,44 +170,104 @@ class ScriptsModel {
           observer.scriptsModel.URL);
       observer.update(this);
       console.log(observer.scriptsModel.URL);
-    })
+    });
   }
+
+  /**
+   *
+   *
+   */
   getScriptsParentHTML() {
     return this.scriptsParentHtml;
   }
+
+  /**
+   *
+   *
+   */
   getScripts() {
     return this.scripts;
   }
+
+  /**
+   *
+   *
+   */
   getScript(index) {
     return this.scripts[index];
   }
+
+  /**
+   *
+   *
+   */
   getCurrentSelectedScript() {
     return this.scripts[this.currentlySelectedScriptIndex];
   }
+
+
+  /**
+   *
+   *
+   */
   getCurrentlySelectedScriptIndex() {
     return this.currentlySelectedScriptIndex;
   }
+
+
+  /**
+   *
+   *
+   */
   getParameterNames(scriptIndex) {
     return Object.keys(this.scripts[scriptIndex].parameters);
   }
+
+
+  /**
+   *
+   *
+   */
   setParameterValue(scriptIndex, parameterName, parameterValue) {
     this.scripts[scriptIndex].parameters[parameterName] = parameterValue;
   }
+
+
+  /**
+   *
+   *
+   */
   getBasePlxUrl() {
     return this.basePlxUrl;
   }
 }
 
+/**
+ *
+ *
+ */
 class ScriptsController {
+  /**
+   *
+   *
+   */
   constructor(sModel) {
     this.scriptsModel = sModel;
     this.placeholdersModel = this.scriptsModel.placeholdersModel;
   }
 
+  /**
+   *
+   *
+   */
   registerObserver(observer) {
     this.scriptsModel.registerObserver(observer);
   }
 
+  /**
+   *
+   *
+   */
   onScriptClick(e) {
     const currentlySelectedScript = this.scriptsModel.currentlySelectedScript =
         e.target;
@@ -149,6 +280,10 @@ class ScriptsController {
     }
   }
 
+  /**
+   *
+   *
+   */
   scriptManager(scriptIndex) {
     this.scriptsModel.currentlySelectedScriptIndex = scriptIndex;
     this.scriptsModel.observers[0].renderParameters(
@@ -156,7 +291,10 @@ class ScriptsController {
     this.scriptsModel.observers[0].checkShow();
   }
 
-
+  /**
+   *
+   *
+   */
   onParameterInput(event) {
     const scriptIndex = this.scriptsModel.getCurrentlySelectedScriptIndex();
     const parameterName = event.target.id;
@@ -167,6 +305,10 @@ class ScriptsController {
         this.scriptsController.generatePlxUrl());
   }
 
+  /**
+   *
+   *
+   */
   generatePlxUrl() {
     const script = this.scriptsModel.getCurrentSelectedScript();
     const params = Object.entries(script.parameters);
@@ -184,7 +326,10 @@ class ScriptsController {
   }
 }
 
-
+/**
+ *
+ *
+ */
 class ScriptsView {
   constructor(sController) {
     this.scriptsController = sController;
@@ -252,7 +397,7 @@ class ScriptsView {
       li.classList.add('listed-item');
       li.dataset.index = index;
       this.ListInnerContainer.appendChild(li);
-    })
+    });
   }
 
   plxButtonToggle() {
@@ -345,11 +490,15 @@ class ScriptsView {
   }
 }
 
+/**
+ *
+ * Main arrow function instantiates our class objects.
+ *
+ */
 const main = (() => {
   const pModel = new PlaceholdersModel();
   const sModel = new ScriptsModel(pModel);
   const sController = new ScriptsController(sModel);
   const sView = new ScriptsView(sController);
 });
-
-window.addEventListener("load", main);
+window.addEventListener('load', main);
