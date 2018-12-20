@@ -50,7 +50,8 @@ class PlaceholdersModel {
 
   /**
    *
-   *@return {array} - The whole array of objects.
+   * @function
+   * @return {array} - The whole array of objects.
    *
    */
   getFieldSamples() {
@@ -59,6 +60,7 @@ class PlaceholdersModel {
 
   /**
    *
+   * @function
    * @return {object} - Return first object entry for
    * `this.placeholders[]` array of objects
    *
@@ -89,7 +91,7 @@ class PlaceholdersModel {
  * PLX Scripts model which returns objects with HTML templates
  * to be implemented with the ScriptsView module/class.
  *
- * @param {object} pModel - PlaceHoldersModel for generic input formats.
+ * @param {class object} pModel - PlaceHoldersModel for generic input formats.
  */
 class ScriptsModel {
   /**
