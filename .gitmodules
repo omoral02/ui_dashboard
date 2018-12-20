@@ -1,3 +1,0 @@
-[submodule "rest_proxy/simpleProxy"]
-	path = rest_proxy/simpleProxy
-	url = https://github.com/sdbedi/simpleProxy.git
