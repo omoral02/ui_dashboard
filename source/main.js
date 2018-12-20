@@ -490,7 +490,8 @@ class ScriptsView {
 
 /**
  *
- * Main arrow function instantiates our class objects.
+ * Main arrow function instantiates our class
+ * objects on `load` window event.
  *
  */
 const main = (() => {
