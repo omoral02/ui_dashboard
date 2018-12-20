@@ -205,7 +205,6 @@ class ScriptsModel {
     return this.scripts[this.currentlySelectedScriptIndex];
   }
 
-
   /**
    *
    *
@@ -213,7 +212,6 @@ class ScriptsModel {
   getCurrentlySelectedScriptIndex() {
     return this.currentlySelectedScriptIndex;
   }
-
 
   /**
    *
@@ -223,7 +221,6 @@ class ScriptsModel {
     return Object.keys(this.scripts[scriptIndex].parameters);
   }
 
-
   /**
    *
    *
@@ -231,7 +228,6 @@ class ScriptsModel {
   setParameterValue(scriptIndex, parameterName, parameterValue) {
     this.scripts[scriptIndex].parameters[parameterName] = parameterValue;
   }
-
 
   /**
    *
