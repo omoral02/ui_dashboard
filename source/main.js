@@ -1,8 +1,4 @@
 'use strict';
-// const mapsJS = document.createElement('script')
-// mapsJS.src =
-// 'https://maps.googleapis.com/maps/api/js?callback=google_maps_init&key=' +
-// api_key document.getElementsByTagName('head')[0].appendChild(mapsJS)
 
 class PlaceholdersModel {
   constructor() {
@@ -38,8 +34,8 @@ class PlaceholdersModel {
 }
 
 class ScriptsModel {
-  constructor(placeholdersModel) {
-    this.observers = [], this.placeholdersModel = placeholdersModel,
+  constructor(pModel) {
+    this.observers = [], this.placeholdersModel = pModel,
     this.currentlySelectedScriptIndex = null,
     this.basePlxUrl = 'http://plx/scripts2/',
     this.currentlySelectedScript = null;
@@ -92,6 +88,7 @@ class ScriptsModel {
     //   }
     // });
   }
+
   registerObserver(observer) {
     this.observers.push(observer);
   }
@@ -104,7 +101,6 @@ class ScriptsModel {
       console.log(observer.scriptsModel.URL);
     })
   }
-
   getScriptsParentHTML() {
     return this.scriptsParentHtml;
   }
@@ -131,9 +127,67 @@ class ScriptsModel {
   }
 }
 
+class ScriptsController {
+  constructor(sModel) {
+    this.scriptsModel = sModel;
+    this.placeholdersModel = this.scriptsModel.placeholdersModel;
+  }
+
+  registerObserver(observer) {
+    this.scriptsModel.registerObserver(observer);
+  }
+
+  onScriptClick(e) {
+    const currentlySelectedScript = this.scriptsModel.currentlySelectedScript =
+        e.target;
+    const scriptIndex = parseInt(currentlySelectedScript.dataset.index);
+    if (currentlySelectedScript) {
+      this.checkActive(currentlySelectedScript, scriptIndex);
+      this.scriptsModel.notifyAll();
+      // this.scriptsModel.notifyAll(); // this is equal to
+      // this.scriptsModel.observers[0].update() //
+    }
+  }
+
+  scriptManager(scriptIndex) {
+    this.scriptsModel.currentlySelectedScriptIndex = scriptIndex;
+    this.scriptsModel.observers[0].renderParameters(
+        this.scriptsModel.getParameterNames(scriptIndex));
+    this.scriptsModel.observers[0].checkShow();
+  }
+
+
+  onParameterInput(event) {
+    const scriptIndex = this.scriptsModel.getCurrentlySelectedScriptIndex();
+    const parameterName = event.target.id;
+    const parameterValue = event.target.value;
+    this.scriptsModel.setParameterValue(
+        scriptIndex, parameterName, parameterValue);
+    this.scriptsModel.observers[0].renderPlxUrl(
+        this.scriptsController.generatePlxUrl());
+  }
+
+  generatePlxUrl() {
+    const script = this.scriptsModel.getCurrentSelectedScript();
+    const params = Object.entries(script.parameters);
+    this.scriptsModel.url_add_on =
+        this.scriptsModel.basePlxUrl + `${script.id}?p=`;
+    this.scriptsModel.URL = this.scriptsModel.url_add_on;
+    this.scriptsModel.params = '';
+    params.forEach(([key, value], index) => {
+      this.scriptsModel.params += `${key}:${value}`;
+      if (index !== params.length - 1) {
+        this.scriptsModel.params += ',';
+      }
+    });
+    this.scriptsModel.URL += this.scriptsModel.params;
+  }
+}
+
+
 class ScriptsView {
-  constructor(scriptsController) {
-    this.scriptsController = scriptsController;
+  constructor(sController) {
+    this.scriptsController = sController;
     this.scriptsModel = this.scriptsController.scriptsModel;
     this.placeholdersModel = this.scriptsController.placeholdersModel;
     this.mainMenu = document.getElementsByTagName('main');
@@ -291,71 +345,11 @@ class ScriptsView {
   }
 }
 
-class ScriptsController {
-  constructor(scriptsModel) {
-    this.scriptsModel = scriptsModel;
-    this.placeholdersModel = this.scriptsModel.placeholdersModel;
-  }
-
-  registerObserver(observer) {
-    this.scriptsModel.registerObserver(observer);
-  }
-
-  onScriptClick(e) {
-    const currentlySelectedScript = this.scriptsModel.currentlySelectedScript =
-        e.target;
-    const scriptIndex = parseInt(currentlySelectedScript.dataset.index);
-    if (currentlySelectedScript) {
-      this.checkActive(currentlySelectedScript, scriptIndex);
-      this.scriptsModel.notifyAll();
-      // this.scriptsModel.notifyAll(); // this is equal to
-      // this.scriptsModel.observers[0].update() //
-    }
-  }
-
-  scriptManager(scriptIndex) {
-    this.scriptsModel.currentlySelectedScriptIndex = scriptIndex;
-    this.scriptsModel.observers[0].renderParameters(
-        this.scriptsModel.getParameterNames(scriptIndex));
-    this.scriptsModel.observers[0].checkShow();
-  }
-
-
-  onParameterInput(event) {
-    const scriptIndex = this.scriptsModel.getCurrentlySelectedScriptIndex();
-    const parameterName = event.target.id;
-    const parameterValue = event.target.value;
-    this.scriptsModel.setParameterValue(
-        scriptIndex, parameterName, parameterValue);
-    this.scriptsModel.observers[0].renderPlxUrl(
-        this.scriptsController.generatePlxUrl());
-  }
-
-  generatePlxUrl() {
-    const script = this.scriptsModel.getCurrentSelectedScript();
-    const params = Object.entries(script.parameters);
-    this.scriptsModel.url_add_on =
-        this.scriptsModel.basePlxUrl + `${script.id}?p=`;
-    this.scriptsModel.URL = this.scriptsModel.url_add_on;
-    this.scriptsModel.params = '';
-    params.forEach(([key, value], index) => {
-      this.scriptsModel.params += `${key}:${value}`;
-      if (index !== params.length - 1) {
-        this.scriptsModel.params += ',';
-      }
-    });
-    this.scriptsModel.URL += this.scriptsModel.params;
-  }
-}
-
 const main = (() => {
-  // console.log('main');
-  const placeholdersModel = new PlaceholdersModel();
-  const scriptsModel = new ScriptsModel(placeholdersModel);
-  const scriptsController = new ScriptsController(scriptsModel);
-  const scriptsView = new ScriptsView(scriptsController);
-  // scriptsView.scriptsController.scriptsView.init();
-  // console.log(scriptsView);
+  const pModel = new PlaceholdersModel();
+  const sModel = new ScriptsModel(pModel);
+  const sController = new ScriptsController(sModel);
+  const sView = new ScriptsView(sController);
 });
 
 window.addEventListener("load", main);
