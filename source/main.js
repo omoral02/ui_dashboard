@@ -500,4 +500,5 @@ const main = (() => {
   const sController = new ScriptsController(sModel);
   const sView = new ScriptsView(sController);
 });
+
 window.addEventListener('load', main);
