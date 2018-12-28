@@ -491,14 +491,13 @@ class ScriptsView {
 /**
  *
  * Main arrow function instantiates our class
- * objects on `load` window event.
+ * objects on `load` window object event.
  *
  */
-const main = (() => {
+const main = () => {
   const pModel = new PlaceholdersModel();
   const sModel = new ScriptsModel(pModel);
   const sController = new ScriptsController(sModel);
   const sView = new ScriptsView(sController);
-});
-
+};
 window.addEventListener('load', main);
