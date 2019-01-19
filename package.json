@@ -9,7 +9,13 @@
   "author": "Omar M. - Google Maps Platform Technical Support (AMER)",
   "license": "MIT ",
   "dependencies": {
-    "node": "^11.4.0"
+    "node": "^11.6.0"
   },
-  "repository": "https://github.com/omoral02/ui_dashboard"
+  "repository": "https://github.com/omoral02/ui_dashboard",
+  "devDependencies": {
+    "grunt": "^1.0.3",
+    "grunt-contrib-jshint": "^2.0.0",
+    "grunt-contrib-nodeunit": "^2.0.0",
+    "grunt-contrib-uglify": "^4.0.0"
+  }
 }

@@ -1,8 +1,44 @@
 'use strict';
 
 /**
+*
+*@overview - programmatically handle the flex-order for 
+*            the child elements found in `popUP` & `popUp2`
+*
+*@class - PaneCarousel
+* 
+*/
+
+class PaneCarousel {
+
+  constructor (popWindowOne) {
+    let panes = [];
+  }
+
+  checkAttachedPanes () {
+    if (popWindowOne.childNodes[0]) {
+      let childNodes = popWindowOne.childNodes.length;
+      for (let i =0; i < childNodes; i++){
+        let child = childNodes[i];
+        panes.push(child);
+      } 
+      setPaneOrder();
+    }
+  }
+
+  setPaneOrder () {
+    panes.forEach(function (pane){
+      for(let i=0; i < panes.length; i++){
+      pane.setAttribute('order', `${pane[i]}`);
+      }
+    });
+  }
+
+}
+
+/**
  *
- * This is a place-holders model which returns an array with key/value object
+ * @overview - This is a place-holders model which returns an array with key/value object
  * entries that are generic field HTML `placeholder` attribute values not
  * specific to modules; rather specific to field-input formats. This helps the
  * app_controller replace the listed-item's `placeholder` HTML attribute with
@@ -88,7 +124,7 @@ class PlaceholdersModel {
 
 /**
  *
- * PLX Scripts model which returns objects with HTML templates
+ * @Class PLX Scripts model which returns objects with HTML templates
  * to be implemented with the ScriptsView module/class.
  *
  * @param {class object} pModel - PlaceHoldersModel for generic input formats.
@@ -177,7 +213,8 @@ class ScriptsModel {
 
   /**
    *
-   *
+   * return {HTML} Template literal stored in the 
+   *               Scripts Model named this.scripsParentHTML
    */
   getScriptsParentHTML() {
     return this.scriptsParentHtml;
@@ -201,7 +238,9 @@ class ScriptsModel {
 
   /**
    *
-   *
+   * @return {object} Returns the object of the index that matches for
+   *                  the script, containing: 
+   *                  title, id, and script parameter key/value pairs.
    */
   getCurrentSelectedScript() {
     return this.scripts[this.currentlySelectedScriptIndex];
@@ -209,7 +248,7 @@ class ScriptsModel {
 
   /**
    *
-   *
+   * @return {int} Key index of the currently selected script title
    */
   getCurrentlySelectedScriptIndex() {
     return this.currentlySelectedScriptIndex;
@@ -268,7 +307,7 @@ class ScriptsController {
    */
   onScriptClick(e) {
     const currentlySelectedScript = this.scriptsModel.currentlySelectedScript =
-        e.target;
+        e.target || e.srcElement;
     const scriptIndex = parseInt(currentlySelectedScript.dataset.index);
     if (currentlySelectedScript) {
       this.checkActive(currentlySelectedScript, scriptIndex);
@@ -329,12 +368,12 @@ class ScriptsController {
  *
  */
 class ScriptsView {
-  constructor(sController) {
+  constructor(sController, paneCarousel) {
     this.scriptsController = sController;
     this.scriptsModel = this.scriptsController.scriptsModel;
     this.placeholdersModel = this.scriptsController.placeholdersModel;
     this.mainMenu = document.getElementsByTagName('main');
-    this.popWindowOne = document.createElement(`section`);
+    this.popWindowOne = document.createElement('section');
     this.popWindowOne.id = 'popUp';
     this.mainMenu[0].insertAdjacentElement('afterend', this.popWindowOne);
     this.toggleButton = document.getElementById('plx-button');
@@ -347,6 +386,7 @@ class ScriptsView {
     this.scriptsParent.innerHTML = this.scriptsParentinnerHTML;
     this.popWindowOne.insertBefore(
         this.scriptsParent, this.popWindowOne.childNodes[0]);
+
     this.scriptList = document.getElementById('scriptList');
     this.ListInnerContainer = document.getElementById('plx-InnerCard');
     this.parametersContainer = document.getElementById('parametersContainer');
@@ -356,6 +396,7 @@ class ScriptsView {
     this.plxOutputButton = document.createElement('a');
     this.init();
     this.scriptsController.registerObserver(this);
+    this.paneCarousel = paneCarousel;
   }
 
   init() {
@@ -498,6 +539,7 @@ const main = () => {
   const pModel = new PlaceholdersModel();
   const sModel = new ScriptsModel(pModel);
   const sController = new ScriptsController(sModel);
-  const sView = new ScriptsView(sController);
+  const paneCarousel = new PaneCarousel();
+  const sView = new ScriptsView(sController, paneCarousel);
 };
 window.addEventListener('load', main);
