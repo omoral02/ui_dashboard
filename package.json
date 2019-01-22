@@ -4,18 +4,29 @@
   "description": "GATOR on NODE",
   "main": "./source/modules/app_modules/app_controller.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "jshint": "grunt jshint",
+    "jsdoc": "grunt jsdoc",
+    "eslint": "grunt eslint",
+    "watch": "grunt watch",
+    "test": "grunt jasmine --force"
   },
   "author": "Omar M. - Google Maps Platform Technical Support (AMER)",
   "license": "MIT ",
   "dependencies": {
-    "node": "^11.6.0"
+    "express": "^4.16.4",
+    "node": "^11.7.0"
   },
-  "repository": "https://github.com/omoral02/ui_dashboard",
+  "repository": "https://gmfw-tools.googlesource.com/Vendor-Led",
   "devDependencies": {
+    "eslint": "^5.12.1",
     "grunt": "^1.0.3",
+    "grunt-contrib-jasmine": "^2.0.3",
     "grunt-contrib-jshint": "^2.0.0",
     "grunt-contrib-nodeunit": "^2.0.0",
-    "grunt-contrib-uglify": "^4.0.0"
+    "grunt-contrib-uglify": "^4.0.0",
+    "grunt-contrib-watch": "^1.1.0",
+    "grunt-jsdoc": "^2.3.0",
+    "jasmine": "^3.3.1",
+    "loadtest": "^3.0.4"
   }
 }
