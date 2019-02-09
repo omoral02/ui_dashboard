@@ -2,23 +2,35 @@
   "name": "gator_main",
   "version": "1.0.1",
   "description": "GATOR on NODE",
-  "main": "./source/modules/app_modules/app_controller.js",
+  "main": "./src/index.js",
   "scripts": {
+    "dev": "ndb nodemon ./src/index.js",
     "jshint": "grunt jshint",
     "jsdoc": "grunt jsdoc",
-    "eslint": "grunt eslint",
-    "watch": "grunt watch",
-    "test": "grunt jasmine --force"
+    "watch": "rm -rf ./myapp/public/images/ | mkdir ./myapp/public/images | cp ./src/images/*.png ./myapp/public/images/ | grunt watch",
+    "test": "grunt jasmine --force",
+    "live": "nodemon ./src/index.js",
+    "webpack": "webpack --env.dist=false --progress -d --config ./webpack.config.js --watch --mode development"
   },
-  "author": "Omar M. - Google Maps Platform Technical Support (AMER)",
-  "license": "MIT ",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "express-validator": "^5.3.1",
     "node": "^11.7.0"
   },
   "repository": "https://gmfw-tools.googlesource.com/Vendor-Led",
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^7.1.5",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "copy-webpack-plugin": "^4.6.0",
     "eslint": "^5.12.1",
+    "express-generator": "^4.16.0",
     "grunt": "^1.0.3",
     "grunt-contrib-jasmine": "^2.0.3",
     "grunt-contrib-jshint": "^2.0.0",
@@ -26,7 +38,22 @@
     "grunt-contrib-uglify": "^4.0.0",
     "grunt-contrib-watch": "^1.1.0",
     "grunt-jsdoc": "^2.3.0",
+    "grunt-webpack": "^3.1.3",
     "jasmine": "^3.3.1",
-    "loadtest": "^3.0.4"
-  }
+    "jstransformer-markdown-it": "^2.1.0",
+    "loadtest": "^3.0.4",
+    "ndb": "^1.0.42",
+    "nodemon": "^1.18.9",
+    "uglifyjs-webpack-plugin": "^2.1.1",
+    "webpack": "^4.29.1",
+    "webpack-cleanup-plugin": "^0.5.1",
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-server": "^3.1.14"
+  },
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ],
+  "author": "Omar M. - Google Maps Platform Technical Support(AMER)",
+  "license": "ISC"
 }
