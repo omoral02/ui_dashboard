@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-const webpackConfig = require('./webpack.config.js');
+const webpackConfig = require('./webpack.config.babel.js');
     grunt.initConfig({
         // concat: {
         //   release: {
@@ -7,20 +7,23 @@ const webpackConfig = require('./webpack.config.js');
         //     dest: 'release/main.js'
         //   }
         // },
-        // copy: {
-        //   release: {
-        //     src: 'manifest.json',
-        //     dest: 'release/manifest.json'
-        //   }
-        // },
+        copy: {
+          release: {
+            src: 'src/images/lockup.png',
+            dest: 'dist/public/images/lockup.png'
+          }
+        },
         jshint: {
            options: {
             jshintrc: '.jshintrc'
           },
-          files: ['./src/index.js', './src/js/*.js', './src/gator_components/dynamic_map_tester/js/*.js', 
-            './src/gator_components/main_app/js/*.js', './src/gator_components/plx/js/*.js', 
-            './src/gator_components/static_map_tester_component/js/*.js', './src/gator_components/ws_tester/js/*.js',
-            './src/index.js', './package.json', 'Gruntfile.js', '.jshintrc', './webpack.config.js']
+          files: [
+            './src/index.js', './src/js/main.js', 
+            './src/js/gator_components/dynamic_map_tester/js/*.js', 
+            // './src/js/gator_components/dynamic_map_tester/js/map_modules/*.js', 
+            // ommitted since the errors thrown here are many per the very much needed refactoring for those (not yet used)modules.
+            './src/js/gator_components/main_app/js/*.js', './src/js/gator_components/static_map_tester_component/js/*.js', './src/js/gator_components/ws_tester/js/*.js', 
+            './dist/app.js', './dist/routes/*.js', './dist/bin/*', './package.json', 'Gruntfile.js', '.jshintrc', '.babelrc', './webpack.config.babel.js']
         },
         jasmine: { 
           test: {
@@ -38,38 +41,15 @@ const webpackConfig = require('./webpack.config.js');
           }
         },
         webpack: {
-            options: {
-                stats: !process.env.NODE_ENV || process.env.NODE_ENV === 'development',
-                entry: __dirname + '/src/index.js',
-                output: {
-                path: __dirname + '/myapp/public/javascripts',
-                filename: 'bundle.js'    
-                },
-                mode: 'development',
-                module: {
-                  rules: [
-                    {
-                      test: /\.m?js$/,
-                      exclude: /(node_modules|bower_components)/,
-                      use: {
-                        loader: 'babel-loader',
-                        options: {
-                          presets: ['@babel/preset-env', 'es2015'],
-                          plugins: ['@babel/plugin-proposal-object-rest-spread']
-                        }
-                      }
-                    }
-                  ]
-                }
-            },
-            prod: webpackConfig,
-            dev: Object.assign({ watch: true }, webpackConfig)
+            options: webpackConfig,
+            prod: Object.assign({ watch: false }, webpackConfig),
+            dev:  webpackConfig
         }
     });
 
     // Load Grunt plugins 
     // grunt.loadNpmTasks('grunt-contrib-concat');
-    // grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-jasmine'); 
     grunt.loadNpmTasks('grunt-contrib-watch');
@@ -77,5 +57,5 @@ const webpackConfig = require('./webpack.config.js');
     grunt.loadNpmTasks('grunt-webpack');
 
     // Register tasks
-    grunt.registerTask('default', ['jshint', 'jsdoc']);
+    grunt.registerTask('default', ['copy', 'jshint', 'jsdoc']);
 };

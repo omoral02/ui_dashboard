@@ -1,53 +1,41 @@
-'use strict';
-  const main = function () {
-  /* eslint-disable no-console */
-  const bodyParser = require('body-parser');
-  const express = require('express');
-  const expressValidator = require('express-validator');
-  const router = express.Router()
-  const Todo = require('./Todo');
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
 
-  const app = express();
-  app.use(bodyParser.json());
-  app.use(expressValidator());
-  const { body } = require('express-validator/check');
-  // exports.validate = ((method) => {
-  // 	switch (method) {
-  // 	    case 'createUser': {
-  // 	     return [ 
-  // 	        body('userName', 'userName doesn\'t exist').exists(),
-  // 	        body('email', 'Invalid email').exists().isEmail(),
-  // 	        body('phone').optional().isInt(),
-  // 	        body('status').optional().isIn(['enabled', 'disabled'])
-  // 	       ]   
-  // 	    }
-  // 	  }
-  // });
+var indexRouter = require('./routes/index');
+var adminRouter = require('./routes/admin');
 
-  app.use((req, res, next) => {
-    res.setHeader('cache-control', 'private, max-age=0, no-cache, no-store, must-revalidate');
-    res.setHeader('expires', '0');
-    res.setHeader('pragma', 'no-cache');
-    next();
-  });
+var app = express();
 
-  app.get('/todos', (_, res) => {
-    Todo.findAll().then((todos) => {
-      res.send(todos);
-    });
-  });
-  app.post('/todos', (req, res) => {
-    Todo.create({ note: req.body.note })
-      .then((todo) => {
-        res.send(todo);
-      });
-  });
-  app.delete('/todos/:id', (req, res) => {
-    Todo.findById(req.params.id)
-      .then(todo => todo.destroy())
-      .then(() => res.send());
-  });
-  app.listen(3000, () => console.log('Example app listening on port 3000!'));
-};
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
 
-module.exports = main;
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+app.use('/', indexRouter);
+app.use('/admin', adminRouter);
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
+
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
+});
+
+module.exports = app;
