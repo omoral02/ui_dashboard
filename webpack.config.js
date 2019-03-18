@@ -27,7 +27,7 @@ const htmlOptions = {
 };
 const htmlPluginOptions = {
   filename: path.join(paths.public, 'build.html'), 
-  excludeChunks: ['modules', 'commons', 'server'],
+  excludeChunks: ['modules', 'commons', 'server', 'vendors~main'],
   disable: false
 };
 const sourceMapPublicPath = paths.public;
@@ -115,11 +115,11 @@ const config = {
       new CopyWebpackPlugin([{from: path.resolve(paths.src, 'favicon.ico'), to: path.resolve(paths.dist, 'public', 'favicon.ico')}]),
       new HtmlWebpackPlugin(Object.assign(htmlPluginOptions, htmlOptions)),
       new GenerateSW({ 
-        chunks: ['main', 'modules', 'commons', 'server']
+        chunks: ['main', 'modules', 'vendors', 'commons', 'server']
       }),
       new PreloadWebpackPlugin({
          rel: 'preload',
-         include: ['runtime', 'main']
+         include: ['runtime']
        })
   // new MiniCssExtractPlugin(cssPluginOptions) ,
   // new ExtractTextPlugin(Object.assign(cssPluginOptions)),
