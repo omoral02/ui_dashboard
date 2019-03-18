@@ -26,7 +26,6 @@ export default class ScriptsView extends ScriptsController {
     this.plxOutputButton = document.createElement('a');
     this.plxOutputButton.id = 'plxOutput';
     this.plxOutputButton.target = '_blank';
-    // this.self = this;
     super.registerInstanceOf(this);
   }
 
@@ -79,10 +78,9 @@ export default class ScriptsView extends ScriptsController {
     if (item.classList.contains('listed-item')) {
       if (item.classList.contains('active')) {
         this.removeActive(item);
-        this.resetLink();
+        if (this.plxOutputButton !== undefined ){ this.resetLink();}
         super.scriptManager(scriptIndex);
       } else {
-        this.setNull();
         this.removeActive(item);
         super.scriptManager(scriptIndex);
         this.matchParams(this.placeholders);
@@ -118,9 +116,8 @@ export default class ScriptsView extends ScriptsController {
     });
   }
 
-  renderPlxUrl(url) {
-    this.setNull();
-    this.plxOutputButton.href = url;
+  renderPlxUrl() {
+    this.plxOutputButton.href = super.getFullUrl();
     this.plxOutputButton.textContent = 'Head there now!';
     this.plxOutputButton.classList.add('showLink');
     this.linkLister.appendChild(this.plxOutputButton);
@@ -128,13 +125,8 @@ export default class ScriptsView extends ScriptsController {
   }
 
   removeActive(onListedItem) {
-    // let items = document.getElementsByClassName('listed-item');
-    // for (let i = 0; i < items.length; i++) {
-    //   let item = items[i];
     const item = onListedItem;
     item.classList.remove('active');
-    this.resetLink();
-    // }
   }
 
   resetItems() {
@@ -151,7 +143,6 @@ export default class ScriptsView extends ScriptsController {
 
   resetLink() {
     this.setNull();
-    this.plxOutputButton.classList.remove('showLink');
   }
 
   updateView() {
@@ -159,9 +150,10 @@ export default class ScriptsView extends ScriptsController {
   }
 
   setNull () {
-    this.link.URL = '';
-    this.link.params = '';
-    this.link.url_add_on = '';
-    this.plxOutputButton.href = this.link.URL;
+    if (this.plxOutputButton){
+      this.plxOutputButton.removeAttribute('href');
+      const emptyString = '';
+      super.setFullUrlTo(emptyString);
+    }
   }
 }

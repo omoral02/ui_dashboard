@@ -5,7 +5,7 @@ export default class ScriptsModel {
       basePlxUrl : 'http://plx/scripts2/',
       url_add_on : '',
       params: '',
-      URL: '',
+      URL: null,
 
     };
     // this.basePlxUrl = 'http://plx/scripts2/';
@@ -94,5 +94,21 @@ export default class ScriptsModel {
   }
   getBasePlxUrl() {
     return this.link.basePlxUrl;
+  }
+
+  setAddOnTo (addOn) {
+    this.link.url_add_on = addOn;
+  }
+
+  getAddOn () {
+    return this.link.url_add_on;
+  }
+
+  setFullUrlTo (nothing) {
+    this.link.URL = nothing;
+  }
+
+  getFullUrl () {
+    return this.link.URL;
   }
 }

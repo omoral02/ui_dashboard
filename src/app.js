@@ -19,7 +19,7 @@ let cb = ((err)=>{
 
 app.engine('html', function (filePath, options, cb) { // define the template engine
   fs.readFile(filePath, function (err, content) {
-    if (err) return cb(err)
+    if (err) { return cb(err); }
     // this is an extremely simple template engine
     let rendered = content.toString().replace('<title></title>', '<title>' + options.title + '</title>')
     .replace('<h1></h1>', '<h1>' + options.message + '</h1>').

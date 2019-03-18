@@ -3,7 +3,7 @@ import ScriptsModel from './scripts_model';
 export default class ScriptsController extends ScriptsModel {
   constructor() {
     super();
-    this.view;
+    this.view = null;
   }
 
   registerInstanceOf(scriptsView) {
@@ -36,20 +36,16 @@ export default class ScriptsController extends ScriptsModel {
   }
 
   onParameterInput(event) {
-    const scriptIndex = this.getCurrentlySelectedScriptIndex();
+    const scriptIndex = super.getCurrentlySelectedScriptIndex();
     const parameterName = event.target.id;
     const parameterValue = event.target.value;
-    this.setParameterValue(scriptIndex, parameterName, parameterValue);
-    this.observers[0].resetLink();
+    super.setParameterValue(scriptIndex, parameterName, parameterValue);
     console.log(this.link.valueOf());
-    this.observers[0].renderPlxUrl(this.generatePlxUrl());
-
-    
+    this.generatePlxUrl()    
   }
 
   scriptManager(scriptIndex) {
-    console.log(this.observers);
-    this.currentlySelectedScriptIndex = scriptIndex;
+    super.currentlySelectedScriptIndex = scriptIndex;
     this.observers[0].renderParameters(
       super.getParameterNames(scriptIndex));
     this.observers[0].checkShow();
@@ -57,8 +53,8 @@ export default class ScriptsController extends ScriptsModel {
 
   generatePlxUrl() {
     let script = super.getCurrentSelectedScript();
-    this.link.url_add_on = this.link.basePlxUrl + `${script.id}?p=`;
-    this.link.URL = this.link.url_add_on;
+    let addThis = this.link.basePlxUrl + `${script.id}?p=`;
+    super.setAddOnTo(addThis);
     let params = Object.entries(script.parameters);
     params.forEach(([key, value], index) => {
       this.link.params += `${key}:${value}`;
@@ -66,8 +62,10 @@ export default class ScriptsController extends ScriptsModel {
         this.link.params += ',';
       }
     });
-    this.link.URL += this.link.params;
-    console.log(this.link.valueOf());
-    return this.link.URL;
+    let URL = super.getAddOn();
+    URL += this.link.params;
+    this.link.params = '';
+    super.setFullUrlTo(URL);
+    this.observers[0].renderPlxUrl();
   }
 }

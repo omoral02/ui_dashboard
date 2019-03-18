@@ -1,5 +1,5 @@
 module.exports = function(grunt) {
-const webpackConfig = require('./webpack.config.babel.js');
+const webpackConfig = require('./webpack.config');
     grunt.initConfig({
         // concat: {
         //   release: {
@@ -7,20 +7,21 @@ const webpackConfig = require('./webpack.config.babel.js');
         //     dest: 'release/main.js'
         //   }
         // },
-        copy: {
-          release: {
-            src: 'src/images/lockup.png',
-            dest: 'dist/public/images/lockup.png'
-          }
-        },
+        // copy: {
+        //   release: {
+        //     src: 'src/images/lockup.png',
+        //     dest: 'dist/public/images/lockup.png'
+        //   }
+        // },
         jshint: {
            options: {
             jshintrc: '.jshintrc'
           },
           files: [
-            './src/index.js', './src/js/main.js', 
-            './src/js/gator_components/main_app/js/*.js','./src/js/gator_components/ws_tester/js/*.js', 
-            './dist/app.js', './dist/routes/*.js', './dist/bin/*', './package.json', 'Gruntfile.js', '.jshintrc', '.babelrc', './webpack.config.babel.js']
+            //source for client-side scripts (e.g -- entry point -- main module init scripts -- intra-module scripts)
+            '.src/js/*.js', './src/js/gator_components/**/*.js', './src/js/gator_components/**/**/*.js', 
+            //srouce for runtime & development scripts 
+            './src/bin/*', './src/app.js', './src/routes/*.js', './package.json', 'Gruntfile.js', '.jshintrc', '.babelrc', '.eslintrc']
         },
         jasmine: { 
           test: {
@@ -39,7 +40,7 @@ const webpackConfig = require('./webpack.config.babel.js');
         },
         webpack: {
             options: webpackConfig,
-            prod: Object.assign({ watch: false }, webpackConfig),
+            prod: webpackConfig,
             dev:  webpackConfig
         }
     });
@@ -54,5 +55,5 @@ const webpackConfig = require('./webpack.config.babel.js');
     grunt.loadNpmTasks('grunt-webpack');
 
     // Register tasks
-    grunt.registerTask('default', ['copy', 'jshint', 'jsdoc', 'watch']);
+    grunt.registerTask('default', ['jshint', 'jsdoc', 'webpack', 'watch']);
 };

@@ -1,10 +1,11 @@
 export default class InitializeMap {
 
-  constructor (Util) {
+  constructor (util, map) {
     this.Map_CTX_Globals = require('./map_ctx_globals.js');
     this.AutoCompleteDirectionsHandler = require('./autocomplete_directions_handler.js');
     this.map_ctx_globals = (()=> { return this.MapCTXGlobals.getMapsGlobals(); })();
-    this.util = new Util;
+    this.util = new util;
+    this.map = map;
     let { america, control, search, markers, ids, uniqueId } = this.map_ctx_globals;
     this.ids = ids;
     this.markers = markers;
@@ -135,20 +136,20 @@ export default class InitializeMap {
 
   initMap () {
     this.util.clearConsole();
-    let	map = new google.maps.Map(document.getElementById('map'), this.mapOptions);
-    map.mapTypes.set('styled_map', this.styledMapType);
-    map.setMapTypeId('styled_map');
-    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(this.control);
+    let	_map = new google.maps.Map(this.map, this.mapOptions);
+    _map.mapTypes.set('styled_map', this.styledMapType);
+    _map.setMapTypeId('styled_map');
+    _map.controls[google.maps.ControlPosition.TOP_RIGHT].push(this.control);
 
     let trafficLayer = new google.maps.TrafficLayer();
-    trafficLayer.setMap(map);
+    trafficLayer.setMap(_map);
 
     let geocoder = new google.maps.Geocoder();
-    this.initListeners(geocoder, map);
+    this.initListeners(geocoder, _map);
   }
 
-  initListeners(geocoder, map) {
-    this.autocomplete_directions_handler = new this.AutoCompleteDirectionsHandler(map, this.map_ctx_globals[0]);
+  initListeners(geocoder, _map) {
+    this.autocomplete_directions_handler = new this.AutoCompleteDirectionsHandler(_map, this.map_ctx_globals[0]);
     this.autocomplete_directions_handler.initListeners();
 
     let infoWindow = new google.maps.InfoWindow({
@@ -156,15 +157,15 @@ export default class InitializeMap {
     });
 
     // This event listener calls addMarker() when the map is clicked.
-    google.maps.event.addListener(map, 'click', function(e) {
+    google.maps.event.addListener(_map, 'click', function(e) {
     const clickedMarker = require('./clicked_marker.js');
-    clickedMarker(e.latLng, map, this.util, this.ids, infoWindow, this.markers, this.uniqueId);
+    clickedMarker(e.latLng, _map, this.util, this.ids, infoWindow, this.markers, this.uniqueId);
     this.util.log('addMarker function completed at point: ' + e.latLng + ' ' + '.');
     });
 
     document.getElementById('submit').addEventListener('click', function(e) {
     const geocodeAddress = require('./geocode_address.js');
-    geocodeAddress(geocoder, map, this.util, infoWindow, this.markers, this.ids, this.uniqueId);
+    geocodeAddress(geocoder, _map, this.util, infoWindow, this.markers, this.ids, this.uniqueId);
     this.util.log('geoCoder submitted user\'s address input of : ' + this.search.value);
     });
   }
