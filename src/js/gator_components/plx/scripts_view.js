@@ -35,7 +35,6 @@ export default class ScriptsView extends ScriptsController {
   }
 
   pull(scripts) {
-    console.log(scripts);
     scripts.forEach((script, index) => {
       const li = document.createElement('li');
       li.textContent = script.title;
