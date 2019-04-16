@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 let createError = require('http-errors');
 let express = require('express');
 let path = require('path');
@@ -31,14 +32,34 @@ app.engine('html', function (filePath, options, cb) { // define the template eng
 // pug view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'pug');
+=======
+var createError = require('http-errors');
+var express = require('express');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+
+var indexRouter = require('./routes/index');
+var adminRouter = require('./routes/admin');
+
+var app = express();
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+>>>>>>> 70fbacedce9301cfb920720e666c5be9eed42342
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+<<<<<<< HEAD
 app.use(express.static(path.join(__dirname, 'public/')));
 app.set('view engine', 'html'); // register the template engine
 app.set('views', './public'); // specify the views directory
+=======
+app.use(express.static(path.join(__dirname, 'public')));
+>>>>>>> 70fbacedce9301cfb920720e666c5be9eed42342
 
 app.use('/', indexRouter);
 app.use('/admin', adminRouter);

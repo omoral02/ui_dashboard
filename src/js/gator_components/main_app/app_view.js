@@ -18,20 +18,21 @@ export default class AppView extends AppController {
 
   onLoad() {
     super.loadViewsWith(this.toggleButton, this.popWindowOne, this.apiKey, this.map);
-    this.listen();
+    this.isNowlistening();
   }
 
-  listen() {
-    this.toggleButton.addEventListener('click', this.gotClicked.bind(this), false);
+  isNowlistening() {
+    console.log('app listeners: ON');
+    this.toggleButton.addEventListener('click', this.plxShouldLoad.bind(this), false);
     this.mapsButton.addEventListener('click', this.mapShouldLoad.bind(this), false);
   }
 
-  gotClicked() {
+  plxShouldLoad() {
     this.checkAttachedPanes();
     super.togglePlxContainer();
   }
 
-  mapShouldLoad () {
+  mapShouldLoad() {
     this.checkAttachedPanes();
     super.toggleMapContainer();
   }

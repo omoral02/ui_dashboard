@@ -8,10 +8,6 @@ export default class ScriptsModel {
       URL: null,
 
     };
-    // this.basePlxUrl = 'http://plx/scripts2/';
-    // this.url_add_on;
-    // this.params;
-    // this.URL = null;
     this.currentlySelectedScript = null;
     this.currentlySelectedScriptIndex = null;
     this.scriptsParentHtml =
@@ -96,19 +92,20 @@ export default class ScriptsModel {
     return this.link.basePlxUrl;
   }
 
-  setAddOnTo (addOn) {
+  setAddOnTo(addOn) {
     this.link.url_add_on = addOn;
   }
 
-  getAddOn () {
+  getAddOn() {
     return this.link.url_add_on;
   }
 
-  setFullUrlTo (nothing) {
+  setFullUrlTo(nothing) {
     this.link.URL = nothing;
   }
 
-  getFullUrl () {
+  getFullUrl() {
     return this.link.URL;
   }
 }
+

@@ -1,12 +1,10 @@
 export default class InitializeMap {
 
-  constructor (util, map) {
-    this.Map_CTX_Globals = require('./map_ctx_globals.js');
-    this.AutoCompleteDirectionsHandler = require('./autocomplete_directions_handler.js');
-    this.map_ctx_globals = (()=> { return this.MapCTXGlobals.getMapsGlobals(); })();
+  constructor (util, map, mapsGlobals) {
+    this.map_ctx_globals = mapsGlobals;
+    let { america, control, search, markers, ids, uniqueId } = this.map_ctx_globals;
     this.util = new util;
     this.map = map;
-    let { america, control, search, markers, ids, uniqueId } = this.map_ctx_globals;
     this.ids = ids;
     this.markers = markers;
     this.search = search;
@@ -149,12 +147,17 @@ export default class InitializeMap {
   }
 
   initListeners(geocoder, _map) {
-    this.autocomplete_directions_handler = new this.AutoCompleteDirectionsHandler(_map, this.map_ctx_globals[0]);
-    this.autocomplete_directions_handler.initListeners();
+    async function directionsHandler (_map) {
+      this.autocomplete_directions_handler = await import(/* webpackChunkName: "directions_Handler" */ './autocomplete_directions_handler')
+      new this.AutoCompleteDirectionsHandler(_map, this.map_ctx_globals[0]);
+      this.autocomplete_directions_handler.initListeners();
 
-    let infoWindow = new google.maps.InfoWindow({
-    content: null,
-    });
+      let infoWindow = new google.maps.InfoWindow({
+      content: null,
+      });
+    }
+
+    directionsHandler(_map);
 
     // This event listener calls addMarker() when the map is clicked.
     google.maps.event.addListener(_map, 'click', function(e) {

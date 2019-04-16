@@ -31,7 +31,7 @@ export default class ScriptsView extends ScriptsController {
 
   init() {
     this.pull(this.scripts);
-    this.startListening();
+    this.startsListening();
   }
 
   pull(scripts) {
@@ -46,11 +46,11 @@ export default class ScriptsView extends ScriptsController {
     })
   }
 
-  startListening() {
+  startsListening() {
     this.ListInnerContainer.addEventListener(
       'click', super.onScriptClick.bind(this), false);
     this.parametersInnerContainer.addEventListener(
-      'input', super.onParameterInput.bind(this), false);
+      'onChange', super.onParameterInput.bind(this), false);
   }
 
   toggleScriptsContainer() {

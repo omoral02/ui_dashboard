@@ -2,6 +2,12 @@ export default class MapsModel {
 	constructor() {
         this.observers = [];
 		this.map_globals = [{
+			search : document.getElementById('address'),
+			submitButton : document.getElementById('submit'),
+			originInput : document.getElementById('origin-input'),
+			destinationInput : document.getElementById('destination-input'),
+			modeSelector : document.getElementById('mode-selector'),
+			control : document.getElementById('bars'),
 			america: {
 			lat: 30.2672, 
 			lng: -97.7431
@@ -10,19 +16,13 @@ export default class MapsModel {
 			ids : [],
 			directionsDisplayList : [],
 			i : 0,
-			uniqueId : 1,	
-			search : document.getElementById('address'),
-			submitButton : document.getElementById('submit'),
-			originInput : document.getElementById('origin-input'),
-			destinationInput : document.getElementById('destination-input'),
-			modeSelector : document.getElementById('mode-selector'),
-			control : document.getElementById('bars')
+			uniqueId : 1
 			}];
 	}
 
     getMapsGlobals () {
-		return this.map_globals;
-    }
+		return this.mapGlobals;
+	}
 
     registerObserver (observer) {
         this.observers.push(observer);

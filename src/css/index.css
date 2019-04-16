@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+/* General */
+>>>>>>> 70fbacedce9301cfb920720e666c5be9eed42342
 * {
   margin: 0;
   padding: 0;
@@ -246,6 +250,10 @@ Popup card containers
     inserted containers of list items
 */
 .card {
+<<<<<<< HEAD
+=======
+  display: flex;
+>>>>>>> 70fbacedce9301cfb920720e666c5be9eed42342
   flex-basis: auto;
   flex-direction: column;
   align-items: center;
@@ -318,13 +326,21 @@ Popup card containers
 }
 
 #scriptsContainer {
+<<<<<<< HEAD
   visibility: hidden;
+=======
+  display: flex;
+>>>>>>> 70fbacedce9301cfb920720e666c5be9eed42342
   align-self: center;
   flex-basis: auto;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
+<<<<<<< HEAD
+=======
+  visibility: hidden;
+>>>>>>> 70fbacedce9301cfb920720e666c5be9eed42342
   padding: 8px;
   margin: 5px;
   z-index: 1;
@@ -369,7 +385,10 @@ Popup card containers
 
 #scriptsContainer.show {
   visibility: visible;
+<<<<<<< HEAD
   display: flex;
+=======
+>>>>>>> 70fbacedce9301cfb920720e666c5be9eed42342
   text-align: center;
   position: relative;
 }

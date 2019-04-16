@@ -18,16 +18,16 @@ export default class AppController extends AppModel {
 
   instantiateViewsWith(placeholders, plxButton, window, key, map) {
     this.scriptsView = new ScriptsView(placeholders, plxButton, window);
-    this.scriptsView.init();
     this.mapView = new MapsView (placeholders, key, map);
-    this.mapView.init();
   }
 
   togglePlxContainer  () {
+    this.scriptsView.init();
     this.scriptsView.toggleScriptsContainer();
   }
 
   toggleMapContainer () {
+    this.mapView.init();
     this.mapView.toggleMapContainer();
   }
 }

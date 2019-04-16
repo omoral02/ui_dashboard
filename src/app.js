@@ -5,10 +5,10 @@ let cookieParser = require('cookie-parser');
 let logger = require('morgan');
 let fs = require('fs');
 let app = express();
-let indexRouter = require('./routes/index.js');
-let adminRouter = require('./routes/admin.js');
+let indexRouter = require('./routes/index');
+let adminRouter = require('./routes/admin');
 
-let filePath = path.resolve(__dirname, '..', 'public/');
+const filePath = path.resolve(__dirname, '..', 'public/');
 const options = {
   title: 'title test',
   message: 'message test'
@@ -19,7 +19,7 @@ let cb = ((err)=>{
 
 app.engine('html', function (filePath, options, cb) { // define the template engine
   fs.readFile(filePath, function (err, content) {
-    if (err) { return cb(err); }
+    if (err) {return cb(err);}
     // this is an extremely simple template engine
     let rendered = content.toString().replace('<title></title>', '<title>' + options.title + '</title>')
     .replace('<h1></h1>', '<h1>' + options.message + '</h1>').

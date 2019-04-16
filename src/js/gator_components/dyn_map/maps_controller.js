@@ -1,12 +1,16 @@
 import MapsModel from './maps_model';
+import InsertMapsBootstrap from './maps_insert';
 
 export default class MapsController extends MapsModel {
-    constructor () {
+    constructor (key) {
         super();
+        this.apiKey = key;
+        this.InsertMapsBootstrap = InsertMapsBootstrap
     }
 
     init () {
-
+        this.maps_ = new this.InsertMapsBootstrap();
+        this.maps_.insert(this.api_key);
     }
 
     registerInstanceOf (mapView) {
@@ -15,7 +19,8 @@ export default class MapsController extends MapsModel {
     }
 
     registerObserver (observer) {
-        super.registerObserver(observer);
-    }
-    
+        if(observer){
+            super.registerObserver(observer);
+        }
+    }    
 }

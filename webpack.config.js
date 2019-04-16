@@ -4,16 +4,35 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { GenerateSW } = require('workbox-webpack-plugin');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const paths = {
-  src: path.join(__dirname, 'src'),
-  dist: path.join(__dirname, 'dist'),
-  public: path.join(__dirname, 'dist', 'public')
+  dir: path.resolve(__dirname),
+  src: path.resolve(__dirname, 'src'),
+  main: path.resolve(__dirname, 'src', 'js', 'main.js' ),
+  dist: path.resolve(__dirname, 'dist'),
+  public: path.resolve(__dirname, 'dist', 'public')
 };
-const html = path.resolve(__dirname, paths.src, 'pug_views', 'layout.pug');
-const css = path.resolve(__dirname, paths.src, 'css', 'index.css');
+const images = path.resolve(paths.src, 'images');
+const favicon = path.resolve(paths.src, 'favicon.ico');
+const html = path.resolve(paths.src, 'pug_views', 'index.pug');
+const css = path.resolve(paths.src, 'css', 'index.css');
 const devMode = process.env.NODE_ENV !== 'production';
+const pluginOptions = {
+  filename: path.resolve(paths.public, 'build.html'), 
+  excludeChunks: ['vendors~main'],
+  disable: false
+};
+const copyCSS = {
+  from: css, 
+  to: path.resolve(paths.public, 'css')
+};
+const copyIMAGES = {
+  from: images, 
+  to: path.resolve(paths.public, 'images')
+};
+const copyICON = {
+  from: favicon, 
+  to: path.resolve(paths.public, 'favicon.ico')
+};
 const htmlOptions = {
   template: html,
   inject: true,
@@ -25,28 +44,22 @@ const htmlOptions = {
   },
   appMountId: 'app'
 };
-const htmlPluginOptions = {
-  filename: path.join(paths.public, 'build.html'), 
-  excludeChunks: ['modules', 'commons', 'server', 'vendors~main'],
-  disable: false
-};
-const sourceMapPublicPath = paths.public;
+
 const config = {
   watch: false,
-  context: path.resolve(__dirname),
+  context: paths.dir,
   entry:{
-    main: path.resolve(paths.src, 'js', 'main.js' )
-    // server: path.resolve(paths.dist, 'app.js')
+    main: paths.main
+    // server: path.resolve(paths.src, 'app.js')
   },
   output: {
     path: path.resolve(paths.public, 'javascripts'),
-    filename: '[name].bundle.js',
-    chunkFileName: '[name].bundle.js'
+    filename: '[name].bundle.js'
   },
   devtool: 'source-map',
   output: {
     filename: devMode ? 'js/[name].js' : 'js/[name].[chunkhash].js',
-    path: sourceMapPublicPath,
+    path: paths.public,
     publicPath: '/'
   },
   optimization: {
@@ -83,54 +96,22 @@ const config = {
           'css-loader'
         ]
       }
-      // ,
-      // {
-      //   test: /\.png$/,
-      //   use: [
-      //     {
-      //       loader: 'url-loader',
-      //       options: {
-      //         mimetype: 'image/png'
-      //       }
-      //     }
-      //   ]
-      // },
-      // {
-      //   test: /\.ico$/,
-      //   use: [
-      //     {
-      //       loader: 'url-loader',
-      //       options: {
-      //         mimetype: 'image/ico'
-      //       }
-      //     }
-      //   ]
-      // }
     ]
   },
   plugins: [
       new webpack.ProgressPlugin(),
-      new CopyWebpackPlugin([{from: path.resolve(paths.src, 'css'), to: path.resolve(paths.dist, 'public', 'css')}]),
-      new CopyWebpackPlugin([{from: path.resolve(paths.src, 'images'), to: path.resolve(paths.dist, 'public', 'images')}]),
-      new CopyWebpackPlugin([{from: path.resolve(paths.src, 'favicon.ico'), to: path.resolve(paths.dist, 'public', 'favicon.ico')}]),
-      new HtmlWebpackPlugin(Object.assign(htmlPluginOptions, htmlOptions)),
+      new CopyWebpackPlugin([copyCSS]),
+      new CopyWebpackPlugin([copyIMAGES]),
+      new CopyWebpackPlugin([copyICON]),
+      new HtmlWebpackPlugin(Object.assign(pluginOptions, htmlOptions)),
       new GenerateSW({ 
-        chunks: ['main', 'modules', 'vendors', 'commons', 'server']
+        chunks: ['main','runtime', 'commons', 'vendors']
       }),
       new PreloadWebpackPlugin({
          rel: 'preload',
          include: ['runtime']
        })
-  // new MiniCssExtractPlugin(cssPluginOptions) ,
-  // new ExtractTextPlugin(Object.assign(cssPluginOptions)),
-    ]
-
+  ]
 };
-
-// const cssPluginOptions = {
-//   filename: css, 
-//   disable: false, 
-//   allChunks: true
-// };
 
 module.exports = config;
