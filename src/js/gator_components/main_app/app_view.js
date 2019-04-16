@@ -1,11 +1,8 @@
 import AppController from './app_controller';
-import ApiKey from './api_key';
-
 
 export default class AppView extends AppController {
   constructor() {
     super();
-    this.apiKey = ApiKey();
     this.mainMenu = document.getElementsByTagName('main');
     this.toggleButton = document.getElementById('plx-button');
     this.mapsButton = document.getElementById('dyn-map');
@@ -17,14 +14,17 @@ export default class AppView extends AppController {
   }
 
   onLoad() {
-    super.loadViewsWith(this.toggleButton, this.popWindowOne, this.apiKey, this.map);
+    super.loadViewsWith(this.toggleButton, this.popWindowOne, this.map);
     this.isNowlistening();
   }
 
   isNowlistening() {
-    console.log('app listeners: ON');
+    console.log('app listeners: On');
     this.toggleButton.addEventListener('click', this.plxShouldLoad.bind(this), false);
     this.mapsButton.addEventListener('click', this.mapShouldLoad.bind(this), false);
+    window.addEventListener('insert', function(){
+      console.log('The maps script was inserted');
+     });
   }
 
   plxShouldLoad() {

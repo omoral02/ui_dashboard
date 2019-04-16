@@ -14,9 +14,7 @@ export default class MapsView extends MapsController {
     }
   
     init () {
-      window.addEventListener('insert', function(){
-       console.log('The maps script was inserted');
-      });
+      
     }
 
     toggleMapContainer () {

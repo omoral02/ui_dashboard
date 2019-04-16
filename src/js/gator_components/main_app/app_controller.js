@@ -1,19 +1,23 @@
 import AppModel from './app_model';
 import ScriptsView from '../plx/scripts_view';
 import MapsView from '../dyn_map/maps_view';
+import { ApiKey } from './api_key';
 
 export default class AppController extends AppModel {
   constructor() {
     super();
     this.self = this;
+    this.apiKey = ApiKey;
+ 
   }
 
   samples() {
     return super.getFieldSamples();
   }
 
-  loadViewsWith(plxButton, popWindow, apiKey, map) {
-    this.instantiateViewsWith(this.samples(), plxButton, popWindow, apiKey, map);
+  loadViewsWith(plxButton, popWindow, map) {
+    console.log(this.apiKey);
+    this.instantiateViewsWith(this.samples(), plxButton, popWindow, this.apiKey, map);
   }
 
   instantiateViewsWith(placeholders, plxButton, window, key, map) {

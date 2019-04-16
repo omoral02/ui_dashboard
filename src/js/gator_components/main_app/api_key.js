@@ -1,3 +1,1 @@
-export default function ApiKey () {
-    return 'AIzaSyAVUjC3CiwXLDElAq0AwWEntiVIfNadpW8';
-}
+export const ApiKey = 'AIzaSyAVUjC3CiwXLDElAq0AwWEntiVIfNadpW8';
