@@ -10,7 +10,7 @@ export default class MapsController extends MapsModel {
 
     init () {
         this.maps_ = new this.InsertMapsBootstrap();
-        this.maps_.insert(this.api_key);
+        this.maps_.insert(this.apiKey);
     }
 
     registerInstanceOf (mapView) {

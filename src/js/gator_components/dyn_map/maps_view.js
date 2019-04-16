@@ -14,11 +14,10 @@ export default class MapsView extends MapsController {
     }
   
     init () {
-      
+      super.init();
     }
 
     toggleMapContainer () {
-      super.init();
       if (this.styled_map === undefined){
         async function noSyledMap() {
           const { default: StyledMap } = await import(/* webpackChunkName: "dynamic_mapView" */ './dynamic_mapView');
