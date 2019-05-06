@@ -54,20 +54,20 @@ export default class AppController extends AppView {
         console.log('This map button was tapped');
         this.mapShouldLoad();
     } else if (event.target.id == 'ws_button') {
+        console.log('This ws button was tapped');
         this.wsShouldLoad();
     } else if (event.target.id == 'static_map_button') {
+        console.log('This static map button was tapped');
         this.staticMapShouldLoad();
     }
     this.checkPanes();
   }
 
   plxShouldLoad () {
-    console.log('load plx');
     this.scriptsController.init();
   }
 
   mapShouldLoad () {
-    console.log('load map');
     this.mapView.init();
     // this.mapView.toggleMapContainer();
   }
