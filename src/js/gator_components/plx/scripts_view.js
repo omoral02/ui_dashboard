@@ -54,6 +54,7 @@ export default class ScriptsView extends ScriptsModel {
     if ( !parametersParent.classList.contains('show') ) {
       parametersParent.classList.toggle('show');
     } else {
+      // document.removeChild(parametersParent);
       this.resetItems();
     }
   }
@@ -63,15 +64,16 @@ export default class ScriptsView extends ScriptsModel {
     if ( item.classList.contains('listed-item') ) {
       if (item.classList.contains('active')) {
         this.removeActive(item);
+        super.setNewState();
       } else {
         this.removeActive(item);
-        this.matchParams(this.placeholders);
+        this.matchParamsTo(this.placeholders);
         item.classList.toggle('active');
       }
     }
   }
 
-  renderParameters(parameters) {
+  render(parameters) {
     let parametersHtml = '';
     parameters.forEach((parameter) => {
       parametersHtml += `<div class="innerParam"><p class="parameter">
@@ -88,10 +90,10 @@ export default class ScriptsView extends ScriptsModel {
     this.parametersInnerContainer.appendChild(this.linkLister);
   }
 
-  matchParams(placeholders) {
+  matchParamsTo(placeholders) {
     let parameterExample;
     console.log(placeholders);
-    let fieldSamples = Object.entries(placeholders);
+    let fieldSamples = Object.entries(placeholders.parameters);
     fieldSamples.forEach(([key, value], index) => {
       parameterExample = document.getElementById(`${key}`);
       if (parameterExample) {

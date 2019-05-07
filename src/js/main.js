@@ -5,6 +5,6 @@ import '.././css/index.css';
 
 export default function initialize() {
   const main = new AppController();
-  window.addEventListener('load', main.onLoad(), false);
+  main.onLoad();
 }
 initialize();

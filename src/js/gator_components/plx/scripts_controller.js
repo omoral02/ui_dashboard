@@ -32,7 +32,7 @@ export default class ScriptsController extends ScriptsView {
 
   scriptManager() {
     super.checkActiveOn(this.myState.currentlySelectedScript);
-    super.renderParameters(super.getParameterNames(this.myState.currentlySelectedScriptIndex));
+    super.render(super.getParameterNames(this.myState.currentlySelectedScriptIndex));
     super.checkShow();
   }
 
