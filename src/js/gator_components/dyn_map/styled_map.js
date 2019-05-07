@@ -6,7 +6,8 @@ export default class DynamicMap {
 	}
 
 	init () {
-		this.initiliaze_map = new InitializeMap;
+		console.log('ready to initialize map module!');
+		// this.initiliaze_map = new InitializeMap();
 		// this.initiliaze_map.initMap(Util);
 	}
 }

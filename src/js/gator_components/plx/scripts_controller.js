@@ -1,4 +1,5 @@
 import ScriptsView from './scripts_view';
+import { defaultCipherList } from 'constants';
 
 export default class ScriptsController extends ScriptsView {
   constructor(placeholders, viewPane) {
@@ -25,17 +26,18 @@ export default class ScriptsController extends ScriptsView {
     let scriptIndex = parseInt(currentlySelectedScript.dataset.index);
     if (currentlySelectedScript.classList.contains('listed-item')) {
       this.myState = super.getNewState(scriptIndex, currentlySelectedScript);
-      this.scriptManager(this.myState);
+      this.scriptManager();
     }
   }
 
-  scriptManager(state) {
-    super.checkActiveOn(state.currentlySelectedScript);
-    super.renderParameters(super.getParameterNames(state.currentlySelectedScriptIndex));
+  scriptManager() {
+    super.checkActiveOn(this.myState.currentlySelectedScript);
+    super.renderParameters(super.getParameterNames(this.myState.currentlySelectedScriptIndex));
     super.checkShow();
   }
 
   onParameterInput(event) {
+    super.setFullUrlTo('');
     const scriptIndex = super.getCurrentlySelectedScriptIndex();
     const parameterName = event.target.id;
     const parameterValue = event.target.value;
@@ -44,11 +46,13 @@ export default class ScriptsController extends ScriptsView {
   }
 
   generatePlxUrl() {
-    let script = super.getCurrentSelectedScriptIndex();
+    let script = super.getCurrentlySelectedScript();
     let addThis = `${script.id}?p=`;
     super.setScriptIdTo(addThis);
-    let params = Object.entries(script.parameters);
-    let paramBuild;
+    console.log(addThis);
+    let params = {};
+    params = Object.entries(script.parameters);
+    let paramBuild = '';
     params.forEach(([key, value], index) => {
       paramBuild += `${key}:${value}`;
       if (index !== params.length - 1) {

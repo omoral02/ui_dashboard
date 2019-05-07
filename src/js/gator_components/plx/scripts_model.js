@@ -96,9 +96,9 @@ export default class ScriptsModel {
     return this.scripts[index];
   }
 
-  getCurrentSelectedScript(scriptIndex) {
-    console.log(this.scripts[scriptsIndex]);
-    return this.scripts[scriptIndex];
+  getCurrentlySelectedScript() {
+    console.log(this.myState.currentlySelectedScriptIndex);
+    return this.scripts[this.myState.currentlySelectedScriptIndex];
   }
 
   getCurrentlySelectedScriptIndex() {

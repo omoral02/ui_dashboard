@@ -5,7 +5,8 @@ export default class MapsController extends MapsModel {
         super();
         this.apiKey = key;
         this.head = head;
-        this.mapsJS
+        this.mapsJS;
+        this.styled_map;
     }
 
     init () {
@@ -20,11 +21,11 @@ export default class MapsController extends MapsModel {
             `https://maps.googleapis.com/maps/api/js?&key=${this.api_key}`;
             this.mapsJS.addEventListener('load', function(evemt){
                 console.log(event.target.getAttribute('rel'));
-                // if (!styled_map){
-                // 	const StyledMap = require('./styled_map.js');
-                // 	const styled_map = new StyledMap();
-                // 	styled_map.init();
-                // }
+                if (!this.styled_map){
+                	const { default: StyledMap } = require('./styled_map.js');
+                	this.styled_map = new StyledMap();
+                	this.styled_map.init();
+                }
             });
             this.head.appendChild(this.mapsJS);
         }
