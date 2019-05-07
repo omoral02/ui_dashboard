@@ -134,7 +134,7 @@ const config = {
 			// 	publicPath: 'https://localhost:7575/',
 			// 	filename: '[file].map',
       //   }),
-      new WebpackCleanupPlugin('target', {verbose: true})
+      // new WebpackCleanupPlugin('target', {verbose: true})
   ]
 };
 

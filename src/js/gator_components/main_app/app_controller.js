@@ -20,7 +20,7 @@ export default class AppController extends AppView {
       let button = _buttons[i];
       this.actionButtons.push(button);
     }
-    this.instantiateControllersWith(super.getFieldSamples(), this.apiKey);
+    this.instantiateControllersWith(super.getParametersList(), this.apiKey);
     this.controllerIsNowlistening();
   }
 
@@ -31,19 +31,26 @@ export default class AppController extends AppView {
     console.log(this.scriptsController);
     }
     if (!this.mapView){
-    this.mapView = new MapsView (placeholders, apiKey);
+    this.mapView = new MapsView (placeholders, apiKey, this.head);
     console.log(this.mapView);
     }
   }
 
   controllerIsNowlistening() {
-    // console.log('app listeners: ON');
-    // console.log('Buttons that have listeners', this.setOfButtons);
-    document.addEventListener('insert', ()=> { console.log('Maps script & key inserted!');} );
+    this.head.addEventListener('load', function(event){
+        // if (event.target.nodeName === 'SCRIPT') {
+            console.log(event.target.getAttribute('rel'));
+        // }
+     }, false);
     this.actionButtons.forEach( (button) => {
       button.addEventListener('click', this.oneButtonWasClicked.bind(this), false);
-      // console.log(button.id);
     });
+  }
+
+  scriptLoaded (event) {
+    if (event.target.rel == 'Maps Script') {
+        console.log('Script loaded: ', event.target);
+      }
   }
 
   oneButtonWasClicked(event) {

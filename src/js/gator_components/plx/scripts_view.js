@@ -5,8 +5,6 @@ export default class ScriptsView extends ScriptsModel {
     super();
     this.placeholders = placeholders;
     this.parentPane = viewPane;
-    this.scripts = ( () => { return super.getScripts(); })();
-    // this.scriptList = document.getElementById('scriptList');
   }
 
   initializeView() {
@@ -22,7 +20,7 @@ export default class ScriptsView extends ScriptsModel {
     this.scriptsParent.innerHTML = this.scriptsParentinnerHTML;
     this.parentPane.insertBefore(this.scriptsParent, this.parentPane.childNodes[0]);
     this.grabInnerComponent();
-    this.insert(this.scripts);
+    this.insert(super.getScripts());
     }
     this.toggleScriptsContainer();
   }
@@ -51,12 +49,6 @@ export default class ScriptsView extends ScriptsModel {
     this.resetItems();
   }
 
-  toggleParamContainer() {
-    if (this.parametersContainer) {
-      this.parametersContainer.classList.toggle('show');
-    }
-  }
-
   checkShow() {
     let parametersParent = this.parametersContainer;
     if ( !parametersParent.classList.contains('show') ) {
@@ -66,7 +58,7 @@ export default class ScriptsView extends ScriptsModel {
     }
   }
 
-  checkActive(currentlySelectedScript) {
+  checkActiveOn(currentlySelectedScript) {
     let item = currentlySelectedScript;
     if ( item.classList.contains('listed-item') ) {
       if (item.classList.contains('active')) {
@@ -99,7 +91,7 @@ export default class ScriptsView extends ScriptsModel {
   matchParams(placeholders) {
     let parameterExample;
     console.log(placeholders);
-    let fieldSamples = Object.entries(placeholders[0].parameters);
+    let fieldSamples = Object.entries(placeholders);
     fieldSamples.forEach(([key, value], index) => {
       parameterExample = document.getElementById(`${key}`);
       if (parameterExample) {

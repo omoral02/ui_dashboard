@@ -7,34 +7,32 @@ export default class ScriptsController extends ScriptsView {
 
   init() {
     super.initializeView();
+    super.setInitialStateObject();
     this.controllerIsNowListening();
     console.log(this);
   }
 
-  controllerIsNowListening () {
+  controllerIsNowListening() {
     this.ListInnerContainer.addEventListener(
       'click', this.onScriptClick.bind(this), false);
     this.parametersInnerContainer.addEventListener(
-      'onChange', this.onParameterInput.bind(this), false);
-  }
-
-  getParentHtml() {
-    return super.getScriptsParentHTML();
-  }
-
-  scripts() {
-    let list = super.getScripts();
-    return list;
+      'input', this.onParameterInput.bind(this), false);
   }
 
   onScriptClick(event) {
     let currentlySelectedScript = this.currentlySelectedScript =
       event.target;
     let scriptIndex = parseInt(currentlySelectedScript.dataset.index);
-    if (currentlySelectedScript) {
-      super.checkActive(currentlySelectedScript);
-      this.scriptManager(scriptIndex)
+    if (currentlySelectedScript.classList.contains('listed-item')) {
+      this.myState = super.getNewState(scriptIndex, currentlySelectedScript);
+      this.scriptManager(this.myState);
     }
+  }
+
+  scriptManager(state) {
+    super.checkActiveOn(state.currentlySelectedScript);
+    super.renderParameters(super.getParameterNames(state.currentlySelectedScriptIndex));
+    super.checkShow();
   }
 
   onParameterInput(event) {
@@ -42,32 +40,25 @@ export default class ScriptsController extends ScriptsView {
     const parameterName = event.target.id;
     const parameterValue = event.target.value;
     super.setParameterValue(scriptIndex, parameterName, parameterValue);
-    console.log(this.link.valueOf());
-    this.generatePlxUrl()    
-  }
-
-  scriptManager(scriptIndex) {
-    this.currentlySelectedScriptIndex = scriptIndex;
-    super.renderParameters(
-    super.getParameterNames(scriptIndex));
-    super.checkShow();
+    this.generatePlxUrl()
   }
 
   generatePlxUrl() {
-    let script = super.getCurrentSelectedScript();
-    let addThis = this.link.basePlxUrl + `${script.id}?p=`;
-    super.setAddOnTo(addThis);
+    let script = super.getCurrentSelectedScriptIndex();
+    let addThis = `${script.id}?p=`;
+    super.setScriptIdTo(addThis);
     let params = Object.entries(script.parameters);
+    let paramBuild;
     params.forEach(([key, value], index) => {
-      this.link.params += `${key}:${value}`;
+      paramBuild += `${key}:${value}`;
       if (index !== params.length - 1) {
-        this.link.params += ',';
+        paramBuild += ',';
       }
     });
-    let URL = super.getAddOn();
-    URL += this.link.params;
-    this.link.params = '';
-    super.setFullUrlTo(URL);
+    super.setScriptParametersTo(paramBuild);
+    this.URL = super.getBasePlxUrl();
+    this.URL += super.getScriptId();
+    this.URL += super.getScriptParameters();
     super.renderPlxUrl();
   }
 }

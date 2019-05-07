@@ -3,6 +3,8 @@ import AppModel from './app_model';
 export default class AppView extends AppModel {
   constructor() {
     super();
+    this.head = document.getElementsByTagName("head")[0];
+    console.log(this.head);
     this.setOfButtons = document.getElementsByClassName('dropbtn');
     this.mainMenu = document.getElementsByTagName('main');
     this.plxButton = document.getElementById('plx_button');
@@ -16,14 +18,8 @@ export default class AppView extends AppModel {
   }
 
   checkAttachedPane() {
-      console.log('Main menu child node inserted. Check attached panes for child views: ');
-      // let _views = views.length;
-      // for (let i = 0; i < _views; i++){
-      //   let _view = _views[i];
-      //   this.checkMyIndex(_view, i);
-      // }
-      this.childViews = [];
-      this.checkMyIndex(this.viewsPane.childNodes);
+    this.childViews = [];
+    this.checkMyIndex(this.viewsPane.childNodes);
   }
 
   checkMyIndex (views) {

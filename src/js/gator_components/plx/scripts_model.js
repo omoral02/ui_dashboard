@@ -1,14 +1,9 @@
 export default class ScriptsModel {
   constructor() {
-    this.initialState = {
-      basePlxUrl : 'http://plx/scripts2/',
-      url_add_on : '',
-      params: '',
-    };
-    this.link = this.initialState;
-    this.URL = this.link.basePlxUrl + this.link.url_add_on + this.params;
-    this.currentlySelectedScript = null;
-    this.currentlySelectedScriptIndex = null;
+    this.initialState = {};
+    this.newState = this.initialState;
+    this.myState = {};
+    this.URL;
     this.scriptsParentHtml =
       `<ul id="scriptList" rel='plxScriptWindow' class=''>
                 <h2 class="card-header">Scripts</h2>
@@ -55,49 +50,96 @@ export default class ScriptsModel {
     ];
   }
 
+  setInitialState(state) {
+    this.newState = state;
+  }
+
+  setInitialStateObject() {
+    let state = {
+      statebasePlxUrl: 'http://plx/scripts2/',
+      id: '',
+      params: '',
+      currentlySelectedScript: '',
+      currentlySelectedScriptIndex: '',
+    };
+    this.initialState = state;
+    this.setInitialState(this.initialState);
+  }
+
+  setNewState(param1, param2) {
+    let state = {
+      basePlxUrl: 'http://plx/scripts2/',
+      id: '',
+      params: '',
+      currentlySelectedScript: param1,
+      currentlySelectedScriptIndex: param2,
+    }
+    this.newState = state;
+    console.log(this.newState);
+    return this.newState;
+  }
+
+  getNewState(index, script) {
+    let myState = this.setNewState(script, index);
+    return myState;
+  }
+
   getScriptsParentHTML() {
     return this.scriptsParentHtml;
   }
+
   getScripts() {
     return this.scripts;
   }
+
   getScript(index) {
     return this.scripts[index];
   }
-  getCurrentSelectedScript() {
-    return this.scripts[this.currentlySelectedScriptIndex];
+
+  getCurrentSelectedScript(scriptIndex) {
+    console.log(this.scripts[scriptsIndex]);
+    return this.scripts[scriptIndex];
   }
+
   getCurrentlySelectedScriptIndex() {
-    return this.currentlySelectedScriptIndex;
+    return this.myState.currentlySelectedScriptIndex;
+    // console.log(this.currentlySelectedScriptIndex);
+    // return this.currentlySelectedScriptIndex;
   }
+
   getParameterNames(scriptIndex) {
     return Object.keys(this.scripts[scriptIndex].parameters);
   }
+
   setParameterValue(scriptIndex, parameterName, parameterValue) {
     this.scripts[scriptIndex].parameters[parameterName] = parameterValue;
   }
+
   getBasePlxUrl() {
-    return this.link.basePlxUrl;
+    return this.myState.basePlxUrl;
   }
 
-  setAddOnTo(addOn) {
-    this.link.url_add_on = addOn;
+  setScriptIdTo(id) {
+    this.myState.url_add_on = id;
   }
 
-  getAddOn() {
-    return this.link.url_add_on;
+  getScriptId() {
+    return this.myState.url_add_on;
   }
 
-  setFullUrlTo(nothing) {
-    this.URL = nothing;
+  setScriptParametersTo(params) {
+    this.myState.params = params;
+  }
+
+  getScriptParameters() {
+    return this.myState.params;
+  }
+
+  setFullUrlTo(_this) {
+    this.URL = _this;
   }
 
   getFullUrl() {
     return this.URL;
   }
-
-  setInitialState () {
-    this.link = this.initialState;
-  }
 }
-

@@ -1,26 +1,32 @@
 import MapsModel from './maps_model';
-import InsertMapsBootstrap from './maps_insert';
 
 export default class MapsController extends MapsModel {
-    constructor (key) {
+    constructor (key, head) {
         super();
         this.apiKey = key;
-        this.InsertMapsBootstrap = InsertMapsBootstrap
+        this.head = head;
+        this.mapsJS
     }
 
     init () {
-        this.maps_ = new this.InsertMapsBootstrap();
-        this.maps_.insert(this.apiKey);
+        this.insert();
     }
 
-    registerInstanceOf (mapView) {
-        this.mapView = mapView;
-        this.registerObserver(this.mapView);
-    }
-
-    registerObserver (observer) {
-        if(observer){
-            super.registerObserver(observer);
+    insert () {
+        if (!this.mapsJS) {
+            this.mapsJS = document.createElement('script');
+            this.mapsJS.setAttribute('rel', 'Maps_Script');
+            this.mapsJS.src =
+            `https://maps.googleapis.com/maps/api/js?&key=${this.api_key}`;
+            this.mapsJS.addEventListener('load', function(evemt){
+                console.log(event.target.getAttribute('rel'));
+                // if (!styled_map){
+                // 	const StyledMap = require('./styled_map.js');
+                // 	const styled_map = new StyledMap();
+                // 	styled_map.init();
+                // }
+            });
+            this.head.appendChild(this.mapsJS);
         }
-    }    
+    }
 }
