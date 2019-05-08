@@ -1,13 +1,13 @@
 // import Util from './util.js'; 
-import InitializeMap from './initialize_map.js';
+import DynamicMapController from './dynamic_map_controller';
 
 export default class DynamicMap {
-	constructor () {
+	constructor (util, map, mapGlobals) {
+		this.dynamicMapController = new DynamicMapController(util, map, mapGlobals);
 	}
 
 	init () {
+		this.dynamicMapController.init();
 		console.log('ready to initialize map module!');
-		// this.initiliaze_map = new InitializeMap();
-		// this.initiliaze_map.initMap(Util);
 	}
 }

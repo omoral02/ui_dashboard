@@ -1,7 +1,7 @@
 import AppView from './app_view';
 import { ApiKey } from './api_key';
 import ScriptsController from '../plx/scripts_controller';
-import MapsView from '../dyn_map/maps_view';
+import MapsController from '../dyn_map/maps_controller';
 
 export default class AppController extends AppView {
   constructor() {
@@ -10,50 +10,41 @@ export default class AppController extends AppView {
     this.actionButtons = []; 
   }
 
-  onLoad() {
-    this.loadControllers(this.setOfButtons);
-  }
-
-  loadControllers(buttons) {
-    let _buttons = buttons;
-    for (let i =0; i < _buttons.length; i++){
-      let button = _buttons[i];
+  onLoadCheckForActionButtons() {
+    for (let i = 0; i < this.viewsButtons.length; i++){
+      let button = this.viewsButtons[i];
       this.actionButtons.push(button);
     }
-    this.instantiateControllersWith(super.getParametersList(), this.apiKey);
+    this.loadControllers();
+  }
+
+  loadControllers() {
+    this.instantiateControllersWith(super.getParametersList(), this.mapsButton, this.plxButton, this.head, this.apiKey, this.viewsPane);
     this.controllerIsNowlistening();
   }
 
-  instantiateControllersWith (placeholders, apiKey) {
+  instantiateControllersWith (placeholders, mapsButton, plxButton, head, apiKey, viewsPane) {
     console.log('Controllers instantiated: ');
     if (!this.scriptsController){
-    this.scriptsController = new ScriptsController(placeholders, this.viewsPane);
+    this.scriptsController = new ScriptsController(plxButton, placeholders, viewsPane);
     console.log(this.scriptsController);
     }
-    if (!this.mapView){
-    this.mapView = new MapsView (placeholders, apiKey, this.head);
-    console.log(this.mapView);
+    if (!this.mapsController){
+    this.mapsController = new MapsController (mapsButton, placeholders, viewsPane, apiKey, head);
+    console.log(this.mapsController);
     }
   }
 
   controllerIsNowlistening() {
-    this.head.addEventListener('load', function(event){
-        // if (event.target.nodeName === 'SCRIPT') {
-            console.log(event.target.getAttribute('rel'));
-        // }
-     }, false);
     this.actionButtons.forEach( (button) => {
-      button.addEventListener('click', this.oneButtonWasClicked.bind(this), false);
+      button.addEventListener(
+        'click', this.oneButtonWasClicked.bind(this),
+         false);
     });
+    console.log(this);
   }
 
-  scriptLoaded (event) {
-    if (event.target.rel == 'Maps Script') {
-        console.log('Script loaded: ', event.target);
-      }
-  }
-
-  oneButtonWasClicked(event) {
+  oneButtonWasClicked (event) {
     if (event.target.id == 'plx_button'){
         console.log('This plx button was tapped');
         this.plxShouldLoad();
@@ -67,27 +58,29 @@ export default class AppController extends AppView {
         console.log('This static map button was tapped');
         this.staticMapShouldLoad();
     }
-    this.checkPanes();
+    super.checkAttachedPanes();
   }
 
-  plxShouldLoad () {
+  plxShouldLoad() {
     this.scriptsController.init();
+    this.plxButton.removeEventListener(
+      'click', this.scriptsController.isNowListening.bind(this),
+       false);
   }
 
-  mapShouldLoad () {
-    this.mapView.init();
-    // this.mapView.toggleMapContainer();
+  mapShouldLoad() {
+    this.mapsController.init();
+    this.mapsButton.removeEventListener(
+      'click', this.mapsController.isNowListening.bind(this),
+      false);
   }
 
-  wsShouldLoad () {
+  wsShouldLoad() {
   
   }
 
-  staticMapShouldLoad () {
+  staticMapShouldLoad() {
 
-  }
-
-  checkPanes () {
-    super.checkAttachedPane();
   }
 }
+

@@ -147,7 +147,7 @@ main {
   align-self: flex-start;
   flex-direction: row;
   border-radius: 4px;
-  background-color: #3498DB;
+  background-color: #4285f4;
   border: none;
   color: #FFFFFF;
   text-align: center;
@@ -457,7 +457,7 @@ views_pane card containers
 /*linkLister is the container meant to list mutiple hyperlinks from multiple script selection*/
 
 #linkLister {
-  display: inline-block;
+  display: flex;
   position: relative;
 }
 
@@ -485,7 +485,7 @@ footer {
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
-  background-color: #0d64bc;
+  background-color: #4285f4;
   opacity: .6;
   bottom: 0;
   padding: 2em;

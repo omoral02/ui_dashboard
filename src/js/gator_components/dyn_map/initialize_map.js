@@ -4,6 +4,7 @@ export default class InitializeMap {
     this.map_ctx_globals = mapsGlobals;
     let { america, control, search, markers, ids, uniqueId } = this.map_ctx_globals;
     this.util = new util;
+    this.america = america;
     this.map = map;
     this.ids = ids;
     this.markers = markers;
@@ -12,7 +13,7 @@ export default class InitializeMap {
     this.uniqueId = uniqueId;
     this.mapOptions = {
       zoom: 14,
-      center: america,
+      center: this.america,
       trafficLayer: true,
       mapTypeControlOptions: {
               mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']

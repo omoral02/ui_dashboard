@@ -5,10 +5,11 @@ export default class ScriptsView extends ScriptsModel {
     super();
     this.placeholders = placeholders;
     this.parentPane = viewPane;
+    this.emptyString = '';
   }
 
   initializeView() {
-    this.insertScriptsContainer ();
+    this.insertScriptsContainer();
   }
 
   insertScriptsContainer () {
@@ -21,16 +22,18 @@ export default class ScriptsView extends ScriptsModel {
     this.parentPane.insertBefore(this.scriptsParent, this.parentPane.childNodes[0]);
     this.grabInnerComponent();
     this.insert(super.getScripts());
+    this.toggleScriptsContainerAndState();
+    } else {
+      this.parentPane.removeChild(this.scriptsParent);
+      this.scriptsParent = null;
     }
-    this.toggleScriptsContainer();
+    
   }
 
   grabInnerComponent () {
-    if ( !this.ListInnerContainer ) {
-      this.ListInnerContainer = document.getElementById('plx-InnerCard');
-      this.parametersContainer = document.getElementById('parametersContainer');
-      this.parametersInnerContainer = document.getElementById('parameters');
-    }
+    this.ListInnerContainer = document.getElementById('plx-InnerCard');
+    this.parametersContainer = document.getElementById('parametersContainer');
+    this.parametersInnerContainer = document.getElementById('parameters');
   }
 
   insert (scripts) {
@@ -44,9 +47,10 @@ export default class ScriptsView extends ScriptsModel {
     })
   }
 
-  toggleScriptsContainer() {
-    this.scriptsParent.classList.toggle('show');
+  toggleScriptsContainerAndState() {
+    super.setInitialStateObject();
     this.resetItems();
+    this.scriptsParent.classList.toggle('show');
   }
 
   checkShow() {
@@ -54,9 +58,15 @@ export default class ScriptsView extends ScriptsModel {
     if ( !parametersParent.classList.contains('show') ) {
       parametersParent.classList.toggle('show');
     } else {
+      parametersParent.classList.remove('show');
       // document.removeChild(parametersParent);
       this.resetItems();
     }
+  }
+
+  visualManager () {
+      this.checkActiveOn(this.myState.currentlySelectedScript);
+      this.render(super.getParameterNames(this.myState.currentlySelectedScriptIndex));
   }
 
   checkActiveOn(currentlySelectedScript) {
@@ -66,6 +76,7 @@ export default class ScriptsView extends ScriptsModel {
         this.removeActive(item);
         super.setNewState();
       } else {
+        super.setNewState();
         this.removeActive(item);
         this.matchParamsTo(this.placeholders);
         item.classList.toggle('active');
@@ -88,6 +99,7 @@ export default class ScriptsView extends ScriptsModel {
       this.linkLister.innerHTML = `<div id="linkLister"></div>`;
     }
     this.parametersInnerContainer.appendChild(this.linkLister);
+    this.checkShow();
   }
 
   matchParamsTo(placeholders) {
@@ -100,6 +112,27 @@ export default class ScriptsView extends ScriptsModel {
         parameterExample.setAttribute('placeholder', `${value}`);
       }
     });
+  }
+
+  generatePlxUrl() {
+    let script = super.getCurrentlySelectedScript();
+    let addThis = `${script.id}?p=`;
+    super.setScriptIdTo(addThis);
+    console.log(addThis);
+    let params = {};
+    params = Object.entries(script.parameters);
+    let paramBuild = '';
+    params.forEach(([key, value], index) => {
+      paramBuild += `${key}:${value}`;
+      if (index !== params.length - 1) {
+        paramBuild += ',';
+      }
+    });
+    super.setScriptParametersTo(paramBuild);
+    this.URL = super.getBasePlxUrl();
+    this.URL += super.getScriptId();
+    this.URL += super.getScriptParameters();
+    this.renderPlxUrl();
   }
 
   renderPlxUrl() {
@@ -128,7 +161,6 @@ export default class ScriptsView extends ScriptsModel {
         this.removeActive(item);
       }
     }
-    this.parametersContainer.classList.remove('show');
     this.resetLink();
   }
 
@@ -139,8 +171,8 @@ export default class ScriptsView extends ScriptsModel {
   setNull (button) {
     if (button){
       button.removeAttribute('href');
-      const emptyString = null;
-      super.setFullUrlTo(emptyString);
+      super.setFullUrlTo(this.emptyString);
     }
   }
 }
+

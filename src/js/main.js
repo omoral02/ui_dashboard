@@ -5,6 +5,7 @@ import '.././css/index.css';
 
 export default function initialize() {
   const main = new AppController();
-  main.onLoad();
+  main.onLoadCheckForActionButtons();
 }
 initialize();
+

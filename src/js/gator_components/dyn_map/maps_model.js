@@ -1,6 +1,5 @@
 export default class MapsModel {
 	constructor() {
-        this.observers = [];
 		this.map_globals = [{
 			search : document.getElementById('address'),
 			submitButton : document.getElementById('submit'),
@@ -23,8 +22,4 @@ export default class MapsModel {
     getMapsGlobals () {
 		return this.mapGlobals;
 	}
-
-    registerObserver (observer) {
-        this.observers.push(observer);
-    }
 }
