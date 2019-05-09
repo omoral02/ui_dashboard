@@ -5,7 +5,6 @@ export default class Util {
 
 	clearConsole () {
 		console.clear();
-		console.log('Console cleared!');
 	}
 
 	log (data) {
