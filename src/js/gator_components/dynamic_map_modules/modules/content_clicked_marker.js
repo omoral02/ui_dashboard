@@ -12,7 +12,6 @@ export default function contentClickedMarker(marker, map, infoWindow, util) {
 		'<input type = "button" id="buttonRemover" value="Remove This Marker" onclick ="deleteMarkers(' + marker.id + ')"/>' +
 		'</div>' +
 		'</div>' + '';
-
 	infoWindow.setContent(contentString);
 	infoWindow.open(map, marker);
 	util.log('Marker ' + marker.id + ' was opened!');

@@ -1,3 +1,4 @@
+// import "regenerator-runtime";
 import Util from './util';
 import AppController from './gator_components/main_app/controller';
 import '.././css/dyn_map.css';

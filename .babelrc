@@ -1,24 +1,35 @@
 {
   "presets": [
-        [
-        "@babel/preset-env",{
-          "useBuiltIns": "usage",
-          "corejs": 3,
-            "targets": {
-              "esmodules": true,
-              "node": true
-            }
-         }
-        ]
-      
-  ],
+    [
+    "@babel/preset-env",
+    {
+      "useBuiltIns": "entry",
+      "corejs": 3,
+        "targets": {
+          "esmodules": true,
+          "node": true
+        }
+     }
+    ]
+  
+    ],      
   "plugins":[
-      "@babel/plugin-syntax-dynamic-import",
-      "@babel/plugin-transform-classes"
-      // "@babel/plugin-proposal-class-properties"
+    // [
+    //   "@babel/plugin-transform-runtime",
+    //   {
+    //     "absoluteRuntime": true,
+    //     "corejs": 3,
+    //     "helpers": true,
+    //     "regenerator": true,
+    //     "useESModules": true,
+    //   }
+    // ],
+    "@babel/plugin-transform-async-to-generator",
+    "@babel/plugin-syntax-dynamic-import",
+    // "@babel/plugin-transform-classes",
+      // "@babel/plugin-proposal-class-properties",
       // "@babel/plugin-proposal-object-rest-spread",
       // "@babel/plugin-transform-template-literals",
       // "babel-plugin-transform-builtin-extend"
   ],
-  "presets": ["@babel/preset-env"]
 }

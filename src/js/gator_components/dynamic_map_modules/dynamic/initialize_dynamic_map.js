@@ -19,6 +19,9 @@ export default class InitializeMap {
               mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
             }
     };
+    this.infoWindow = new google.maps.InfoWindow({
+      content: null,
+      });
     this.name = {name: 'Styled Map'};
     this.styledMapType = new google.maps.StyledMapType(
           [
@@ -131,49 +134,58 @@ export default class InitializeMap {
               stylers: [{color: '#b3ffff'}]
             }
           ], this.name);
+
+      this.self = this;
   }
 
   initMap () {
     this.util.clearConsole();
-    let	_map = new google.maps.Map(this.map, this.mapOptions);
-    _map.mapTypes.set('styled_map', this.styledMapType);
-    _map.setMapTypeId('styled_map');
-    _map.controls[google.maps.ControlPosition.TOP_RIGHT].push(this.control);
+    this._map = new google.maps.Map(this.map, this.mapOptions);
+    this._map.mapTypes.set('styled_map', this.styledMapType);
+    this._map.setMapTypeId('styled_map');
+    this._map.controls[google.maps.ControlPosition.TOP_RIGHT].push(this.control);
+    this.trafficLayer = new google.maps.TrafficLayer();
+    this.trafficLayer.setMap(this._map);
 
-    let trafficLayer = new google.maps.TrafficLayer();
-    trafficLayer.setMap(_map);
-
-    let geocoder = new google.maps.Geocoder();
-    this.initListeners(geocoder, _map);
+    this.geocoder = new google.maps.Geocoder();
+    this.initListeners( this._map, this.self, this.infoWindow);
   }
 
-  initListeners(geocoder, _map) {
-   
-    // async function directionsHandler (_map) { /* webpackChunkName: "directions_Handler" */ 
-      this.autocomplete_directions_handler = require('../modules/autocomplete_directions_handler')
-      let autocompleteHandler = new this.autocomplete_directions_handler(_map, this.map_ctx_globals[0]);
+  initListeners(_map, context, infoWindow) {
+    this.asyncDirectionsHandler(_map, context);
+    google.maps.event.addListener(_map, 'click', this.asyncClickFunction.bind(this, infoWindow));
+    // document.getElementById('submit').addEventListener('click', this.asyncGeocoderFunction.bind(this));
+  }
+
+  asyncDirectionsHandler (_map, context) {
+    async function directionsHandler (_map, context){
+      let autocomplete_directions_handler = await import(/* webpackChunkName: "directions_handler_class" */ '../modules/autocomplete_directions_handler')
+      const autocompleteHandler = new autocomplete_directions_handler(_map, context.map_ctx_globals[0]);
       autocompleteHandler.initListeners();
-    // }
+    }
+    directionsHandler(_map, context);
 
-    // directionsHandler(_map);
-  
+  }
 
-    let infoWindow = new google.maps.InfoWindow({
-      content: null,
-      });
+  asyncClickFunction (e, infoWindow) {
+      async function clickedMarker (latLng, map, util, ids, infoWindow, markers, uniqueId) {
+            let clickedMarkerFunction = await import(
+              /* webpackChunkName: "clicked_marker_function" */
+              '../modules/clicked_marker.js');
+            clickedMarkerFunction(latLng, map, util, ids, infoWindow, markers, uniqueId);
+            util.log('addMarker function completed at point: ' + latLng + ' ' + '.');
+      }
+      clickedMarker(e.latLng, this._map, this.util, this.ids, infoWindow, this.markers, this.uniqueId);
+  }
 
-    // This event listener adds a marker when the map is clicked.
-    google.maps.event.addListener(_map, 'click', function(e) {
-    const clickedMarker = require('../modules/clicked_marker.js');
-    clickedMarker(e.latLng, _map, this.util, this.ids, infoWindow, this.markers, this.uniqueId);
-    this.util.log('addMarker function completed at point: ' + e.latLng + ' ' + '.');
-    });
-
-    // This event listerner geocodes what's "submitted" in the submit address field
-    document.getElementById('submit').addEventListener('click', function(e) {
-    const geocodeAddress = require('../modules/geocode_address.js');
-    geocodeAddress(geocoder, _map, this.util, infoWindow, this.markers, this.ids, this.uniqueId);
-    this.util.log('geoCoder submitted user\'s address input of : ' + this.search.value);
-    });
+  asyncGeocoderFunction () {
+    async function geocodeAddress(geocoder, _map, util, infoWindow, markers, ids, uniqueId) {
+          let geocodeAddress = await import(
+            /* webpackChunkName: "geocode_address_function" */
+            '../modules/geocode_address.js');
+          geocodeAddress(geocoder, _map, util, infoWindow, markers, ids, uniqueId);
+          this.util.log('geoCoder submitted user\'s address input of : ' + this.search.value);
+          }
+      geocodeAddress(this.geocoder, this._map, this.util, this.infoWindow, this.markers, this.ids, this.uniqueId);
   }
 }

@@ -10,7 +10,11 @@ export default class DynamicMapController extends DynamicMapView {
     }
 
     init() {
-        this.initiliaze_map_and_listeners = new InitializeMap(this.util, this.map, this.mapGlobals);
-		this.initiliaze_map_and_listeners.initMap();
+        this.initiliaze_map_objects_and_listeners = new InitializeMap(
+            this.util, 
+            this.map, 
+            this.mapGlobals);
+		this.initiliaze_map_objects_and_listeners.initMap();
     }
 }
+
