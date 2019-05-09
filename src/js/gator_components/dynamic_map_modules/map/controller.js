@@ -1,14 +1,13 @@
-import Util from '../../util';
-import MapsView from './maps_view';
+import MapsView from './view';
 
 export default class MapsController extends MapsView {
-    constructor (mapsButton, placeholders, viewPane, key, head) {
+    constructor (util, mapsButton, placeholders, viewPane, key, head) {
         super(placeholders, key, viewPane);
+        this.util = util;
         this.mapsButton = mapsButton;
         this.placeholders = placeholders;
         this.apiKey = key;
         this.head = head;
-        this.util = Util;
     }
 
     init () {
@@ -32,8 +31,9 @@ export default class MapsController extends MapsView {
     instantiateMapComponent (event) {
         console.log('This ', event.target.getAttribute('rel'), ' has loaded!');
         if (!this.styled_map){
-            const { default: StyledMap } = require('./styled_map.js');
-            this.styled_map = new StyledMap(this.util, this.map, this.mapsGlobals);
+            const { default: DynamicMapController } = require('../dynamic/controller');
+            this.styled_map = new DynamicMapController(this.util, this.map, super.getMapsGlobals());
+            console.log('ready to initialize map module!');
             this.styled_map.init();
         }
     }

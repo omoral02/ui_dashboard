@@ -20,6 +20,6 @@ export default class MapsModel {
 	}
 
     getMapsGlobals () {
-		return this.mapGlobals;
+		return this.map_globals[0];
 	}
 }

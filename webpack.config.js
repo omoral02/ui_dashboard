@@ -125,10 +125,10 @@ const config = {
       new GenerateSW({ 
         chunks: ['main','runtime', 'commons', 'vendors']
       }),
-      new PreloadWebpackPlugin({
-         rel: 'preload',
-         include: ['runtime', 'main']
-       }),
+      // new PreloadWebpackPlugin({
+      //    rel: 'preload',
+      //    include: ['runtime', 'main']
+      //  }),
       // new webpack.SourceMapDevToolPlugin({
 			// 	// this is the url of our local sourcemap server
 			// 	publicPath: 'https://localhost:7575/',

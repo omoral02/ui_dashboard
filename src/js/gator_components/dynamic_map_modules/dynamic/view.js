@@ -1,5 +1,5 @@
 
-import DynamicMapModel from './dynamic_map_model'
+import DynamicMapModel from './model'
 
 export default class DynamicMapView extends DynamicMapModel {
 	constructor () {

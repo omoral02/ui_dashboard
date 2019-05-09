@@ -1,4 +1,4 @@
-import AppModel from './app_model';
+import AppModel from './model';
 
 export default class AppView extends AppModel {
   constructor() {

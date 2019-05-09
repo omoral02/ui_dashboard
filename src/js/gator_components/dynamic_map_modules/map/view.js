@@ -1,10 +1,9 @@
 
-import MapsModel from './maps_model';
+import MapsModel from './model';
 
 export default class MapsView extends MapsModel {
     constructor (placeholders, apiKey, viewPane) {
       super();
-      this.mapsGlobals =(()=>{super.getMapsGlobals()})();
       this.placeholders = placeholders;
       this.parentPane = viewPane;
       this.api_key = apiKey;

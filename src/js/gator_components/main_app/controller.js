@@ -1,11 +1,12 @@
-import AppView from './app_view';
 import { ApiKey } from './api_key';
-import ScriptsController from '../plx/scripts_controller';
-import MapsController from '../dyn_map/maps_controller';
+import AppView from './view';
+import ScriptsController from '../plx/controller';
+import MapsController from '../dynamic_map_modules/map/controller';
 
 export default class AppController extends AppView {
-  constructor() {
+  constructor(Util) {
     super();
+    this.util = new Util;
     this.apiKey = ApiKey;
     this.actionButtons = []; 
   }
@@ -19,18 +20,25 @@ export default class AppController extends AppView {
   }
 
   loadControllers() {
-    this.instantiateControllersWith(super.getParametersList(), this.mapsButton, this.plxButton, this.head, this.apiKey, this.viewsPane);
+    this.instantiateControllersWith(
+      this.util, 
+      super.getParametersList(), 
+      this.mapsButton, 
+      this.plxButton, 
+      this.head, 
+      this.apiKey, 
+      this.viewsPane);
     this.controllerIsNowlistening();
   }
 
-  instantiateControllersWith (placeholders, mapsButton, plxButton, head, apiKey, viewsPane) {
+  instantiateControllersWith (util, placeholders, mapsButton, plxButton, head, apiKey, viewsPane) {
     console.log('Controllers instantiated: ');
     if (!this.scriptsController){
     this.scriptsController = new ScriptsController(plxButton, placeholders, viewsPane);
     console.log(this.scriptsController);
     }
     if (!this.mapsController){
-    this.mapsController = new MapsController (mapsButton, placeholders, viewsPane, apiKey, head);
+    this.mapsController = new MapsController (util, mapsButton, placeholders, viewsPane, apiKey, head);
     console.log(this.mapsController);
     }
   }
@@ -64,15 +72,13 @@ export default class AppController extends AppView {
   plxShouldLoad() {
     this.scriptsController.init();
     this.plxButton.removeEventListener(
-      'click', this.scriptsController.isNowListening.bind(this),
-       false);
+      'click', this.scriptsController.isNowListening);
   }
 
   mapShouldLoad() {
     this.mapsController.init();
     this.mapsButton.removeEventListener(
-      'click', this.mapsController.isNowListening,
-      false);
+      'click', this.mapsController.isNowListening);
   }
 
   wsShouldLoad() {

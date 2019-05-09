@@ -1,21 +1,26 @@
 export default class InitializeMap {
 
-  constructor (Util) {
-    this.Map_CTX_Globals = require('./map_ctx_globals.js');
-    this.autocomplete_directions_handler = require('./autocomplete_directions_handler.js');
-    const util = Util;
-    const mapOptions = {
+  constructor (util, map, mapsGlobals) {
+    this.map_ctx_globals = mapsGlobals;
+    let { america, control, search, markers, ids, uniqueId } = this.map_ctx_globals;
+    this.util = util
+    this.america = america;
+    this.map = map;
+    this.ids = ids;
+    this.markers = markers;
+    this.search = search;
+    this.control = control;
+    this.uniqueId = uniqueId;
+    this.mapOptions = {
       zoom: 14,
-      center: america,
+      center: this.america,
       trafficLayer: true,
       mapTypeControlOptions: {
               mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
             }
     };
-    const name = {
-    	name: 'Styled Map'
-    };
-    const styledMapType = new google.maps.StyledMapType(
+    this.name = {name: 'Styled Map'};
+    this.styledMapType = new google.maps.StyledMapType(
           [
             {elementType: 'geometry', stylers: [{color: '#000000'}]},
             {elementType: 'labels.text.fill', stylers: [{color: '#ffffcc'}]},
@@ -125,40 +130,50 @@ export default class InitializeMap {
               elementType: 'labels.text.fill',
               stylers: [{color: '#b3ffff'}]
             }
-          ], name);
+          ], this.name);
   }
 
   initMap () {
-    util.clearConsole();
-    this.map_ctx_globals = (()=> { return MapCTXGlobals.getMapsGlobals(); })();
-    let	map = new google.maps.Map(document.getElementById('map'), mapOptions);
-    map.mapTypes.set('styled_map', styledMapType);
-    map.setMapTypeId('styled_map');
-    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(bars);
+    this.util.clearConsole();
+    let	_map = new google.maps.Map(this.map, this.mapOptions);
+    _map.mapTypes.set('styled_map', this.styledMapType);
+    _map.setMapTypeId('styled_map');
+    _map.controls[google.maps.ControlPosition.TOP_RIGHT].push(this.control);
 
     let trafficLayer = new google.maps.TrafficLayer();
-    trafficLayer.setMap(map);
+    trafficLayer.setMap(_map);
 
     let geocoder = new google.maps.Geocoder();
+    this.initListeners(geocoder, _map);
+  }
 
-    this.autocomplete_directions_handler = new AutoCompleteDirectionsHandler(map);
-    this.autocomplete_directions_handler.initListeners();
+  initListeners(geocoder, _map) {
+   
+    // async function directionsHandler (_map) { /* webpackChunkName: "directions_Handler" */ 
+      this.autocomplete_directions_handler = require('../modules/autocomplete_directions_handler')
+      let autocompleteHandler = new this.autocomplete_directions_handler(_map, this.map_ctx_globals[0]);
+      autocompleteHandler.initListeners();
+    // }
+
+    // directionsHandler(_map);
+  
 
     let infoWindow = new google.maps.InfoWindow({
-    content: null,
+      content: null,
+      });
+
+    // This event listener adds a marker when the map is clicked.
+    google.maps.event.addListener(_map, 'click', function(e) {
+    const clickedMarker = require('../modules/clicked_marker.js');
+    clickedMarker(e.latLng, _map, this.util, this.ids, infoWindow, this.markers, this.uniqueId);
+    this.util.log('addMarker function completed at point: ' + e.latLng + ' ' + '.');
     });
 
-    // This event listener calls addMarker() when the map is clicked.
-    google.maps.event.addListener(map, 'click', function(e) {
-    const clickedMarker = require('./clicked_marker.js');
-    clickedMarker(e.latLng, map);
-    util.log('addMarker function completed at point: ' + e.latLng + ' ' + '.');
-    });
-
+    // This event listerner geocodes what's "submitted" in the submit address field
     document.getElementById('submit').addEventListener('click', function(e) {
-    const geocodeAddress = require('./geocode_address.js');
-    geocodeAddress(geocoder, map);
-    util.log('geoCoder submitted user\'s address input of : ' + address.value);
+    const geocodeAddress = require('../modules/geocode_address.js');
+    geocodeAddress(geocoder, _map, this.util, infoWindow, this.markers, this.ids, this.uniqueId);
+    this.util.log('geoCoder submitted user\'s address input of : ' + this.search.value);
     });
   }
 }

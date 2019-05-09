@@ -1,4 +1,4 @@
-import ScriptsView from './scripts_view';
+import ScriptsView from './view';
 
 export default class ScriptsController extends ScriptsView {
   constructor(plxButton, placeholders, viewPane) {

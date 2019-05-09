@@ -1,4 +1,4 @@
-import ScriptsModel from './scripts_model'
+import ScriptsModel from './model'
 
 export default class ScriptsView extends ScriptsModel {
   constructor(placeholders, viewPane) {
