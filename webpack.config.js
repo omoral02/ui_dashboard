@@ -62,6 +62,7 @@ const config = {
   devtool: 'source-map',
   output: {
     filename: devMode ? 'js/[name].js' : 'js/[name].[chunkhash].js',
+    chunkFilename: devMode? 'js/[name].bundle.js' : 'js/[name].[chunkhash].js',
     path: paths.public,
     publicPath: '/'
   },

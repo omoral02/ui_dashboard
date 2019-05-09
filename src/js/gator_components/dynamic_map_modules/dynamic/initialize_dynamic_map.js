@@ -2,7 +2,8 @@ export default class InitializeMap {
 
   constructor (util, map, mapsGlobals) {
     this.map_ctx_globals = mapsGlobals;
-    let { america, control, search, markers, ids, uniqueId } = this.map_ctx_globals;
+    console.log(this.map_ctx_globals)
+;    let { america, control, search, markers, ids, uniqueId } = this.map_ctx_globals;
     this.util = util
     this.america = america;
     this.map = map;
@@ -159,9 +160,11 @@ export default class InitializeMap {
 
   asyncDirectionsHandler (_map, context) {
     async function directionsHandler (_map, context){
-      let autocomplete_directions_handler = await import(/* webpackChunkName: "directions_handler_class" */ '../modules/autocomplete_directions_handler')
-      const autocompleteHandler = new autocomplete_directions_handler(_map, context.map_ctx_globals[0]);
-      autocompleteHandler.initListeners();
+          const { default: AutocompleteDirectionsHandler } = await import(
+          /* webpackChunkName: "directions_handler_class" */
+          '../modules/autocomplete_directions_handler');
+          const autocompleteHandler = new AutocompleteDirectionsHandler(_map, context.map_ctx_globals[0]);
+          autocompleteHandler.initListeners();
     }
     directionsHandler(_map, context);
 
@@ -169,23 +172,23 @@ export default class InitializeMap {
 
   asyncClickFunction (e, infoWindow) {
       async function clickedMarker (latLng, map, util, ids, infoWindow, markers, uniqueId) {
-            let clickedMarkerFunction = await import(
-              /* webpackChunkName: "clicked_marker_function" */
-              '../modules/clicked_marker.js');
-            clickedMarkerFunction(latLng, map, util, ids, infoWindow, markers, uniqueId);
+            const { default: clickedMarker } = await import(
+            /* webpackChunkName: "clicked_marker_function" */
+            '../modules/clicked_marker.js');
+            clickedMarker(latLng, map, util, ids, infoWindow, markers, uniqueId);
             util.log('addMarker function completed at point: ' + latLng + ' ' + '.');
       }
       clickedMarker(e.latLng, this._map, this.util, this.ids, infoWindow, this.markers, this.uniqueId);
   }
 
   asyncGeocoderFunction () {
-    async function geocodeAddress(geocoder, _map, util, infoWindow, markers, ids, uniqueId) {
-          let geocodeAddress = await import(
+      async function geocodeAddress(geocoder, _map, util, infoWindow, markers, ids, uniqueId) {
+            const { default: geocodeAddress } = await import(
             /* webpackChunkName: "geocode_address_function" */
             '../modules/geocode_address.js');
-          geocodeAddress(geocoder, _map, util, infoWindow, markers, ids, uniqueId);
-          this.util.log('geoCoder submitted user\'s address input of : ' + this.search.value);
-          }
-      geocodeAddress(this.geocoder, this._map, this.util, this.infoWindow, this.markers, this.ids, this.uniqueId);
+            geocodeAddress(geocoder, _map, util, infoWindow, markers, ids, uniqueId);
+            this.util.log('geoCoder submitted user\'s address input of : ' + this.search.value);
+            }
+        geocodeAddress(this.geocoder, this._map, this.util, this.infoWindow, this.markers, this.ids, this.uniqueId);
   }
 }

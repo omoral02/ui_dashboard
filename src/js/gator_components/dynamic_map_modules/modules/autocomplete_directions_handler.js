@@ -1,4 +1,4 @@
-export default class autocompleteDirectionsHandler {
+export default class AutocompleteDirectionsHandler {
 
 	constructor (map, globals) {
 		this.map = map;
