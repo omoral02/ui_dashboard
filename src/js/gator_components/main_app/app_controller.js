@@ -71,7 +71,7 @@ export default class AppController extends AppView {
   mapShouldLoad() {
     this.mapsController.init();
     this.mapsButton.removeEventListener(
-      'click', this.mapsController.isNowListening.bind(this),
+      'click', this.mapsController.isNowListening,
       false);
   }
 
