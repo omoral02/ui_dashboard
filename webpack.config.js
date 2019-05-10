@@ -17,33 +17,39 @@ const images = path.resolve(paths.src, 'images');
 const favicon = path.resolve(paths.src, 'favicon.ico');
 const html = path.resolve(paths.src, 'pug_views', 'index.pug');
 const css = path.resolve(paths.src, 'css', 'index.css');
-const devMode = process.env.NODE_ENV !== 'production';
 const pluginOptions = {
   filename: path.resolve(paths.public, 'build.html'), 
   excludeChunks: ['vendors~main'],
   disable: false
 };
-const copyCSS = {
-  from: css, 
-  to: path.resolve(paths.public, 'css')
-};
-const copyIMAGES = {
-  from: images, 
-  to: path.resolve(paths.public, 'images')
-};
+// const copyCSS = {
+//   from: css, 
+//   to: path.resolve(paths.public, 'css')
+// };
+// const copyIMAGES = {
+//   from: images, 
+//   to: path.resolve(paths.public, 'images')
+// };
 const copyICON = {
   from: favicon, 
   to: path.resolve(paths.public, 'favicon.ico')
 };
+// 
+//  Flip this flag to change development mode options
+//  as process.env.NODE_ENV is, by default, not set to "production" 
+//  within the build script webpack.config.js
+//
+const dev_mode = (process.env.NODE_ENV == 'production');
+console.log('Development mode: ', dev_mode);
 
 const htmlOptions = {
   template: html,
   inject: true,
   minify: {
-    removeComments: devMode ? false : true,
-    collapseWhitespace: devMode ? false : true,
-    minifyJS: devMode ? false : true,
-    minifyCSS: devMode ? false : true
+    removeComments: dev_mode ? false : true,
+    collapseWhitespace: dev_mode ? false : true,
+    minifyJS: dev_mode ? false : true,
+    minifyCSS: dev_mode ? false : true
   },
   appMountId: 'app'
 };
@@ -52,17 +58,13 @@ const config = {
   watch: false,
   context: paths.dir,
   entry:{
-    main: paths.main
-    // server: path.resolve(paths.src, 'app.js')
-  },
-  output: {
-    path: path.resolve(paths.public, 'javascripts'),
-    filename: '[name].bundle.js'
+    main: paths.main,
   },
   devtool: 'source-map',
   output: {
-    filename: devMode ? 'js/[name].js' : 'js/[name].[chunkhash].js',
-    chunkFilename: devMode? 'js/[name].bundle.js' : 'js/[name].[chunkhash].js',
+    path: path.resolve(paths.public, 'javascripts'),
+    filename: dev_mode ? 'js/[name].js' : 'js/[chunkhash].js',
+    chunkFilename: dev_mode ? 'js/[name].bundle.js' : 'js/[chunkhash].js',
     path: paths.public,
     publicPath: '/'
   },
@@ -126,10 +128,10 @@ const config = {
       new GenerateSW({ 
         chunks: ['main','runtime', 'commons', 'vendors']
       }),
-      // new PreloadWebpackPlugin({
-      //    rel: 'preload',
-      //    include: ['runtime', 'main']
-      //  }),
+      new PreloadWebpackPlugin({
+         rel: 'preload',
+         include: ['runtime', 'main']
+       }),
       // new webpack.SourceMapDevToolPlugin({
 			// 	// this is the url of our local sourcemap server
 			// 	publicPath: 'https://localhost:7575/',
