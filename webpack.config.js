@@ -55,7 +55,7 @@ const htmlOptions = {
 };
 
 const config = {
-  watch: false,
+  watch: true,
   context: paths.dir,
   entry:{
     main: paths.main,

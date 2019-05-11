@@ -7,13 +7,11 @@ export default class ScriptsController extends ScriptsView {
   }
 
   init() {
-    super.initializeView();
+    super.insertScriptsContainer();
+    this.isNowListening();
   }
 
   isNowListening() {
-    this.plxButton.addEventListener(
-      'click', super.initializeView.bind(this),
-      false)
     this.ListInnerContainer.addEventListener(
       'click', this.onScriptClick.bind(this),
        false);

@@ -47,18 +47,16 @@ export default class AppController extends AppView {
     this.actionButtons.forEach( (button) => {
       button.addEventListener(
         'click', this.oneButtonWasClicked.bind(this),
-         false);
+        true);
     });
     console.log(this);
   }
 
   oneButtonWasClicked (event) {
     if (event.target.id == 'plx_button'){
-        console.log('This plx button was tapped');
-        this.plxShouldLoad();
+        this.plxShouldLoad(event);
     } else if (event.target.id == 'map_button'){
-        console.log('This map button was tapped');
-        this.mapShouldLoad();
+        this.mapShouldLoad(event);
     } else if (event.target.id == 'ws_button') {
         console.log('This ws button was tapped');
         this.wsShouldLoad();
@@ -69,16 +67,12 @@ export default class AppController extends AppView {
     super.checkAttachedPanes();
   }
 
-  plxShouldLoad() {
+  plxShouldLoad(e) {
     this.scriptsController.init();
-    this.plxButton.removeEventListener(
-      'click', this.scriptsController.isNowListening);
   }
 
-  mapShouldLoad() {
+  mapShouldLoad(e) {
     this.mapsController.init();
-    this.mapsButton.removeEventListener(
-      'click', this.mapsController.isNowListening);
   }
 
   wsShouldLoad() {

@@ -16,21 +16,61 @@ export default class AppModel {
         table_column: 'QPS column in logs.web_service_qps.all- "places"',
       },
     }];
+    this.non_iretableViews;
+    this.childViews = [];
+    this.listOfElementsByClass = [{
+      classArrays : [{
+          classList_1 : [],
+          classList_2 : [],
+          classList_3 : [],
+          classList_4 : [],
+          classList_5 : [],
+          classList_6 : [],
+          classList_7 : [],
+          classList_8 : [],
+      }]
+    }];
+    
   }
 
-  getFieldSamples() {
+  clearChildViews () {
+    this.non_iretableViews;
+    this.childViews = [];
+  }
+
+  getChildViews () {
+    return this.childViews;
+  }
+
+  setNewChildView (view) {
+    this.childViews.push(view);
+  }
+
+  getClassList () {
+    return this.listOfElementsByClass[0];
+  }
+
+  getClassListValues () { 
+    return Object.valueOf(this.listOfElementsByClass[0].classArrays);;
+  }
+
+  getClassListKeys () {
+    return Object.keys(this.listOfElementsByClass[0].classArrays);
+  }
+
+  getFieldSamples () {
     return this.placeholders;
   }
 
-  getParametersList() {
+  getParametersList () {
     return this.placeholders[0];
   }
 
-  getParameterValues() {
+  getParameterValues () {
     return Object.valueOf(this.placeholders[0].parameters);
   }
   
-  getParameterKeys() {
+  getParameterKeys () {
     return Object.keys(this.placeholders[0].parameters);
   }
 }
