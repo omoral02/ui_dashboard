@@ -1,6 +1,19 @@
 
-src/  Orignal segmented projects brought together in a non-cohesive way.
+.src: Development files and modules/plugins. 
+(Active builds in development)
 
-dist/  Server-side Gator w/ Express. Client-side is found in `dist/public/`.
 
-rest_proxy/  Sheel B.'s "dumb" proxy server which fetches the URL passed to it with a team-level project for review. 
+./src/js/
+
+main.js
+útil.js
+
+./src/js/gator_components/
+——-dynamic_map_modules/
+——-main_app/
+——-plx/
+
+
+
+
+.dist:  Server-side Gator w/ Express. Client-side resources are found in `dist/public/`.
