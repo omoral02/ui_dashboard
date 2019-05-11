@@ -7,7 +7,7 @@
 
 main.js
 
-útil.js
+util.js
 
 ./src/js/gator_components/
 
