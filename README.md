@@ -7,7 +7,7 @@
 
 (Active builds in development)
 
-./src/js/
+`./src/js/`
 
 main.js
 
