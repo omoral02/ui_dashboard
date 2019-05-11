@@ -1,8 +1,8 @@
 
 
->>`./dist/`:  Server-side Gator w/ Express. Client-side resources are found in `./dist/public/`.
+>`./dist/`:  Server-side Gator w/ Express. Client-side resources are found in `./dist/public/`.
 
->>`.src/`: Development source files(active builds in development) and vendor modules/plugins. 
+>`.src/`: Development source files(active builds in development) and vendor modules/plugins. 
 
 
 `./src/js/`
@@ -10,6 +10,14 @@
 main.js 
  
 util.js
+
+`./src/chat.js`
+
+controller.js
+
+model.js
+
+view.js
 
 
 `./src/js/gator_components/dynamic_map_modules/map/`
