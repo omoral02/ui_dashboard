@@ -2,8 +2,9 @@
 
 
 
-.dist:  Server-side Gator w/ Express. Client-side resources are found in ‘dist/public/‘.
-.src: Development source files and vendor modules/plugins. 
+`./dist/`:  Server-side Gator w/ Express. Client-side resources are found in ‘dist/public/‘.
+
+`.src/`: Development source files and vendor modules/plugins. 
 
 (Active builds in development)
 
