@@ -13,27 +13,25 @@ export default class AppView extends AppModel {
     this.viewsPane = document.createElement('section');
     this.viewsPane.id = 'views_pane';
     this.mainMenu.insertAdjacentElement('afterend', this.viewsPane);
-    this.views; 
   }
 
   checkAttachedPanes () {
-     if (this.childViews == []){
-         this.viewsListIsEmpty ();
+     if (this.views.childViews !== []){
+        this.viewsListHasChildNodes ();
      } else {
-         this.viewsListHasChildNodes ();
+        super.clearChildViews ();
+        let views = this.viewsPane.childNodes;
+        this.views.non_iterableViews = views;
+        this.checkAndListChildNodes(this.views.non_iterableViews);
      }
-    this.checkAndListChildNodes(this.views);
-    this.checkEachViewIndex ();
-  }
-
-  viewsListIsEmpty () {
-    this.views = this.viewsPane.childNodes;
   }
 
   viewsListHasChildNodes () {
-    super.clearChildViews ();
     this.clearClassesOnChildNodes ();
-    this.views = this.viewsPane.childNodes;
+    super.clearChildViews ();
+    let views = this.viewsPane.childNodes;
+    this.checkAndListChildNodes(views);
+    this.checkEachViewIndex ();
   }
 
   checkAndListChildNodes (views) {
@@ -57,21 +55,33 @@ export default class AppView extends AppModel {
       if ($elInArray.view.classList.contains('one')) {
           $elInArray.view.classList.toggle('one');
           this.listOfElementsByClass[0].classArrays[0].classList_1.pop($elInArray);
-      } else if ($elInArray.view.classList.contains('two')) {
-          $elInArray.view.classList.toggle('two');
-          this.listOfElementsByClass[0].classArrays[0].classList_2.pop($elInArray);
-      } else if ($elInArray.view.classList.contains('three')) {
-          $elInArray.view.classList.toggle('three');
-          this.listOfElementsByClass[0].classArrays[0].classList_3.pop($elInArray);
-      } else {
-          $elInArray.view.classList.toggle('four');
-          this.listOfElementsByClass[0].classArrays[0].classList_4.pop($elInArray);
-      }
-    };
+        } else if ($elInArray.view.classList.contains('two')){
+            $elInArray.view.classList.toggle('two');
+            this.listOfElementsByClass[0].classArrays[0].classList_2.pop($elInArray);
+        } else if ($elInArray.view.classList.contains('three')){
+            $elInArray.view.classList.toggle('three');
+            this.listOfElementsByClass[0].classArrays[0].classList_3.pop($elInArray);
+        } else if  ($elInArray.view.classList.contains('four')){
+            $elInArray.view.classList.toggle('four');
+            this.listOfElementsByClass[0].classArrays[0].classList_4.pop($elInArray);
+        } else if  ($elInArray.view.classList.contains('five')){
+          $elInArray.view.classList.toggle('five');
+          this.listOfElementsByClass[0].classArrays[0].classList_5.pop($elInArray);
+        } else if  ($elInArray.view.classList.contains('six')){
+          $elInArray.view.classList.toggle('six');
+          this.listOfElementsByClass[0].classArrays[0].classList_6.pop($elInArray);
+        } else if  ($elInArray.view.classList.contains('seven')){
+          $elInArray.view.classList.toggle('seven');
+          this.listOfElementsByClass[0].classArrays[0].classList_7.pop($elInArray);
+        } else {
+          $elInArray.view.classList.toggle('eight');
+          this.listOfElementsByClass[0].classArrays[0].classList_8.pop($elInArray);
+        }
+    }
   }
 
   checkEachViewIndex () {
-    this.childViews.forEach((viewObject) => {
+    this.views.childViews.forEach((viewObject) => {
         let object = viewObject;
         if( object.count == 0 ){ 
             object.view.classList.add('one');

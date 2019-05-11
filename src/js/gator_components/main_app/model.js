@@ -16,8 +16,11 @@ export default class AppModel {
         table_column: 'QPS column in logs.web_service_qps.all- "places"',
       },
     }];
-    this.non_iretableViews;
-    this.childViews = [];
+    this.views = {
+      non_iterableViews : null,
+      childViews : []
+
+    };
     this.listOfElementsByClass = [{
       classArrays : [{
           classList_1 : [],
@@ -34,16 +37,16 @@ export default class AppModel {
   }
 
   clearChildViews () {
-    this.non_iretableViews;
-    this.childViews = [];
+    this.views.non_iretableViews = null;
+    this.views.childViews = [];
   }
 
   getChildViews () {
-    return this.childViews;
+    return this.views.childViews;
   }
 
   setNewChildView (view) {
-    this.childViews.push(view);
+    this.views.childViews.push(view);
   }
 
   getClassList () {
