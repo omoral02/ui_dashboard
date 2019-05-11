@@ -11,7 +11,7 @@ main.js
  
 util.js
 
-`./src/js/chat.js`
+`./src/js/chat/`
 
 controller.js
 
