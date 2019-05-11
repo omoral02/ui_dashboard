@@ -12,12 +12,7 @@
 
 main.js
 
-util.js
-
-`./src/js/gator_components/`
-
-`./src/js/gator_components/dynamic_map_modules/`
-
+útil.js
 `./src/js/gator_components/dynamic_map_modules/map`
 
 controller.js
@@ -26,7 +21,7 @@ view.js
 
 model.js
 
-`./src/js/gator_components/dynamic_map_modules/map/dynamic/
+`./src/js/gator_components/dynamic_map_modules/map/dynamic/`
 
 controller.js
 
