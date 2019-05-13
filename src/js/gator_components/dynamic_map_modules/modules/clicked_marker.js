@@ -1,5 +1,5 @@
 export default function clickedMarker(clickedLocation, map, util, ids, infoWindow, markers, uniqueId) {
-  util.clearConsole();
+  // util.clearConsole();
   let labels = 'Nice click!';
   let marker = new google.maps.Marker({
     position: clickedLocation,

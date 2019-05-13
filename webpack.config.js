@@ -11,14 +11,15 @@ const paths = {
   src: path.resolve(__dirname, 'src'),
   main: path.resolve(__dirname, 'src', 'js', 'main.js' ),
   dist: path.resolve(__dirname, 'dist'),
-  public: path.resolve(__dirname, 'dist', 'public')
+  bin: path.resolve(__dirname, 'dist', 'bin'),
+  public: path.resolve(__dirname, 'dist', 'public'),
 };
 const images = path.resolve(paths.src, 'images');
 const favicon = path.resolve(paths.src, 'favicon.ico');
 const html = path.resolve(paths.src, 'pug_views', 'index.pug');
 const css = path.resolve(paths.src, 'css', 'index.css');
 const pluginOptions = {
-  filename: path.resolve(paths.public, 'build.html'), 
+  filename: path.resolve(paths.public, 'index.html'), 
   excludeChunks: ['vendors~main'],
   disable: false
 };
@@ -56,40 +57,55 @@ const htmlOptions = {
 
 const config = {
   watch: true,
+  watchOptions: {
+    ignored: /node_modules/
+  },
   context: paths.dir,
   entry:{
     main: paths.main,
   },
-  devtool: 'source-map',
+  devtool: 'cheap-module-eval-source-map',
   output: {
-    path: path.resolve(paths.public, 'javascripts'),
-    filename: dev_mode ? 'js/[name].js' : 'js/[chunkhash].js',
-    chunkFilename: dev_mode ? 'js/[name].bundle.js' : 'js/[chunkhash].js',
+    // `jsonpScriptType:` Allows customization of the script type 
+    // webpack injects script tags into the DOM to download async chunks
+    // options >> `text/javascript` || `module`
+    jsonpScriptType : 'module',
+    filename: dev_mode ? 'js/[name].bundle.js' : 'js/[hash].js',
+    chunkFilename: dev_mode ? 'js/[id].bundle.js' : 'js/[chunkhash].js',
+    devtoolModuleFilenameTemplate: 'webpack://[namespace]/[resource-path]?[loaders]',
     path: paths.public,
-    publicPath: '/'
+    publicPath: '/',
+    pathinfo: false,
+  },
+  devServer: {
+    hot: true,
+    open: true,
+    stats: {
+      colors: true,
+    },
+    contentBase: paths.public,
+    compress: true,
   },
   optimization: {
     noEmitOnErrors: true,
-    splitChunks: {
-      chunks: 'all'
-    },
+    splitChunks: false,
+    removeAvailableModules: true,
+    removeEmptyChunks: true,
     runtimeChunk: 'single',
     minimizer: [
       new UglifyJsPlugin({
-      sourceMap: true,
+      sourceMap: false,
       })
     ]
-  },
-  devServer: {
-    contentBase: path.resolve(paths.dist),
-    port: 9000
   },
   module: {
     rules: [
       {
         enforce: 'pre',
         test: /\.js$/,
-        exclude: /node_modules/,
+        //single entry point indentified for transpile performance
+        include: paths.main,
+        // exclude: /node_modules/,
         loader: 'eslint-loader',
         options: {
           emitError: true
@@ -98,7 +114,9 @@ const config = {
       {
         test: /\.js$/,
         use: 'babel-loader',
-        exclude: /node_modules/
+        //single entry point indentified for transpile performance
+        include: paths.main,
+        // exclude: /node_modules/
       },
       {
         test: /\.pug$/,
@@ -121,8 +139,6 @@ const config = {
   },
   plugins: [
       new webpack.ProgressPlugin(),
-      // new CopyWebpackPlugin([copyCSS]),
-      // new CopyWebpackPlugin([copyIMAGES]),
       new CopyWebpackPlugin([copyICON]),
       new HtmlWebpackPlugin(Object.assign(pluginOptions, htmlOptions)),
       new GenerateSW({ 
@@ -132,12 +148,6 @@ const config = {
          rel: 'preload',
          include: ['runtime', 'main']
        }),
-      // new webpack.SourceMapDevToolPlugin({
-			// 	// this is the url of our local sourcemap server
-			// 	publicPath: 'https://localhost:7575/',
-			// 	filename: '[file].map',
-      //   }),
-      // new WebpackCleanupPlugin('target', {verbose: true})
   ]
 };
 

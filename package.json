@@ -5,7 +5,7 @@
   "main": "main.js",
   "private:": true,
   "scripts": {
-    "dev": "rm ./dist/public/ -rf | ./node_modules/.bin/webpack-dev-server",
+    "dev:server": "echo 'This script will not compile to production. Please run `npm run webpack-prod` to compile before going to into development server watch mode' && ./node_modules/.bin/webpack-dev-server --open --watch-poll",
     "webpack-dev": "rm ./dist/public/ -rf | webpack --progress -d --mode development --config ./webpack.config.js",
     "webpack-prod": "rm ./dist/public/ -rf | webpack --progress -d --mode production --config ./webpack.config.js"
   },

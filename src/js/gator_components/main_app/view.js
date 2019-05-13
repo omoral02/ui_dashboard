@@ -16,7 +16,7 @@ export default class AppView extends AppModel {
   }
 
   checkAttachedPanes () {
-     if (this.views.childViews !== []){
+     if (this.views.iterable_views !== []){
         this.viewsListHasChildNodes ();
      } else {
         super.clearChildViews ();
@@ -48,7 +48,6 @@ export default class AppView extends AppModel {
 
   clearClassesOnChildNodes () {
     let values = super.getChildViews ();
-    console.log(values);
     for(let i = 0; i < values.length; i++){
       let $elInArray = values[i];
       console.log($elInArray);
@@ -65,23 +64,23 @@ export default class AppView extends AppModel {
             $elInArray.view.classList.toggle('four');
             this.listOfElementsByClass[0].classArrays[0].classList_4.pop($elInArray);
         } else if  ($elInArray.view.classList.contains('five')){
-          $elInArray.view.classList.toggle('five');
-          this.listOfElementsByClass[0].classArrays[0].classList_5.pop($elInArray);
+            $elInArray.view.classList.toggle('five');
+            this.listOfElementsByClass[0].classArrays[0].classList_5.pop($elInArray);
         } else if  ($elInArray.view.classList.contains('six')){
-          $elInArray.view.classList.toggle('six');
-          this.listOfElementsByClass[0].classArrays[0].classList_6.pop($elInArray);
+            $elInArray.view.classList.toggle('six');
+            this.listOfElementsByClass[0].classArrays[0].classList_6.pop($elInArray);
         } else if  ($elInArray.view.classList.contains('seven')){
-          $elInArray.view.classList.toggle('seven');
-          this.listOfElementsByClass[0].classArrays[0].classList_7.pop($elInArray);
+            $elInArray.view.classList.toggle('seven');
+            this.listOfElementsByClass[0].classArrays[0].classList_7.pop($elInArray);
         } else {
-          $elInArray.view.classList.toggle('eight');
-          this.listOfElementsByClass[0].classArrays[0].classList_8.pop($elInArray);
+            $elInArray.view.classList.toggle('eight');
+            this.listOfElementsByClass[0].classArrays[0].classList_8.pop($elInArray);
         }
     }
-  }
+  } 
 
   checkEachViewIndex () {
-    this.views.childViews.forEach((viewObject) => {
+    this.views.iterable_views.forEach((viewObject) => {
         let object = viewObject;
         if( object.count == 0 ){ 
             object.view.classList.add('one');
@@ -100,8 +99,10 @@ export default class AppView extends AppModel {
           object.view.id, ' is now: ', 
           object.view.classList.value, 
           ' : ');
-        console.log(this.listOfElementsByClass);
+        console.log(super.getChildViews());
+        console.log(this.listOfElementsByClass[0].classArrays[0]);
         console.log(object.count);
+        //see this change again, once more..maybe i wont need to refresh .very nice! 
     });    
   } 
 }

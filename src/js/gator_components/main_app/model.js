@@ -18,7 +18,7 @@ export default class AppModel {
     }];
     this.views = {
       non_iterableViews : null,
-      childViews : []
+      iterable_views : []
 
     };
     this.listOfElementsByClass = [{
@@ -38,15 +38,15 @@ export default class AppModel {
 
   clearChildViews () {
     this.views.non_iretableViews = null;
-    this.views.childViews = [];
+    this.views.iterable_views = [];
   }
 
   getChildViews () {
-    return this.views.childViews;
+    return this.views.iterable_views;
   }
 
   setNewChildView (view) {
-    this.views.childViews.push(view);
+    this.views.iterable_views.push(view);
   }
 
   getClassList () {
