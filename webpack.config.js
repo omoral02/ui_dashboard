@@ -21,12 +21,14 @@ const copyICON = {
   to: path.resolve(paths.public, 'favicon.ico')
 };
 // 
-//  Flip this flag to change development mode options
+//  Flip this ternary boolean flag result to change development mode options
 //  as process.env.NODE_ENV is, by default, not set to "production" 
-//  within the build script webpack.config.js
+//  within the build script of webpack.config.js
+//  development mode -> const dev_mode = (process.env.NODE_ENV !== 'production');
+//  production mdoe -> const dev_mode = (process.env.NODE_ENV == 'production');
 //
 const dev_mode = (process.env.NODE_ENV == 'production');
-console.log('Development mode: ', dev_mode);
+
 const pluginOptions = {
   filename: path.resolve(paths.public, 'index.html'), 
   excludeChunks: ['vendors~main'],
@@ -45,8 +47,10 @@ const htmlOptions = {
   appMountId: 'app',
 };
 
+console.log('\t Build is in development mode: ', dev_mode.toString().toUpperCase(), '\n');
 const config = {
-  watch: true,
+  mode: dev_mode? 'development' : 'production',
+  watch: false,
   watchOptions: {
     ignored: /node_modules/
   },
@@ -137,7 +141,7 @@ const config = {
       }),
       new PreloadWebpackPlugin({
          rel: 'prefetch',
-         as: 'text/javascript',
+        //  as: 'text/javacript',  << option/attribute for preload not used for prefetch
          include: ['runtime', 'main']
        }),
   ]

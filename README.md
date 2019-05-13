@@ -4,7 +4,7 @@
  >> Start script(from `./dist/`): `npm run start` 
 
 >`./src/`: Development source files(active builds in development) and vendor modules/plugins. 
- >> Build script(set webpack config `watch:` property to either boolean > `false || true`): `npm run webpack-prod` 
+ >> Build script(set webpack config `watch:` property to either boolean > `false || true`): `npm run webpack`. Changing the dev_mode tenrnary operator boolean result will toggle production or development mode and logged in output on compile.  
 
 
 `./src/js/`

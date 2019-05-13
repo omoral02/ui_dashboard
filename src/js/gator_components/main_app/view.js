@@ -102,7 +102,7 @@ export default class AppView extends AppModel {
         console.log(super.getChildViews());
         console.log(this.listOfElementsByClass[0].classArrays[0]);
         console.log(object.count);
-        //see this change again, once more..maybe i wont need to refresh .very nice! 
+        // refresh this change 
     });    
   } 
 }
