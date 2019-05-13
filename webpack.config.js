@@ -14,14 +14,14 @@ const paths = {
   public: path.resolve(__dirname, 'dist', 'public'),
 };
 // const images = path.resolve(paths.src, 'images');
-// const css = path.resolve(paths.src, 'css', 'index.css');
+const css = path.resolve(paths.src, 'css', 'index.css');
 const favicon = path.resolve(paths.src, 'favicon.ico');
 const html = path.resolve(paths.src, 'pug_views', 'index.pug');
 
 const pluginOptions = {
   filename: path.resolve(paths.public, 'index.html'), 
   excludeChunks: ['vendors~main'],
-  disable: false
+  disable: false,
 };
 const copyICON = {
   from: favicon, 
@@ -38,13 +38,14 @@ console.log('Development mode: ', dev_mode);
 const htmlOptions = {
   template: html,
   inject: true,
+  hash: true,
   minify: {
     removeComments: dev_mode ? false : true,
     collapseWhitespace: dev_mode ? false : true,
     minifyJS: dev_mode ? false : true,
     minifyCSS: dev_mode ? false : true
   },
-  appMountId: 'app'
+  appMountId: 'app',
 };
 
 const config = {
