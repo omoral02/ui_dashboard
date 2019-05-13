@@ -5,7 +5,6 @@ const { GenerateSW } = require('workbox-webpack-plugin');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const WebpackCleanupPlugin = require('webpack-cleanup-plugin');
 const paths = {
   dir: path.resolve(__dirname),
   src: path.resolve(__dirname, 'src'),
@@ -14,23 +13,16 @@ const paths = {
   bin: path.resolve(__dirname, 'dist', 'bin'),
   public: path.resolve(__dirname, 'dist', 'public'),
 };
-const images = path.resolve(paths.src, 'images');
+// const images = path.resolve(paths.src, 'images');
+// const css = path.resolve(paths.src, 'css', 'index.css');
 const favicon = path.resolve(paths.src, 'favicon.ico');
 const html = path.resolve(paths.src, 'pug_views', 'index.pug');
-const css = path.resolve(paths.src, 'css', 'index.css');
+
 const pluginOptions = {
   filename: path.resolve(paths.public, 'index.html'), 
   excludeChunks: ['vendors~main'],
   disable: false
 };
-// const copyCSS = {
-//   from: css, 
-//   to: path.resolve(paths.public, 'css')
-// };
-// const copyIMAGES = {
-//   from: images, 
-//   to: path.resolve(paths.public, 'images')
-// };
 const copyICON = {
   from: favicon, 
   to: path.resolve(paths.public, 'favicon.ico')
@@ -70,8 +62,8 @@ const config = {
     // webpack injects script tags into the DOM to download async chunks
     // options >> `text/javascript` || `module`
     jsonpScriptType : 'module',
-    filename: dev_mode ? 'js/[name].bundle.js' : 'js/[hash].js',
-    chunkFilename: dev_mode ? 'js/[id].bundle.js' : 'js/[chunkhash].js',
+    filename: dev_mode ? 'js/[name].bundle.js' : 'js/[hash:6].js',
+    chunkFilename: dev_mode ? 'js/[id].bundle.js' : 'js/[chunkhash:8].js',
     devtoolModuleFilenameTemplate: 'webpack://[namespace]/[resource-path]?[loaders]',
     path: paths.public,
     publicPath: '/',

@@ -35,11 +35,9 @@ export default class AppController extends AppView {
     console.log('Controllers instantiated: ');
     if (!this.scriptsController){
     this.scriptsController = new ScriptsController(plxButton, placeholders, viewsPane);
-    console.log(this.scriptsController);
     }
     if (!this.mapsController){
     this.mapsController = new MapsController (util, mapsButton, placeholders, viewsPane, apiKey, head);
-    console.log(this.mapsController);
     }
   }
 
