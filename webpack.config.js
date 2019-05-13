@@ -8,21 +8,14 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const paths = {
   dir: path.resolve(__dirname),
   src: path.resolve(__dirname, 'src'),
+  css: path.resolve(__dirname, 'src', 'css'),
   main: path.resolve(__dirname, 'src', 'js', 'main.js' ),
   dist: path.resolve(__dirname, 'dist'),
   bin: path.resolve(__dirname, 'dist', 'bin'),
   public: path.resolve(__dirname, 'dist', 'public'),
 };
-// const images = path.resolve(paths.src, 'images');
-const css = path.resolve(paths.src, 'css', 'index.css');
 const favicon = path.resolve(paths.src, 'favicon.ico');
 const html = path.resolve(paths.src, 'pug_views', 'index.pug');
-
-const pluginOptions = {
-  filename: path.resolve(paths.public, 'index.html'), 
-  excludeChunks: ['vendors~main'],
-  disable: false,
-};
 const copyICON = {
   from: favicon, 
   to: path.resolve(paths.public, 'favicon.ico')
@@ -34,7 +27,11 @@ const copyICON = {
 //
 const dev_mode = (process.env.NODE_ENV == 'production');
 console.log('Development mode: ', dev_mode);
-
+const pluginOptions = {
+  filename: path.resolve(paths.public, 'index.html'), 
+  excludeChunks: ['vendors~main'],
+  disable: false,
+};
 const htmlOptions = {
   template: html,
   inject: true,
@@ -117,6 +114,7 @@ const config = {
       },
       {
         test: /\.css$/,
+        include: path.resolve(paths.css),
         use: [
           { loader: 'style-loader'},
           { loader: 'css-loader'}
@@ -138,7 +136,8 @@ const config = {
         chunks: ['main','runtime', 'commons', 'vendors']
       }),
       new PreloadWebpackPlugin({
-         rel: 'preload',
+         rel: 'prefetch',
+         as: 'text/javascript',
          include: ['runtime', 'main']
        }),
   ]

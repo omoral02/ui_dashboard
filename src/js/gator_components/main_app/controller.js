@@ -65,11 +65,11 @@ export default class AppController extends AppView {
     super.checkAttachedPanes();
   }
 
-  plxShouldLoad(e) {
+  plxShouldLoad() {
     this.scriptsController.init();
   }
 
-  mapShouldLoad(e) {
+  mapShouldLoad() {
     this.mapsController.init();
   }
 
