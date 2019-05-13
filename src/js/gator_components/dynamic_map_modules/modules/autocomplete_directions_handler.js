@@ -2,12 +2,11 @@ export default class AutocompleteDirectionsHandler {
 
 	constructor (map, globals) {
 		this.map = map;
-		let { markers, origin, destination, search, control, i} = globals;
+		let { markers, origin, destination, search, control, i } = globals;
 		this.markers = markers;
 		let _search = search; 
 		this.directionsService = new google.maps.DirectionsService;
 		this.stepDisplay = new google.maps.InfoWindow;
-
 
 		const originAutocomplete = new google.maps.places.Autocomplete(
 			origin, {

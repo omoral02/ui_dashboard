@@ -100,9 +100,6 @@ export default class AppView extends AppModel {
           object.view.classList.value, 
           ' : ');
         console.log(super.getChildViews());
-        console.log(this.listOfElementsByClass[0].classArrays[0]);
-        console.log(object.count);
-        // refresh this change 
     });    
   } 
 }

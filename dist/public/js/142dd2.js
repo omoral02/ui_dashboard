@@ -63,7 +63,7 @@
 /******/
 /******/ 	// script path function
 /******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "js/" + {"clicked_marker_function":"b9223274","directions_handler_class":"9ab40b3b","geocode_address_function":"dfc54ec7"}[chunkId] + ".js"
+/******/ 		return __webpack_require__.p + "js/" + {"clicked_marker_function":"3be8599e","directions_handler_class":"acb73b98","geocode_address_function":"dfc54ec7"}[chunkId] + ".js"
 /******/ 	}
 /******/
 /******/ 	// The require function
@@ -114,7 +114,7 @@
 /******/ 				// start chunk loading
 /******/ 				var script = document.createElement('script');
 /******/ 				var onScriptComplete;
-/******/ 				script.type = "module";
+/******/ 				script.type = "text/javascript";
 /******/ 				script.charset = 'utf-8';
 /******/ 				script.timeout = 120;
 /******/ 				if (__webpack_require__.nc) {

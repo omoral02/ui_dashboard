@@ -48,7 +48,7 @@ const htmlOptions = {
 };
 
 const config = {
-  mode: dev_mode? 'development' : 'production',
+  mode: dev_mode ? 'development' : 'production',
   watch: false,
   watchOptions: {
     ignored: /node_modules/
@@ -57,12 +57,12 @@ const config = {
   entry:{
     main: paths.main,
   },
-  devtool: 'cheap-module-eval-source-map',
+  devtool: dev_mode ? 'cheap-module-eval-source-map' : 'hidden-source-map' ,
   output: {
     // `jsonpScriptType:` Allows customization of the script type 
     // webpack injects script tags into the DOM to download async chunks
     // options >> `text/javascript` || `module`
-    jsonpScriptType : 'module',
+    jsonpScriptType : 'text/javascript',
     filename: dev_mode ? 'js/[name].bundle.js' : 'js/[hash:6].js',
     chunkFilename: dev_mode ? 'js/[id].bundle.js' : 'js/[chunkhash:8].js',
     devtoolModuleFilenameTemplate: 'webpack://[namespace]/[resource-path]?[loaders]',
@@ -77,7 +77,7 @@ const config = {
       colors: true,
     },
     contentBase: paths.public,
-    compress: true,
+    compress: dev_mode ? false : true,
   },
   optimization: {
     noEmitOnErrors: true,
@@ -85,11 +85,33 @@ const config = {
     removeAvailableModules: true,
     removeEmptyChunks: true,
     runtimeChunk: 'single',
-    minimizer: [
-      new UglifyJsPlugin({
-      sourceMap: false,
-      })
-    ]
+    // minimizer: [
+    //   new UglifyJsPlugin({
+    //       test: /\.js(\?.*)?$/i,
+    //       extractComments: 'all',
+    //       exclude: /node_modules/i,
+    //       sourceMap: false,
+    //       parallel: true,
+    //       chunkFilter: (chunk) => {
+    //         // Exclude uglification for the `vendor` chunk
+    //         if (chunk.name === 'vendor') {
+    //           return false;
+    //         }
+    //         return true;
+    //       },
+    //       uglifyOptions: {
+    //         warnings: false,
+    //         parse: {},
+    //         compress: {},
+    //         mangle: true, // Note `mangle.properties` is `false` by default.
+    //         output: null,
+    //         toplevel: false,
+    //         nameCache: null,
+    //         ie8: false,
+    //         keep_fnames: false,
+    //       },
+    //   })
+    // ]
   },
   module: {
     rules: [
@@ -99,10 +121,14 @@ const config = {
         //single entry point indentified for transpile performance
         include: paths.main,
         // exclude: /node_modules/,
-        loader: 'eslint-loader',
-        options: {
-          emitError: true
-        }
+        use: [
+          {
+            loader: 'eslint-loader',
+             options: {
+                emitError: true
+             }
+          },
+        ],
       },
       {
         test: /\.js$/,
@@ -117,7 +143,6 @@ const config = {
       },
       {
         test: /\.css$/,
-        include: path.resolve(paths.css),
         use: [
           { loader: 'style-loader'},
           { loader: 'css-loader'}
@@ -147,6 +172,6 @@ const config = {
 };
 //output main config options
 console.log('\n \n \t \t \t \t \t \t \t Build is in `mode:` development? ', dev_mode.toString().toUpperCase());
-console.log('\n \n \t \t \t \t \t \t \t Build is in `watch:` mode? ', config.watch.toString().toUpperCase(), '\n \n');
-
+console.log('\n \n \t \t \t \t \t \t \t Build is in `watch:` mode? ', config.watch.toString().toUpperCase());
+console.log('\n \n \t \t \t \t \t \t \t To confirm, `config.mode` was flag-flipped to:  ', config.mode.toString().toUpperCase(), ' MODE', '\n \n' );
 module.exports = config;

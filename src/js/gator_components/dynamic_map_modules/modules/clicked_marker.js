@@ -6,7 +6,7 @@ export default function clickedMarker(clickedLocation, map, util, ids, infoWindo
     label: labels,
     map: map,
     animation: google.maps.Animation.DROP,
-    title: 'Nice Tap!'
+    title: 'Nice Tap!',
   });
   marker.id = uniqueId;
   uniqueId++;
