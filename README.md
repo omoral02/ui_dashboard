@@ -4,7 +4,7 @@
  >> Start script: `npm run start` 
 
 >`./src/`: Development source files(active builds in development) and vendor modules/plugins. 
- >> Build script(set webpack config `watch:` property to `false` || `true`): `npm run webpack-prod` 
+ >> Build script(set webpack config `watch:` property to either boolean > `false || true`): `npm run webpack-prod` 
 
 
 `./src/js/`
