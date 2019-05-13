@@ -145,8 +145,8 @@ const config = {
        }),
   ]
 };
-
-console.log('\n \n \t \t \t \t \t \t \t Build is in development mode: ', dev_mode.toString().toUpperCase());
-console.log('\n \n \t \t \t \t \t \t \t Watch mode: ', config.watch.toString().toUpperCase(), '\n \n');
+//output main config options
+console.log('\n \n \t \t \t \t \t \t \t Build is in `mode:` development? ', dev_mode.toString().toUpperCase());
+console.log('\n \n \t \t \t \t \t \t \t Build is in `watch:` mode? ', config.watch.toString().toUpperCase(), '\n \n');
 
 module.exports = config;
