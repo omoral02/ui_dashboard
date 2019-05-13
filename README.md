@@ -1,8 +1,10 @@
 
 
 >`./dist/`:  Production server-side Gator w/ Express. Client-side resources are found in `./dist/public/`.
+ >> Start script: `npm run start` 
 
 >`./src/`: Development source files(active builds in development) and vendor modules/plugins. 
+ >> Build script(set webpack config `watch:` property to `false` || `true`): `npm run webpack-prod` 
 
 
 `./src/js/`
