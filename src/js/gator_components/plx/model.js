@@ -75,12 +75,12 @@ export default class ScriptsModel {
       currentlySelectedScriptIndex: param2,
     }
     this.newState = state;
-    console.log(this.newState);
     return this.newState;
   }
 
   getNewState(index, script) {
     let myState = this.setNewState(script, index);
+    console.log(myState);
     return myState;
   }
 

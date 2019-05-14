@@ -32,7 +32,7 @@ export default class AppController extends AppView {
   }
 
   instantiateControllersWith (util, placeholders, mapsButton, plxButton, head, apiKey, viewsPane) {
-    console.log('Controllers instantiated: ');
+    console.log('Controller instantiated: ');
     if (!this.scriptsController){
     this.scriptsController = new ScriptsController(plxButton, placeholders, viewsPane);
     }

@@ -21,13 +21,11 @@ const copyICON = {
   to: path.resolve(paths.public, 'favicon.ico')
 };
 // 
-//  Flip this ternary boolean flag result to change development mode options
-//  as process.env.NODE_ENV is, by default, not set to "production" 
-//  within the build script of webpack.config.js
+//  Flip this boolean flag result to change development mode options
 //  development mode -> const dev_mode = (process.env.NODE_ENV !== 'production');
 //  production mdoe -> const dev_mode = (process.env.NODE_ENV == 'production');
 //
-const dev_mode = (process.env.NODE_ENV == 'production');
+const dev_mode = (process.env.NODE_ENV !== 'production');
 
 const pluginOptions = {
   filename: path.resolve(paths.public, 'index.html'), 
@@ -165,13 +163,14 @@ const config = {
       }),
       new PreloadWebpackPlugin({
          rel: 'prefetch',
-        //  as: 'text/javacript',  << option/attribute for preload not used for prefetch
+        //  option/attribute for preload not used for prefetch
+        //  as: 'text/javacript',  
          include: ['runtime', 'main']
        }),
   ]
 };
 //output main config options
-console.log('\n \n \t \t \t \t \t \t \t Build is in `mode:` development? ', dev_mode.toString().toUpperCase());
-console.log('\n \n \t \t \t \t \t \t \t Build is in `watch:` mode? ', config.watch.toString().toUpperCase());
-console.log('\n \n \t \t \t \t \t \t \t To confirm, `config.mode` was flag-flipped to:  ', config.mode.toString().toUpperCase(), ' MODE', '\n \n' );
+console.log('\n \n \t \t \t \t \t \t \t Is build `mode:` property set to `development`? ', dev_mode.toString().toUpperCase());
+console.log('\n \n \t \t \t \t \t \t \t Is build `watch:` property set to `true` ? ', config.watch.toString().toUpperCase());
+console.log('\n \n \t \t \t \t \t \t \t To confirm, `config.mode` was flag-flipped to: ', config.mode.toString().toUpperCase(), 'MODE', '\n \n' );
 module.exports = config;

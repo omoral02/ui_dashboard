@@ -172,10 +172,10 @@ export default class InitializeMap {
 
   asyncClickFunction (e, infoWindow) {
       async function clickedMarker (latLng, map, util, ids, infoWindow, markers, uniqueId) {
-            const { default: clickedMarker } = await import(
+            const { default: clicked } = await import(
             /* webpackChunkName: "clicked_marker_function" */
             '../../modules/clicked_marker.js');
-            clickedMarker(latLng, map, util, ids, infoWindow, markers, uniqueId);
+            clicked(latLng, map, util, ids, infoWindow, markers, uniqueId);
             util.log('addMarker function completed at point: ' + latLng + ' ' + '.');
       }
       clickedMarker(e.latLng, this._map, this.util, this.ids, infoWindow, this.markers, this.uniqueId);

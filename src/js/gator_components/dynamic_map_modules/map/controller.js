@@ -38,8 +38,8 @@ export default class MapsController extends MapsView {
         }
     }
 
-    isNowListening () {
-        this.mapsButton.addEventListener('click', super.toggleMapContainer,false);
-    }
+    // isNowListening () {
+    //     this.mapsButton.addEventListener('click', super.toggleMapContainer,false);
+    // }
 }
 

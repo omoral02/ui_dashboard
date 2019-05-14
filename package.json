@@ -6,7 +6,7 @@
   "private:": true,
   "scripts": {
     "dev:server": "./warning.sh && ./node_modules/.bin/webpack-dev-server --open --watch-poll",
-    "webpack": "rm ./dist/public/ -rf | webpack --progress -d --config ./webpack.config.js"
+    "webpack": "rm ./dist/public/ -rf | webpack --progress"
   },
   "author": "Omar M. | Google Maps Platform Technical Support (AMER)",
   "license": "",
