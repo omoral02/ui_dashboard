@@ -5,22 +5,22 @@ const { GenerateSW } = require('workbox-webpack-plugin');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const paths = {
-  dir: path.resolve(__dirname),
-  src: path.resolve(__dirname, 'src'),
-  css: path.resolve(__dirname, 'src', 'css'),
-  main: path.resolve(__dirname, 'src', 'js', 'main.js'),
-  favicon: path.resolve(__dirname, 'src', 'favicon.ico'),
-  html:path.resolve(__dirname, 'src', 'pug_views', 'index.pug'),
-  dist: path.resolve(__dirname, 'dist'),
-  bin: path.resolve(__dirname, 'dist', 'bin'),
-  public: path.resolve(__dirname, 'dist', 'public'),
-  htmlBuildFilename: path.resolve(__dirname, 'dist', 'public', 'index.html'),
+    dir: path.resolve(__dirname),
+    src: path.resolve(__dirname, 'src'),
+    css: path.resolve(__dirname, 'src', 'css'),
+    main: path.resolve(__dirname, 'src', 'js', 'main.js'),
+    favicon: path.resolve(__dirname, 'src', 'favicon.ico'),
+    html:path.resolve(__dirname, 'src', 'pug_views', 'index.pug'),
+    dist: path.resolve(__dirname, 'dist'),
+    bin: path.resolve(__dirname, 'dist', 'bin'),
+    public: path.resolve(__dirname, 'dist', 'public'),
+    htmlBuildFilename: path.resolve(__dirname, 'dist', 'public', 'index.html'),
+    copyIcon: {
+      to: path.resolve(__dirname, 'dist', 'public', 'favicon.ico'),
+      from: path.resolve(__dirname, 'src', 'favicon.ico'), 
+    },
 };
-const copyICON = {
-  from: paths.favicon, 
-  to: path.resolve(paths.public, 'favicon.ico')
-};
-// 
+ 
 //  Flip this boolean flag result to change development mode options
 //  development mode -> const dev_mode = (process.env.NODE_ENV !== 'production');
 //  production mdoe -> const dev_mode = (process.env.NODE_ENV == 'production');
@@ -129,7 +129,7 @@ const config = {
   },
   plugins: [
       new webpack.ProgressPlugin(),
-      new CopyWebpackPlugin([copyICON]),
+      new CopyWebpackPlugin([paths.copyIcon]),
       new HtmlWebpackPlugin(Object.assign(pluginOptions, htmlOptions)),
       new GenerateSW({ 
         chunks: ['main','runtime', 'commons', 'vendors']
