@@ -8,13 +8,13 @@ const paths = {
   dir: path.resolve(__dirname),
   src: path.resolve(__dirname, 'src'),
   css: path.resolve(__dirname, 'src', 'css'),
-  html:path.resolve(paths.src, 'pug_views', 'index.pug'),
-  main: path.resolve(__dirname, 'src', 'js', 'main.js' ),
+  main: path.resolve(__dirname, 'src', 'js', 'main.js'),
+  favicon: path.resolve(__dirname, 'src', 'favicon.ico'),
+  html:path.resolve(__dirname, 'src', 'pug_views', 'index.pug'),
   dist: path.resolve(__dirname, 'dist'),
   bin: path.resolve(__dirname, 'dist', 'bin'),
   public: path.resolve(__dirname, 'dist', 'public'),
-  favicon: path.resolve(paths.src, 'favicon.ico'),
-  htmlBuildFilename: path.resolve(paths.public, 'index.html'),
+  htmlBuildFilename: path.resolve(__dirname, 'dist', 'public', 'index.html'),
 };
 const copyICON = {
   from: paths.favicon, 
