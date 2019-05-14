@@ -4,7 +4,10 @@
  >> Start script(from `./dist/`): `npm run start` 
 
 >`./src/`: Development source files(active builds in development) and vendor modules/plugins. 
- >> Build script(set webpack config `watch:` property to either boolean > `false || true`): `npm run webpack`. Changing the `dev_mode:` comparative operator `!== || ==` boolean result will toggle `mode:` ternary operator for `’development’ || ‘production’` mode and logged in output on compile.  
+ >> Build script(set webpack config `watch:` property to either boolean > `false || true`): `npm run webpack`. 
+
+
+NOTE: Changing the `const dev_mode` comparative operator using `process.NODE.env (!== || ==) ‘production’` boolean result will toggle ternary operator `config.mode: dev_mode ? ’development’ : ‘production’` mode and logged in output on compile.  
 
 
 `./src/js/`
