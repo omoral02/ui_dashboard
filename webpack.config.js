@@ -4,20 +4,20 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { GenerateSW } = require('workbox-webpack-plugin');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const paths = {
   dir: path.resolve(__dirname),
   src: path.resolve(__dirname, 'src'),
   css: path.resolve(__dirname, 'src', 'css'),
+  html:path.resolve(paths.src, 'pug_views', 'index.pug'),
   main: path.resolve(__dirname, 'src', 'js', 'main.js' ),
   dist: path.resolve(__dirname, 'dist'),
   bin: path.resolve(__dirname, 'dist', 'bin'),
   public: path.resolve(__dirname, 'dist', 'public'),
+  favicon: path.resolve(paths.src, 'favicon.ico'),
+  htmlBuildFilename: path.resolve(paths.public, 'index.html'),
 };
-const favicon = path.resolve(paths.src, 'favicon.ico');
-const html = path.resolve(paths.src, 'pug_views', 'index.pug');
 const copyICON = {
-  from: favicon, 
+  from: paths.favicon, 
   to: path.resolve(paths.public, 'favicon.ico')
 };
 // 
@@ -28,12 +28,12 @@ const copyICON = {
 const dev_mode = (process.env.NODE_ENV !== 'production');
 
 const pluginOptions = {
-  filename: path.resolve(paths.public, 'index.html'), 
+  filename: paths.htmlBuildFilename,
   excludeChunks: ['vendors~main'],
   disable: false,
 };
 const htmlOptions = {
-  template: html,
+  template: paths.html,
   inject: true,
   hash: true,
   minify: {
@@ -83,33 +83,6 @@ const config = {
     removeAvailableModules: true,
     removeEmptyChunks: true,
     runtimeChunk: 'single',
-    // minimizer: [
-    //   new UglifyJsPlugin({
-    //       test: /\.js(\?.*)?$/i,
-    //       extractComments: 'all',
-    //       exclude: /node_modules/i,
-    //       sourceMap: false,
-    //       parallel: true,
-    //       chunkFilter: (chunk) => {
-    //         // Exclude uglification for the `vendor` chunk
-    //         if (chunk.name === 'vendor') {
-    //           return false;
-    //         }
-    //         return true;
-    //       },
-    //       uglifyOptions: {
-    //         warnings: false,
-    //         parse: {},
-    //         compress: {},
-    //         mangle: true, // Note `mangle.properties` is `false` by default.
-    //         output: null,
-    //         toplevel: false,
-    //         nameCache: null,
-    //         ie8: false,
-    //         keep_fnames: false,
-    //       },
-    //   })
-    // ]
   },
   module: {
     rules: [
