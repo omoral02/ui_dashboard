@@ -1,5 +1,6 @@
 {
   "presets": [
+<<<<<<< HEAD
     [
     "@babel/preset-env",
     {
@@ -33,3 +34,26 @@
     // "babel-plugin-transform-builtin-extend"
   ],
 }
+=======
+        [
+        "@babel/preset-env",{
+          "useBuiltIns": "usage",
+            "targets": {
+              "esmodules": true,
+              "node": true
+            }
+         }
+        ]
+      
+  ],
+  "plugins":[
+      "@babel/plugin-syntax-dynamic-import",
+      "@babel/plugin-transform-classes"
+      // "@babel/plugin-proposal-class-properties"
+      // "@babel/plugin-proposal-object-rest-spread",
+      // "@babel/plugin-transform-template-literals",
+      // "babel-plugin-transform-builtin-extend"
+  ],
+  "presets": ["@babel/preset-env"]
+}
+>>>>>>> 3532ab35d3aac164ac74a10827bf48041010d893
