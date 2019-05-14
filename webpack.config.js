@@ -24,7 +24,7 @@ const paths = {
 //  Flip this boolean flag result to change development mode options
 //  development mode -> const dev_mode = (process.env.NODE_ENV !== 'production');
 //  production mdoe -> const dev_mode = (process.env.NODE_ENV == 'production');
-//
+
 const dev_mode = (process.env.NODE_ENV !== 'production');
 
 const pluginOptions = {
