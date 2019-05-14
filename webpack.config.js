@@ -40,7 +40,8 @@ const htmlOptions = {
     removeComments: dev_mode ? false : true,
     collapseWhitespace: dev_mode ? false : true,
     minifyJS: dev_mode ? false : true,
-    minifyCSS: dev_mode ? false : true
+    minifyCSS: dev_mode ? false : true,
+    useShortDoctype: dev_mode ? false : true,
   },
   appMountId: 'app',
 };
@@ -88,7 +89,7 @@ const config = {
     rules: [
       {
         enforce: 'pre',
-        test: /\.js$/,
+        test: /\.js$/i,
         //single entry point indentified for transpile performance
         include: paths.main,
         // exclude: /node_modules/,
@@ -102,7 +103,7 @@ const config = {
         ],
       },
       {
-        test: /\.js$/,
+        test: /\.js$/i,
         use: 'babel-loader',
         //single entry point indentified for transpile performance
         include: paths.main,
@@ -113,7 +114,7 @@ const config = {
         use: 'pug-loader'
       },
       {
-        test: /\.css$/,
+        test: /\.css$/i,
         use: [
           { loader: 'style-loader'},
           { loader: 'css-loader'}
@@ -143,7 +144,7 @@ const config = {
   ]
 };
 //output main config options
-console.log('\n \n \t \t \t \t \t \t \t Is build `mode:` property set to `development`? ', dev_mode.toString().toUpperCase());
+console.log('\n \n \t \t \t \t \t \t \t Is build `mode:` property set to `development` ? ', dev_mode.toString().toUpperCase());
 console.log('\n \n \t \t \t \t \t \t \t Is build `watch:` property set to `true` ? ', config.watch.toString().toUpperCase());
-console.log('\n \n \t \t \t \t \t \t \t To confirm, `config.mode` was flag-flipped to: ', config.mode.toString().toUpperCase(), 'MODE', '\n \n' );
+console.log('\n \n \t \t \t \t \t \t \t To confirm, Webpack\'s `config.mode` was flag-flipped to: ', config.mode.toString().toUpperCase(), 'MODE', '\n \n' );
 module.exports = config;
