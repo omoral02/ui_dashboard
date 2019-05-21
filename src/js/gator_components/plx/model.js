@@ -1,20 +1,20 @@
 export default class ScriptsModel {
   constructor() {
     this.initialState = {};
-    this.newState = this.initialState;
+    this.workingState = this.initialState;
     this.myState = {};
-    this.URL;
     this.scriptsParentHtml =
       `<ul id="scriptList" rel='plxScriptWindow' class=''>
-                <h2 class="card-header">Scripts</h2>
-                <div class="card-inner" id="plx-InnerCard"></div>
-            </ul>
-            <div class="card" id="parametersContainer">
-                <div class="card-inner">
-                  <h2 class="card-header">Parameters</h2>
-                  <div id="parameters"></div>
-                </div>
-            </div>`;
+          <h2 class="card-header">Scripts</h2>
+          <div class="card-inner" id="plx-InnerCard"></div>
+       </ul>`;
+    this.parametersParentHTML = 
+      `<div id="card-inner" class="card-inner">
+          <h2 class="card-header">Parameters</h2>
+          <div id="parameters"></div>
+          <button type="button" id="exit" title="Close this PLX pane.">Close Pane</button>
+          <div id="linkLister"></div>
+        </div>`;  
     this.scripts = [{
         title: ' API usage for specified mafe_weblog API by IP ',
         id: 'script_5b._a15f62_0000_2cc9_bcc5_001a11404b34',
@@ -50,15 +50,12 @@ export default class ScriptsModel {
     ];
   }
 
-  setInitialState(state) {
-    this.newState = state;
-  }
-
   setInitialStateObject() {
     let state = {
       statebasePlxUrl: 'http://plx/scripts2/',
       id: '',
       params: '',
+      url: null,
       currentlySelectedScript: '',
       currentlySelectedScriptIndex: '',
     };
@@ -66,33 +63,51 @@ export default class ScriptsModel {
     this.setInitialState(this.initialState);
   }
 
-  setNewState(param1, param2) {
+  setInitialState (initialState) {
+    this.workingState = initialState;
+  }
+
+  setMyStateToInitialState () {
+    this.myState = this.workingState;
+  }
+
+  getNewWorkingState (index, script) {
+    let workingState = this.setNewState(script, index);
+    return workingState;
+  }
+
+  setNewState (param1, param2) {
+    this.workingState = {};
     let state = {
       basePlxUrl: 'http://plx/scripts2/',
       id: '',
       params: '',
+      url: null,
       currentlySelectedScript: param1,
       currentlySelectedScriptIndex: param2,
     }
-    this.newState = state;
-    return this.newState;
+    this.workingState = state;
+    return this.workingState;
   }
 
-  getNewState(index, script) {
-    let myState = this.setNewState(script, index);
-    console.log(myState);
-    return myState;
+  setMyStateToWorkingState() {
+    this.myState = this.workingState;
+    return this.myState;
   }
 
   getScriptsParentHTML() {
     return this.scriptsParentHtml;
   }
 
+  getParametersParentHTML() {
+    return this.parametersParentHTML;
+  }
+
   getScripts() {
     return this.scripts;
   }
 
-  getScript(index) {
+  getScript (index) {
     return this.scripts[index];
   }
 
@@ -107,19 +122,19 @@ export default class ScriptsModel {
     // return this.currentlySelectedScriptIndex;
   }
 
-  getParameterNames(scriptIndex) {
+  getParameterNames (scriptIndex) {
     return Object.keys(this.scripts[scriptIndex].parameters);
   }
 
-  setParameterValue(scriptIndex, parameterName, parameterValue) {
-    this.scripts[scriptIndex].parameters[parameterName] = parameterValue;
+  setParameterValue (parameterName, parameterValue) {
+    this.myState.params[parameterName] = parameterValue;
   }
 
   getBasePlxUrl() {
     return this.myState.basePlxUrl;
   }
 
-  setScriptIdTo(id) {
+  setScriptIdTo (id) {
     this.myState.url_add_on = id;
   }
 
@@ -127,7 +142,7 @@ export default class ScriptsModel {
     return this.myState.url_add_on;
   }
 
-  setScriptParametersTo(params) {
+  setScriptParametersTo (params) {
     this.myState.params = params;
   }
 
@@ -135,11 +150,11 @@ export default class ScriptsModel {
     return this.myState.params;
   }
 
-  setFullUrlTo(_this) {
-    this.URL = _this;
+  setFullUrlTo (_this) {
+    this.myState.URL = _this;
   }
 
   getFullUrl() {
-    return this.URL;
+    return this.myState.URL;
   }
 }

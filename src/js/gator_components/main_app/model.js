@@ -36,7 +36,7 @@ export default class AppModel {
     
   }
 
-  clearChildViews () {
+  resetChildViews () {
     this.views.non_iretableViews = null;
     this.views.iterable_views = [];
   }

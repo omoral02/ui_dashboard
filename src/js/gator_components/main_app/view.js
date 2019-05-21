@@ -7,9 +7,13 @@ export default class AppView extends AppModel {
     this.viewsButtons = document.getElementsByClassName('dropbtn');
     this.mainMenu = document.getElementsByTagName('main')[0];
     this.plxButton = document.getElementById('plx_button');
+    this.plxButton.textContent = 'PLX';
     this.mapsButton = document.getElementById('map_button');
+    this.mapsButton.textContent = 'Dynamic Map'
     this.wsButton = document.getElementById('ws_button');
+    this.wsButton.textContent = 'WS Tester';
     this.staticMapButton = document.getElementById('static_map_button');
+    this.staticMapButton.textContent = 'Static Map';
     this.viewsPane = document.createElement('section');
     this.viewsPane.id = 'views_pane';
     this.mainMenu.insertAdjacentElement('afterend', this.viewsPane);
@@ -19,19 +23,19 @@ export default class AppView extends AppModel {
      if (this.views.iterable_views !== []){
         this.viewsListHasChildNodes ();
      } else {
-        super.clearChildViews ();
+        super.resetChildViews ();
         let views = this.viewsPane.childNodes;
         this.views.non_iterableViews = views;
         this.checkAndListChildNodes(this.views.non_iterableViews);
      }
   }
 
-  viewsListHasChildNodes () {
-    this.clearClassesOnChildNodes ();
-    super.clearChildViews ();
+  viewsListHasChildNodes() {
+    this.clearClassesOnChildNodes();
+    super.resetChildViews();
     let views = this.viewsPane.childNodes;
     this.checkAndListChildNodes(views);
-    this.checkEachViewIndex ();
+    this.checkEachViewIndex();
   }
 
   checkAndListChildNodes (views) {
@@ -50,7 +54,6 @@ export default class AppView extends AppModel {
     let values = super.getChildViews ();
     for(let i = 0; i < values.length; i++){
       let $elInArray = values[i];
-      console.log($elInArray);
       if ($elInArray.view.classList.contains('one')) {
           $elInArray.view.classList.toggle('one');
           this.listOfElementsByClass[0].classArrays[0].classList_1.pop($elInArray);
@@ -99,7 +102,6 @@ export default class AppView extends AppModel {
           object.view.id, ' is now: ', 
           object.view.classList.value, 
           ' : ');
-        console.log(super.getChildViews());
     });    
   } 
 }

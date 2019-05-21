@@ -1,7 +1,7 @@
 import ScriptsModel from './model'
 
 export default class ScriptsView extends ScriptsModel {
-  constructor(placeholders, viewPane) {
+  constructor (placeholders, viewPane) {
     super();
     this.placeholders = placeholders;
     this.parentPane = viewPane;
@@ -13,27 +13,29 @@ export default class ScriptsView extends ScriptsModel {
   }
 
   insertScriptsContainer () {
-    if (!this.scriptsParent) {
-    this.scriptsParent = document.createElement('div');
-    this.scriptsParent.classList.add('card');
-    this.scriptsParent.id = 'scriptsContainer';
-    this.scriptsParentinnerHTML = ( () => { return super.getScriptsParentHTML(); } )();
-    this.scriptsParent.innerHTML = this.scriptsParentinnerHTML;
-    this.parentPane.insertBefore(this.scriptsParent, this.parentPane.childNodes[0]);
-    this.grabInnerComponent();
-    this.insert(super.getScripts());
-    this.toggleScriptsContainerAndState();
+    if (!this.primaryParent) {
+        this.primaryParent = document.createElement('div');
+        this.primaryParent.classList.add('card');
+        this.primaryParent.id = 'scriptsPrimaryContainer';
+        this.primaryParentinnerHTML = ( () => { 
+          return super.getScriptsParentHTML()
+        })();
+        this.primaryParent.innerHTML = this.primaryParentinnerHTML;
+        this.parentPane.insertBefore(
+        this.primaryParent, 
+        this.parentPane.childNodes[0]);
+        this.grabInnerComponent();
+        console.log(this.primaryParent);
+        // insert scripts primary container
     } else {
-      this.parentPane.removeChild(this.scriptsParent);
-      this.scriptsParent = null;
+        this.resetPrimaryContainerFor('all');
+        // remove scripts primary container if it exists. 
     }
-    
   }
 
-  grabInnerComponent () {
+  grabInnerComponent() {
     this.ListInnerContainer = document.getElementById('plx-InnerCard');
-    this.parametersContainer = document.getElementById('parametersContainer');
-    this.parametersInnerContainer = document.getElementById('parameters');
+    this.insert(super.getScripts());
   }
 
   insert (scripts) {
@@ -45,64 +47,140 @@ export default class ScriptsView extends ScriptsModel {
       this.ListInnerContainer.appendChild(li);
       console.log(script);
     })
+    this.toggleScriptsContainer();
   }
 
-  toggleScriptsContainerAndState() {
-    super.setInitialStateObject();
-    this.resetItems();
-    this.scriptsParent.classList.toggle('show');
+  toggleScriptsContainer() {
+    this.primaryParent.classList.toggle('show');
   }
 
-  checkShow() {
-    let parametersParent = this.parametersContainer;
-    if ( !parametersParent.classList.contains('show') ) {
-      parametersParent.classList.toggle('show');
-    } else {
-      parametersParent.classList.remove('show');
-      // document.removeChild(parametersParent);
-      this.resetItems();
+  insertParametersContainer () {
+    if (!this.secondaryParent){
+        this.secondaryParent = document.createElement('div');
+        this.secondaryParent.classList.add('card');
+        this.secondaryParent.id = 'secondaryContainer';
+        this.secondaryParentinnerHTML = ( () => {
+          return super.getParametersParentHTML()
+        })();
+        this.secondaryParent.innerHTML = this.secondaryParentinnerHTML;
+        this.primaryParent.insertBefore(
+        this.secondaryParent,
+        this.primaryParent.childNodes[1]);
+        this.grabSecondaryComponent();
+    } 
+  }
+
+  grabSecondaryComponent() {
+    this.parametersInnerContainer = document.getElementById('parameters');
+    this.cardInner = document.getElementById('card-inner');
+    this.exit = document.getElementById('exit');
+    this.linkLister = document.getElementById('linkLister');
+  }
+
+  toggleParamsContainer() {
+    this.secondaryParent.classList.toggle('show');
+  }
+
+  visualManager (value) {
+    if (value === 'remove') {
+      this.secondaryParentContainsShowRemove('children');
+    } else if (value == 'insert') {
+        this.insertParametersContainer();
+        this.renderParams(super.getParameterNames(this.myState.currentlySelectedScriptIndex));
+        this.matchParamsTo(this.placeholders);
+    }
+    this.checkActiveOn(this.myState.currentlySelectedScript);
+  }
+
+  checkActiveOn (script) {
+    let item = script
+    if ( item.classList.contains('listed-item') ) {
+        if (item.classList.contains('active')) {
+          this.removeActive(item);
+        } else {
+          this.resetListItems();
+          item.classList.toggle('active');
+        }
     }
   }
 
-  visualManager () {
-      this.checkActiveOn(this.myState.currentlySelectedScript);
-      this.render(super.getParameterNames(this.myState.currentlySelectedScriptIndex));
+  secondaryParentContainsShowRemove (level) {
+    this.resetPrimaryContainerFor(level);
   }
 
-  checkActiveOn(currentlySelectedScript) {
-    let item = currentlySelectedScript;
-    if ( item.classList.contains('listed-item') ) {
-      if (item.classList.contains('active')) {
-        this.removeActive(item);
-        super.setNewState();
-      } else {
-        super.setNewState();
-        this.removeActive(item);
-        this.matchParamsTo(this.placeholders);
-        item.classList.toggle('active');
+  resetPrimaryContainerFor (level) {
+    if (level == 'all'){
+      this.resetChildren();
+      if (this.primaryParent) {
+        this.parentPane.removeChild(this.primaryParent);
+      } 
+      this.primaryParent = null;
+    } else if (level == 'children') {
+      this.resetChildren();
+    }
+    this.setNull(this.plxOutputLink);
+  }
+
+
+  setNull (button) {
+    if (button){
+      button.removeAttribute('href');
+      super.setFullUrlTo(this.emptyString);
+    }
+  }
+
+  resetListItems() {
+    let items = document.getElementsByClassName('listed-item');
+    for (let i = 0; i < items.length; i++) {
+      let item = items[i];
+      if ( item.classList.contains('active') ) {
+           this.removeActive(item);
       }
     }
   }
 
-  render(parameters) {
-    let parametersHtml = '';
+  removeActive (onListedItem) {
+    let item = onListedItem;
+    item.classList.remove('active');
+  }
+
+  resetChildren() {
+    if (this.myState.currentlySelectedScript){
+      this.myState.currentlySelectedScript.classList.remove('active');
+    }
+    if (this.plxOutputLink){
+      this.linkLister.removeChild(this.plxOutputLink);
+    }
+    if (this.params) {
+      this.parametersInnerContainer.removeChild(this.params);
+    }
+    if (this.secondaryParent) {
+      this.primaryParent.removeChild(this.secondaryParent);
+    }
+    this.plxOutputLink = null;
+    this.params = null;
+    this.secondaryParent = null;
+  }
+
+  renderParams (parameters) {
+    if ( !this.params){
+        this.params = document.createElement('div');
+        this.params.id = 'params';
+    }
+    this.parametersHtml = '';
     parameters.forEach((parameter) => {
-      parametersHtml += `<div class="innerParam"><p class="parameter">
+      this.parametersHtml += `<div class="innerParam"><p class="parameter">
               <label for="${parameter}">${parameter}:</label></p>
               <p><input type="text" class="input" id="${
           parameter}" placeholder="">
               </p></div>`;
+      this.params.innerHTML = this.parametersHtml;
+      this.parametersInnerContainer.insertBefore(this.params, this.parametersInnerContainer.childNodes[0]);
     });
-    this.parametersInnerContainer.innerHTML = parametersHtml;
-    if (!this.linkLister) {
-      this.linkLister = document.createElement('div');
-      this.linkLister.innerHTML = `<div id="linkLister"></div>`;
-    }
-    this.parametersInnerContainer.appendChild(this.linkLister);
-    this.checkShow();
+    this.secondaryParent.classList.toggle('show');
   }
 
-  matchParamsTo(placeholders) {
+  matchParamsTo (placeholders) {
     let parameterExample;
     console.log(placeholders);
     let fieldSamples = Object.entries(placeholders.parameters);
@@ -129,49 +207,24 @@ export default class ScriptsView extends ScriptsModel {
       }
     });
     super.setScriptParametersTo(paramBuild);
-    this.URL = super.getBasePlxUrl();
-    this.URL += super.getScriptId();
-    this.URL += super.getScriptParameters();
+    this.myState.URL = super.getBasePlxUrl();
+    this.myState.URL += super.getScriptId();
+    this.myState.URL += super.getScriptParameters();
     this.renderPlxUrl();
   }
 
   renderPlxUrl() {
-    if (!this.plxOutputButton){
-      this.plxOutputButton = document.createElement('a');
-      this.plxOutputButton.id = 'plxOutput';
-    }
-    this.plxOutputButton.target = '_blank';
-    this.plxOutputButton.href = super.getFullUrl();
-    this.plxOutputButton.textContent = 'Head there now!';
-    this.plxOutputButton.classList.add('showLink');
-    this.linkLister.appendChild(this.plxOutputButton);
-    console.log(this.plxOutputButton.href);
-  }
+    if (!this.plxOutputLink){
+          this.plxOutputLink = document.createElement('a');
+          this.plxOutputLink.id = 'plxOutput';
+          this.plxOutputLink.target = '_blank';
+          this.plxOutputLink.href = super.getFullUrl();
+          this.plxOutputLink.textContent = 'Head there now!';
+          this.plxOutputLink.classList.add('showLink');
+          this.linkLister.appendChild(this.plxOutputLink);
+          console.log(this.myState);
+    } else {
 
-  removeActive(onListedItem) {
-    const item = onListedItem;
-    item.classList.remove('active');
-  }
-
-  resetItems() {
-    let items = document.getElementsByClassName('listed-item');
-    for (let i = 0; i < items.length; i++) {
-      let item = items[i];
-      if ( item.classList.contains('active') ) {
-        this.removeActive(item);
-      }
-    }
-    this.resetLink();
-  }
-
-  resetLink() {
-    this.setNull(this.plxOutputButton);
-  }
-
-  setNull (button) {
-    if (button){
-      button.removeAttribute('href');
-      super.setFullUrlTo(this.emptyString);
     }
   }
 }

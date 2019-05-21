@@ -383,7 +383,7 @@ views_pane card containers
   align-self: center;
 }
 
-#scriptsContainer {
+#scriptsPrimaryContainer {
   visibility: hidden;
   align-self: center;
   flex-basis: auto;
@@ -401,7 +401,7 @@ views_pane card containers
   transition: all 0s;
 }
 
-#scriptsContainer li {
+#scriptsPrimaryContainer li {
   margin: 5px;
   text-align: center;
   padding: 12px 16px;
@@ -411,19 +411,19 @@ views_pane card containers
 
 /* Change color of dropdown links on hover */
 
-#scriptsContainer li:hover {
+#scriptsPrimaryContainer li:hover {
   background-color: #ddd;
   color: #0d64bc;
 }
 
 /*Wrap the list with curves*/
 
-#scriptsContainer li:first-child {
+#scriptsPrimaryContainer li:first-child {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
 
-#scriptsContainer li:last-child {
+#scriptsPrimaryContainer li:last-child {
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
 }
@@ -433,7 +433,7 @@ views_pane card containers
   the .dropdown-content container when 
   the user clicks on the dropdown PLX button) */
 
-#scriptsContainer.show {
+#scriptsPrimaryContainer.show {
   visibility: visible;
   display: flex;
   text-align: center;
@@ -450,7 +450,7 @@ views_pane card containers
 
 /* Start of Parameters Div*/
 
-#parametersContainer {
+#secondaryContainer {
   visibility: hidden;
   display: flex;
   justify-content: space-between;
@@ -468,7 +468,7 @@ views_pane card containers
   transition: all 0s;
 }
 
-#parametersContainer.show {
+#secondaryContainer.show {
   visibility: visible;
   display: flex;
   position: absolute;
@@ -485,7 +485,7 @@ views_pane card containers
 /*linkLister is the container meant to list mutiple hyperlinks from multiple script selection*/
 
 #linkLister {
-  display: flex;
+  visibility: hidden;
   position: relative;
 }
 
@@ -495,6 +495,7 @@ views_pane card containers
 }
 
 .showLink {
+  visibility: visible;
   display: inline-block !important;
 }
 

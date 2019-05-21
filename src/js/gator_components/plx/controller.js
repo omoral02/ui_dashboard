@@ -7,37 +7,48 @@ export default class ScriptsController extends ScriptsView {
   }
 
   init() {
-    super.insertScriptsContainer();
-    this.isNowListening();
+    super.setInitialStateObject();
+    super.initializeView();
+    this.isNowListeningForParametersToggle();
   }
 
-  isNowListening() {
+  isNowListeningForParametersToggle() {
+    super.setMyStateToInitialState();
     this.ListInnerContainer.addEventListener(
       'click', this.onScriptClick.bind(this),
        false);
-    this.parametersInnerContainer.addEventListener(
-      'input', this.onParameterInput.bind(this),
-       false);
-    console.log(this);
-    
   }
 
-  onScriptClick (event) {
-    let currentlySelectedScript = this.currentlySelectedScript =
-      event.target;
-    let scriptIndex = parseInt(currentlySelectedScript.dataset.index);
-    if (currentlySelectedScript.classList.contains('listed-item')) {
-      this.myState = super.getNewState(scriptIndex, currentlySelectedScript);
-      super.visualManager();
+  onScriptClick (e) {
+    e.preventDefault();
+    let currentlySelectedItem =  e.target;
+    if (currentlySelectedItem.classList.contains('listed-item')) {
+        super.insertParametersContainer();
+        let scriptIndex = parseInt(currentlySelectedItem.dataset.index);
+        this.myState = super.getNewWorkingState(scriptIndex, currentlySelectedItem);
+        if (this.secondaryParent.classList.contains('show')){
+              super.visualManager('remove');
+              super.removeActive(this.myState.currentlySelectedScript);
+        } else {
+              super.visualManager('insert');
+              this.innerComponentIsNowListening();
+        }
+    } else if (currentlySelectedItem.id =='exit' ){
+        super.secondaryParentContainsShowRemove('all');
     }
   }
 
-  onParameterInput (event) {
-    super.setFullUrlTo('');
-    const scriptIndex = super.getCurrentlySelectedScriptIndex();
-    const parameterName = event.target.id;
-    const parameterValue = event.target.value;
-    super.setParameterValue(scriptIndex, parameterName, parameterValue);
+  innerComponentIsNowListening() {
+    this.parametersInnerContainer.addEventListener(
+      'input', this.onParameterInput.bind(this),
+       false);
+    this.exit.addEventListener(
+      'click', this.onScriptClick.bind(this),
+       false);
+  }
+
+  onParameterInput (e) {
+    e.preventDefault();
     super.generatePlxUrl()
   }
 }
