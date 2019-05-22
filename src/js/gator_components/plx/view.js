@@ -35,6 +35,8 @@ export default class ScriptsView extends ScriptsModel {
 
   grabInnerComponent() {
     this.ListInnerContainer = document.getElementById('plx-InnerCard');
+    this.close = document.getElementById('close');
+    this.close.textContent = 'Close';
     this.insert(super.getScripts());
   }
 
@@ -44,7 +46,9 @@ export default class ScriptsView extends ScriptsModel {
       li.textContent = script.title;
       li.classList.add('listed-item');
       li.dataset.index = index;
-      this.ListInnerContainer.appendChild(li);
+      this.ListInnerContainer.insertBefore(
+        li,
+        this.ListInnerContainer.childNodes[0]);
       console.log(script);
     })
     this.toggleScriptsContainer();
@@ -71,10 +75,18 @@ export default class ScriptsView extends ScriptsModel {
   }
 
   grabSecondaryComponent() {
-    this.parametersInnerContainer = document.getElementById('parameters');
     this.cardInner = document.getElementById('card-inner');
-    this.exit = document.getElementById('exit');
-    this.linkLister = document.getElementById('linkLister');
+    this.parametersInnerContainer = document.getElementById('parameters');
+    this.paramButtonContainer = document.getElementById('paramButtonContainer');
+    this.reset = document.getElementById('reset');
+    // if (!this.linkLister) {
+    //   this.linkLister = document.createElement('div');
+    //   this.linkLister.classList.add('dropbtn');
+    //   this.linkLister.id = 'linkLister';
+    //   // this.paramButtonContainer.insertBefore(
+    //   //   this.linkLister,
+    //   //   this.paramButtonContainer.childNodes[1]);
+    // }
   }
 
   toggleParamsContainer() {
@@ -99,7 +111,7 @@ export default class ScriptsView extends ScriptsModel {
           this.removeActive(item);
         } else {
           this.resetListItems();
-          item.classList.toggle('active');
+          item.classList.add('active');
         }
     }
   }
@@ -149,7 +161,7 @@ export default class ScriptsView extends ScriptsModel {
       this.myState.currentlySelectedScript.classList.remove('active');
     }
     if (this.plxOutputLink){
-      this.linkLister.removeChild(this.plxOutputLink);
+      this.paramButtonContainer.removeChild(this.plxOutputLink);
     }
     if (this.params) {
       this.parametersInnerContainer.removeChild(this.params);
@@ -221,7 +233,9 @@ export default class ScriptsView extends ScriptsModel {
           this.plxOutputLink.href = super.getFullUrl();
           this.plxOutputLink.textContent = 'Head there now!';
           this.plxOutputLink.classList.add('showLink');
-          this.linkLister.appendChild(this.plxOutputLink);
+          this.paramButtonContainer.insertBefore(
+                this.plxOutputLink,
+                this.paramButtonContainer.childNodes[2]);
           console.log(this.myState);
     } else {
 

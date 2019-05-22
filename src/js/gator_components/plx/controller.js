@@ -13,10 +13,13 @@ export default class ScriptsController extends ScriptsView {
   }
 
   isNowListeningForParametersToggle() {
-    super.setMyStateToInitialState();
+    super.setMyStateToInitialWorkingState();
     this.ListInnerContainer.addEventListener(
       'click', this.onScriptClick.bind(this),
        false);
+    this.close.addEventListener(
+      'click', this.onScriptClick.bind(this),
+      false);
   }
 
   onScriptClick (e) {
@@ -33,7 +36,9 @@ export default class ScriptsController extends ScriptsView {
               super.visualManager('insert');
               this.innerComponentIsNowListening();
         }
-    } else if (currentlySelectedItem.id =='exit' ){
+    } else if (currentlySelectedItem.id =='reset' ){
+        super.secondaryParentContainsShowRemove('children');
+    } else if (currentlySelectedItem.id == 'close'){
         super.secondaryParentContainsShowRemove('all');
     }
   }
@@ -42,7 +47,7 @@ export default class ScriptsController extends ScriptsView {
     this.parametersInnerContainer.addEventListener(
       'input', this.onParameterInput.bind(this),
        false);
-    this.exit.addEventListener(
+    this.reset.addEventListener(
       'click', this.onScriptClick.bind(this),
        false);
   }

@@ -6,14 +6,21 @@ export default class ScriptsModel {
     this.scriptsParentHtml =
       `<ul id="scriptList" rel='plxScriptWindow' class=''>
           <h2 class="card-header">Scripts</h2>
-          <div class="card-inner" id="plx-InnerCard"></div>
+          <div class="card-inner" id="plx-InnerCard">
+            <div id="scriptButtonContainer" class="buttonContainer">
+              <button type="button" class="exitbtn" id="close" title="Close this PLX Window."></button>
+            </div>          
+          </div>
+          
        </ul>`;
     this.parametersParentHTML = 
       `<div id="card-inner" class="card-inner">
           <h2 class="card-header">Parameters</h2>
           <div id="parameters"></div>
-          <button type="button" id="exit" title="Close this PLX pane.">Close Pane</button>
-          <div id="linkLister"></div>
+          <div id="paramButtonContainer" class="buttonContainer">
+            <button type="button" id="reset" class="exitbtn" title="Close this PLX pane.">Reset</button>
+          </div>
+          
         </div>`;  
     this.scripts = [{
         title: ' API usage for specified mafe_weblog API by IP ',
@@ -67,7 +74,7 @@ export default class ScriptsModel {
     this.workingState = initialState;
   }
 
-  setMyStateToInitialState () {
+  setMyStateToInitialWorkingState () {
     this.myState = this.workingState;
   }
 
