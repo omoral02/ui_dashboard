@@ -244,23 +244,20 @@ export default class ScriptsView extends ScriptsModel {
     URL += super.getScriptId();
     URL += super.getParameterInputs();
     super.setFullUrlTo(URL);
-    this.renderPlxUrl(super.getFullUrl());
+    this.renderPlxUrl();
   } 
 
-  renderPlxUrl(url) {
+  renderPlxUrl() {
     this.createLinkElement();      
     console.log('new state: ')
     console.log(this.myState);
     console.log(super.getFullUrl());
-    console.log(url);
     this.plxOutputLink.href = super.getFullUrl();  
     this.plxOutputLink.classList.add('showLink');  
   }
 
   createLinkElement() {
     if (!this.plxOutputLink){
-      console.log('this exists');
-      console.log(this.plxOutputLink);
       this.plxOutputLink = document.createElement('a');
       this.plxOutputLink.id = 'plxOutput';
       this.plxOutputLink.target = '_blank';
