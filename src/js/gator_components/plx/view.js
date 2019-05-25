@@ -185,7 +185,7 @@ export default class ScriptsView extends ScriptsModel {
     }
     this.parametersHtml = '';
     parameters.forEach( (parameter) => {
-      this.parametersHtml += super.getParametesHTML(parameter);
+      this.parametersHtml += super.getParameterHTML(parameter);
       this.params.innerHTML = this.parametersHtml;
       this.parametersInnerContainer.insertBefore(this.params, this.parametersInnerContainer.childNodes[0]);
     });
