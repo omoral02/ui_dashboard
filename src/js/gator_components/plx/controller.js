@@ -14,7 +14,7 @@ export default class ScriptsController extends ScriptsView {
 
   isNowListeningForParametersToggle() {
     super.setMyStateToInitialWorkingState();
-    this.ListInnerContainer.addEventListener(
+    this.scriptsListContainer.addEventListener(
       'click', this.onScriptClick.bind(this),
        false);
     this.close.addEventListener(
@@ -24,7 +24,7 @@ export default class ScriptsController extends ScriptsView {
 
   onScriptClick (e) {
     e.preventDefault();
-    let currentlySelectedItem =  e.target;
+    let currentlySelectedItem = e.target;
     if (currentlySelectedItem.classList.contains('listed-item')) {
         super.insertParametersContainer();
         let scriptIndex = parseInt(currentlySelectedItem.dataset.index);
@@ -36,8 +36,10 @@ export default class ScriptsController extends ScriptsView {
               super.visualManager('insert');
               this.innerComponentIsNowListening();
         }
-    } else if (currentlySelectedItem.id =='reset' ){
+    } else if (currentlySelectedItem.id == 'reset' ){
         super.secondaryParentContainsShowRemove('children');
+    } else if (currentlySelectedItem.id == 'resetLink'){
+        super.secondaryParentContainsShowRemove('link');
     } else if (currentlySelectedItem.id == 'close'){
         super.secondaryParentContainsShowRemove('all');
     }
@@ -54,7 +56,8 @@ export default class ScriptsController extends ScriptsView {
 
   onParameterInput (e) {
     e.preventDefault();
-    super.generatePlxUrl()
+    super.setParameterValue(e.target.id, e.target.value);
+    super.generateUrlBuild()
   }
 }
 
