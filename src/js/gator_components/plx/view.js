@@ -72,7 +72,7 @@ export default class ScriptsView extends ScriptsModel {
         })();
         this.secondaryParent.innerHTML = this.secondaryParentinnerHTML;
         this.scriptsListContainer.insertAdjacentElement(
-          'beforeend',
+          'afterbegin',
           this.secondaryParent);
         this.grabSecondaryComponent();
     } 

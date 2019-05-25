@@ -433,7 +433,7 @@ views_pane card containers
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: absolute;
+  position: relative;
   list-style-type: none;
   flex-basis: auto;
   z-index: 1;
@@ -449,7 +449,7 @@ views_pane card containers
 #secondaryContainer.show {
   visibility: visible;
   display: flex;
-  position: absolute;
+  position: relative;
   float: right;
   text-align: left;
 }
