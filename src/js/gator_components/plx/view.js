@@ -168,17 +168,16 @@ export default class ScriptsView extends ScriptsModel {
       }
       if (this.secondaryParent) {
         this.scriptsListContainer.removeChild(this.secondaryParent);
-      }
-      this.plxOutputLink = null;
-      this.params = null;
-      this.secondaryParent = null;
-
+      } 
     } else if (level == 'link'){
         if (this.plxOutputLink){
             this.paramButtonContainer.removeChild(this.plxOutputLink);
             this.setNull(this.plxOutputLink);
         }
     }
+    this.plxOutputLink = null;
+    this.params = null;
+    this.secondaryParent = null;
   }
 
   renderParams (parameters) {

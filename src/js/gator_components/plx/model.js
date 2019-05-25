@@ -69,7 +69,7 @@ export default class ScriptsModel {
           <h2 class="card-header">Scripts</h2>
           <div id="scriptButtonContainer" class="buttonContainer">
               <button type="button" class="exitbtn" id="close" title="Close this PLX Window."></button>
-              <button type="button" id="reset" class="exitbtn" title="Close this PLX pane."></button>
+              <button type="button" id="reset" class="exitbtn" title="Close parameters pane."></button>
             </div>   
           <div class="card-inner" id="plx-InnerCard">       
           </div>
