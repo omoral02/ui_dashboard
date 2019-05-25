@@ -65,13 +65,13 @@ export default class ScriptsModel {
 
   getScriptsParentHTML() {
     this.scriptsParentHtml =
-      `<ul id="scriptList" rel='plxScriptWindow' class=''>
-          <h2 class="card-header">Scripts</h2>
-          <div id="scriptButtonContainer" class="buttonContainer">
-              <button type="button" class="exitbtn" id="close" title="Close this PLX Window."></button>
-              <button type="button" id="reset" class="exitbtn" title="Close parameters pane."></button>
+      `<ul id='scriptList' rel='plxScriptWindow' class=''>
+          <h2 class='card-header'>Scripts</h2>
+          <div id='scriptButtonContainer' class='buttonContainer'>
+              <button type='button' class='exitbtn' id='close' title='Close this PLX Window.'></button>
+              <button type='button' id='reset' class='exitbtn' title='Close parameters pane.'></button>
             </div>   
-          <div class="card-inner" id="plx-InnerCard">       
+          <div class='card-inner' id='plx-InnerCard'>       
           </div>
           
        </ul>`;
@@ -80,12 +80,26 @@ export default class ScriptsModel {
 
   getParametersParentHTML() {
     this.parametersParentHTML = 
-      `<div id="card-inner" class="card-inner">
-          <h2 class="card-header">Parameters</h2>
-          <div id="parameters"></div>
+      `<div id='card-inner' class='card-inner'>
+          <h2 class='card-header'>Parameters</h2>
+          <div id='parameters'></div>
       </div>`;  
     return this.parametersParentHTML;
   }
+  
+  getParameterHTML (parameter) {
+    let paramaterHtml = 
+    `<div class='innerParam'>
+          <p class='parameter'>
+              <label for='`${parameter}`'>`${parameter}`:</label>
+          </p>
+          <p>
+            <input type='text' class='input' id='`${parameter}`' placeholder=''>
+          </p>
+      </div>`;
+    return paramaterHtml;
+    
+  } 
 
   getScripts() {
     this.scripts = [{

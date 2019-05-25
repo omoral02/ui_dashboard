@@ -25,7 +25,6 @@ export default class ScriptsView extends ScriptsModel {
             this.primaryParent, 
             this.parentPane.childNodes[0]);
           this.grabInnerComponent();
-          console.log(this.primaryParent);
           // insert scripts primary container
     } else {
           this.resetPrimaryContainerFor('all');
@@ -44,7 +43,7 @@ export default class ScriptsView extends ScriptsModel {
   }
 
   insert (scripts) {
-    scripts.forEach((script, index) => {
+    scripts.forEach( (script, index ) => {
       const li = document.createElement('li');
       li.textContent = script.title;
       li.classList.add('listed-item');
@@ -115,15 +114,15 @@ export default class ScriptsView extends ScriptsModel {
   }
 
   resetPrimaryContainerFor (level) {
-    if (level == 'all'){
+    if ( level == 'all' ){
       this.resetChildren('children');
-      if (this.primaryParent) {
+      if ( this.primaryParent ) {
         this.parentPane.removeChild(this.primaryParent);
       } 
       this.primaryParent = null;
-    } else if (level == 'children') {
+    } else if ( level == 'children' ) {
       this.resetChildren('children');
-    } else if (level == 'link') {
+    } else if ( level == 'link' ) {
       this.resetChildren('link');
     }
   }
@@ -141,7 +140,7 @@ export default class ScriptsView extends ScriptsModel {
 
   resetListItems() {
     const items = document.getElementsByClassName('listed-item');
-    for ( let i = 0; i < items.length; i++ ) {
+    for ( let i = 0; i < items.length; i++ ){
       const item = items[i];
       if ( item.classList.contains('active' )){
            this.removeActive(item);
@@ -185,12 +184,8 @@ export default class ScriptsView extends ScriptsModel {
         this.params.id = 'params';
     }
     this.parametersHtml = '';
-    parameters.forEach((parameter) => {
-      this.parametersHtml += `<div class="innerParam"><p class="parameter">
-              <label for="${parameter}">${parameter}:</label></p>
-              <p><input type="text" class="input" id="${
-          parameter}" placeholder="">
-              </p></div>`;
+    parameters.forEach( (parameter) => {
+      this.parametersHtml += super.getParametesHTML(parameter);
       this.params.innerHTML = this.parametersHtml;
       this.parametersInnerContainer.insertBefore(this.params, this.parametersInnerContainer.childNodes[0]);
     });
@@ -200,7 +195,7 @@ export default class ScriptsView extends ScriptsModel {
   matchParamsTo (placeholders) {
     let parameterExample;
     const fieldSamples = Object.entries(placeholders.parameters);
-    fieldSamples.forEach(([key, value], index) => {
+    fieldSamples.forEach(( [key, value], index ) => {
       parameterExample = document.getElementById(`${key}`);
       if (parameterExample) {
         parameterExample.setAttribute('placeholder', `${value}`);
