@@ -39,13 +39,12 @@ export default class ScriptsModel {
       currentlySelectedScriptIndex: param2,
     }
     this.workingState = state;
-    return this.workingState;
+    this.setMyStateToWorkingState(this.workingState);
   }
 
-  // setMyStateToWorkingState() {
-  //   this.myState = this.workingState;
-  //   return this.myState;
-  // }
+  setMyStateToWorkingState(workingState) {
+    this.myState = workingState;
+  }
 
   setScriptIdTo (id) {
     this.myState.id = id;
@@ -91,10 +90,10 @@ export default class ScriptsModel {
     let paramaterHtml = 
     `<div class='innerParam'>
           <p class='parameter'>
-              <label for='`${parameter}`'>`${parameter}`:</label>
+              <label for='${parameter}'>${parameter}:</label>
           </p>
           <p>
-            <input type='text' class='input' id='`${parameter}`' placeholder=''>
+            <input type='text' class='input' id='${parameter}' placeholder=''>
           </p>
       </div>`;
     return paramaterHtml;
@@ -144,10 +143,18 @@ export default class ScriptsModel {
 
   getCurrentlySelectedScript() {
     console.log(this.myState.currentlySelectedScriptIndex);
-    return this.scripts[this.myState.currentlySelectedScriptIndex];
+    return this.scripts[this.getCurrentlySelectedScriptIndex()];
   }
 
   getCurrentlySelectedScriptIndex() {
+    return this.myState.currentlySelectedScriptIndex;
+  }
+
+  getStateCurrentlySelectedScript () {
+    return this.myState.currentlySelectedScript;
+  }
+
+  getStateCurrentlySelectedScriptIndex () {
     return this.myState.currentlySelectedScriptIndex;
   }
 

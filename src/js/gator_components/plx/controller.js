@@ -28,10 +28,11 @@ export default class ScriptsController extends ScriptsView {
     if ( currentlySelectedItem.classList.contains('listed-item') ) {
         super.insertParametersContainer();
         let scriptIndex = parseInt(currentlySelectedItem.dataset.index);
-        this.myState = super.getNewWorkingState(scriptIndex, currentlySelectedItem);
+        super.getNewWorkingState(scriptIndex, currentlySelectedItem);
+        // this.myState = super.getNewWorkingState(scriptIndex, currentlySelectedItem);
         if ( this.secondaryParent.classList.contains('show') ){
               super.visualManager('remove');
-              super.removeActive(this.myState.currentlySelectedScript);
+              super.removeActive(super.getStateCurrentlySelectedScript());
         } else {
               super.visualManager('insert');
               this.innerComponentIsNowListening();

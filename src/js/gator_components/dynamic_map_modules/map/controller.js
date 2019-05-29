@@ -11,21 +11,23 @@ export default class MapsController extends MapsView {
     }
 
     init () {
-        if (!this.mapsJS){
+        if ( !this.mapsJS ){
             this.insertMapsScript();
-            super.initializeMapContainerInsertion();
+            super.initializeMapView();
         }
     }
 
     insertMapsScript () {
             this.mapsJS = document.createElement('script');
             this.mapsJS.setAttribute('rel', 'Maps_Script');
+            this.mapsJS.setAttribute('async', '');
             this.mapsJS.src =
-            `https://maps.googleapis.com/maps/api/js?&key=${this.api_key}`;
-            this.mapsJS.addEventListener(
-                'load', this.instantiateMapComponent.bind(this));
+            `https://maps.googleapis.com/maps/api/js?&libraries=places&key=${this.api_key}`;
+            this.mapsJS.defer = true;
+            
             this.head.appendChild(this.mapsJS);
-        
+            this.mapsJS.addEventListener(
+                'load', this.instantiateMapComponent.bind(this));        
     }
 
     instantiateMapComponent (event) {
@@ -37,9 +39,5 @@ export default class MapsController extends MapsView {
             this.styled_map.init();
         }
     }
-
-    // isNowListening () {
-    //     this.mapsButton.addEventListener('click', super.toggleMapContainer,false);
-    // }
 }
 

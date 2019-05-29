@@ -487,7 +487,9 @@ views_pane card containers
 /*Script output*/
 
 a:link {
-  text-decoration: none;
+  text-align: center;
+  text-emphasis: true;
+  /* text-decoration: none; */
   color: green;
 }
 

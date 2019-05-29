@@ -15,8 +15,8 @@ export default class ScriptsView extends ScriptsModel {
   insertScriptsContainer () {
     if ( !this.primaryParent ) {
           this.primaryParent = document.createElement('div');
-          this.primaryParent.classList.add('card');
           this.primaryParent.id = 'scriptsPrimaryContainer';
+          this.primaryParent.classList.add('card');
           this.primaryParentinnerHTML = ( () => { 
             return super.getScriptsParentHTML()
           })();
@@ -57,7 +57,7 @@ export default class ScriptsView extends ScriptsModel {
   }
 
   toggleScriptsContainer() {
-    this.primaryParent.classList.toggle('show');
+    this.primaryParent.classList.add('show');
   }
 
   insertParametersContainer () {
@@ -83,7 +83,7 @@ export default class ScriptsView extends ScriptsModel {
   }
 
   toggleParamsContainer() {
-    this.secondaryParent.classList.toggle('show');
+    this.secondaryParent.classList.add('show');
   }
 
   visualManager (value) {
@@ -91,10 +91,10 @@ export default class ScriptsView extends ScriptsModel {
       this.secondaryParentContainsShowRemove('children');
     } else if ( value == 'insert' ) {
         this.insertParametersContainer();
-        this.renderParams(super.getParameterNames(this.myState.currentlySelectedScriptIndex));
+        this.renderParams(super.getParameterNames(super.getStateCurrentlySelectedScriptIndex()));
         this.matchParamsTo(this.placeholders);
     }
-    this.checkActiveOn(this.myState.currentlySelectedScript);
+    this.checkActiveOn(super.getStateCurrentlySelectedScript());
   }
 
   checkActiveOn (script) {
