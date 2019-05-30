@@ -10,8 +10,8 @@ export default class AppModel {
         project_number: '1234567891012',
         client_id: 'gme-XXXXX',
         project_id: 'my-project1234343',
-        start_date: 'YYYY-MM-DD',
-        end_date: 'YYYY-MM-DD',
+        date_from: 'YYYY-MM-DD',
+        date_to: 'YYYY-MM-DD',
         key: 'AIzaSy***********',
         table_column: 'QPS column in logs.web_service_qps.all- "places"',
       },
@@ -36,7 +36,7 @@ export default class AppModel {
     
   }
 
-  clearChildViews () {
+  resetChildViews () {
     this.views.non_iretableViews = null;
     this.views.iterable_views = [];
   }

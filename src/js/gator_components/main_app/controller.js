@@ -21,18 +21,17 @@ export default class AppController extends AppView {
 
   loadControllers() {
     this.instantiateControllersWith(
-      this.util, 
-      super.getParametersList(), 
-      this.mapsButton, 
-      this.plxButton, 
-      this.head, 
-      this.apiKey, 
-      this.viewsPane);
+          this.util, 
+          super.getParametersList(), 
+          this.mapsButton, 
+          this.plxButton, 
+          this.head, 
+          this.apiKey, 
+          this.viewsPane);
     this.controllerIsNowlistening();
   }
 
   instantiateControllersWith (util, placeholders, mapsButton, plxButton, head, apiKey, viewsPane) {
-    console.log('Controller instantiated: ');
     if (!this.scriptsController){
     this.scriptsController = new ScriptsController(plxButton, placeholders, viewsPane);
     }
@@ -50,16 +49,15 @@ export default class AppController extends AppView {
     console.log(this);
   }
 
-  oneButtonWasClicked (event) {
-    if (event.target.id == 'plx_button'){
-        this.plxShouldLoad(event);
-    } else if (event.target.id == 'map_button'){
-        this.mapShouldLoad(event);
-    } else if (event.target.id == 'ws_button') {
-        console.log('This ws button was tapped');
+  oneButtonWasClicked (e) {
+    e.preventDefault();
+    if (e.target.id == 'plx_button'){
+        this.plxShouldLoad();
+    } else if (e.target.id == 'map_button'){
+        this.mapShouldLoad();
+    } else if (e.target.id == 'ws_button') {
         this.wsShouldLoad();
-    } else if (event.target.id == 'static_map_button') {
-        console.log('This static map button was tapped');
+    } else if (e.target.id == 'static_map_button') {
         this.staticMapShouldLoad();
     }
     super.checkAttachedPanes();

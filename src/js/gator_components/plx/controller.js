@@ -7,38 +7,58 @@ export default class ScriptsController extends ScriptsView {
   }
 
   init() {
-    super.insertScriptsContainer();
-    this.isNowListening();
+    super.setInitialStateObject();
+    super.initializeView();
+    this.isNowListeningForParametersToggle();
   }
 
-  isNowListening() {
-    this.ListInnerContainer.addEventListener(
-      'click', this.onScriptClick.bind(this),
+  isNowListeningForParametersToggle() {
+    super.setMyStateToInitialWorkingState();
+    this.scriptsListContainer.addEventListener(
+      'click', this.onScriptTitleClick.bind(this),
        false);
-    this.parametersInnerContainer.addEventListener(
-      'input', this.onParameterInput.bind(this),
+    this.close.addEventListener(
+      'click', this.onScriptTitleClick.bind(this),
        false);
-    console.log(this);
-    
   }
 
-  onScriptClick (event) {
-    let currentlySelectedScript = this.currentlySelectedScript =
-      event.target;
-    let scriptIndex = parseInt(currentlySelectedScript.dataset.index);
-    if (currentlySelectedScript.classList.contains('listed-item')) {
-      this.myState = super.getNewState(scriptIndex, currentlySelectedScript);
-      super.visualManager();
+  onScriptTitleClick (e) {
+    e.preventDefault();
+    let currentlySelectedItem = e.target;
+    if ( currentlySelectedItem.classList.contains('listed-item') ) {
+        super.insertParametersContainer();
+        let scriptIndex = parseInt(currentlySelectedItem.dataset.index);
+        super.getNewWorkingState(scriptIndex, currentlySelectedItem);
+        // this.myState = super.getNewWorkingState(scriptIndex, currentlySelectedItem);
+        if ( this.secondaryParent.classList.contains('show') ){
+              super.visualManager('remove');
+              super.removeActive(super.getStateCurrentlySelectedScript());
+        } else {
+              super.visualManager('insert');
+              this.innerComponentIsNowListening();
+        }
+    } else if ( currentlySelectedItem.id == 'resetLink' ){
+              super.secondaryParentContainsShowRemove('link');
+    } else if ( currentlySelectedItem.id == 'reset' ){
+              super.secondaryParentContainsShowRemove('children');
+    } else if ( currentlySelectedItem.id == 'close' ){
+              super.secondaryParentContainsShowRemove('all');
     }
   }
 
-  onParameterInput (event) {
-    super.setFullUrlTo('');
-    const scriptIndex = super.getCurrentlySelectedScriptIndex();
-    const parameterName = event.target.id;
-    const parameterValue = event.target.value;
-    super.setParameterValue(scriptIndex, parameterName, parameterValue);
-    super.generatePlxUrl()
+  innerComponentIsNowListening() {
+    this.parametersInnerContainer.addEventListener(
+      'input', this.onParameterInput.bind(this),
+       false);
+    this.reset.addEventListener(
+      'click', this.onScriptTitleClick.bind(this),
+       false);
+  }
+
+  onParameterInput (e) {
+    e.preventDefault();
+    super.setParameterValue(e.target.id, e.target.value);
+    super.generateUrlBuild()
   }
 }
 

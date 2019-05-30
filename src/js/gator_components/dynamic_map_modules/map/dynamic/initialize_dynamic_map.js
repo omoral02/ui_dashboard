@@ -2,9 +2,9 @@ export default class InitializeMap {
 
   constructor (util, map, mapsGlobals) {
     this.map_ctx_globals = mapsGlobals;
-    console.log(this.map_ctx_globals)
-;    let { america, control, search, markers, ids, uniqueId } = this.map_ctx_globals;
-    this.util = util
+    console.log(this.map_ctx_globals);    
+    let { america, control, search, markers, ids, uniqueId } = this.map_ctx_globals;
+    this.util = util;
     this.america = america;
     this.map = map;
     this.ids = ids;
@@ -135,24 +135,21 @@ export default class InitializeMap {
               stylers: [{color: '#b3ffff'}]
             }
           ], this.name);
-
-      this.self = this;
   }
 
-  initMap () {
-    // this.util.clearConsole();
+  initMap() {
     this._map = new google.maps.Map(this.map, this.mapOptions);
     this._map.mapTypes.set('styled_map', this.styledMapType);
     this._map.setMapTypeId('styled_map');
     this._map.controls[google.maps.ControlPosition.TOP_RIGHT].push(this.control);
     this.trafficLayer = new google.maps.TrafficLayer();
     this.trafficLayer.setMap(this._map);
-
     this.geocoder = new google.maps.Geocoder();
-    this.initListeners( this._map, this.self, this.infoWindow);
+    this.self = this;
+    this.initListeners(this._map, this.self, this.infoWindow, this.google);
   }
 
-  initListeners(_map, context, infoWindow) {
+  initListeners (_map, context, infoWindow) {
     this.asyncDirectionsHandler(_map, context);
     google.maps.event.addListener(_map, 'click', this.asyncClickFunction.bind(this, infoWindow));
     // document.getElementById('submit').addEventListener('click', this.asyncGeocoderFunction.bind(this));
@@ -163,7 +160,7 @@ export default class InitializeMap {
           const { default: AutocompleteDirectionsHandler } = await import(
           /* webpackChunkName: "directions_handler_class" */
           '../../modules/autocomplete_directions_handler');
-          const autocompleteHandler = new AutocompleteDirectionsHandler(_map, context.map_ctx_globals[0]);
+          const autocompleteHandler = new AutocompleteDirectionsHandler(_map, context.map_ctx_globals);
           autocompleteHandler.initListeners();
     }
     directionsHandler(_map, context);
@@ -181,7 +178,7 @@ export default class InitializeMap {
       clickedMarker(e.latLng, this._map, this.util, this.ids, infoWindow, this.markers, this.uniqueId);
   }
 
-  asyncGeocoderFunction () {
+  asyncGeocoderFunction() {
       async function geocodeAddress(geocoder, _map, util, infoWindow, markers, ids, uniqueId) {
             const { default: geocodeAddress } = await import(
             /* webpackChunkName: "geocode_address_function" */
@@ -192,3 +189,4 @@ export default class InitializeMap {
         geocodeAddress(this.geocoder, this._map, this.util, this.infoWindow, this.markers, this.ids, this.uniqueId);
   }
 }
+
