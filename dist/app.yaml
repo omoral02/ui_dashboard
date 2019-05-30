@@ -1,4 +1,4 @@
-runtime: nodejs
+runtime: nodejs8
 
 
 # Use only a single instance, so that this local-memory-only chat app will work
