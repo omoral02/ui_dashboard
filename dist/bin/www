@@ -3,9 +3,9 @@
 /**
  * Module dependencies.
  */
-
+process.env['DEBUG'] = 'app:server';
 var app = require('../app');
-var debug = require('debug')('myapp:server');
+var debug = require('debug')('app:server');
 var http = require('http');
 
 /**
@@ -82,6 +82,7 @@ function onError(error) {
 
 function onListening() {
   var addr = server.address();
-  var bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+  var _string = JSON.stringify(addr);
+  var bind = typeof addr === 'string' ? 'Server Address & Pipe: ' + _string : 'Server Address & Port: ' + _string;
   debug('Listening on ' + bind);
 }

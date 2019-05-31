@@ -5,6 +5,24 @@ export default class ScriptsModel {
     this.myState = {};
   }
 
+  /**
+   * Reduce lines of code with something like this:
+   * 
+    Foo() {
+      let _acctNum = '';
+
+      return {
+          getAcctNum: function() {
+              return _acctNum;
+          },
+          setAcctNum: function (newAcctNum) {
+            _acctNum = newAcctNum;
+          },
+        }
+      }
+   * 
+   */
+
   setInitialStateObject() {
     let state = {
       statebasePlxUrl: 'http://plx/scripts2/',
@@ -126,8 +144,9 @@ export default class ScriptsModel {
           },
           {
             title: ' Daily client and web service requests project and API key',
-            id: 'script_5a._f21dfd_0000_2487_9d9b_001a114d8db4',
+            id: 'script_5b._4e734f_0000_2d6d_af2d_94eb2c05a52e',
             parameters: {
+              'client_id': '',
               'project_id': '',
               'date_from': '',
               'date_to': '',
