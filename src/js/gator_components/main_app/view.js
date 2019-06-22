@@ -52,32 +52,34 @@ export default class AppView extends AppModel {
 
   clearClassesOnChildNodes () {
     let values = super.getChildViews ();
-    for(let i = 0; i < values.length; i++){
-      let $elInArray = values[i];
-      if ($elInArray.view.classList.contains('one')) {
-          $elInArray.view.classList.toggle('one');
-          this.listOfElementsByClass[0].classArrays[0].classList_1.pop($elInArray);
-        } else if ($elInArray.view.classList.contains('two')){
-            $elInArray.view.classList.toggle('two');
-            this.listOfElementsByClass[0].classArrays[0].classList_2.pop($elInArray);
-        } else if ($elInArray.view.classList.contains('three')){
-            $elInArray.view.classList.toggle('three');
-            this.listOfElementsByClass[0].classArrays[0].classList_3.pop($elInArray);
-        } else if  ($elInArray.view.classList.contains('four')){
-            $elInArray.view.classList.toggle('four');
-            this.listOfElementsByClass[0].classArrays[0].classList_4.pop($elInArray);
-        } else if  ($elInArray.view.classList.contains('five')){
-            $elInArray.view.classList.toggle('five');
-            this.listOfElementsByClass[0].classArrays[0].classList_5.pop($elInArray);
-        } else if  ($elInArray.view.classList.contains('six')){
-            $elInArray.view.classList.toggle('six');
-            this.listOfElementsByClass[0].classArrays[0].classList_6.pop($elInArray);
-        } else if  ($elInArray.view.classList.contains('seven')){
-            $elInArray.view.classList.toggle('seven');
-            this.listOfElementsByClass[0].classArrays[0].classList_7.pop($elInArray);
-        } else {
-            $elInArray.view.classList.toggle('eight');
-            this.listOfElementsByClass[0].classArrays[0].classList_8.pop($elInArray);
+    if(values){
+        for(let i = 0; i < values.length; i++){
+          let $elInArray = values[i];
+          if ($elInArray.view.classList.contains('one')) {
+              $elInArray.view.classList.toggle('one');
+              this.listOfElementsByClass[0].classArrays[0].classList_1.pop($elInArray);
+            } else if ($elInArray.view.classList.contains('two')){
+                $elInArray.view.classList.toggle('two');
+                this.listOfElementsByClass[0].classArrays[0].classList_2.pop($elInArray);
+            } else if ($elInArray.view.classList.contains('three')){
+                $elInArray.view.classList.toggle('three');
+                this.listOfElementsByClass[0].classArrays[0].classList_3.pop($elInArray);
+            } else if  ($elInArray.view.classList.contains('four')){
+                $elInArray.view.classList.toggle('four');
+                this.listOfElementsByClass[0].classArrays[0].classList_4.pop($elInArray);
+            } else if  ($elInArray.view.classList.contains('five')){
+                $elInArray.view.classList.toggle('five');
+                this.listOfElementsByClass[0].classArrays[0].classList_5.pop($elInArray);
+            } else if  ($elInArray.view.classList.contains('six')){
+                $elInArray.view.classList.toggle('six');
+                this.listOfElementsByClass[0].classArrays[0].classList_6.pop($elInArray);
+            } else if  ($elInArray.view.classList.contains('seven')){
+                $elInArray.view.classList.toggle('seven');
+                this.listOfElementsByClass[0].classArrays[0].classList_7.pop($elInArray);
+            } else {
+                $elInArray.view.classList.toggle('eight');
+                this.listOfElementsByClass[0].classArrays[0].classList_8.pop($elInArray);
+            }
         }
     }
   } 

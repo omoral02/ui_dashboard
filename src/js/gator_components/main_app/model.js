@@ -16,11 +16,7 @@ export default class AppModel {
         table_column: 'QPS column in logs.web_service_qps.all- "places"',
       },
     }];
-    this.views = {
-      non_iterableViews : null,
-      iterable_views : []
-
-    };
+    this.views = {};
     this.listOfElementsByClass = [{
       classArrays : [{
           classList_1 : [],
