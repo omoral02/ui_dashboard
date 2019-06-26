@@ -9,11 +9,13 @@ export default class AppModel {
         table_suffix: '20180503, last3days, latest, all',
         project_number: '1234567891012',
         client_id: 'gme-XXXXX',
-        project_id: 'my-project1234343',
+        project_number: 'my-project1234343',
         date_from: 'YYYY-MM-DD',
         date_to: 'YYYY-MM-DD',
-        key: 'AIzaSy***********',
+        api_key: 'AIzaSy***********',
         table_column: 'QPS column in logs.web_service_qps.all- "places"',
+        domain: 'domain.com',
+        url: 'domain.com/path',
       },
     }];
     this.views = {};
