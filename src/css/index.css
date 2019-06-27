@@ -346,6 +346,11 @@ views_pane card containers
   text-align: center;
 }
 
+#card-inner {
+  flex-direction: row !important;
+  margin: 0;
+}
+
 .card:last-child {
   margin-bottom: 0px;
   margin-right: 20px;
@@ -514,13 +519,13 @@ input::placeholder {
 }
 
 #secondaryContainer.show {
-  visibility: visible;
-  display: flex;
-  position: relative;
-  text-align: left;
-  font-size: 1em;
-  align-items: center;
-  justify-content: space-evenly;
+    visibility: visible;
+    display: flex;
+    position: relative;
+    text-align: center;
+    font-size: 1em;
+    align-items: flex-end;
+    justify-content: space-between;
 }
 
 .innerParam {
