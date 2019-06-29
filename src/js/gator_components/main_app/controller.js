@@ -1,4 +1,5 @@
 import { ApiKey } from './api_key';
+import Validate from './validate_input';
 import AppView from './view';
 import ScriptsController from '../plx/controller';
 import MapsController from '../dynamic_map_modules/map/controller';
@@ -6,7 +7,8 @@ import MapsController from '../dynamic_map_modules/map/controller';
 export default class AppController extends AppView {
   constructor(Util) {
     super();
-    this.util = new Util;
+    this.util = new Util();
+    this.validator = new Validate; 
     this.apiKey = ApiKey;
     this.actionButtons = []; 
   }
@@ -27,13 +29,14 @@ export default class AppController extends AppView {
           this.plxButton, 
           this.head, 
           this.apiKey, 
-          this.viewsPane);
+          this.viewsPane,
+          this.validator);
     this.controllerIsNowlistening();
   }
 
-  instantiateControllersWith (util, placeholders, mapsButton, plxButton, head, apiKey, viewsPane) {
+  instantiateControllersWith (util, placeholders, mapsButton, plxButton, head, apiKey, viewsPane, validator) {
     if (!this.scriptsController){
-    this.scriptsController = new ScriptsController(plxButton, placeholders, viewsPane);
+    this.scriptsController = new ScriptsController(plxButton, placeholders, viewsPane, validator);
     }
     if (!this.mapsController){
     this.mapsController = new MapsController (util, mapsButton, placeholders, viewsPane, apiKey, head);
@@ -78,5 +81,6 @@ export default class AppController extends AppView {
   staticMapShouldLoad() {
 
   }
+
 }
 

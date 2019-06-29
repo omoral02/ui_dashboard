@@ -203,6 +203,11 @@ export default class ScriptsView extends ScriptsModel {
     });
   }
 
+  inputWasInvalid (targetFieldInput) {
+    let $target = targetFieldInput;
+    $target.classList.toggle('invalid');
+  }
+
   generateUrlBuild() {
     const script = super.getCurrentlySelectedScript();
     const scriptId = `${script.id}?p=`;
@@ -211,26 +216,24 @@ export default class ScriptsView extends ScriptsModel {
     paramInputs.forEach(( [key, value], index ) => {
           let fieldInput = document.getElementById(`${key}`);
           if ( fieldInput.value ){ 
-            console.log('Active field input: ')
-            console.log(fieldInput);    
+            console.log('Active field input: ', '', fieldInput);    
             this.paramBuild();
           }
     });
   }
 
   paramBuild () {
-    const parameterEntries =  Object.entries(super.getScriptParameterValues());
+    const parameterEntries = Object.entries(super.getScriptParameterValues());
     let paramBuild = '';
     console.log('Object representation of parameter values: ');
     parameterEntries.forEach(( [key, value], index ) => {
-          console.log(key,': ', value);
+      console.log(key, ': ', value);
           paramBuild += `${key}` + ':' +`${value}`;
             if ( index !== parameterEntries.length - 1 ) {
               paramBuild += ',';
             }
     });
-    console.log('String representation of parameter values: ');
-    console.log(paramBuild);
+    console.log('String representation of parameter values: ', '', paramBuild);
     super.setScriptParamsTo(paramBuild);
     let URL  = super.getBasePlxUrl();
     URL += super.getScriptId();
@@ -240,9 +243,10 @@ export default class ScriptsView extends ScriptsModel {
   } 
 
   renderPlxUrl() {
-    this.createLinkElement();      
-    console.log('new state: ')
-    console.log(this.myState);
+    this.createLinkElement();   
+    console.log('new state: ', '' , this.myState);   
+    // console.log('new state: ');
+    // console.log(this.myState);
     this.plxOutputLink.href = super.getFullUrl();  
     this.plxOutputLink.classList.add('showLink');  
   }

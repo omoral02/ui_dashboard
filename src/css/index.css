@@ -367,6 +367,10 @@ views_pane card containers
   color: white !important;
 }
 
+.invalid {
+  border-color: red;
+}
+
 #ws_map {
   display: flex;
   align-self: center;
