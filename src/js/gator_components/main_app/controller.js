@@ -8,8 +8,8 @@ export default class AppController extends AppView {
   constructor(Util) {
     super();
     this.util = new Util();
-    this.validator = new Validate; 
-    this.apiKey = ApiKey;
+    this.validator = new Validate(); 
+    this.cl_apiKey = ApiKey;
     this.actionButtons = []; 
   }
 
@@ -28,18 +28,18 @@ export default class AppController extends AppView {
           this.mapsButton, 
           this.plxButton, 
           this.head, 
-          this.apiKey, 
+          this.cl_apiKey, 
           this.viewsPane,
           this.validator);
     this.controllerIsNowlistening();
   }
 
-  instantiateControllersWith (util, placeholders, mapsButton, plxButton, head, apiKey, viewsPane, validator) {
+  instantiateControllersWith (util, placeholders, mapsButton, plxButton, head, cl_apiKey, viewsPane, validator) {
     if (!this.scriptsController){
-    this.scriptsController = new ScriptsController(plxButton, placeholders, viewsPane, validator);
+    this.scriptsController = new ScriptsController(placeholders, viewsPane, plxButton, validator);
     }
     if (!this.mapsController){
-    this.mapsController = new MapsController (util, mapsButton, placeholders, viewsPane, apiKey, head);
+    this.mapsController = new MapsController (util, mapsButton, placeholders, viewsPane, cl_apiKey, head, validator);
     }
   }
 

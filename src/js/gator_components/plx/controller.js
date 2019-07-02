@@ -2,11 +2,10 @@ import ScriptsView from './view';
 import { stringify } from 'querystring';
 
 export default class ScriptsController extends ScriptsView {
-  constructor(plxButton, placeholders, viewPane, validate) {
+  constructor( placeholders, viewPane, plxButton, validate ) {
     super(placeholders, viewPane);
     this.plxButton = plxButton;
     this.validator = validate; //input validation class
-    let self = this;
   }
 
   init() {
