@@ -63,20 +63,38 @@ export default class ScriptsController extends ScriptsView {
   }
 
   validateInput (target) {
-    if ( target.classList.contains('input') ) {
-      let value = target.value;
-      let id = target.id;
-      console.log('Input to validate > ' + id, ' : ', `${value}`);
-      let result = eval('this.validator.is_'+ id)(value);
-      if ( result.valid == true ) {
-          console.log(result);
-          super.setParameterValue(id, value);
-          super.generateUrlBuild();
-        } else {
-          console.log(result);
-          super.inputWasInvalid(target);
-        } 
+    let inputField = target;
+    if ( inputField.classList.contains('input') ) {
+      let value = inputField.value;
+      let id = inputField.id;
+      console.log('Input to validate > ' + id, ' : ', value);
+      let validationResult = eval('this.validator.is_'+ id)(value);
+      this.classToggleOn(inputField, validationResult);
       }
+  }
+
+  classToggleOn (inputField, validationResult) {
+    let field = inputField;
+    let result = validationResult;
+    if ( result && result.valid == true ) {
+      this.isValid(field, result);
+    } else {
+      this.isNotValid(field, result);
+    } 
+    super.renderInputValidity(field, result)
+  }
+
+  isValid (input, result) {
+    let field = input;
+    console.log(result);
+    super.setParameterValue(field.id, field.value);
+    super.generateUrlBuild();
+
+  }
+
+  isNotValid (input, result) {
+    let field = input;
+    console.log('Not a valid ', field.id, ' : ', result);
   }
 }
 

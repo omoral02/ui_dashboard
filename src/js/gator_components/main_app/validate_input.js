@@ -37,7 +37,7 @@ export default class Validate {
         }
     }
 
-    is_date_from (value) {
+    is_date_from_YYYY_MM_DD (value) {
 
         if (value) {
             let result = {
@@ -48,7 +48,7 @@ export default class Validate {
         }
     }
 
-    is_date_to (value) {
+    is_date_to_YYYY_MM_DD (value) {
 
         if (value) {
             let result = {
@@ -82,7 +82,7 @@ export default class Validate {
     }
 
     is_place_Id (value) {
-        
+
         if (value) {
             let result = {
                 valid: true,
@@ -93,10 +93,16 @@ export default class Validate {
     }
 
     is_project_number (value) {
-
-        if (value) {
+        if ( value  ) {
+            if (value.match(/^[0-9]+$/)) {
+                let result = {
+                    valid: true,
+                    value: value
+                }
+                return result;
+            }
             let result = {
-                valid: true,
+                valid: false,
                 value: value
             }
             return result;
@@ -129,7 +135,7 @@ export default class Validate {
 //  * @param {string} value A string that may contain a place ID.
 //  * @return {string} The place ID parsed from the input string.
 //  */
-//   parsePlaceId(value) {
+//   parsePlaceId (value) {
 //   // Place IDs are web-safe strings, so they match [a-zA-Z0-9_-]+
 //   // To distinguish them from valid, one-word geographical names, we check for
 //   // - Short place IDs always start with "ChIJ" and are at least 27 characters.

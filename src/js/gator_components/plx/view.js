@@ -203,9 +203,20 @@ export default class ScriptsView extends ScriptsModel {
     });
   }
 
-  inputWasInvalid (targetFieldInput) {
+  renderInputValidity (targetFieldInput, result) {
     let $target = targetFieldInput;
-    $target.classList.toggle('invalid');
+    let validation = result;
+    console.log(targetFieldInput);
+    console.log(validation);
+    if ( $target ) {
+        if ( validation.valid == false && !$target.classList.contains('invalid') ){
+          $target.classList.toggle('invalid');
+        } else if ( validation.valid == true ){
+            if ($target.classList.contains('invlaid')){
+                $target.classlist.remove('invalid');
+            }
+        } 
+    }
   }
 
   generateUrlBuild() {
@@ -245,8 +256,6 @@ export default class ScriptsView extends ScriptsModel {
   renderPlxUrl() {
     this.createLinkElement();   
     console.log('new state: ', '' , this.myState);   
-    // console.log('new state: ');
-    // console.log(this.myState);
     this.plxOutputLink.href = super.getFullUrl();  
     this.plxOutputLink.classList.add('showLink');  
   }

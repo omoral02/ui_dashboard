@@ -139,8 +139,8 @@ export default class ScriptsModel {
             parameters: {
               'table_column': '',
               'project_number': '',
-              'date_from': '',
-              'date_to': '',
+              'date_from_YYYY_MM_DD': '',
+              'date_to_YYYY_MM_DD': '',
             },
         },
           {
@@ -149,8 +149,8 @@ export default class ScriptsModel {
             parameters: {
               'client_id': '',
               'project_number': '',
-              'date_from': '',
-              'date_to': '',
+              'date_from_YYYY_MM_DD': '',
+              'date_to_YYYY_MM_DD': '',
             }, 
           },
           {
@@ -161,8 +161,8 @@ export default class ScriptsModel {
               'project_number': '',
               'api_key': '',
               'domain': '',
-              'date_from': '',
-              'date_to': '',
+              'date_from_YYYY_MM_DD': '',
+              'date_to_YYYY_MM_DD': '',
             },
           },
           {
@@ -173,8 +173,8 @@ export default class ScriptsModel {
               'project_number': '',
               'api_key': '',
               'domain': '',
-              'date_from': '',
-              'date_to': '',
+              'date_from_YYYY_MM_DD': '',
+              'date_to_YYYY_MM_DD': '',
             },
           },
           {
@@ -185,8 +185,8 @@ export default class ScriptsModel {
               'project_number': '',
               'api_key': '',
               'domain': '',
-              'date_from': '',
-              'date_to': '',
+              'date_from_YYYY_MM_DD': '',
+              'date_to_YYYY_MM_DD': '',
             },
           },
           {
@@ -198,8 +198,8 @@ export default class ScriptsModel {
               'url': '',
               'api_key': '',
               'domain': '',
-              'date_from': '',
-              'date_to': '',
+              'date_from_YYYY_MM_DD': '',
+              'date_to_YYYY_MM_DD': '',
             },
           },
     ];

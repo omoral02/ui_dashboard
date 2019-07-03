@@ -290,6 +290,7 @@ views_pane card containers
   justify-content: space-evenly;
   overflow: visible;
   order: 3;
+  margin: 5px;
 }
 
 /* @keyframes nodeInserted { 
@@ -298,7 +299,7 @@ views_pane card containers
  } */
 
  #views_pane * {
-  animation-duration: 0.03s;
+  animation-duration: 0.5s;
   animation-name: nodeInserted;
  }
 
@@ -348,7 +349,6 @@ views_pane card containers
 
 #card-inner {
   flex-direction: row !important;
-  margin: 0;
 }
 
 .card:last-child {

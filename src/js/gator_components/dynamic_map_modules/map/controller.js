@@ -11,24 +11,24 @@ export default class MapsController extends MapsView {
         this.validator = validate;
     }
 
-    init () {
+    init() {
         if ( !this.mapsJS ){
-            this.insertMapsScript();
-            super.initializeMapView();
+             this.insertMapsScript();
+             super.initializeMapView();
         }
     }
 
-    insertMapsScript () {
+    insertMapsScript() {
             this.mapsJS = document.createElement('script');
             this.mapsJS.setAttribute('rel', 'Maps_Script');
             this.mapsJS.setAttribute('async', '');
             this.mapsJS.src =
             `https://maps.googleapis.com/maps/api/js?&libraries=places&key=${this.api_key}`;
             this.mapsJS.defer = true;
-            
-            this.head.appendChild(this.mapsJS);
             this.mapsJS.addEventListener(
-                'load', this.instantiateMapComponent.bind(this));        
+                'load', this.instantiateMapComponent.bind(this)); 
+            this.head.appendChild(this.mapsJS);
+                   
     }
 
     instantiateMapComponent (event) {
