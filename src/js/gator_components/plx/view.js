@@ -43,6 +43,7 @@ export default class ScriptsView extends ScriptsModel {
   }
 
   insert (scripts) {
+    console.log('Scripts ::', scripts);
     scripts.forEach( (script, index ) => {
       const li = document.createElement('li');
       li.textContent = script.title;
@@ -51,7 +52,6 @@ export default class ScriptsView extends ScriptsModel {
       this.scriptsListContainer.insertBefore(
         li,
         this.scriptsListContainer.childNodes[0]);
-      console.log(script);
     })
     this.toggleScriptsContainer();
   }
@@ -206,8 +206,8 @@ export default class ScriptsView extends ScriptsModel {
   renderInputValidity (targetFieldInput, result) {
     let $target = targetFieldInput;
     let validation = result;
-    console.log(targetFieldInput);
-    console.log(validation);
+    // console.log(targetFieldInput);
+    // console.log(validation);
     if ( $target ) {
         if ( validation.valid == false && !$target.classList.contains('invalid') ){
           $target.classList.toggle('invalid');
@@ -223,28 +223,27 @@ export default class ScriptsView extends ScriptsModel {
     const script = super.getCurrentlySelectedScript();
     const scriptId = `${script.id}?p=`;
     super.setScriptIdTo(scriptId);
-    const paramInputs = Object.entries(script.parameters);
-    paramInputs.forEach(( [key, value], index ) => {
-          let fieldInput = document.getElementById(`${key}`);
-          if ( fieldInput.value ){ 
-            console.log('Active field input: ', '', fieldInput);    
-            this.paramBuild();
-          }
-    });
+    this.paramBuild();
+    // const paramInputs = Object.entries(script.parameters);
+    // paramInputs.forEach(( [key, value], index ) => {
+    //       let fieldInput = document.getElementById(`${key}`);
+    //       if ( fieldInput ){ 
+    //         // console.log('Active field input:: ', fieldInput, fieldInput.value);    
+            
+    //       }
+    // });
   }
 
   paramBuild () {
     const parameterEntries = Object.entries(super.getScriptParameterValues());
     let paramBuild = '';
-    console.log('Object representation of parameter values: ');
     parameterEntries.forEach(( [key, value], index ) => {
-      console.log(key, ': ', value);
           paramBuild += `${key}` + ':' +`${value}`;
             if ( index !== parameterEntries.length - 1 ) {
               paramBuild += ',';
             }
     });
-    console.log('String representation of parameter values: ', '', paramBuild);
+    console.log('String representation of parameter values:: ', paramBuild);
     super.setScriptParamsTo(paramBuild);
     let URL  = super.getBasePlxUrl();
     URL += super.getScriptId();
@@ -255,7 +254,7 @@ export default class ScriptsView extends ScriptsModel {
 
   renderPlxUrl() {
     this.createLinkElement();   
-    console.log('new state: ', '' , this.myState);   
+    console.log('Object representation of parameter values:: ', this.myState);   
     this.plxOutputLink.href = super.getFullUrl();  
     this.plxOutputLink.classList.add('showLink');  
   }

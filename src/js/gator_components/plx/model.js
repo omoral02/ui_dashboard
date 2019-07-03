@@ -72,8 +72,8 @@ export default class ScriptsModel {
     this.myState.params = params;
   }
 
-  setFullUrlTo (_this) {
-    this.myState.url = _this;
+  setFullUrlTo (url) {
+    this.myState.url = url;
   }
 
   setParameterValue (parameterName, parameterValue) {
@@ -211,7 +211,6 @@ export default class ScriptsModel {
   }
 
   getCurrentlySelectedScript() {
-    console.log(this.myState.currentlySelectedScriptIndex);
     return this.scripts[this.getCurrentlySelectedScriptIndex()];
   }
 

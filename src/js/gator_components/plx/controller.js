@@ -65,18 +65,22 @@ export default class ScriptsController extends ScriptsView {
   validateInput (target) {
     let inputField = target;
     if ( inputField.classList.contains('input') ) {
-      let value = inputField.value;
-      let id = inputField.id;
-      console.log('Input to validate > ' + id, ' : ', value);
-      let validationResult = eval('this.validator.is_'+ id)(value);
-      this.classToggleOn(inputField, validationResult);
+        let id = inputField.id;
+        console.log('Input to validate :: ' + id);
+        // use eval to dynamically invoke regEx functions that filter input
+        // based on target id as the ids are part of the function names.
+        // from `validate_input.js`. 
+        // ex: `this.validator.is_project_number(value)` < validate project number
+        // ex: `this.validator.is_case_number(value)` < validate case number
+        let validationResult = eval('this.validator.is_'+ id)(inputField); 
+        this.classToggleOn(validationResult);
       }
   }
 
-  classToggleOn (inputField, validationResult) {
-    let field = inputField;
-    let result = validationResult;
-    if ( result && result.valid == true ) {
+  classToggleOn (validationResult) {
+    let field = validationResult.input;
+    let result = validationResult.valid;
+    if ( validationResult && result == true ) {
       this.isValid(field, result);
     } else {
       this.isNotValid(field, result);
@@ -86,7 +90,7 @@ export default class ScriptsController extends ScriptsView {
 
   isValid (input, result) {
     let field = input;
-    console.log(result);
+    console.log('Is ', field.id, 'valid? ', result, ':: ', field.value);
     super.setParameterValue(field.id, field.value);
     super.generateUrlBuild();
 
@@ -94,7 +98,7 @@ export default class ScriptsController extends ScriptsView {
 
   isNotValid (input, result) {
     let field = input;
-    console.log('Not a valid ', field.id, ' : ', result);
+    console.log(`${result}`,' :: Not a valid ', field.id);
   }
 }
 

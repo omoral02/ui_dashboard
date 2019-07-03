@@ -92,21 +92,23 @@ export default class Validate {
         }
     }
 
-    is_project_number (value) {
-        if ( value  ) {
-            if (value.match(/^[0-9]+$/)) {
-                let result = {
-                    valid: true,
-                    value: value
-                }
-                return result;
-            }
+    is_project_number (input) {
+        let regEx = /[^0-9]/g;
+        console.log(input, input.value);
+        let field = input;
+        let result = {
+            valid: true,
+            input: input,
+        };
+        if ( field.value.search(regEx) > -1 ) {
+            field.value = field.value.replace(regEx, "");
             let result = {
-                valid: false,
-                value: value
-            }
-            return result;
+                valid: true,
+                input: field,
+            };
+        return result;
         }
+        return result;
     }
 
     //   /**
