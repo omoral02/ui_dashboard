@@ -121,7 +121,7 @@ export default class ScriptsModel {
   getScripts() {
     this.scripts = [
        {
-          title: ' API usage for specified mafe_weblog API by IP ',
+          title: 'API usage for specified mafe_weblog API by IP',
           id: 'script_5b._a15f62_0000_2cc9_bcc5_001a11404b34',
           parameters: {
             'case_number': '',
@@ -134,7 +134,7 @@ export default class ScriptsModel {
             },
           },
           {
-            title: ' QPS breakdown from Web-Service ',
+            title: 'QPS breakdown from Web-Service',
             id: 'script_5b._a16102_0000_254d_940f_089e0822b400',
             parameters: {
               'table_column': '',

@@ -206,32 +206,19 @@ export default class ScriptsView extends ScriptsModel {
   renderInputValidity (targetFieldInput, result) {
     let $target = targetFieldInput;
     let validation = result;
-    // console.log(targetFieldInput);
-    // console.log(validation);
     if ( $target ) {
         if ( validation.valid == false && !$target.classList.contains('invalid') ){
-          $target.classList.toggle('invalid');
-        } else if ( validation.valid == true ){
-            if ($target.classList.contains('invlaid')){
-                $target.classlist.remove('invalid');
-            }
+            $target.classList.toggle('invalid');
+        } else if ( validation.valid == true && $target.classList.contains('invlaid') ){    
+            $target.classlist.remove('invalid');
         } 
     }
   }
 
-  generateUrlBuild() {
-    const script = super.getCurrentlySelectedScript();
+  generateUrlBuild(script) {
     const scriptId = `${script.id}?p=`;
     super.setScriptIdTo(scriptId);
     this.paramBuild();
-    // const paramInputs = Object.entries(script.parameters);
-    // paramInputs.forEach(( [key, value], index ) => {
-    //       let fieldInput = document.getElementById(`${key}`);
-    //       if ( fieldInput ){ 
-    //         // console.log('Active field input:: ', fieldInput, fieldInput.value);    
-            
-    //       }
-    // });
   }
 
   paramBuild () {
@@ -249,14 +236,16 @@ export default class ScriptsView extends ScriptsModel {
     URL += super.getScriptId();
     URL += super.getParameterInputs();
     super.setFullUrlTo(URL);
-    this.renderPlxUrl();
   } 
 
   renderPlxUrl() {
-    this.createLinkElement();   
-    console.log('Object representation of parameter values:: ', this.myState);   
-    this.plxOutputLink.href = super.getFullUrl();  
-    this.plxOutputLink.classList.add('showLink');  
+    if (this.plxOutputLink) {
+      this.plxOutputLink.href = super.getFullUrl(); 
+    } else {
+      this.createLinkElement();   
+      console.log('Object representation of parameter values:: ', this.myState);   
+      this.plxOutputLink.classList.add('showLink');
+    }
   }
 
   createLinkElement() {
@@ -265,12 +254,11 @@ export default class ScriptsView extends ScriptsModel {
       this.plxOutputLink.id = 'plxOutput';
       this.plxOutputLink.target = '_blank';
       this.plxOutputLink.textContent = 'Head there now!';
+      this.plxOutputLink.href = super.getFullUrl(); 
       this.scriptButtonContainer.insertBefore(
             this.plxOutputLink,
             this.scriptButtonContainer.childNodes[2]); 
      
-    } else {
-      this.plxOutputLink.classList.toggle('showLink'); 
+      }
     }
-  }
 }
