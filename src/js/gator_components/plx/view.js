@@ -230,7 +230,7 @@ export default class ScriptsView extends ScriptsModel {
               paramBuild += ',';
             }
     });
-    console.log('String representation of parameter values:: ', paramBuild);
+    console.log('String representation of parameter inputs:: ', paramBuild);
     super.setScriptParamsTo(paramBuild);
     let URL  = super.getBasePlxUrl();
     URL += super.getScriptId();
@@ -242,10 +242,10 @@ export default class ScriptsView extends ScriptsModel {
     if (this.plxOutputLink) {
       this.plxOutputLink.href = super.getFullUrl(); 
     } else {
-      this.createLinkElement();   
-      console.log('Object representation of parameter values:: ', this.myState);   
+      this.createLinkElement();     
       this.plxOutputLink.classList.add('showLink');
     }
+    console.log('Object representation of parameter values:: ', this.myState); 
   }
 
   createLinkElement() {

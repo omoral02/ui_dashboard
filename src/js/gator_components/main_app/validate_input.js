@@ -115,17 +115,18 @@ export default class Validate {
 
     is_project_number (input) {
         // this.isNumberField(input);
-        let regEx = /[^0-9]/g;
+        let filterRegex = new RegExp(/[^0-9]+$/g);
+        let matchRegex = new RegExp(/[0-9]+$/g);
         console.log(input, input.value);
         let field = input;
         let result = {
-            isFiltered: false,
+            matchesFilter: matchRegex.test(field.value),
             input: field,
         };
-        if ( field.value.search(regEx) > -1 ) {
-            field.value = field.value.replace(regEx, "");
+        if ( field.value.search(filterRegex) > -1 ) {
+            field.value = field.value.replace(filterRegex, "");
             let result = {
-                isFiltered: true,
+                matchesFilter: matchRegex.test(field.value),
                 input: field,
             };
         return result;
@@ -134,40 +135,40 @@ export default class Validate {
     }
 
     is_lat_lng (input) {
-            // this.isNumberField(input);
-            let regEx = /[^0-9.,]/g;
-            console.log(input, input.value);
-            let field = input;
-            let result = {
-                isFiltered: false,
-                input: field,
-            };
-            if ( field.value.search(regEx) > -1 ) {
-                 field.value = field.value.replace(regEx, "");
-                 let result = {
-                        isFiltered: true,
-                        input: field,
-                 };
-                let split = field.split(',');
-                split[2] = {
-                    lat: null,
-                    lng: null,
+        // this.isNumberField(input);
+        let regEx = /[^0-9.,]/g;
+        console.log(input, input.value);
+        let field = input;
+        let result = {
+            isFiltered: true,
+            input: field,
+        };
+        if ( field.value.search(regEx) > -1 ) {
+                field.value = field.value.replace(regEx, "");
+                let result = {
+                    isFiltered: true,
+                    input: field,
                 };
-                if (split.length >= 2) {
-                    const lat = split[0];
-                    const lng = split[1];
-                    split[2].lat = this.isNumberField(4, 9, lat);
-                    split[2].lng = this.isNumberField(4, 9, lng);
-                    if ( Math.abs(lat) <= 90 && Math.abs(lng) <= 180 && split[2].lat == true && split[2].lng == true ) {
-                        const latLng = lat + ',' + lng;
-                        result.latLng = latLng;
-                        return result;
-                    }
-                
+            let split = field.split(',');
+            split[2] = {
+                lat: null,
+                lng: null,
+            };
+            if (split.length >= 2) {
+                const lat = split[0];
+                const lng = split[1];
+                split[2].lat = this.isNumberField(4, 9, lat);
+                split[2].lng = this.isNumberField(4, 9, lng);
+                if ( Math.abs(lat) <= 90 && Math.abs(lng) <= 180 && split[2].lat == true && split[2].lng == true ) {
+                    const latLng = lat + ',' + lng;
+                    result.latLng = latLng;
+                    return result;
                 }
             
             }
-            return result;      
+        
+        }
+        return result;      
     }
 
     isMixedField (minLmit, maxLimit, input) {
@@ -233,7 +234,7 @@ export default class Validate {
         return result;
     }
 
-    //   /**
+//   /**
 //  * Parse a LatLng value from a string.
 //  * @param {string} value A string that may contain a LatLng.
 //  * @return {google.maps.LatLng} The latlng parsed from the input string.
