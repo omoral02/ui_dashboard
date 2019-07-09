@@ -98,7 +98,7 @@ export default class ScriptsController extends ScriptsView {
               } else {
                 Object.defineProperty(validationCheck, 'valid', {value:false, writable: true});
                 this.classToggleOn(validationCheck);
-            }
+             }
       }
   }
 
