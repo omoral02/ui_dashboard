@@ -139,7 +139,7 @@ const config = {
          rel: 'prefetch',
         //  option/attribute for preload not used for prefetch
         //  as: 'text/javacript',  
-         include: ['runtime', 'main']
+         include: ['main', 'runtime']
        }),
   ]
 };
