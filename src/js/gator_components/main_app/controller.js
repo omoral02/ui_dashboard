@@ -9,9 +9,10 @@ export default class AppController extends AppView {
     super();
     this.superToolId = 'lpchobgehbffcpbknlbniafpdghdcimh';
     this.util = new Util();
-    this.messagePassing = new MessagePassing(this.superToolId);
     this.cl_apiKey = ApiKey;
-    this.actionButtons = []; 
+    this.actionButtons = [];
+    this.onLoadCheckForActionButtons();
+    this.messagePassing = new MessagePassing(this.superToolId); 
   }
 
   onLoadCheckForActionButtons() {
