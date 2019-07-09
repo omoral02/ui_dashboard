@@ -1,7 +1,6 @@
 export default class Validate {
 
     constructor () {
-
     }
 
     is_api_key (input) {
@@ -114,10 +113,8 @@ export default class Validate {
     }
 
     is_project_number (input) {
-        // this.isNumberField(input);
         let filterRegex = new RegExp(/[^0-9]+$/g);
         let matchRegex = new RegExp(/[0-9]+$/g);
-        console.log(input, input.value);
         let field = input;
         let result = {
             matchesFilter: matchRegex.test(field.value),
@@ -135,9 +132,7 @@ export default class Validate {
     }
 
     is_lat_lng (input) {
-        // this.isNumberField(input);
         let regEx = /[^0-9.,]/g;
-        console.log(input, input.value);
         let field = input;
         let result = {
             isFiltered: true,
@@ -171,27 +166,6 @@ export default class Validate {
         return result;      
     }
 
-    isMixedField (minLmit, maxLimit, input) {
-        let min = minLmit;
-        let max = maxLimit;
-        let regEx = /[^a-z0-9]/gi;
-        console.log(input, input.value);
-        let field = input;
-        let result = {
-            isFiltered: true,
-            input: input,
-        };
-        if ( field.value.search(regEx) > -1 ) {
-            field.value = field.value.replace(regEx, "");
-            let result = {
-                isFiltered: true,
-                input: field,
-            };
-        return result;
-        }
-        return result;
-    }
-
     isNumberField (minLimit, maxLimit, input) {
         let min = minLimit;
         let max = maxLimit;
@@ -217,6 +191,27 @@ export default class Validate {
         let min = minLimit;
         let max = maxLimit;
         let regEx = /[^a-z]/gi;
+        console.log(input, input.value);
+        let field = input;
+        let result = {
+            isFiltered: true,
+            input: input,
+        };
+        if ( field.value.search(regEx) > -1 ) {
+            field.value = field.value.replace(regEx, "");
+            let result = {
+                isFiltered: true,
+                input: field,
+            };
+        return result;
+        }
+        return result;
+    }
+
+    isMixedField (minLmit, maxLimit, input) {
+        let min = minLmit;
+        let max = maxLimit;
+        let regEx = /[^a-z0-9]+$/gi;
         console.log(input, input.value);
         let field = input;
         let result = {

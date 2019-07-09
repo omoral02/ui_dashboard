@@ -9,35 +9,8 @@ let indexRouter = require('./routes/index');
 let adminRouter = require('./routes/admin');
 const filePath = path.resolve(__dirname, '..', 'public/');
 
-//// Simple but manual template engine//// 
-//**
-// const options = {
-//   title: 'title test',
-//   message: 'message test'
-// };
-// let cb = ((err)=>{
-//   console.log(err);
-// });
-// app.engine('html', function (filePath, options, cb) { // define the template engine
-//   fs.readFile(filePath, function (err, content) {
-//     if (err) {return cb(err);}
-//     // this is an extremely simple template engine
-//     let rendered = content.toString().replace('<title></title>', '<title>' + options.title + '</title>')
-//     .replace('<h1></h1>', '<h1>' + options.message + '</h1>').
-//     replace('<link>', '<link rel=\'stylesheet\' src=\'./public/css/index.css\'>');
-//     return cb(null, rendered);
-//   })
-// });
-//  **/
 
-//// Pug template engine ////
-//** 
-// pug view engine setup
-// app.set('views', path.join(__dirname, 'views'));
-// app.set('view engine', 'pug');
-// **/
-
-
+/// Static HTML template engine ///
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -66,3 +39,32 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+//// Simple but manual template engine//// 
+//**
+// const options = {
+//   title: 'title test',
+//   message: 'message test'
+// };
+// let cb = ((err)=>{
+//   console.log(err);
+// });
+// app.engine('html', function (filePath, options, cb) { // define the template engine
+//   fs.readFile(filePath, function (err, content) {
+//     if (err) {return cb(err);}
+//     // this is an extremely simple template engine
+//     let rendered = content.toString().replace('<title></title>', '<title>' + options.title + '</title>')
+//     .replace('<h1></h1>', '<h1>' + options.message + '</h1>').
+//     replace('<link>', '<link rel=\'stylesheet\' src=\'./public/css/index.css\'>');
+//     return cb(null, rendered);
+//   })
+// });
+//  **/
+
+
+//// Pug template engine ////
+//** 
+// pug view engine setup
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'pug');
+// **/

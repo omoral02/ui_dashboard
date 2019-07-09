@@ -8,7 +8,7 @@ const paths = {
     dir: path.resolve(__dirname),
     src: path.resolve(__dirname, 'src'),
     css: path.resolve(__dirname, 'src', 'css'),
-    main: path.resolve(__dirname, 'src', 'js', 'main.js'),
+    main: path.resolve(__dirname, 'src', 'js', 'gator_components', 'utilities', 'main.js'),
     favicon: path.resolve(__dirname, 'src', 'favicon.ico'),
     html:path.resolve(__dirname, 'src', 'pug_views', 'index.pug'),
     dist: path.resolve(__dirname, 'dist'),
@@ -144,7 +144,7 @@ const config = {
   ]
 };
 //output main config options
-console.log('\n \n \t \t \t \t \t \t \t Is build `mode:` property set to `development` ? ', dev_mode.toString().toUpperCase());
-console.log('\n \n \t \t \t \t \t \t \t Is build `watch:` property set to `true` ? ', config.watch.toString().toUpperCase());
-console.log('\n \n \t \t \t \t \t \t \t To confirm, Webpack\'s `config.mode` was flag-flipped to: ', config.mode.toString().toUpperCase(), 'MODE', '\n \n' );
+console.log('\n \n \t      Is build `mode:` property set to `development` ? ', dev_mode.toString().toUpperCase());
+console.log('\n \n \t      Is build `watch:` property set to `true` ? ', config.watch.toString().toUpperCase());
+console.log('\n \n \t      To confirm, Webpack\'s `config.mode` was flag-flipped to: ', config.mode.toString().toUpperCase(), 'MODE', '\n \n' );
 module.exports = config;

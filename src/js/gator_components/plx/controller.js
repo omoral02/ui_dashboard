@@ -1,10 +1,10 @@
 import ScriptsView from './view';
 
 export default class ScriptsController extends ScriptsView {
-  constructor( placeholders, viewPane, plxButton, validate ) {
+  constructor( util, placeholders, viewPane, plxButton ) {
     super(placeholders, viewPane);
     this.plxButton = plxButton;
-    this.validator = validate; //input validation class
+    this.validator = util; //input validation class
   }
 
   init() {

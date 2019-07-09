@@ -1,5 +1,4 @@
-import { ApiKey } from './api_key';
-import Validate from './validate_input';
+import { ApiKey } from '../utilities/api_key';
 import AppView from './view';
 import ScriptsController from '../plx/controller';
 import MapsController from '../dynamic_map_modules/map/controller';
@@ -8,7 +7,6 @@ export default class AppController extends AppView {
   constructor(Util) {
     super();
     this.util = new Util();
-    this.validator = new Validate(); 
     this.cl_apiKey = ApiKey;
     this.actionButtons = []; 
   }
@@ -29,17 +27,16 @@ export default class AppController extends AppView {
           this.plxButton, 
           this.head, 
           this.cl_apiKey, 
-          this.viewsPane,
-          this.validator);
+          this.viewsPane,);
     this.controllerIsNowlistening();
   }
 
-  instantiateControllersWith (util, placeholders, mapsButton, plxButton, head, cl_apiKey, viewsPane, validator) {
+  instantiateControllersWith (util, placeholders, mapsButton, plxButton, head, cl_apiKey, viewsPane) {
     if (!this.scriptsController){
-    this.scriptsController = new ScriptsController(placeholders, viewsPane, plxButton, validator);
+    this.scriptsController = new ScriptsController(util, placeholders, viewsPane, plxButton);
     }
     if (!this.mapsController){
-    this.mapsController = new MapsController (util, mapsButton, placeholders, viewsPane, cl_apiKey, head, validator);
+    this.mapsController = new MapsController (util, placeholders, mapsButton, viewsPane, cl_apiKey, head);
     }
   }
 
