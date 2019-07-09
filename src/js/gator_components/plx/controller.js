@@ -72,7 +72,7 @@ export default class ScriptsController extends ScriptsView {
         let id = inputField.id;
         console.log('Input to filter :: ' + id);
         let filteredResult = eval('this.validator.is_'+ id)(inputField);
-        console.log('Does input match filter? :: ', filteredResult.matchesFilter);
+        console.log('Does input match filter? :: ', filteredResult.isFiltered);
         this.validateOutputOn(filteredResult);
       }
   }
@@ -83,22 +83,23 @@ export default class ScriptsController extends ScriptsView {
     let script = super.getCurrentlySelectedScript();
     // this regEx tests the input.value to ensure 
     // there is no white-space in the filtered result. 
-    let regEx = /[^\S+]/gi
+    let regEx = /[^\S+]/gi;
     console.log(validationCheck);
     if ( input.value && regEx.test(input.value) == false ) {
         console.log('Do we have whitespace? ', regEx.test(input.value));
               // add the property `validationcheck.valid` 
               // to be either true or false 
-              Object.defineProperty(validationCheck, 'valid', {value:true, writable: true});
-              this.classToggleOn(validationCheck)
-              super.setParameterValue(input.id, input.value);
-              super.generateUrlBuild(script);
-              super.renderPlxUrl();
-            } else {
-              Object.defineProperty(validationCheck, 'valid', {value:false, writable: true});
-              this.classToggleOn(validationCheck);
+              if ( validationCheck.isFiltered === true ){
+                Object.defineProperty(validationCheck, 'valid', {value:true, writable: true});
+                this.classToggleOn(validationCheck)
+                super.setParameterValue(input.id, input.value);
+                super.generateUrlBuild(script);
+                super.renderPlxUrl();
+              } else {
+                Object.defineProperty(validationCheck, 'valid', {value:false, writable: true});
+                this.classToggleOn(validationCheck);
             }
-    
+      }
   }
 
   classToggleOn (finalResult) {
