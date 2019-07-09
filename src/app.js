@@ -7,7 +7,7 @@ let fs = require('fs');
 let app = express();
 let indexRouter = require('./routes/index');
 let adminRouter = require('./routes/admin');
-const filePath = path.resolve(__dirname, '..', 'public/');
+// let filePath = path.resolve(__dirname, '..', 'public/');
 
 
 /// Static HTML template engine ///

@@ -20,18 +20,18 @@ export default class MapsController extends MapsView {
 
     insertMapsScript() {
             this.mapsJS = document.createElement('script');
-            this.mapsJS.setAttribute('rel', 'Maps_Script');
+            this.mapsJS.setAttribute('rel', 'maps_Script');
             this.mapsJS.setAttribute('async', '');
             this.mapsJS.src =
             `https://maps.googleapis.com/maps/api/js?&libraries=places&key=${this.api_key}`;
             this.mapsJS.defer = true;
             this.mapsJS.addEventListener(
-                'load', this.instantiateMapComponent.bind(this)); 
+                'load', this.instantiateMapModule.bind(this)); 
             this.head.appendChild(this.mapsJS);
                    
     }
 
-    instantiateMapComponent (event) {
+    instantiateMapModule (event) {
         console.log('This ', event.target.getAttribute('rel'), ' has loaded!');
         if (!this.styled_map){
             const { default: DynamicMapController } = require('./dynamic/controller');

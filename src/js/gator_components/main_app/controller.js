@@ -1,4 +1,5 @@
 import { ApiKey } from '../utilities/api_key';
+import MessagePassing from '../utilities/message_passing';
 import AppView from './view';
 import ScriptsController from '../plx/controller';
 import MapsController from '../dynamic_map_modules/map/controller';
@@ -6,7 +7,9 @@ import MapsController from '../dynamic_map_modules/map/controller';
 export default class AppController extends AppView {
   constructor(Util) {
     super();
+    this.superToolId = 'lpchobgehbffcpbknlbniafpdghdcimh';
     this.util = new Util();
+    this.messagePassing = new MessagePassing(this.superToolId);
     this.cl_apiKey = ApiKey;
     this.actionButtons = []; 
   }
