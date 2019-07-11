@@ -111,6 +111,7 @@ export default class Validate {
         }
         return result;
     }
+}
 
     // isNumberField (minLimit, maxLimit, input) {
     //     let min = minLimit;
@@ -284,5 +285,3 @@ export default class Validate {
     //   }
     //   return null;
     //   }
-
-}

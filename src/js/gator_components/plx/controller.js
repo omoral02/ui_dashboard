@@ -111,7 +111,7 @@ export default class ScriptsController extends ScriptsView {
       this.isValid(field, status);
     } else {
       console.log('This does not meet the minimum requirements for a', `${field.id}`);
-      // this.isNotValid(field, status);
+    // this.isInvalid(field, status);
     } 
     // super.renderInputValidity(field, status)
   }
@@ -121,7 +121,7 @@ export default class ScriptsController extends ScriptsView {
     console.log('Is ', field.id, 'valid? ', status, ':: ', field.value);
   }
 
-  // isNotValid (input, status) {
+  //   isInvalid (input, status) {
   //   const field = input;
   // }
 }
