@@ -103,7 +103,7 @@ export default class AppView extends AppModel {
         console.log('Classlist for ', 
           object.view.id, ' is now: ', 
           object.view.classList.value, 
-          ' : ');
+          );
     });    
   } 
 }

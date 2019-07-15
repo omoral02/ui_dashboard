@@ -1,4 +1,202 @@
-(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["main"],{
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// install a JSONP callback for chunk loading
+/******/ 	function webpackJsonpCallback(data) {
+/******/ 		var chunkIds = data[0];
+/******/ 		var moreModules = data[1];
+/******/
+/******/
+/******/ 		// add "moreModules" to the modules object,
+/******/ 		// then flag all "chunkIds" as loaded and fire callback
+/******/ 		var moduleId, chunkId, i = 0, resolves = [];
+/******/ 		for(;i < chunkIds.length; i++) {
+/******/ 			chunkId = chunkIds[i];
+/******/ 			if(installedChunks[chunkId]) {
+/******/ 				resolves.push(installedChunks[chunkId][0]);
+/******/ 			}
+/******/ 			installedChunks[chunkId] = 0;
+/******/ 		}
+/******/ 		for(moduleId in moreModules) {
+/******/ 			if(Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
+/******/ 				modules[moduleId] = moreModules[moduleId];
+/******/ 			}
+/******/ 		}
+/******/ 		if(parentJsonpFunction) parentJsonpFunction(data);
+/******/
+/******/ 		while(resolves.length) {
+/******/ 			resolves.shift()();
+/******/ 		}
+/******/
+/******/ 	};
+/******/
+/******/
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// object to store loaded and loading chunks
+/******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 	// Promise = chunk loading, 0 = chunk loaded
+/******/ 	var installedChunks = {
+/******/ 		"main": 0
+/******/ 	};
+/******/
+/******/
+/******/
+/******/ 	// script path function
+/******/ 	function jsonpScriptSrc(chunkId) {
+/******/ 		return __webpack_require__.p + "js/" + chunkId + ".bundle.js"
+/******/ 	}
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/ 	// This file contains only the entry chunk.
+/******/ 	// The chunk loading function for additional chunks
+/******/ 	__webpack_require__.e = function requireEnsure(chunkId) {
+/******/ 		var promises = [];
+/******/
+/******/
+/******/ 		// JSONP chunk loading for javascript
+/******/
+/******/ 		var installedChunkData = installedChunks[chunkId];
+/******/ 		if(installedChunkData !== 0) { // 0 means "already installed".
+/******/
+/******/ 			// a Promise means "currently loading".
+/******/ 			if(installedChunkData) {
+/******/ 				promises.push(installedChunkData[2]);
+/******/ 			} else {
+/******/ 				// setup Promise in chunk cache
+/******/ 				var promise = new Promise(function(resolve, reject) {
+/******/ 					installedChunkData = installedChunks[chunkId] = [resolve, reject];
+/******/ 				});
+/******/ 				promises.push(installedChunkData[2] = promise);
+/******/
+/******/ 				// start chunk loading
+/******/ 				var script = document.createElement('script');
+/******/ 				var onScriptComplete;
+/******/ 				script.type = "text/javascript";
+/******/ 				script.charset = 'utf-8';
+/******/ 				script.timeout = 120;
+/******/ 				if (__webpack_require__.nc) {
+/******/ 					script.setAttribute("nonce", __webpack_require__.nc);
+/******/ 				}
+/******/ 				script.src = jsonpScriptSrc(chunkId);
+/******/
+/******/ 				onScriptComplete = function (event) {
+/******/ 					// avoid mem leaks in IE.
+/******/ 					script.onerror = script.onload = null;
+/******/ 					clearTimeout(timeout);
+/******/ 					var chunk = installedChunks[chunkId];
+/******/ 					if(chunk !== 0) {
+/******/ 						if(chunk) {
+/******/ 							var errorType = event && (event.type === 'load' ? 'missing' : event.type);
+/******/ 							var realSrc = event && event.target && event.target.src;
+/******/ 							var error = new Error('Loading chunk ' + chunkId + ' failed.\n(' + errorType + ': ' + realSrc + ')');
+/******/ 							error.type = errorType;
+/******/ 							error.request = realSrc;
+/******/ 							chunk[1](error);
+/******/ 						}
+/******/ 						installedChunks[chunkId] = undefined;
+/******/ 					}
+/******/ 				};
+/******/ 				var timeout = setTimeout(function(){
+/******/ 					onScriptComplete({ type: 'timeout', target: script });
+/******/ 				}, 120000);
+/******/ 				script.onerror = script.onload = onScriptComplete;
+/******/ 				document.head.appendChild(script);
+/******/ 			}
+/******/ 		}
+/******/ 		return Promise.all(promises);
+/******/ 	};
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/ 	// on error function for async loading
+/******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
+/******/
+/******/ 	var jsonpArray = window["webpackJsonp"] = window["webpackJsonp"] || [];
+/******/ 	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
+/******/ 	jsonpArray.push = webpackJsonpCallback;
+/******/ 	jsonpArray = jsonpArray.slice();
+/******/ 	for(var i = 0; i < jsonpArray.length; i++) webpackJsonpCallback(jsonpArray[i]);
+/******/ 	var parentJsonpFunction = oldJsonpFunction;
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./src/js/gator_components/utilities/main.js");
+/******/ })
+/************************************************************************/
+/******/ ({
 
 /***/ "./node_modules/css-loader/dist/cjs.js!./src/css/dyn_map.css":
 /***/ (function(module, exports, __webpack_require__) {
@@ -141,7 +339,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return AppView; });\n/* harmony import */ var _model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(\"./src/js/gator_components/main_app/model.js\");\n\n\nclass AppView extends _model__WEBPACK_IMPORTED_MODULE_0__[\"default\"] {\n  constructor () {\n    super ();\n    this.head = document.getElementsByTagName('head')[0];\n    this.viewsButtons = document.getElementsByClassName('dropbtn');\n    this.mainMenu = document.getElementsByTagName('main')[0];\n    this.plxButton = document.getElementById('plx_button');\n    this.plxButton.textContent = 'PLX';\n    // this.mapsButton = document.getElementById('map_button');\n    // this.mapsButton.textContent = 'Dynamic Map'\n    // this.wsButton = document.getElementById('ws_button');\n    // this.wsButton.textContent = 'WS Tester';\n    // this.staticMapButton = document.getElementById('static_map_button');\n    // this.staticMapButton.textContent = 'Static Map';\n    this.viewsPane = document.createElement('section');\n    this.viewsPane.id = 'views_pane';\n    this.mainMenu.insertAdjacentElement('afterend', this.viewsPane);\n  }\n\n  checkAttachedPanes () {\n     if (this.views.iterable_views !== []){\n        this.viewsListHasChildNodes ();\n     } else {\n        super.resetChildViews ();\n        let views = this.viewsPane.childNodes;\n        this.views.non_iterableViews = views;\n        this.checkAndListChildNodes(this.views.non_iterableViews);\n     }\n  }\n\n  viewsListHasChildNodes() {\n    this.clearClassesOnChildNodes();\n    super.resetChildViews();\n    let views = this.viewsPane.childNodes;\n    this.checkAndListChildNodes(views);\n    this.checkEachViewIndex();\n  }\n\n  checkAndListChildNodes (views) {\n    for (let i = 0; i < views.length; i++){\n      let iteratedView = views[i];\n      let index = i;\n      let objectView = {\n        view: iteratedView,\n        count: index\n      };\n      super.setNewChildView(objectView);\n    }\n  }\n\n  clearClassesOnChildNodes () {\n    let values = super.getChildViews ();\n    if(values){\n        for(let i = 0; i < values.length; i++){\n          let $elInArray = values[i];\n          if ($elInArray.view.classList.contains('one')) {\n              $elInArray.view.classList.toggle('one');\n              this.listOfElementsByClass[0].classArrays[0].classList_1.pop($elInArray);\n            } else if ($elInArray.view.classList.contains('two')){\n                $elInArray.view.classList.toggle('two');\n                this.listOfElementsByClass[0].classArrays[0].classList_2.pop($elInArray);\n            } else if ($elInArray.view.classList.contains('three')){\n                $elInArray.view.classList.toggle('three');\n                this.listOfElementsByClass[0].classArrays[0].classList_3.pop($elInArray);\n            } else if  ($elInArray.view.classList.contains('four')){\n                $elInArray.view.classList.toggle('four');\n                this.listOfElementsByClass[0].classArrays[0].classList_4.pop($elInArray);\n            } else if  ($elInArray.view.classList.contains('five')){\n                $elInArray.view.classList.toggle('five');\n                this.listOfElementsByClass[0].classArrays[0].classList_5.pop($elInArray);\n            } else if  ($elInArray.view.classList.contains('six')){\n                $elInArray.view.classList.toggle('six');\n                this.listOfElementsByClass[0].classArrays[0].classList_6.pop($elInArray);\n            } else if  ($elInArray.view.classList.contains('seven')){\n                $elInArray.view.classList.toggle('seven');\n                this.listOfElementsByClass[0].classArrays[0].classList_7.pop($elInArray);\n            } else {\n                $elInArray.view.classList.toggle('eight');\n                this.listOfElementsByClass[0].classArrays[0].classList_8.pop($elInArray);\n            }\n        }\n    }\n  } \n\n  checkEachViewIndex () {\n    this.views.iterable_views.forEach((viewObject) => {\n        let object = viewObject;\n        if( object.count == 0 ){ \n            object.view.classList.add('one');\n            this.listOfElementsByClass[0].classArrays[0].classList_1.push(object);                       \n          } else if ( object.count == 1 ) {\n                      object.view.classList.add('two');\n                      this.listOfElementsByClass[0].classArrays[0].classList_2.push(object);\n          } else if ( object.count == 2 ) {\n                      object.view.classList.add('three');\n                      this.listOfElementsByClass[0].classArrays[0].classList_3.push(object);                   \n          } else {\n                      object.view.classList.add('four');\n                      this.listOfElementsByClass[0].classArrays[0].classList_4.push(object)\n        }\n        console.log('Classlist for ', \n          object.view.id, ' is now: ', \n          object.view.classList.value, \n          ' : ');\n    });    \n  } \n}\n\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvanMvZ2F0b3JfY29tcG9uZW50cy9tYWluX2FwcC92aWV3LmpzLmpzIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLy4vc3JjL2pzL2dhdG9yX2NvbXBvbmVudHMvbWFpbl9hcHAvdmlldy5qcz8iXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IEFwcE1vZGVsIGZyb20gJy4vbW9kZWwnO1xuXG5leHBvcnQgZGVmYXVsdCBjbGFzcyBBcHBWaWV3IGV4dGVuZHMgQXBwTW9kZWwge1xuICBjb25zdHJ1Y3RvciAoKSB7XG4gICAgc3VwZXIgKCk7XG4gICAgdGhpcy5oZWFkID0gZG9jdW1lbnQuZ2V0RWxlbWVudHNCeVRhZ05hbWUoJ2hlYWQnKVswXTtcbiAgICB0aGlzLnZpZXdzQnV0dG9ucyA9IGRvY3VtZW50LmdldEVsZW1lbnRzQnlDbGFzc05hbWUoJ2Ryb3BidG4nKTtcbiAgICB0aGlzLm1haW5NZW51ID0gZG9jdW1lbnQuZ2V0RWxlbWVudHNCeVRhZ05hbWUoJ21haW4nKVswXTtcbiAgICB0aGlzLnBseEJ1dHRvbiA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdwbHhfYnV0dG9uJyk7XG4gICAgdGhpcy5wbHhCdXR0b24udGV4dENvbnRlbnQgPSAnUExYJztcbiAgICAvLyB0aGlzLm1hcHNCdXR0b24gPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnbWFwX2J1dHRvbicpO1xuICAgIC8vIHRoaXMubWFwc0J1dHRvbi50ZXh0Q29udGVudCA9ICdEeW5hbWljIE1hcCdcbiAgICAvLyB0aGlzLndzQnV0dG9uID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3dzX2J1dHRvbicpO1xuICAgIC8vIHRoaXMud3NCdXR0b24udGV4dENvbnRlbnQgPSAnV1MgVGVzdGVyJztcbiAgICAvLyB0aGlzLnN0YXRpY01hcEJ1dHRvbiA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdzdGF0aWNfbWFwX2J1dHRvbicpO1xuICAgIC8vIHRoaXMuc3RhdGljTWFwQnV0dG9uLnRleHRDb250ZW50ID0gJ1N0YXRpYyBNYXAnO1xuICAgIHRoaXMudmlld3NQYW5lID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnc2VjdGlvbicpO1xuICAgIHRoaXMudmlld3NQYW5lLmlkID0gJ3ZpZXdzX3BhbmUnO1xuICAgIHRoaXMubWFpbk1lbnUuaW5zZXJ0QWRqYWNlbnRFbGVtZW50KCdhZnRlcmVuZCcsIHRoaXMudmlld3NQYW5lKTtcbiAgfVxuXG4gIGNoZWNrQXR0YWNoZWRQYW5lcyAoKSB7XG4gICAgIGlmICh0aGlzLnZpZXdzLml0ZXJhYmxlX3ZpZXdzICE9PSBbXSl7XG4gICAgICAgIHRoaXMudmlld3NMaXN0SGFzQ2hpbGROb2RlcyAoKTtcbiAgICAgfSBlbHNlIHtcbiAgICAgICAgc3VwZXIucmVzZXRDaGlsZFZpZXdzICgpO1xuICAgICAgICBsZXQgdmlld3MgPSB0aGlzLnZpZXdzUGFuZS5jaGlsZE5vZGVzO1xuICAgICAgICB0aGlzLnZpZXdzLm5vbl9pdGVyYWJsZVZpZXdzID0gdmlld3M7XG4gICAgICAgIHRoaXMuY2hlY2tBbmRMaXN0Q2hpbGROb2Rlcyh0aGlzLnZpZXdzLm5vbl9pdGVyYWJsZVZpZXdzKTtcbiAgICAgfVxuICB9XG5cbiAgdmlld3NMaXN0SGFzQ2hpbGROb2RlcygpIHtcbiAgICB0aGlzLmNsZWFyQ2xhc3Nlc09uQ2hpbGROb2RlcygpO1xuICAgIHN1cGVyLnJlc2V0Q2hpbGRWaWV3cygpO1xuICAgIGxldCB2aWV3cyA9IHRoaXMudmlld3NQYW5lLmNoaWxkTm9kZXM7XG4gICAgdGhpcy5jaGVja0FuZExpc3RDaGlsZE5vZGVzKHZpZXdzKTtcbiAgICB0aGlzLmNoZWNrRWFjaFZpZXdJbmRleCgpO1xuICB9XG5cbiAgY2hlY2tBbmRMaXN0Q2hpbGROb2RlcyAodmlld3MpIHtcbiAgICBmb3IgKGxldCBpID0gMDsgaSA8IHZpZXdzLmxlbmd0aDsgaSsrKXtcbiAgICAgIGxldCBpdGVyYXRlZFZpZXcgPSB2aWV3c1tpXTtcbiAgICAgIGxldCBpbmRleCA9IGk7XG4gICAgICBsZXQgb2JqZWN0VmlldyA9IHtcbiAgICAgICAgdmlldzogaXRlcmF0ZWRWaWV3LFxuICAgICAgICBjb3VudDogaW5kZXhcbiAgICAgIH07XG4gICAgICBzdXBlci5zZXROZXdDaGlsZFZpZXcob2JqZWN0Vmlldyk7XG4gICAgfVxuICB9XG5cbiAgY2xlYXJDbGFzc2VzT25DaGlsZE5vZGVzICgpIHtcbiAgICBsZXQgdmFsdWVzID0gc3VwZXIuZ2V0Q2hpbGRWaWV3cyAoKTtcbiAgICBpZih2YWx1ZXMpe1xuICAgICAgICBmb3IobGV0IGkgPSAwOyBpIDwgdmFsdWVzLmxlbmd0aDsgaSsrKXtcbiAgICAgICAgICBsZXQgJGVsSW5BcnJheSA9IHZhbHVlc1tpXTtcbiAgICAgICAgICBpZiAoJGVsSW5BcnJheS52aWV3LmNsYXNzTGlzdC5jb250YWlucygnb25lJykpIHtcbiAgICAgICAgICAgICAgJGVsSW5BcnJheS52aWV3LmNsYXNzTGlzdC50b2dnbGUoJ29uZScpO1xuICAgICAgICAgICAgICB0aGlzLmxpc3RPZkVsZW1lbnRzQnlDbGFzc1swXS5jbGFzc0FycmF5c1swXS5jbGFzc0xpc3RfMS5wb3AoJGVsSW5BcnJheSk7XG4gICAgICAgICAgICB9IGVsc2UgaWYgKCRlbEluQXJyYXkudmlldy5jbGFzc0xpc3QuY29udGFpbnMoJ3R3bycpKXtcbiAgICAgICAgICAgICAgICAkZWxJbkFycmF5LnZpZXcuY2xhc3NMaXN0LnRvZ2dsZSgndHdvJyk7XG4gICAgICAgICAgICAgICAgdGhpcy5saXN0T2ZFbGVtZW50c0J5Q2xhc3NbMF0uY2xhc3NBcnJheXNbMF0uY2xhc3NMaXN0XzIucG9wKCRlbEluQXJyYXkpO1xuICAgICAgICAgICAgfSBlbHNlIGlmICgkZWxJbkFycmF5LnZpZXcuY2xhc3NMaXN0LmNvbnRhaW5zKCd0aHJlZScpKXtcbiAgICAgICAgICAgICAgICAkZWxJbkFycmF5LnZpZXcuY2xhc3NMaXN0LnRvZ2dsZSgndGhyZWUnKTtcbiAgICAgICAgICAgICAgICB0aGlzLmxpc3RPZkVsZW1lbnRzQnlDbGFzc1swXS5jbGFzc0FycmF5c1swXS5jbGFzc0xpc3RfMy5wb3AoJGVsSW5BcnJheSk7XG4gICAgICAgICAgICB9IGVsc2UgaWYgICgkZWxJbkFycmF5LnZpZXcuY2xhc3NMaXN0LmNvbnRhaW5zKCdmb3VyJykpe1xuICAgICAgICAgICAgICAgICRlbEluQXJyYXkudmlldy5jbGFzc0xpc3QudG9nZ2xlKCdmb3VyJyk7XG4gICAgICAgICAgICAgICAgdGhpcy5saXN0T2ZFbGVtZW50c0J5Q2xhc3NbMF0uY2xhc3NBcnJheXNbMF0uY2xhc3NMaXN0XzQucG9wKCRlbEluQXJyYXkpO1xuICAgICAgICAgICAgfSBlbHNlIGlmICAoJGVsSW5BcnJheS52aWV3LmNsYXNzTGlzdC5jb250YWlucygnZml2ZScpKXtcbiAgICAgICAgICAgICAgICAkZWxJbkFycmF5LnZpZXcuY2xhc3NMaXN0LnRvZ2dsZSgnZml2ZScpO1xuICAgICAgICAgICAgICAgIHRoaXMubGlzdE9mRWxlbWVudHNCeUNsYXNzWzBdLmNsYXNzQXJyYXlzWzBdLmNsYXNzTGlzdF81LnBvcCgkZWxJbkFycmF5KTtcbiAgICAgICAgICAgIH0gZWxzZSBpZiAgKCRlbEluQXJyYXkudmlldy5jbGFzc0xpc3QuY29udGFpbnMoJ3NpeCcpKXtcbiAgICAgICAgICAgICAgICAkZWxJbkFycmF5LnZpZXcuY2xhc3NMaXN0LnRvZ2dsZSgnc2l4Jyk7XG4gICAgICAgICAgICAgICAgdGhpcy5saXN0T2ZFbGVtZW50c0J5Q2xhc3NbMF0uY2xhc3NBcnJheXNbMF0uY2xhc3NMaXN0XzYucG9wKCRlbEluQXJyYXkpO1xuICAgICAgICAgICAgfSBlbHNlIGlmICAoJGVsSW5BcnJheS52aWV3LmNsYXNzTGlzdC5jb250YWlucygnc2V2ZW4nKSl7XG4gICAgICAgICAgICAgICAgJGVsSW5BcnJheS52aWV3LmNsYXNzTGlzdC50b2dnbGUoJ3NldmVuJyk7XG4gICAgICAgICAgICAgICAgdGhpcy5saXN0T2ZFbGVtZW50c0J5Q2xhc3NbMF0uY2xhc3NBcnJheXNbMF0uY2xhc3NMaXN0XzcucG9wKCRlbEluQXJyYXkpO1xuICAgICAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICAgICAgICAkZWxJbkFycmF5LnZpZXcuY2xhc3NMaXN0LnRvZ2dsZSgnZWlnaHQnKTtcbiAgICAgICAgICAgICAgICB0aGlzLmxpc3RPZkVsZW1lbnRzQnlDbGFzc1swXS5jbGFzc0FycmF5c1swXS5jbGFzc0xpc3RfOC5wb3AoJGVsSW5BcnJheSk7XG4gICAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICB9XG4gIH0gXG5cbiAgY2hlY2tFYWNoVmlld0luZGV4ICgpIHtcbiAgICB0aGlzLnZpZXdzLml0ZXJhYmxlX3ZpZXdzLmZvckVhY2goKHZpZXdPYmplY3QpID0+IHtcbiAgICAgICAgbGV0IG9iamVjdCA9IHZpZXdPYmplY3Q7XG4gICAgICAgIGlmKCBvYmplY3QuY291bnQgPT0gMCApeyBcbiAgICAgICAgICAgIG9iamVjdC52aWV3LmNsYXNzTGlzdC5hZGQoJ29uZScpO1xuICAgICAgICAgICAgdGhpcy5saXN0T2ZFbGVtZW50c0J5Q2xhc3NbMF0uY2xhc3NBcnJheXNbMF0uY2xhc3NMaXN0XzEucHVzaChvYmplY3QpOyAgICAgICAgICAgICAgICAgICAgICAgXG4gICAgICAgICAgfSBlbHNlIGlmICggb2JqZWN0LmNvdW50ID09IDEgKSB7XG4gICAgICAgICAgICAgICAgICAgICAgb2JqZWN0LnZpZXcuY2xhc3NMaXN0LmFkZCgndHdvJyk7XG4gICAgICAgICAgICAgICAgICAgICAgdGhpcy5saXN0T2ZFbGVtZW50c0J5Q2xhc3NbMF0uY2xhc3NBcnJheXNbMF0uY2xhc3NMaXN0XzIucHVzaChvYmplY3QpO1xuICAgICAgICAgIH0gZWxzZSBpZiAoIG9iamVjdC5jb3VudCA9PSAyICkge1xuICAgICAgICAgICAgICAgICAgICAgIG9iamVjdC52aWV3LmNsYXNzTGlzdC5hZGQoJ3RocmVlJyk7XG4gICAgICAgICAgICAgICAgICAgICAgdGhpcy5saXN0T2ZFbGVtZW50c0J5Q2xhc3NbMF0uY2xhc3NBcnJheXNbMF0uY2xhc3NMaXN0XzMucHVzaChvYmplY3QpOyAgICAgICAgICAgICAgICAgICBcbiAgICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgICAgICAgICAgICAgIG9iamVjdC52aWV3LmNsYXNzTGlzdC5hZGQoJ2ZvdXInKTtcbiAgICAgICAgICAgICAgICAgICAgICB0aGlzLmxpc3RPZkVsZW1lbnRzQnlDbGFzc1swXS5jbGFzc0FycmF5c1swXS5jbGFzc0xpc3RfNC5wdXNoKG9iamVjdClcbiAgICAgICAgfVxuICAgICAgICBjb25zb2xlLmxvZygnQ2xhc3NsaXN0IGZvciAnLCBcbiAgICAgICAgICBvYmplY3Qudmlldy5pZCwgJyBpcyBub3c6ICcsIFxuICAgICAgICAgIG9iamVjdC52aWV3LmNsYXNzTGlzdC52YWx1ZSwgXG4gICAgICAgICAgJyA6ICcpO1xuICAgIH0pOyAgICBcbiAgfSBcbn1cblxuIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOyIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./src/js/gator_components/main_app/view.js\n");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return AppView; });\n/* harmony import */ var _model__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(\"./src/js/gator_components/main_app/model.js\");\n\n\nclass AppView extends _model__WEBPACK_IMPORTED_MODULE_0__[\"default\"] {\n  constructor () {\n    super ();\n    this.head = document.getElementsByTagName('head')[0];\n    this.viewsButtons = document.getElementsByClassName('dropbtn');\n    this.mainMenu = document.getElementsByTagName('main')[0];\n    this.plxButton = document.getElementById('plx_button');\n    this.plxButton.textContent = 'PLX';\n    // this.mapsButton = document.getElementById('map_button');\n    // this.mapsButton.textContent = 'Dynamic Map'\n    // this.wsButton = document.getElementById('ws_button');\n    // this.wsButton.textContent = 'WS Tester';\n    // this.staticMapButton = document.getElementById('static_map_button');\n    // this.staticMapButton.textContent = 'Static Map';\n    this.viewsPane = document.createElement('section');\n    this.viewsPane.id = 'views_pane';\n    this.mainMenu.insertAdjacentElement('afterend', this.viewsPane);\n  }\n\n  checkAttachedPanes () {\n     if (this.views.iterable_views !== []){\n        this.viewsListHasChildNodes ();\n     } else {\n        super.resetChildViews ();\n        let views = this.viewsPane.childNodes;\n        this.views.non_iterableViews = views;\n        this.checkAndListChildNodes(this.views.non_iterableViews);\n     }\n  }\n\n  viewsListHasChildNodes() {\n    this.clearClassesOnChildNodes();\n    super.resetChildViews();\n    let views = this.viewsPane.childNodes;\n    this.checkAndListChildNodes(views);\n    this.checkEachViewIndex();\n  }\n\n  checkAndListChildNodes (views) {\n    for (let i = 0; i < views.length; i++){\n      let iteratedView = views[i];\n      let index = i;\n      let objectView = {\n        view: iteratedView,\n        count: index\n      };\n      super.setNewChildView(objectView);\n    }\n  }\n\n  clearClassesOnChildNodes () {\n    let values = super.getChildViews ();\n    if(values){\n        for(let i = 0; i < values.length; i++){\n          let $elInArray = values[i];\n          if ($elInArray.view.classList.contains('one')) {\n              $elInArray.view.classList.toggle('one');\n              this.listOfElementsByClass[0].classArrays[0].classList_1.pop($elInArray);\n            } else if ($elInArray.view.classList.contains('two')){\n                $elInArray.view.classList.toggle('two');\n                this.listOfElementsByClass[0].classArrays[0].classList_2.pop($elInArray);\n            } else if ($elInArray.view.classList.contains('three')){\n                $elInArray.view.classList.toggle('three');\n                this.listOfElementsByClass[0].classArrays[0].classList_3.pop($elInArray);\n            } else if  ($elInArray.view.classList.contains('four')){\n                $elInArray.view.classList.toggle('four');\n                this.listOfElementsByClass[0].classArrays[0].classList_4.pop($elInArray);\n            } else if  ($elInArray.view.classList.contains('five')){\n                $elInArray.view.classList.toggle('five');\n                this.listOfElementsByClass[0].classArrays[0].classList_5.pop($elInArray);\n            } else if  ($elInArray.view.classList.contains('six')){\n                $elInArray.view.classList.toggle('six');\n                this.listOfElementsByClass[0].classArrays[0].classList_6.pop($elInArray);\n            } else if  ($elInArray.view.classList.contains('seven')){\n                $elInArray.view.classList.toggle('seven');\n                this.listOfElementsByClass[0].classArrays[0].classList_7.pop($elInArray);\n            } else {\n                $elInArray.view.classList.toggle('eight');\n                this.listOfElementsByClass[0].classArrays[0].classList_8.pop($elInArray);\n            }\n        }\n    }\n  } \n\n  checkEachViewIndex () {\n    this.views.iterable_views.forEach((viewObject) => {\n        let object = viewObject;\n        if( object.count == 0 ){ \n            object.view.classList.add('one');\n            this.listOfElementsByClass[0].classArrays[0].classList_1.push(object);                       \n          } else if ( object.count == 1 ) {\n                      object.view.classList.add('two');\n                      this.listOfElementsByClass[0].classArrays[0].classList_2.push(object);\n          } else if ( object.count == 2 ) {\n                      object.view.classList.add('three');\n                      this.listOfElementsByClass[0].classArrays[0].classList_3.push(object);                   \n          } else {\n                      object.view.classList.add('four');\n                      this.listOfElementsByClass[0].classArrays[0].classList_4.push(object)\n        }\n        console.log('Classlist for ', \n          object.view.id, ' is now: ', \n          object.view.classList.value, \n          );\n    });    \n  } \n}\n\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvanMvZ2F0b3JfY29tcG9uZW50cy9tYWluX2FwcC92aWV3LmpzLmpzIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLy4vc3JjL2pzL2dhdG9yX2NvbXBvbmVudHMvbWFpbl9hcHAvdmlldy5qcz8iXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IEFwcE1vZGVsIGZyb20gJy4vbW9kZWwnO1xuXG5leHBvcnQgZGVmYXVsdCBjbGFzcyBBcHBWaWV3IGV4dGVuZHMgQXBwTW9kZWwge1xuICBjb25zdHJ1Y3RvciAoKSB7XG4gICAgc3VwZXIgKCk7XG4gICAgdGhpcy5oZWFkID0gZG9jdW1lbnQuZ2V0RWxlbWVudHNCeVRhZ05hbWUoJ2hlYWQnKVswXTtcbiAgICB0aGlzLnZpZXdzQnV0dG9ucyA9IGRvY3VtZW50LmdldEVsZW1lbnRzQnlDbGFzc05hbWUoJ2Ryb3BidG4nKTtcbiAgICB0aGlzLm1haW5NZW51ID0gZG9jdW1lbnQuZ2V0RWxlbWVudHNCeVRhZ05hbWUoJ21haW4nKVswXTtcbiAgICB0aGlzLnBseEJ1dHRvbiA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdwbHhfYnV0dG9uJyk7XG4gICAgdGhpcy5wbHhCdXR0b24udGV4dENvbnRlbnQgPSAnUExYJztcbiAgICAvLyB0aGlzLm1hcHNCdXR0b24gPSBkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgnbWFwX2J1dHRvbicpO1xuICAgIC8vIHRoaXMubWFwc0J1dHRvbi50ZXh0Q29udGVudCA9ICdEeW5hbWljIE1hcCdcbiAgICAvLyB0aGlzLndzQnV0dG9uID0gZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ3dzX2J1dHRvbicpO1xuICAgIC8vIHRoaXMud3NCdXR0b24udGV4dENvbnRlbnQgPSAnV1MgVGVzdGVyJztcbiAgICAvLyB0aGlzLnN0YXRpY01hcEJ1dHRvbiA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdzdGF0aWNfbWFwX2J1dHRvbicpO1xuICAgIC8vIHRoaXMuc3RhdGljTWFwQnV0dG9uLnRleHRDb250ZW50ID0gJ1N0YXRpYyBNYXAnO1xuICAgIHRoaXMudmlld3NQYW5lID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnc2VjdGlvbicpO1xuICAgIHRoaXMudmlld3NQYW5lLmlkID0gJ3ZpZXdzX3BhbmUnO1xuICAgIHRoaXMubWFpbk1lbnUuaW5zZXJ0QWRqYWNlbnRFbGVtZW50KCdhZnRlcmVuZCcsIHRoaXMudmlld3NQYW5lKTtcbiAgfVxuXG4gIGNoZWNrQXR0YWNoZWRQYW5lcyAoKSB7XG4gICAgIGlmICh0aGlzLnZpZXdzLml0ZXJhYmxlX3ZpZXdzICE9PSBbXSl7XG4gICAgICAgIHRoaXMudmlld3NMaXN0SGFzQ2hpbGROb2RlcyAoKTtcbiAgICAgfSBlbHNlIHtcbiAgICAgICAgc3VwZXIucmVzZXRDaGlsZFZpZXdzICgpO1xuICAgICAgICBsZXQgdmlld3MgPSB0aGlzLnZpZXdzUGFuZS5jaGlsZE5vZGVzO1xuICAgICAgICB0aGlzLnZpZXdzLm5vbl9pdGVyYWJsZVZpZXdzID0gdmlld3M7XG4gICAgICAgIHRoaXMuY2hlY2tBbmRMaXN0Q2hpbGROb2Rlcyh0aGlzLnZpZXdzLm5vbl9pdGVyYWJsZVZpZXdzKTtcbiAgICAgfVxuICB9XG5cbiAgdmlld3NMaXN0SGFzQ2hpbGROb2RlcygpIHtcbiAgICB0aGlzLmNsZWFyQ2xhc3Nlc09uQ2hpbGROb2RlcygpO1xuICAgIHN1cGVyLnJlc2V0Q2hpbGRWaWV3cygpO1xuICAgIGxldCB2aWV3cyA9IHRoaXMudmlld3NQYW5lLmNoaWxkTm9kZXM7XG4gICAgdGhpcy5jaGVja0FuZExpc3RDaGlsZE5vZGVzKHZpZXdzKTtcbiAgICB0aGlzLmNoZWNrRWFjaFZpZXdJbmRleCgpO1xuICB9XG5cbiAgY2hlY2tBbmRMaXN0Q2hpbGROb2RlcyAodmlld3MpIHtcbiAgICBmb3IgKGxldCBpID0gMDsgaSA8IHZpZXdzLmxlbmd0aDsgaSsrKXtcbiAgICAgIGxldCBpdGVyYXRlZFZpZXcgPSB2aWV3c1tpXTtcbiAgICAgIGxldCBpbmRleCA9IGk7XG4gICAgICBsZXQgb2JqZWN0VmlldyA9IHtcbiAgICAgICAgdmlldzogaXRlcmF0ZWRWaWV3LFxuICAgICAgICBjb3VudDogaW5kZXhcbiAgICAgIH07XG4gICAgICBzdXBlci5zZXROZXdDaGlsZFZpZXcob2JqZWN0Vmlldyk7XG4gICAgfVxuICB9XG5cbiAgY2xlYXJDbGFzc2VzT25DaGlsZE5vZGVzICgpIHtcbiAgICBsZXQgdmFsdWVzID0gc3VwZXIuZ2V0Q2hpbGRWaWV3cyAoKTtcbiAgICBpZih2YWx1ZXMpe1xuICAgICAgICBmb3IobGV0IGkgPSAwOyBpIDwgdmFsdWVzLmxlbmd0aDsgaSsrKXtcbiAgICAgICAgICBsZXQgJGVsSW5BcnJheSA9IHZhbHVlc1tpXTtcbiAgICAgICAgICBpZiAoJGVsSW5BcnJheS52aWV3LmNsYXNzTGlzdC5jb250YWlucygnb25lJykpIHtcbiAgICAgICAgICAgICAgJGVsSW5BcnJheS52aWV3LmNsYXNzTGlzdC50b2dnbGUoJ29uZScpO1xuICAgICAgICAgICAgICB0aGlzLmxpc3RPZkVsZW1lbnRzQnlDbGFzc1swXS5jbGFzc0FycmF5c1swXS5jbGFzc0xpc3RfMS5wb3AoJGVsSW5BcnJheSk7XG4gICAgICAgICAgICB9IGVsc2UgaWYgKCRlbEluQXJyYXkudmlldy5jbGFzc0xpc3QuY29udGFpbnMoJ3R3bycpKXtcbiAgICAgICAgICAgICAgICAkZWxJbkFycmF5LnZpZXcuY2xhc3NMaXN0LnRvZ2dsZSgndHdvJyk7XG4gICAgICAgICAgICAgICAgdGhpcy5saXN0T2ZFbGVtZW50c0J5Q2xhc3NbMF0uY2xhc3NBcnJheXNbMF0uY2xhc3NMaXN0XzIucG9wKCRlbEluQXJyYXkpO1xuICAgICAgICAgICAgfSBlbHNlIGlmICgkZWxJbkFycmF5LnZpZXcuY2xhc3NMaXN0LmNvbnRhaW5zKCd0aHJlZScpKXtcbiAgICAgICAgICAgICAgICAkZWxJbkFycmF5LnZpZXcuY2xhc3NMaXN0LnRvZ2dsZSgndGhyZWUnKTtcbiAgICAgICAgICAgICAgICB0aGlzLmxpc3RPZkVsZW1lbnRzQnlDbGFzc1swXS5jbGFzc0FycmF5c1swXS5jbGFzc0xpc3RfMy5wb3AoJGVsSW5BcnJheSk7XG4gICAgICAgICAgICB9IGVsc2UgaWYgICgkZWxJbkFycmF5LnZpZXcuY2xhc3NMaXN0LmNvbnRhaW5zKCdmb3VyJykpe1xuICAgICAgICAgICAgICAgICRlbEluQXJyYXkudmlldy5jbGFzc0xpc3QudG9nZ2xlKCdmb3VyJyk7XG4gICAgICAgICAgICAgICAgdGhpcy5saXN0T2ZFbGVtZW50c0J5Q2xhc3NbMF0uY2xhc3NBcnJheXNbMF0uY2xhc3NMaXN0XzQucG9wKCRlbEluQXJyYXkpO1xuICAgICAgICAgICAgfSBlbHNlIGlmICAoJGVsSW5BcnJheS52aWV3LmNsYXNzTGlzdC5jb250YWlucygnZml2ZScpKXtcbiAgICAgICAgICAgICAgICAkZWxJbkFycmF5LnZpZXcuY2xhc3NMaXN0LnRvZ2dsZSgnZml2ZScpO1xuICAgICAgICAgICAgICAgIHRoaXMubGlzdE9mRWxlbWVudHNCeUNsYXNzWzBdLmNsYXNzQXJyYXlzWzBdLmNsYXNzTGlzdF81LnBvcCgkZWxJbkFycmF5KTtcbiAgICAgICAgICAgIH0gZWxzZSBpZiAgKCRlbEluQXJyYXkudmlldy5jbGFzc0xpc3QuY29udGFpbnMoJ3NpeCcpKXtcbiAgICAgICAgICAgICAgICAkZWxJbkFycmF5LnZpZXcuY2xhc3NMaXN0LnRvZ2dsZSgnc2l4Jyk7XG4gICAgICAgICAgICAgICAgdGhpcy5saXN0T2ZFbGVtZW50c0J5Q2xhc3NbMF0uY2xhc3NBcnJheXNbMF0uY2xhc3NMaXN0XzYucG9wKCRlbEluQXJyYXkpO1xuICAgICAgICAgICAgfSBlbHNlIGlmICAoJGVsSW5BcnJheS52aWV3LmNsYXNzTGlzdC5jb250YWlucygnc2V2ZW4nKSl7XG4gICAgICAgICAgICAgICAgJGVsSW5BcnJheS52aWV3LmNsYXNzTGlzdC50b2dnbGUoJ3NldmVuJyk7XG4gICAgICAgICAgICAgICAgdGhpcy5saXN0T2ZFbGVtZW50c0J5Q2xhc3NbMF0uY2xhc3NBcnJheXNbMF0uY2xhc3NMaXN0XzcucG9wKCRlbEluQXJyYXkpO1xuICAgICAgICAgICAgfSBlbHNlIHtcbiAgICAgICAgICAgICAgICAkZWxJbkFycmF5LnZpZXcuY2xhc3NMaXN0LnRvZ2dsZSgnZWlnaHQnKTtcbiAgICAgICAgICAgICAgICB0aGlzLmxpc3RPZkVsZW1lbnRzQnlDbGFzc1swXS5jbGFzc0FycmF5c1swXS5jbGFzc0xpc3RfOC5wb3AoJGVsSW5BcnJheSk7XG4gICAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICB9XG4gIH0gXG5cbiAgY2hlY2tFYWNoVmlld0luZGV4ICgpIHtcbiAgICB0aGlzLnZpZXdzLml0ZXJhYmxlX3ZpZXdzLmZvckVhY2goKHZpZXdPYmplY3QpID0+IHtcbiAgICAgICAgbGV0IG9iamVjdCA9IHZpZXdPYmplY3Q7XG4gICAgICAgIGlmKCBvYmplY3QuY291bnQgPT0gMCApeyBcbiAgICAgICAgICAgIG9iamVjdC52aWV3LmNsYXNzTGlzdC5hZGQoJ29uZScpO1xuICAgICAgICAgICAgdGhpcy5saXN0T2ZFbGVtZW50c0J5Q2xhc3NbMF0uY2xhc3NBcnJheXNbMF0uY2xhc3NMaXN0XzEucHVzaChvYmplY3QpOyAgICAgICAgICAgICAgICAgICAgICAgXG4gICAgICAgICAgfSBlbHNlIGlmICggb2JqZWN0LmNvdW50ID09IDEgKSB7XG4gICAgICAgICAgICAgICAgICAgICAgb2JqZWN0LnZpZXcuY2xhc3NMaXN0LmFkZCgndHdvJyk7XG4gICAgICAgICAgICAgICAgICAgICAgdGhpcy5saXN0T2ZFbGVtZW50c0J5Q2xhc3NbMF0uY2xhc3NBcnJheXNbMF0uY2xhc3NMaXN0XzIucHVzaChvYmplY3QpO1xuICAgICAgICAgIH0gZWxzZSBpZiAoIG9iamVjdC5jb3VudCA9PSAyICkge1xuICAgICAgICAgICAgICAgICAgICAgIG9iamVjdC52aWV3LmNsYXNzTGlzdC5hZGQoJ3RocmVlJyk7XG4gICAgICAgICAgICAgICAgICAgICAgdGhpcy5saXN0T2ZFbGVtZW50c0J5Q2xhc3NbMF0uY2xhc3NBcnJheXNbMF0uY2xhc3NMaXN0XzMucHVzaChvYmplY3QpOyAgICAgICAgICAgICAgICAgICBcbiAgICAgICAgICB9IGVsc2Uge1xuICAgICAgICAgICAgICAgICAgICAgIG9iamVjdC52aWV3LmNsYXNzTGlzdC5hZGQoJ2ZvdXInKTtcbiAgICAgICAgICAgICAgICAgICAgICB0aGlzLmxpc3RPZkVsZW1lbnRzQnlDbGFzc1swXS5jbGFzc0FycmF5c1swXS5jbGFzc0xpc3RfNC5wdXNoKG9iamVjdClcbiAgICAgICAgfVxuICAgICAgICBjb25zb2xlLmxvZygnQ2xhc3NsaXN0IGZvciAnLCBcbiAgICAgICAgICBvYmplY3Qudmlldy5pZCwgJyBpcyBub3c6ICcsIFxuICAgICAgICAgIG9iamVjdC52aWV3LmNsYXNzTGlzdC52YWx1ZSwgXG4gICAgICAgICAgKTtcbiAgICB9KTsgICAgXG4gIH0gXG59XG5cbiJdLCJtYXBwaW5ncyI6IkFBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTsiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./src/js/gator_components/main_app/view.js\n");
 
 /***/ }),
 
@@ -209,4 +407,4 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 
 /***/ })
 
-},[["./src/js/gator_components/utilities/main.js","runtime"]]]);
+/******/ });
