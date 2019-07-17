@@ -6,6 +6,7 @@ const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const paths = {
     dir: path.resolve(__dirname),
+    node_modules: path.resolve(__dirname, 'node_modules'),
     src: path.resolve(__dirname, 'src'),
     css: path.resolve(__dirname, 'src', 'css'),
     main: path.resolve(__dirname, 'src', 'js', 'gator_components', 'utilities', 'main.js'),
@@ -25,7 +26,7 @@ const paths = {
 //  development mode -> const dev_mode = (process.env.NODE_ENV !== 'production');
 //  production mdoe -> const dev_mode = (process.env.NODE_ENV == 'production');
 
-const dev_mode = (process.env.NODE_ENV !== 'production');
+const dev_mode = (process.env.NODE_ENV == 'production');
 
 const pluginOptions = {
   filename: paths.htmlBuildFilename,
@@ -64,7 +65,7 @@ const config = {
     jsonpScriptType : 'text/javascript',
     filename: dev_mode ? 'js/[name].bundle.js' : 'js/[hash:6].js',
     chunkFilename: dev_mode ? 'js/[id].bundle.js' : 'js/[chunkhash:8].js',
-    devtoolModuleFilenameTemplate: 'webpack://[namespace]/[resource-path]?[loaders]',
+    devtoolModuleFilenameTemplate: 'webpack://[resource-path]?[loaders]',
     path: paths.public,
     publicPath: '/',
     pathinfo: false,
@@ -110,7 +111,7 @@ const config = {
         // exclude: /node_modules/
       },
       {
-        test: /\.pug$/,
+        test: /\.pug$/i,
         use: 'pug-loader'
       },
       {

@@ -50,9 +50,12 @@ export default class ScriptsController extends ScriptsView {
   }
 
   innerComponentIsNowListening() {
+    // this.parametersInnerContainer.addEventListener(
+    //   'input', this.onParameterInput.bind(this),
+    //   false);
     this.parametersInnerContainer.addEventListener(
       'input', this.onParameterInput.bind(this),
-       false);
+      false);
   }
 
   onParameterInput (e) {
@@ -71,7 +74,7 @@ export default class ScriptsController extends ScriptsView {
         // ex: `this.validator.is_case_number(value)` < validate case number
         let id = inputField.id;
         console.log('Input to filter :: ' + id);
-        let filteredResult = eval('this.validator.is_'+ id)(inputField);
+        let filteredResult = eval('this.validator.is_'+ id)(inputField, this.validator);
         console.log('Does input match filter? :: ', filteredResult.isFiltered);
         this.validateOutputOn(filteredResult);
       }
@@ -109,7 +112,7 @@ export default class ScriptsController extends ScriptsView {
     if ( final && status == true ) {
       console.log('This', `${field.id}`, 'meets the minimum requirements');
       this.isValid(field, status);
-    } else {
+    } else if ( final && status == false ) {
       console.log('This does not meet the minimum requirements for a', `${field.id}`);
     // this.isInvalid(field, status);
     } 
