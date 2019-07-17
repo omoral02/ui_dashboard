@@ -43,6 +43,7 @@ export default class ScriptsView extends ScriptsModel {
   }
 
   insert (scripts) {
+    console.log('Scripts ::', scripts);
     scripts.forEach( (script, index ) => {
       const li = document.createElement('li');
       li.textContent = script.title;
@@ -51,7 +52,6 @@ export default class ScriptsView extends ScriptsModel {
       this.scriptsListContainer.insertBefore(
         li,
         this.scriptsListContainer.childNodes[0]);
-      console.log(script);
     })
     this.toggleScriptsContainer();
   }
@@ -203,48 +203,49 @@ export default class ScriptsView extends ScriptsModel {
     });
   }
 
-  generateUrlBuild() {
-    const script = super.getCurrentlySelectedScript();
+  renderInputValidity (targetFieldInput, result) {
+    let $target = targetFieldInput;
+    let validation = result;
+    if ( $target ) {
+        if ( validation.valid == false && !$target.classList.contains('invalid') ){
+            $target.classList.toggle('invalid');
+        } else if ( validation.valid == true && $target.classList.contains('invlaid') ){    
+            $target.classlist.remove('invalid');
+        } 
+    }
+  }
+
+  generateUrlBuild(script) {
     const scriptId = `${script.id}?p=`;
     super.setScriptIdTo(scriptId);
-    const paramInputs = Object.entries(script.parameters);
-    paramInputs.forEach(( [key, value], index ) => {
-          let fieldInput = document.getElementById(`${key}`);
-          if ( fieldInput.value ){ 
-            console.log('Active field input: ')
-            console.log(fieldInput);    
-            this.paramBuild();
-          }
-    });
+    this.paramBuild();
   }
 
   paramBuild () {
-    const parameterEntries =  Object.entries(super.getScriptParameterValues());
+    const parameterEntries = Object.entries(super.getScriptParameterValues());
     let paramBuild = '';
-    console.log('Object representation of parameter values: ');
     parameterEntries.forEach(( [key, value], index ) => {
-          console.log(key,': ', value);
           paramBuild += `${key}` + ':' +`${value}`;
             if ( index !== parameterEntries.length - 1 ) {
               paramBuild += ',';
             }
     });
-    console.log('String representation of parameter values: ');
-    console.log(paramBuild);
+    console.log('String representation of parameter inputs:: ', paramBuild);
     super.setScriptParamsTo(paramBuild);
     let URL  = super.getBasePlxUrl();
     URL += super.getScriptId();
     URL += super.getParameterInputs();
     super.setFullUrlTo(URL);
-    this.renderPlxUrl();
   } 
 
   renderPlxUrl() {
-    this.createLinkElement();      
-    console.log('new state: ')
-    console.log(this.myState);
-    this.plxOutputLink.href = super.getFullUrl();  
-    this.plxOutputLink.classList.add('showLink');  
+    if (this.plxOutputLink) {
+      this.plxOutputLink.href = super.getFullUrl(); 
+    } else {
+      this.createLinkElement();     
+      this.plxOutputLink.classList.add('showLink');
+    }
+    console.log('Object representation of parameter values:: ', this.myState); 
   }
 
   createLinkElement() {
@@ -253,12 +254,11 @@ export default class ScriptsView extends ScriptsModel {
       this.plxOutputLink.id = 'plxOutput';
       this.plxOutputLink.target = '_blank';
       this.plxOutputLink.textContent = 'Head there now!';
+      this.plxOutputLink.href = super.getFullUrl(); 
       this.scriptButtonContainer.insertBefore(
             this.plxOutputLink,
             this.scriptButtonContainer.childNodes[2]); 
      
-    } else {
-      this.plxOutputLink.classList.toggle('showLink'); 
+      }
     }
-  }
 }

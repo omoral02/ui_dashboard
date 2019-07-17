@@ -6,9 +6,10 @@ const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const paths = {
     dir: path.resolve(__dirname),
+    node_modules: path.resolve(__dirname, 'node_modules'),
     src: path.resolve(__dirname, 'src'),
     css: path.resolve(__dirname, 'src', 'css'),
-    main: path.resolve(__dirname, 'src', 'js', 'main.js'),
+    main: path.resolve(__dirname, 'src', 'js', 'gator_components', 'utilities', 'main.js'),
     favicon: path.resolve(__dirname, 'src', 'favicon.ico'),
     html:path.resolve(__dirname, 'src', 'pug_views', 'index.pug'),
     dist: path.resolve(__dirname, 'dist'),
@@ -25,7 +26,7 @@ const paths = {
 //  development mode -> const dev_mode = (process.env.NODE_ENV !== 'production');
 //  production mdoe -> const dev_mode = (process.env.NODE_ENV == 'production');
 
-const dev_mode = (process.env.NODE_ENV !== 'production');
+const dev_mode = (process.env.NODE_ENV == 'production');
 
 const pluginOptions = {
   filename: paths.htmlBuildFilename,
@@ -64,7 +65,7 @@ const config = {
     jsonpScriptType : 'text/javascript',
     filename: dev_mode ? 'js/[name].bundle.js' : 'js/[hash:6].js',
     chunkFilename: dev_mode ? 'js/[id].bundle.js' : 'js/[chunkhash:8].js',
-    devtoolModuleFilenameTemplate: 'webpack://[namespace]/[resource-path]?[loaders]',
+    devtoolModuleFilenameTemplate: 'webpack://[resource-path]?[loaders]',
     path: paths.public,
     publicPath: '/',
     pathinfo: false,
@@ -83,7 +84,7 @@ const config = {
     splitChunks: false,
     removeAvailableModules: true,
     removeEmptyChunks: true,
-    runtimeChunk: 'single',
+    // runtimeChunk: 'single',
   },
   module: {
     rules: [
@@ -110,7 +111,7 @@ const config = {
         // exclude: /node_modules/
       },
       {
-        test: /\.pug$/,
+        test: /\.pug$/i,
         use: 'pug-loader'
       },
       {
@@ -139,12 +140,12 @@ const config = {
          rel: 'prefetch',
         //  option/attribute for preload not used for prefetch
         //  as: 'text/javacript',  
-         include: ['runtime', 'main']
+         include: ['main', 'runtime']
        }),
   ]
 };
 //output main config options
-console.log('\n \n \t \t \t \t \t \t \t Is build `mode:` property set to `development` ? ', dev_mode.toString().toUpperCase());
-console.log('\n \n \t \t \t \t \t \t \t Is build `watch:` property set to `true` ? ', config.watch.toString().toUpperCase());
-console.log('\n \n \t \t \t \t \t \t \t To confirm, Webpack\'s `config.mode` was flag-flipped to: ', config.mode.toString().toUpperCase(), 'MODE', '\n \n' );
+console.log('\n \n \t      Is build `mode:` property set to `development` ? ', dev_mode.toString().toUpperCase());
+console.log('\n \n \t      Is build `watch:` property set to `true` ? ', config.watch.toString().toUpperCase());
+console.log('\n \n \t      To confirm, Webpack\'s `config.mode` was flag-flipped to: ', config.mode.toString().toUpperCase(), 'MODE', '\n \n' );
 module.exports = config;

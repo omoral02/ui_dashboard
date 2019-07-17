@@ -2,18 +2,19 @@ export default class AppModel {
   constructor() {
     this.placeholders = [{
       parameters: {
-        case_number: 'Unify case number',
-        ip_range: '10.0.0.0/32 1234:5678::/48',
-        query_type: 'GEOCODING_API_QUERY / PLACE_API_DETAILS_QUERY',
-        api_endpoint_type: 'ENDPOINT_JAVASCRIPT_API / ENDPOINT_WEB_SERVICE',
-        table_suffix: '20180503, last3days, latest, all',
-        project_number: '1234567891012',
-        client_id: 'gme-XXXXX',
-        project_id: 'my-project1234343',
-        date_from: 'YYYY-MM-DD',
-        date_to: 'YYYY-MM-DD',
-        key: 'AIzaSy***********',
-        table_column: 'QPS column in logs.web_service_qps.all- "places"',
+        'case_number': 'Unify case number',
+        'ip_range': '10.0.0.0/32 1234:5678::/48',
+        'query_type': 'Geocoding_API_query/Place_API_details_query',
+        'api_endpoint_type': 'Endpoint_Javascript_API/_Web_Service',
+        'table_suffix': '20180503, last3days, latest, all',
+        'project_number': '1234567891012',
+        'client_id': 'gme-XXXXX',
+        'date_from_YYYY_MM_DD': 'YYYY-MM-DD',
+        'date_to_YYYY_MM_DD': 'YYYY-MM-DD',
+        'api_key': 'AIzaSy***********',
+        'table_column': 'QPS column in logs.web_service_qps.all- "places"',
+        'domain': 'domain.com',
+        'url': 'domain.com/path',
       },
     }];
     this.views = {};

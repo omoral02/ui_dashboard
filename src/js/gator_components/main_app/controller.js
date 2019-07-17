@@ -1,4 +1,5 @@
-import { ApiKey } from './api_key';
+import { ApiKey } from '../utilities/api_key';
+import MessagePassing from '../utilities/message_passing';
 import AppView from './view';
 import ScriptsController from '../plx/controller';
 import MapsController from '../dynamic_map_modules/map/controller';
@@ -6,9 +7,12 @@ import MapsController from '../dynamic_map_modules/map/controller';
 export default class AppController extends AppView {
   constructor(Util) {
     super();
-    this.util = new Util;
-    this.apiKey = ApiKey;
-    this.actionButtons = []; 
+    this.superToolId = 'lpchobgehbffcpbknlbniafpdghdcimh';
+    this.util = new Util();
+    this.cl_apiKey = ApiKey;
+    this.actionButtons = [];
+    this.onLoadCheckForActionButtons();
+    this.messagePassing = new MessagePassing(this.superToolId); 
   }
 
   onLoadCheckForActionButtons() {
@@ -26,17 +30,17 @@ export default class AppController extends AppView {
           this.mapsButton, 
           this.plxButton, 
           this.head, 
-          this.apiKey, 
-          this.viewsPane);
+          this.cl_apiKey, 
+          this.viewsPane,);
     this.controllerIsNowlistening();
   }
 
-  instantiateControllersWith (util, placeholders, mapsButton, plxButton, head, apiKey, viewsPane) {
+  instantiateControllersWith (util, placeholders, mapsButton, plxButton, head, cl_apiKey, viewsPane) {
     if (!this.scriptsController){
-    this.scriptsController = new ScriptsController(plxButton, placeholders, viewsPane);
+    this.scriptsController = new ScriptsController(util, placeholders, viewsPane, plxButton);
     }
     if (!this.mapsController){
-    this.mapsController = new MapsController (util, mapsButton, placeholders, viewsPane, apiKey, head);
+    this.mapsController = new MapsController (util, placeholders, mapsButton, viewsPane, cl_apiKey, head);
     }
   }
 
@@ -78,5 +82,6 @@ export default class AppController extends AppView {
   staticMapShouldLoad() {
 
   }
+
 }
 

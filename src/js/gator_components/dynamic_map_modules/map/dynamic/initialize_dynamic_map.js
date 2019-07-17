@@ -18,7 +18,7 @@ export default class InitializeMap {
       trafficLayer: true,
       mapTypeControlOptions: {
               mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain', 'styled_map']
-            }
+            },
     };
     this.infoWindow = new google.maps.InfoWindow({
       content: null,
@@ -146,11 +146,11 @@ export default class InitializeMap {
     this.trafficLayer.setMap(this._map);
     this.geocoder = new google.maps.Geocoder();
     this.self = this;
-    this.initListeners(this._map, this.self, this.infoWindow, this.google);
+    this.initListeners(this._map, this.infoWindow);
   }
 
-  initListeners (_map, context, infoWindow) {
-    this.asyncDirectionsHandler(_map, context);
+  initListeners (_map,  infoWindow) {
+    this.asyncDirectionsHandler(_map, this);
     google.maps.event.addListener(_map, 'click', this.asyncClickFunction.bind(this, infoWindow));
     // document.getElementById('submit').addEventListener('click', this.asyncGeocoderFunction.bind(this));
   }
@@ -185,8 +185,8 @@ export default class InitializeMap {
             '../../modules/geocode_address.js');
             geocodeAddress(geocoder, _map, util, infoWindow, markers, ids, uniqueId);
             this.util.log('geoCoder submitted user\'s address input of : ' + this.search.value);
-            }
-        geocodeAddress(this.geocoder, this._map, this.util, this.infoWindow, this.markers, this.ids, this.uniqueId);
+      }
+      geocodeAddress(this.geocoder, this._map, this.util, this.infoWindow, this.markers, this.ids, this.uniqueId);
   }
 }
 

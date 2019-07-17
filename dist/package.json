@@ -6,7 +6,7 @@
     "start": "set NODE_ENV=production && node ./bin/www"
   },
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",

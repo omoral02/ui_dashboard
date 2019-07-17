@@ -8,12 +8,12 @@ export default class AppView extends AppModel {
     this.mainMenu = document.getElementsByTagName('main')[0];
     this.plxButton = document.getElementById('plx_button');
     this.plxButton.textContent = 'PLX';
-    this.mapsButton = document.getElementById('map_button');
-    this.mapsButton.textContent = 'Dynamic Map'
-    this.wsButton = document.getElementById('ws_button');
-    this.wsButton.textContent = 'WS Tester';
-    this.staticMapButton = document.getElementById('static_map_button');
-    this.staticMapButton.textContent = 'Static Map';
+    // this.mapsButton = document.getElementById('map_button');
+    // this.mapsButton.textContent = 'Dynamic Map'
+    // this.wsButton = document.getElementById('ws_button');
+    // this.wsButton.textContent = 'WS Tester';
+    // this.staticMapButton = document.getElementById('static_map_button');
+    // this.staticMapButton.textContent = 'Static Map';
     this.viewsPane = document.createElement('section');
     this.viewsPane.id = 'views_pane';
     this.mainMenu.insertAdjacentElement('afterend', this.viewsPane);
@@ -103,7 +103,7 @@ export default class AppView extends AppModel {
         console.log('Classlist for ', 
           object.view.id, ' is now: ', 
           object.view.classList.value, 
-          ' : ');
+          );
     });    
   } 
 }
