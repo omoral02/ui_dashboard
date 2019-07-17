@@ -70,11 +70,11 @@ export default class ScriptsController extends ScriptsView {
         // use eval to dynamically invoke regEx functions that filter input
         // based on target id as the ids are part of the function names.
         // from `validate_input.js`. 
-        // ex: `this.validator.is_project_number(value)` < validate project number
-        // ex: `this.validator.is_case_number(value)` < validate case number
+        // ex: `this.validator.is_project_number(value, validatorFunction)` < validate project number
+        // ex: `this.validator.is_case_number(value, validatorFunction)` < validate case number
         let id = inputField.id;
         console.log('Input to filter :: ' + id);
-        let filteredResult = eval('this.validator.is_'+ id)(inputField, this.validator);
+        let filteredResult = eval('this.validator.is_'+ id)(inputField, this.validator.test_);
         console.log('Does input match filter? :: ', filteredResult.isFiltered);
         this.validateOutputOn(filteredResult);
       }
