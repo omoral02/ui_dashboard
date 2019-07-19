@@ -26,7 +26,7 @@ const paths = {
 //  development mode -> const dev_mode = (process.env.NODE_ENV !== 'production');
 //  production mdoe -> const dev_mode = (process.env.NODE_ENV == 'production');
 
-const dev_mode = (process.env.NODE_ENV == 'production');
+const dev_mode = (process.env.NODE_ENV !== 'production');
 
 const pluginOptions = {
   filename: paths.htmlBuildFilename,
