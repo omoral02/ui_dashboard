@@ -1,61 +1,78 @@
+
 export default class MessagePassing {
-    constructor(superToolExtensionId) {
-        this.extensionId = superToolExtensionId;
-        this.port = chrome.runtime.connect(
-            this.extensionId,
+    constructor(superToolExtensionId, gatorExtensionId) {
+        // this.tab_id = chrome.tabs.getCurrent((identifier)=>{
+        //     return identifier;
+        // });
+        this.superTool_id = superToolExtensionId;
+        this.superTool_port = chrome.runtime.connect(
+            this.superTool_id,
+            {name: 'SuperTool',
+            includeTlsChannelId: true,},
+            );
+
+        this.gator_id = gatorExtensionId;
+        this.gator_port = chrome.runtime.connect(
+            this.gator_id,
             {name: 'Gator', includeTlsChannelId: true,},
             );
-        this.init();
     }
 
-    init () {
-        this.isNowListening(this.port);
-    }
+    // init (supertool, gator) {
+    //     console.log('connected to Extensions:', Object.keys(supertool), '+', Object.keys(gator));
+    //     this.isNowListening(supertool, gator);
+    // }
 
-    isNowListening(port) {
-        //one-time request
-        port.onMessage.addListener(this.contentHeardThat);
+    // isNowListening(supertool, gator) {
+    //     //one-time requests
+    //     // chrome.runtime.onMessageExternal.addListener(supertool);
+    //     // chrome.runtime.onMessageExternal.addListener(gator);
 
+    //     //long-lived connections
+    //     // let supertool_messagePort = supertool;
+    //     // chrome.runtime.onConnectExternal.addListener(this.runtimeHeardThat);
+    //     chrome.runtime.onConnect.addListener(this.runtimeHeardThat(supertool));
+    //     chrome.runtime.onConnect.addListener(this.runtimeHeardThat(gator));
+  
+    // }
 
-        //long-lived connection
-        let messagePort = port;
-        // chrome.runtime.onConnectExternal.addListener(this.runtimeHeardThat);
-    }
+    // contentHeardThat (msg, sender, sendResponse) {
+    //     let message = msg;
+    //     if (message !== null && sender) {
+    //         console.log(sender.tab ?
+    //             "from a content script:" + sender.tab.url :
+    //             "from the extension");
+    //         if (message.type == "SEND") {
+    //             let goodbye = {farewell: "goodbye"};
+    //             sendResponse(goodbye);
+    //         }
+    //     }
+    // }
 
-    contentHeardThat (msg, sender, callbackReturn) {
-        let message = msg;
-        if (message !== null && sender) {
-            console.log(sender.tab ?
-                "from a content script:" + sender.tab.url :
-                "from the extension");
-            if (message.greeting == "hello") {
-                let goodbye = {farewell: "goodbye"};
-                callbackReturn(goodbye);
-            }
-        }
-    }
+    // runtimeHeardThat (messageport) {
+    //     let port = messageport;
+    //     console.assert(port.name !== null);
+    //     console.log(port.tab ?
+    //         "from a content script:" + sender.tab.url :
+    //         "from the extension");
+    //     port.onMessage.addListener(this.didYouGetThis(message));
+    // }
 
-    runtimeHeardThat (messageport) {
-        let port = messageport;
-        console.assert(port.name !== null);
-        port.onMessage.addListener(this.didYouGetThis(message));
-    }
+    // didYouGetThis (msg) {
+    //     console.log('Massage received ::', msg);
+    //     let message = msg;
+    //     if (message) {
+    //         console.log('msg recieved', message);
+    //     }
+    // }
 
-    didYouGetThis (msg) {
-        console.log('Massage received ::', msg);
-        let message = msg;
-        if (message) {
-            console.log('msg recieved');
-        }
-    }
-
-    sendThis (msg) {
-        let response = msg;
-        if (response) {
-            chrome.tabs.sendMessage(response, function (data){
-                console.log(data);
-            });
-        }
-    }
+    // sendThis (msg) {
+    //     let response = msg;
+    //     if (response) {
+    //         chrome.tabs.sendMessage(response, function (data){
+    //             console.log(data);
+    //         });
+    //     }
+    // }
 }
 

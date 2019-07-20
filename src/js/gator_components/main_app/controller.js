@@ -8,11 +8,12 @@ export default class AppController extends AppView {
   constructor(Util) {
     super();
     this.superToolId = 'lpchobgehbffcpbknlbniafpdghdcimh';
+    this.gatorId = 'mfgnkbjgianofpgdgbjdmligjdpdaekg';
     this.util = new Util();
     this.cl_apiKey = ApiKey;
     this.actionButtons = [];
     this.onLoadCheckForActionButtons();
-    this.messagePassing = new MessagePassing(this.superToolId); 
+    this.messagePassing = new MessagePassing(this.superToolId, this.gatorId); 
   }
 
   onLoadCheckForActionButtons() {

@@ -1,202 +1,4 @@
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// install a JSONP callback for chunk loading
-/******/ 	function webpackJsonpCallback(data) {
-/******/ 		var chunkIds = data[0];
-/******/ 		var moreModules = data[1];
-/******/
-/******/
-/******/ 		// add "moreModules" to the modules object,
-/******/ 		// then flag all "chunkIds" as loaded and fire callback
-/******/ 		var moduleId, chunkId, i = 0, resolves = [];
-/******/ 		for(;i < chunkIds.length; i++) {
-/******/ 			chunkId = chunkIds[i];
-/******/ 			if(installedChunks[chunkId]) {
-/******/ 				resolves.push(installedChunks[chunkId][0]);
-/******/ 			}
-/******/ 			installedChunks[chunkId] = 0;
-/******/ 		}
-/******/ 		for(moduleId in moreModules) {
-/******/ 			if(Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
-/******/ 				modules[moduleId] = moreModules[moduleId];
-/******/ 			}
-/******/ 		}
-/******/ 		if(parentJsonpFunction) parentJsonpFunction(data);
-/******/
-/******/ 		while(resolves.length) {
-/******/ 			resolves.shift()();
-/******/ 		}
-/******/
-/******/ 	};
-/******/
-/******/
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// object to store loaded and loading chunks
-/******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
-/******/ 	// Promise = chunk loading, 0 = chunk loaded
-/******/ 	var installedChunks = {
-/******/ 		"main": 0
-/******/ 	};
-/******/
-/******/
-/******/
-/******/ 	// script path function
-/******/ 	function jsonpScriptSrc(chunkId) {
-/******/ 		return __webpack_require__.p + "js/" + chunkId + ".bundle.js"
-/******/ 	}
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/ 	// This file contains only the entry chunk.
-/******/ 	// The chunk loading function for additional chunks
-/******/ 	__webpack_require__.e = function requireEnsure(chunkId) {
-/******/ 		var promises = [];
-/******/
-/******/
-/******/ 		// JSONP chunk loading for javascript
-/******/
-/******/ 		var installedChunkData = installedChunks[chunkId];
-/******/ 		if(installedChunkData !== 0) { // 0 means "already installed".
-/******/
-/******/ 			// a Promise means "currently loading".
-/******/ 			if(installedChunkData) {
-/******/ 				promises.push(installedChunkData[2]);
-/******/ 			} else {
-/******/ 				// setup Promise in chunk cache
-/******/ 				var promise = new Promise(function(resolve, reject) {
-/******/ 					installedChunkData = installedChunks[chunkId] = [resolve, reject];
-/******/ 				});
-/******/ 				promises.push(installedChunkData[2] = promise);
-/******/
-/******/ 				// start chunk loading
-/******/ 				var script = document.createElement('script');
-/******/ 				var onScriptComplete;
-/******/ 				script.type = "text/javascript";
-/******/ 				script.charset = 'utf-8';
-/******/ 				script.timeout = 120;
-/******/ 				if (__webpack_require__.nc) {
-/******/ 					script.setAttribute("nonce", __webpack_require__.nc);
-/******/ 				}
-/******/ 				script.src = jsonpScriptSrc(chunkId);
-/******/
-/******/ 				onScriptComplete = function (event) {
-/******/ 					// avoid mem leaks in IE.
-/******/ 					script.onerror = script.onload = null;
-/******/ 					clearTimeout(timeout);
-/******/ 					var chunk = installedChunks[chunkId];
-/******/ 					if(chunk !== 0) {
-/******/ 						if(chunk) {
-/******/ 							var errorType = event && (event.type === 'load' ? 'missing' : event.type);
-/******/ 							var realSrc = event && event.target && event.target.src;
-/******/ 							var error = new Error('Loading chunk ' + chunkId + ' failed.\n(' + errorType + ': ' + realSrc + ')');
-/******/ 							error.type = errorType;
-/******/ 							error.request = realSrc;
-/******/ 							chunk[1](error);
-/******/ 						}
-/******/ 						installedChunks[chunkId] = undefined;
-/******/ 					}
-/******/ 				};
-/******/ 				var timeout = setTimeout(function(){
-/******/ 					onScriptComplete({ type: 'timeout', target: script });
-/******/ 				}, 120000);
-/******/ 				script.onerror = script.onload = onScriptComplete;
-/******/ 				document.head.appendChild(script);
-/******/ 			}
-/******/ 		}
-/******/ 		return Promise.all(promises);
-/******/ 	};
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/";
-/******/
-/******/ 	// on error function for async loading
-/******/ 	__webpack_require__.oe = function(err) { console.error(err); throw err; };
-/******/
-/******/ 	var jsonpArray = window["webpackJsonp"] = window["webpackJsonp"] || [];
-/******/ 	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
-/******/ 	jsonpArray.push = webpackJsonpCallback;
-/******/ 	jsonpArray = jsonpArray.slice();
-/******/ 	for(var i = 0; i < jsonpArray.length; i++) webpackJsonpCallback(jsonpArray[i]);
-/******/ 	var parentJsonpFunction = oldJsonpFunction;
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/js/gator_components/utilities/main.js");
-/******/ })
-/************************************************************************/
-/******/ ({
+(window["webpackJsonp"] = window["webpackJsonp"] || []).push([["main"],{
 
 /***/ "./node_modules/css-loader/dist/cjs.js!./src/css/dyn_map.css":
 /***/ (function(module, exports, __webpack_require__) {
@@ -323,7 +125,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return AppController; });\n/* harmony import */ var _utilities_api_key__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(\"./src/js/gator_components/utilities/api_key.js\");\n/* harmony import */ var _utilities_message_passing__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(\"./src/js/gator_components/utilities/message_passing.js\");\n/* harmony import */ var _view__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(\"./src/js/gator_components/main_app/view.js\");\n/* harmony import */ var _plx_controller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(\"./src/js/gator_components/plx/controller.js\");\n/* harmony import */ var _dynamic_map_modules_map_controller__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(\"./src/js/gator_components/dynamic_map_modules/map/controller.js\");\n\n\n\n\n\n\nclass AppController extends _view__WEBPACK_IMPORTED_MODULE_2__[\"default\"] {\n  constructor(Util) {\n    super();\n    this.superToolId = 'lpchobgehbffcpbknlbniafpdghdcimh';\n    this.util = new Util();\n    this.cl_apiKey = _utilities_api_key__WEBPACK_IMPORTED_MODULE_0__[\"ApiKey\"];\n    this.actionButtons = [];\n    this.onLoadCheckForActionButtons();\n    this.messagePassing = new _utilities_message_passing__WEBPACK_IMPORTED_MODULE_1__[\"default\"](this.superToolId); \n  }\n\n  onLoadCheckForActionButtons() {\n    for (let i = 0; i < this.viewsButtons.length; i++){\n      let button = this.viewsButtons[i];\n      this.actionButtons.push(button);\n    }\n    this.loadControllers();\n  }\n\n  loadControllers() {\n    this.instantiateControllersWith(\n          this.util, \n          super.getParametersList(), \n          this.mapsButton, \n          this.plxButton, \n          this.head, \n          this.cl_apiKey, \n          this.viewsPane,);\n    this.controllerIsNowlistening();\n  }\n\n  instantiateControllersWith (util, placeholders, mapsButton, plxButton, head, cl_apiKey, viewsPane) {\n    if (!this.scriptsController){\n    this.scriptsController = new _plx_controller__WEBPACK_IMPORTED_MODULE_3__[\"default\"](util, placeholders, viewsPane, plxButton);\n    }\n    if (!this.mapsController){\n    this.mapsController = new _dynamic_map_modules_map_controller__WEBPACK_IMPORTED_MODULE_4__[\"default\"] (util, placeholders, mapsButton, viewsPane, cl_apiKey, head);\n    }\n  }\n\n  controllerIsNowlistening() {\n    this.actionButtons.forEach( (button) => {\n      button.addEventListener(\n        'click', this.oneButtonWasClicked.bind(this),\n        true);\n    });\n    console.log(this);\n  }\n\n  oneButtonWasClicked (e) {\n    e.preventDefault();\n    if (e.target.id == 'plx_button'){\n        this.plxShouldLoad();\n    } else if (e.target.id == 'map_button'){\n        this.mapShouldLoad();\n    } else if (e.target.id == 'ws_button') {\n        this.wsShouldLoad();\n    } else if (e.target.id == 'static_map_button') {\n        this.staticMapShouldLoad();\n    }\n    super.checkAttachedPanes();\n  }\n\n  plxShouldLoad() {\n    this.scriptsController.init();\n  }\n\n  mapShouldLoad() {\n    this.mapsController.init();\n  }\n\n  wsShouldLoad() {\n  \n  }\n\n  staticMapShouldLoad() {\n\n  }\n\n}\n\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvanMvZ2F0b3JfY29tcG9uZW50cy9tYWluX2FwcC9jb250cm9sbGVyLmpzLmpzIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLi9zcmMvanMvZ2F0b3JfY29tcG9uZW50cy9tYWluX2FwcC9jb250cm9sbGVyLmpzPyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBBcGlLZXkgfSBmcm9tICcuLi91dGlsaXRpZXMvYXBpX2tleSc7XG5pbXBvcnQgTWVzc2FnZVBhc3NpbmcgZnJvbSAnLi4vdXRpbGl0aWVzL21lc3NhZ2VfcGFzc2luZyc7XG5pbXBvcnQgQXBwVmlldyBmcm9tICcuL3ZpZXcnO1xuaW1wb3J0IFNjcmlwdHNDb250cm9sbGVyIGZyb20gJy4uL3BseC9jb250cm9sbGVyJztcbmltcG9ydCBNYXBzQ29udHJvbGxlciBmcm9tICcuLi9keW5hbWljX21hcF9tb2R1bGVzL21hcC9jb250cm9sbGVyJztcblxuZXhwb3J0IGRlZmF1bHQgY2xhc3MgQXBwQ29udHJvbGxlciBleHRlbmRzIEFwcFZpZXcge1xuICBjb25zdHJ1Y3RvcihVdGlsKSB7XG4gICAgc3VwZXIoKTtcbiAgICB0aGlzLnN1cGVyVG9vbElkID0gJ2xwY2hvYmdlaGJmZmNwYmtubGJuaWFmcGRnaGRjaW1oJztcbiAgICB0aGlzLnV0aWwgPSBuZXcgVXRpbCgpO1xuICAgIHRoaXMuY2xfYXBpS2V5ID0gQXBpS2V5O1xuICAgIHRoaXMuYWN0aW9uQnV0dG9ucyA9IFtdO1xuICAgIHRoaXMub25Mb2FkQ2hlY2tGb3JBY3Rpb25CdXR0b25zKCk7XG4gICAgdGhpcy5tZXNzYWdlUGFzc2luZyA9IG5ldyBNZXNzYWdlUGFzc2luZyh0aGlzLnN1cGVyVG9vbElkKTsgXG4gIH1cblxuICBvbkxvYWRDaGVja0ZvckFjdGlvbkJ1dHRvbnMoKSB7XG4gICAgZm9yIChsZXQgaSA9IDA7IGkgPCB0aGlzLnZpZXdzQnV0dG9ucy5sZW5ndGg7IGkrKyl7XG4gICAgICBsZXQgYnV0dG9uID0gdGhpcy52aWV3c0J1dHRvbnNbaV07XG4gICAgICB0aGlzLmFjdGlvbkJ1dHRvbnMucHVzaChidXR0b24pO1xuICAgIH1cbiAgICB0aGlzLmxvYWRDb250cm9sbGVycygpO1xuICB9XG5cbiAgbG9hZENvbnRyb2xsZXJzKCkge1xuICAgIHRoaXMuaW5zdGFudGlhdGVDb250cm9sbGVyc1dpdGgoXG4gICAgICAgICAgdGhpcy51dGlsLCBcbiAgICAgICAgICBzdXBlci5nZXRQYXJhbWV0ZXJzTGlzdCgpLCBcbiAgICAgICAgICB0aGlzLm1hcHNCdXR0b24sIFxuICAgICAgICAgIHRoaXMucGx4QnV0dG9uLCBcbiAgICAgICAgICB0aGlzLmhlYWQsIFxuICAgICAgICAgIHRoaXMuY2xfYXBpS2V5LCBcbiAgICAgICAgICB0aGlzLnZpZXdzUGFuZSwpO1xuICAgIHRoaXMuY29udHJvbGxlcklzTm93bGlzdGVuaW5nKCk7XG4gIH1cblxuICBpbnN0YW50aWF0ZUNvbnRyb2xsZXJzV2l0aCAodXRpbCwgcGxhY2Vob2xkZXJzLCBtYXBzQnV0dG9uLCBwbHhCdXR0b24sIGhlYWQsIGNsX2FwaUtleSwgdmlld3NQYW5lKSB7XG4gICAgaWYgKCF0aGlzLnNjcmlwdHNDb250cm9sbGVyKXtcbiAgICB0aGlzLnNjcmlwdHNDb250cm9sbGVyID0gbmV3IFNjcmlwdHNDb250cm9sbGVyKHV0aWwsIHBsYWNlaG9sZGVycywgdmlld3NQYW5lLCBwbHhCdXR0b24pO1xuICAgIH1cbiAgICBpZiAoIXRoaXMubWFwc0NvbnRyb2xsZXIpe1xuICAgIHRoaXMubWFwc0NvbnRyb2xsZXIgPSBuZXcgTWFwc0NvbnRyb2xsZXIgKHV0aWwsIHBsYWNlaG9sZGVycywgbWFwc0J1dHRvbiwgdmlld3NQYW5lLCBjbF9hcGlLZXksIGhlYWQpO1xuICAgIH1cbiAgfVxuXG4gIGNvbnRyb2xsZXJJc05vd2xpc3RlbmluZygpIHtcbiAgICB0aGlzLmFjdGlvbkJ1dHRvbnMuZm9yRWFjaCggKGJ1dHRvbikgPT4ge1xuICAgICAgYnV0dG9uLmFkZEV2ZW50TGlzdGVuZXIoXG4gICAgICAgICdjbGljaycsIHRoaXMub25lQnV0dG9uV2FzQ2xpY2tlZC5iaW5kKHRoaXMpLFxuICAgICAgICB0cnVlKTtcbiAgICB9KTtcbiAgICBjb25zb2xlLmxvZyh0aGlzKTtcbiAgfVxuXG4gIG9uZUJ1dHRvbldhc0NsaWNrZWQgKGUpIHtcbiAgICBlLnByZXZlbnREZWZhdWx0KCk7XG4gICAgaWYgKGUudGFyZ2V0LmlkID09ICdwbHhfYnV0dG9uJyl7XG4gICAgICAgIHRoaXMucGx4U2hvdWxkTG9hZCgpO1xuICAgIH0gZWxzZSBpZiAoZS50YXJnZXQuaWQgPT0gJ21hcF9idXR0b24nKXtcbiAgICAgICAgdGhpcy5tYXBTaG91bGRMb2FkKCk7XG4gICAgfSBlbHNlIGlmIChlLnRhcmdldC5pZCA9PSAnd3NfYnV0dG9uJykge1xuICAgICAgICB0aGlzLndzU2hvdWxkTG9hZCgpO1xuICAgIH0gZWxzZSBpZiAoZS50YXJnZXQuaWQgPT0gJ3N0YXRpY19tYXBfYnV0dG9uJykge1xuICAgICAgICB0aGlzLnN0YXRpY01hcFNob3VsZExvYWQoKTtcbiAgICB9XG4gICAgc3VwZXIuY2hlY2tBdHRhY2hlZFBhbmVzKCk7XG4gIH1cblxuICBwbHhTaG91bGRMb2FkKCkge1xuICAgIHRoaXMuc2NyaXB0c0NvbnRyb2xsZXIuaW5pdCgpO1xuICB9XG5cbiAgbWFwU2hvdWxkTG9hZCgpIHtcbiAgICB0aGlzLm1hcHNDb250cm9sbGVyLmluaXQoKTtcbiAgfVxuXG4gIHdzU2hvdWxkTG9hZCgpIHtcbiAgXG4gIH1cblxuICBzdGF0aWNNYXBTaG91bGRMb2FkKCkge1xuXG4gIH1cblxufVxuXG4iXSwibWFwcGluZ3MiOiJBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOyIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./src/js/gator_components/main_app/controller.js\n");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return AppController; });\n/* harmony import */ var _utilities_api_key__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(\"./src/js/gator_components/utilities/api_key.js\");\n/* harmony import */ var _utilities_message_passing__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(\"./src/js/gator_components/utilities/message_passing.js\");\n/* harmony import */ var _view__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(\"./src/js/gator_components/main_app/view.js\");\n/* harmony import */ var _plx_controller__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(\"./src/js/gator_components/plx/controller.js\");\n/* harmony import */ var _dynamic_map_modules_map_controller__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(\"./src/js/gator_components/dynamic_map_modules/map/controller.js\");\n\n\n\n\n\n\nclass AppController extends _view__WEBPACK_IMPORTED_MODULE_2__[\"default\"] {\n  constructor(Util) {\n    super();\n    this.superToolId = 'lpchobgehbffcpbknlbniafpdghdcimh';\n    this.gatorId = 'mfgnkbjgianofpgdgbjdmligjdpdaekg';\n    this.util = new Util();\n    this.cl_apiKey = _utilities_api_key__WEBPACK_IMPORTED_MODULE_0__[\"ApiKey\"];\n    this.actionButtons = [];\n    this.onLoadCheckForActionButtons();\n    this.messagePassing = new _utilities_message_passing__WEBPACK_IMPORTED_MODULE_1__[\"default\"](this.superToolId, this.gatorId); \n  }\n\n  onLoadCheckForActionButtons() {\n    for (let i = 0; i < this.viewsButtons.length; i++){\n      let button = this.viewsButtons[i];\n      this.actionButtons.push(button);\n    }\n    this.loadControllers();\n  }\n\n  loadControllers() {\n    this.instantiateControllersWith(\n          this.util, \n          super.getParametersList(), \n          this.mapsButton, \n          this.plxButton, \n          this.head, \n          this.cl_apiKey, \n          this.viewsPane,);\n    this.controllerIsNowlistening();\n  }\n\n  instantiateControllersWith (util, placeholders, mapsButton, plxButton, head, cl_apiKey, viewsPane) {\n    if (!this.scriptsController){\n    this.scriptsController = new _plx_controller__WEBPACK_IMPORTED_MODULE_3__[\"default\"](util, placeholders, viewsPane, plxButton);\n    }\n    if (!this.mapsController){\n    this.mapsController = new _dynamic_map_modules_map_controller__WEBPACK_IMPORTED_MODULE_4__[\"default\"] (util, placeholders, mapsButton, viewsPane, cl_apiKey, head);\n    }\n  }\n\n  controllerIsNowlistening() {\n    this.actionButtons.forEach( (button) => {\n      button.addEventListener(\n        'click', this.oneButtonWasClicked.bind(this),\n        true);\n    });\n    console.log(this);\n  }\n\n  oneButtonWasClicked (e) {\n    e.preventDefault();\n    if (e.target.id == 'plx_button'){\n        this.plxShouldLoad();\n    } else if (e.target.id == 'map_button'){\n        this.mapShouldLoad();\n    } else if (e.target.id == 'ws_button') {\n        this.wsShouldLoad();\n    } else if (e.target.id == 'static_map_button') {\n        this.staticMapShouldLoad();\n    }\n    super.checkAttachedPanes();\n  }\n\n  plxShouldLoad() {\n    this.scriptsController.init();\n  }\n\n  mapShouldLoad() {\n    this.mapsController.init();\n  }\n\n  wsShouldLoad() {\n  \n  }\n\n  staticMapShouldLoad() {\n\n  }\n\n}\n\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvanMvZ2F0b3JfY29tcG9uZW50cy9tYWluX2FwcC9jb250cm9sbGVyLmpzLmpzIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLi9zcmMvanMvZ2F0b3JfY29tcG9uZW50cy9tYWluX2FwcC9jb250cm9sbGVyLmpzPyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBBcGlLZXkgfSBmcm9tICcuLi91dGlsaXRpZXMvYXBpX2tleSc7XG5pbXBvcnQgTWVzc2FnZVBhc3NpbmcgZnJvbSAnLi4vdXRpbGl0aWVzL21lc3NhZ2VfcGFzc2luZyc7XG5pbXBvcnQgQXBwVmlldyBmcm9tICcuL3ZpZXcnO1xuaW1wb3J0IFNjcmlwdHNDb250cm9sbGVyIGZyb20gJy4uL3BseC9jb250cm9sbGVyJztcbmltcG9ydCBNYXBzQ29udHJvbGxlciBmcm9tICcuLi9keW5hbWljX21hcF9tb2R1bGVzL21hcC9jb250cm9sbGVyJztcblxuZXhwb3J0IGRlZmF1bHQgY2xhc3MgQXBwQ29udHJvbGxlciBleHRlbmRzIEFwcFZpZXcge1xuICBjb25zdHJ1Y3RvcihVdGlsKSB7XG4gICAgc3VwZXIoKTtcbiAgICB0aGlzLnN1cGVyVG9vbElkID0gJ2xwY2hvYmdlaGJmZmNwYmtubGJuaWFmcGRnaGRjaW1oJztcbiAgICB0aGlzLmdhdG9ySWQgPSAnbWZnbmtiamdpYW5vZnBnZGdiamRtbGlnamRwZGFla2cnO1xuICAgIHRoaXMudXRpbCA9IG5ldyBVdGlsKCk7XG4gICAgdGhpcy5jbF9hcGlLZXkgPSBBcGlLZXk7XG4gICAgdGhpcy5hY3Rpb25CdXR0b25zID0gW107XG4gICAgdGhpcy5vbkxvYWRDaGVja0ZvckFjdGlvbkJ1dHRvbnMoKTtcbiAgICB0aGlzLm1lc3NhZ2VQYXNzaW5nID0gbmV3IE1lc3NhZ2VQYXNzaW5nKHRoaXMuc3VwZXJUb29sSWQsIHRoaXMuZ2F0b3JJZCk7IFxuICB9XG5cbiAgb25Mb2FkQ2hlY2tGb3JBY3Rpb25CdXR0b25zKCkge1xuICAgIGZvciAobGV0IGkgPSAwOyBpIDwgdGhpcy52aWV3c0J1dHRvbnMubGVuZ3RoOyBpKyspe1xuICAgICAgbGV0IGJ1dHRvbiA9IHRoaXMudmlld3NCdXR0b25zW2ldO1xuICAgICAgdGhpcy5hY3Rpb25CdXR0b25zLnB1c2goYnV0dG9uKTtcbiAgICB9XG4gICAgdGhpcy5sb2FkQ29udHJvbGxlcnMoKTtcbiAgfVxuXG4gIGxvYWRDb250cm9sbGVycygpIHtcbiAgICB0aGlzLmluc3RhbnRpYXRlQ29udHJvbGxlcnNXaXRoKFxuICAgICAgICAgIHRoaXMudXRpbCwgXG4gICAgICAgICAgc3VwZXIuZ2V0UGFyYW1ldGVyc0xpc3QoKSwgXG4gICAgICAgICAgdGhpcy5tYXBzQnV0dG9uLCBcbiAgICAgICAgICB0aGlzLnBseEJ1dHRvbiwgXG4gICAgICAgICAgdGhpcy5oZWFkLCBcbiAgICAgICAgICB0aGlzLmNsX2FwaUtleSwgXG4gICAgICAgICAgdGhpcy52aWV3c1BhbmUsKTtcbiAgICB0aGlzLmNvbnRyb2xsZXJJc05vd2xpc3RlbmluZygpO1xuICB9XG5cbiAgaW5zdGFudGlhdGVDb250cm9sbGVyc1dpdGggKHV0aWwsIHBsYWNlaG9sZGVycywgbWFwc0J1dHRvbiwgcGx4QnV0dG9uLCBoZWFkLCBjbF9hcGlLZXksIHZpZXdzUGFuZSkge1xuICAgIGlmICghdGhpcy5zY3JpcHRzQ29udHJvbGxlcil7XG4gICAgdGhpcy5zY3JpcHRzQ29udHJvbGxlciA9IG5ldyBTY3JpcHRzQ29udHJvbGxlcih1dGlsLCBwbGFjZWhvbGRlcnMsIHZpZXdzUGFuZSwgcGx4QnV0dG9uKTtcbiAgICB9XG4gICAgaWYgKCF0aGlzLm1hcHNDb250cm9sbGVyKXtcbiAgICB0aGlzLm1hcHNDb250cm9sbGVyID0gbmV3IE1hcHNDb250cm9sbGVyICh1dGlsLCBwbGFjZWhvbGRlcnMsIG1hcHNCdXR0b24sIHZpZXdzUGFuZSwgY2xfYXBpS2V5LCBoZWFkKTtcbiAgICB9XG4gIH1cblxuICBjb250cm9sbGVySXNOb3dsaXN0ZW5pbmcoKSB7XG4gICAgdGhpcy5hY3Rpb25CdXR0b25zLmZvckVhY2goIChidXR0b24pID0+IHtcbiAgICAgIGJ1dHRvbi5hZGRFdmVudExpc3RlbmVyKFxuICAgICAgICAnY2xpY2snLCB0aGlzLm9uZUJ1dHRvbldhc0NsaWNrZWQuYmluZCh0aGlzKSxcbiAgICAgICAgdHJ1ZSk7XG4gICAgfSk7XG4gICAgY29uc29sZS5sb2codGhpcyk7XG4gIH1cblxuICBvbmVCdXR0b25XYXNDbGlja2VkIChlKSB7XG4gICAgZS5wcmV2ZW50RGVmYXVsdCgpO1xuICAgIGlmIChlLnRhcmdldC5pZCA9PSAncGx4X2J1dHRvbicpe1xuICAgICAgICB0aGlzLnBseFNob3VsZExvYWQoKTtcbiAgICB9IGVsc2UgaWYgKGUudGFyZ2V0LmlkID09ICdtYXBfYnV0dG9uJyl7XG4gICAgICAgIHRoaXMubWFwU2hvdWxkTG9hZCgpO1xuICAgIH0gZWxzZSBpZiAoZS50YXJnZXQuaWQgPT0gJ3dzX2J1dHRvbicpIHtcbiAgICAgICAgdGhpcy53c1Nob3VsZExvYWQoKTtcbiAgICB9IGVsc2UgaWYgKGUudGFyZ2V0LmlkID09ICdzdGF0aWNfbWFwX2J1dHRvbicpIHtcbiAgICAgICAgdGhpcy5zdGF0aWNNYXBTaG91bGRMb2FkKCk7XG4gICAgfVxuICAgIHN1cGVyLmNoZWNrQXR0YWNoZWRQYW5lcygpO1xuICB9XG5cbiAgcGx4U2hvdWxkTG9hZCgpIHtcbiAgICB0aGlzLnNjcmlwdHNDb250cm9sbGVyLmluaXQoKTtcbiAgfVxuXG4gIG1hcFNob3VsZExvYWQoKSB7XG4gICAgdGhpcy5tYXBzQ29udHJvbGxlci5pbml0KCk7XG4gIH1cblxuICB3c1Nob3VsZExvYWQoKSB7XG4gIFxuICB9XG5cbiAgc3RhdGljTWFwU2hvdWxkTG9hZCgpIHtcblxuICB9XG5cbn1cblxuIl0sIm1hcHBpbmdzIjoiQUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQUE7QUFBQTtBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBOyIsInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./src/js/gator_components/main_app/controller.js\n");
 
 /***/ }),
 
@@ -387,7 +189,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mai
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return MessagePassing; });\nclass MessagePassing {\n    constructor(superToolExtensionId) {\n        this.extensionId = superToolExtensionId;\n        this.port = chrome.runtime.connect(\n            this.extensionId,\n            {name: 'Gator', includeTlsChannelId: true,},\n            );\n        this.init();\n    }\n\n    init () {\n        this.isNowListening(this.port);\n    }\n\n    isNowListening(port) {\n        //one-time request\n        port.onMessage.addListener(this.contentHeardThat);\n\n\n        //long-lived connection\n        let messagePort = port;\n        // chrome.runtime.onConnectExternal.addListener(this.runtimeHeardThat);\n    }\n\n    contentHeardThat (msg, sender, callbackReturn) {\n        let message = msg;\n        if (message !== null && sender) {\n            console.log(sender.tab ?\n                \"from a content script:\" + sender.tab.url :\n                \"from the extension\");\n            if (message.greeting == \"hello\") {\n                let goodbye = {farewell: \"goodbye\"};\n                callbackReturn(goodbye);\n            }\n        }\n    }\n\n    runtimeHeardThat (messageport) {\n        let port = messageport;\n        console.assert(port.name !== null);\n        port.onMessage.addListener(this.didYouGetThis(message));\n    }\n\n    didYouGetThis (msg) {\n        console.log('Massage received ::', msg);\n        let message = msg;\n        if (message) {\n            console.log('msg recieved');\n        }\n    }\n\n    sendThis (msg) {\n        let response = msg;\n        if (response) {\n            chrome.tabs.sendMessage(response, function (data){\n                console.log(data);\n            });\n        }\n    }\n}\n\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvanMvZ2F0b3JfY29tcG9uZW50cy91dGlsaXRpZXMvbWVzc2FnZV9wYXNzaW5nLmpzLmpzIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLi9zcmMvanMvZ2F0b3JfY29tcG9uZW50cy91dGlsaXRpZXMvbWVzc2FnZV9wYXNzaW5nLmpzPyJdLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgZGVmYXVsdCBjbGFzcyBNZXNzYWdlUGFzc2luZyB7XG4gICAgY29uc3RydWN0b3Ioc3VwZXJUb29sRXh0ZW5zaW9uSWQpIHtcbiAgICAgICAgdGhpcy5leHRlbnNpb25JZCA9IHN1cGVyVG9vbEV4dGVuc2lvbklkO1xuICAgICAgICB0aGlzLnBvcnQgPSBjaHJvbWUucnVudGltZS5jb25uZWN0KFxuICAgICAgICAgICAgdGhpcy5leHRlbnNpb25JZCxcbiAgICAgICAgICAgIHtuYW1lOiAnR2F0b3InLCBpbmNsdWRlVGxzQ2hhbm5lbElkOiB0cnVlLH0sXG4gICAgICAgICAgICApO1xuICAgICAgICB0aGlzLmluaXQoKTtcbiAgICB9XG5cbiAgICBpbml0ICgpIHtcbiAgICAgICAgdGhpcy5pc05vd0xpc3RlbmluZyh0aGlzLnBvcnQpO1xuICAgIH1cblxuICAgIGlzTm93TGlzdGVuaW5nKHBvcnQpIHtcbiAgICAgICAgLy9vbmUtdGltZSByZXF1ZXN0XG4gICAgICAgIHBvcnQub25NZXNzYWdlLmFkZExpc3RlbmVyKHRoaXMuY29udGVudEhlYXJkVGhhdCk7XG5cblxuICAgICAgICAvL2xvbmctbGl2ZWQgY29ubmVjdGlvblxuICAgICAgICBsZXQgbWVzc2FnZVBvcnQgPSBwb3J0O1xuICAgICAgICAvLyBjaHJvbWUucnVudGltZS5vbkNvbm5lY3RFeHRlcm5hbC5hZGRMaXN0ZW5lcih0aGlzLnJ1bnRpbWVIZWFyZFRoYXQpO1xuICAgIH1cblxuICAgIGNvbnRlbnRIZWFyZFRoYXQgKG1zZywgc2VuZGVyLCBjYWxsYmFja1JldHVybikge1xuICAgICAgICBsZXQgbWVzc2FnZSA9IG1zZztcbiAgICAgICAgaWYgKG1lc3NhZ2UgIT09IG51bGwgJiYgc2VuZGVyKSB7XG4gICAgICAgICAgICBjb25zb2xlLmxvZyhzZW5kZXIudGFiID9cbiAgICAgICAgICAgICAgICBcImZyb20gYSBjb250ZW50IHNjcmlwdDpcIiArIHNlbmRlci50YWIudXJsIDpcbiAgICAgICAgICAgICAgICBcImZyb20gdGhlIGV4dGVuc2lvblwiKTtcbiAgICAgICAgICAgIGlmIChtZXNzYWdlLmdyZWV0aW5nID09IFwiaGVsbG9cIikge1xuICAgICAgICAgICAgICAgIGxldCBnb29kYnllID0ge2ZhcmV3ZWxsOiBcImdvb2RieWVcIn07XG4gICAgICAgICAgICAgICAgY2FsbGJhY2tSZXR1cm4oZ29vZGJ5ZSk7XG4gICAgICAgICAgICB9XG4gICAgICAgIH1cbiAgICB9XG5cbiAgICBydW50aW1lSGVhcmRUaGF0IChtZXNzYWdlcG9ydCkge1xuICAgICAgICBsZXQgcG9ydCA9IG1lc3NhZ2Vwb3J0O1xuICAgICAgICBjb25zb2xlLmFzc2VydChwb3J0Lm5hbWUgIT09IG51bGwpO1xuICAgICAgICBwb3J0Lm9uTWVzc2FnZS5hZGRMaXN0ZW5lcih0aGlzLmRpZFlvdUdldFRoaXMobWVzc2FnZSkpO1xuICAgIH1cblxuICAgIGRpZFlvdUdldFRoaXMgKG1zZykge1xuICAgICAgICBjb25zb2xlLmxvZygnTWFzc2FnZSByZWNlaXZlZCA6OicsIG1zZyk7XG4gICAgICAgIGxldCBtZXNzYWdlID0gbXNnO1xuICAgICAgICBpZiAobWVzc2FnZSkge1xuICAgICAgICAgICAgY29uc29sZS5sb2coJ21zZyByZWNpZXZlZCcpO1xuICAgICAgICB9XG4gICAgfVxuXG4gICAgc2VuZFRoaXMgKG1zZykge1xuICAgICAgICBsZXQgcmVzcG9uc2UgPSBtc2c7XG4gICAgICAgIGlmIChyZXNwb25zZSkge1xuICAgICAgICAgICAgY2hyb21lLnRhYnMuc2VuZE1lc3NhZ2UocmVzcG9uc2UsIGZ1bmN0aW9uIChkYXRhKXtcbiAgICAgICAgICAgICAgICBjb25zb2xlLmxvZyhkYXRhKTtcbiAgICAgICAgICAgIH0pO1xuICAgICAgICB9XG4gICAgfVxufVxuXG4iXSwibWFwcGluZ3MiOiJBQUFBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTsiLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./src/js/gator_components/utilities/message_passing.js\n");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"default\", function() { return MessagePassing; });\n\nclass MessagePassing {\n    constructor(superToolExtensionId, gatorExtensionId) {\n        // this.tab_id = chrome.tabs.getCurrent((identifier)=>{\n        //     return identifier;\n        // });\n        this.superTool_id = superToolExtensionId;\n        this.superTool_port = chrome.runtime.connect(\n            this.superTool_id,\n            {name: 'SuperTool',\n            includeTlsChannelId: true,},\n            );\n\n        this.gator_id = gatorExtensionId;\n        this.gator_port = chrome.runtime.connect(\n            this.gator_id,\n            {name: 'Gator', includeTlsChannelId: true,},\n            );\n    }\n\n    // init (supertool, gator) {\n    //     console.log('connected to Extensions:', Object.keys(supertool), '+', Object.keys(gator));\n    //     this.isNowListening(supertool, gator);\n    // }\n\n    // isNowListening(supertool, gator) {\n    //     //one-time requests\n    //     // chrome.runtime.onMessageExternal.addListener(supertool);\n    //     // chrome.runtime.onMessageExternal.addListener(gator);\n\n    //     //long-lived connections\n    //     // let supertool_messagePort = supertool;\n    //     // chrome.runtime.onConnectExternal.addListener(this.runtimeHeardThat);\n    //     chrome.runtime.onConnect.addListener(this.runtimeHeardThat(supertool));\n    //     chrome.runtime.onConnect.addListener(this.runtimeHeardThat(gator));\n  \n    // }\n\n    // contentHeardThat (msg, sender, sendResponse) {\n    //     let message = msg;\n    //     if (message !== null && sender) {\n    //         console.log(sender.tab ?\n    //             \"from a content script:\" + sender.tab.url :\n    //             \"from the extension\");\n    //         if (message.type == \"SEND\") {\n    //             let goodbye = {farewell: \"goodbye\"};\n    //             sendResponse(goodbye);\n    //         }\n    //     }\n    // }\n\n    // runtimeHeardThat (messageport) {\n    //     let port = messageport;\n    //     console.assert(port.name !== null);\n    //     console.log(port.tab ?\n    //         \"from a content script:\" + sender.tab.url :\n    //         \"from the extension\");\n    //     port.onMessage.addListener(this.didYouGetThis(message));\n    // }\n\n    // didYouGetThis (msg) {\n    //     console.log('Massage received ::', msg);\n    //     let message = msg;\n    //     if (message) {\n    //         console.log('msg recieved', message);\n    //     }\n    // }\n\n    // sendThis (msg) {\n    //     let response = msg;\n    //     if (response) {\n    //         chrome.tabs.sendMessage(response, function (data){\n    //             console.log(data);\n    //         });\n    //     }\n    // }\n}\n\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvanMvZ2F0b3JfY29tcG9uZW50cy91dGlsaXRpZXMvbWVzc2FnZV9wYXNzaW5nLmpzLmpzIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLi9zcmMvanMvZ2F0b3JfY29tcG9uZW50cy91dGlsaXRpZXMvbWVzc2FnZV9wYXNzaW5nLmpzPyJdLCJzb3VyY2VzQ29udGVudCI6WyJcbmV4cG9ydCBkZWZhdWx0IGNsYXNzIE1lc3NhZ2VQYXNzaW5nIHtcbiAgICBjb25zdHJ1Y3RvcihzdXBlclRvb2xFeHRlbnNpb25JZCwgZ2F0b3JFeHRlbnNpb25JZCkge1xuICAgICAgICAvLyB0aGlzLnRhYl9pZCA9IGNocm9tZS50YWJzLmdldEN1cnJlbnQoKGlkZW50aWZpZXIpPT57XG4gICAgICAgIC8vICAgICByZXR1cm4gaWRlbnRpZmllcjtcbiAgICAgICAgLy8gfSk7XG4gICAgICAgIHRoaXMuc3VwZXJUb29sX2lkID0gc3VwZXJUb29sRXh0ZW5zaW9uSWQ7XG4gICAgICAgIHRoaXMuc3VwZXJUb29sX3BvcnQgPSBjaHJvbWUucnVudGltZS5jb25uZWN0KFxuICAgICAgICAgICAgdGhpcy5zdXBlclRvb2xfaWQsXG4gICAgICAgICAgICB7bmFtZTogJ1N1cGVyVG9vbCcsXG4gICAgICAgICAgICBpbmNsdWRlVGxzQ2hhbm5lbElkOiB0cnVlLH0sXG4gICAgICAgICAgICApO1xuXG4gICAgICAgIHRoaXMuZ2F0b3JfaWQgPSBnYXRvckV4dGVuc2lvbklkO1xuICAgICAgICB0aGlzLmdhdG9yX3BvcnQgPSBjaHJvbWUucnVudGltZS5jb25uZWN0KFxuICAgICAgICAgICAgdGhpcy5nYXRvcl9pZCxcbiAgICAgICAgICAgIHtuYW1lOiAnR2F0b3InLCBpbmNsdWRlVGxzQ2hhbm5lbElkOiB0cnVlLH0sXG4gICAgICAgICAgICApO1xuICAgIH1cblxuICAgIC8vIGluaXQgKHN1cGVydG9vbCwgZ2F0b3IpIHtcbiAgICAvLyAgICAgY29uc29sZS5sb2coJ2Nvbm5lY3RlZCB0byBFeHRlbnNpb25zOicsIE9iamVjdC5rZXlzKHN1cGVydG9vbCksICcrJywgT2JqZWN0LmtleXMoZ2F0b3IpKTtcbiAgICAvLyAgICAgdGhpcy5pc05vd0xpc3RlbmluZyhzdXBlcnRvb2wsIGdhdG9yKTtcbiAgICAvLyB9XG5cbiAgICAvLyBpc05vd0xpc3RlbmluZyhzdXBlcnRvb2wsIGdhdG9yKSB7XG4gICAgLy8gICAgIC8vb25lLXRpbWUgcmVxdWVzdHNcbiAgICAvLyAgICAgLy8gY2hyb21lLnJ1bnRpbWUub25NZXNzYWdlRXh0ZXJuYWwuYWRkTGlzdGVuZXIoc3VwZXJ0b29sKTtcbiAgICAvLyAgICAgLy8gY2hyb21lLnJ1bnRpbWUub25NZXNzYWdlRXh0ZXJuYWwuYWRkTGlzdGVuZXIoZ2F0b3IpO1xuXG4gICAgLy8gICAgIC8vbG9uZy1saXZlZCBjb25uZWN0aW9uc1xuICAgIC8vICAgICAvLyBsZXQgc3VwZXJ0b29sX21lc3NhZ2VQb3J0ID0gc3VwZXJ0b29sO1xuICAgIC8vICAgICAvLyBjaHJvbWUucnVudGltZS5vbkNvbm5lY3RFeHRlcm5hbC5hZGRMaXN0ZW5lcih0aGlzLnJ1bnRpbWVIZWFyZFRoYXQpO1xuICAgIC8vICAgICBjaHJvbWUucnVudGltZS5vbkNvbm5lY3QuYWRkTGlzdGVuZXIodGhpcy5ydW50aW1lSGVhcmRUaGF0KHN1cGVydG9vbCkpO1xuICAgIC8vICAgICBjaHJvbWUucnVudGltZS5vbkNvbm5lY3QuYWRkTGlzdGVuZXIodGhpcy5ydW50aW1lSGVhcmRUaGF0KGdhdG9yKSk7XG4gIFxuICAgIC8vIH1cblxuICAgIC8vIGNvbnRlbnRIZWFyZFRoYXQgKG1zZywgc2VuZGVyLCBzZW5kUmVzcG9uc2UpIHtcbiAgICAvLyAgICAgbGV0IG1lc3NhZ2UgPSBtc2c7XG4gICAgLy8gICAgIGlmIChtZXNzYWdlICE9PSBudWxsICYmIHNlbmRlcikge1xuICAgIC8vICAgICAgICAgY29uc29sZS5sb2coc2VuZGVyLnRhYiA/XG4gICAgLy8gICAgICAgICAgICAgXCJmcm9tIGEgY29udGVudCBzY3JpcHQ6XCIgKyBzZW5kZXIudGFiLnVybCA6XG4gICAgLy8gICAgICAgICAgICAgXCJmcm9tIHRoZSBleHRlbnNpb25cIik7XG4gICAgLy8gICAgICAgICBpZiAobWVzc2FnZS50eXBlID09IFwiU0VORFwiKSB7XG4gICAgLy8gICAgICAgICAgICAgbGV0IGdvb2RieWUgPSB7ZmFyZXdlbGw6IFwiZ29vZGJ5ZVwifTtcbiAgICAvLyAgICAgICAgICAgICBzZW5kUmVzcG9uc2UoZ29vZGJ5ZSk7XG4gICAgLy8gICAgICAgICB9XG4gICAgLy8gICAgIH1cbiAgICAvLyB9XG5cbiAgICAvLyBydW50aW1lSGVhcmRUaGF0IChtZXNzYWdlcG9ydCkge1xuICAgIC8vICAgICBsZXQgcG9ydCA9IG1lc3NhZ2Vwb3J0O1xuICAgIC8vICAgICBjb25zb2xlLmFzc2VydChwb3J0Lm5hbWUgIT09IG51bGwpO1xuICAgIC8vICAgICBjb25zb2xlLmxvZyhwb3J0LnRhYiA/XG4gICAgLy8gICAgICAgICBcImZyb20gYSBjb250ZW50IHNjcmlwdDpcIiArIHNlbmRlci50YWIudXJsIDpcbiAgICAvLyAgICAgICAgIFwiZnJvbSB0aGUgZXh0ZW5zaW9uXCIpO1xuICAgIC8vICAgICBwb3J0Lm9uTWVzc2FnZS5hZGRMaXN0ZW5lcih0aGlzLmRpZFlvdUdldFRoaXMobWVzc2FnZSkpO1xuICAgIC8vIH1cblxuICAgIC8vIGRpZFlvdUdldFRoaXMgKG1zZykge1xuICAgIC8vICAgICBjb25zb2xlLmxvZygnTWFzc2FnZSByZWNlaXZlZCA6OicsIG1zZyk7XG4gICAgLy8gICAgIGxldCBtZXNzYWdlID0gbXNnO1xuICAgIC8vICAgICBpZiAobWVzc2FnZSkge1xuICAgIC8vICAgICAgICAgY29uc29sZS5sb2coJ21zZyByZWNpZXZlZCcsIG1lc3NhZ2UpO1xuICAgIC8vICAgICB9XG4gICAgLy8gfVxuXG4gICAgLy8gc2VuZFRoaXMgKG1zZykge1xuICAgIC8vICAgICBsZXQgcmVzcG9uc2UgPSBtc2c7XG4gICAgLy8gICAgIGlmIChyZXNwb25zZSkge1xuICAgIC8vICAgICAgICAgY2hyb21lLnRhYnMuc2VuZE1lc3NhZ2UocmVzcG9uc2UsIGZ1bmN0aW9uIChkYXRhKXtcbiAgICAvLyAgICAgICAgICAgICBjb25zb2xlLmxvZyhkYXRhKTtcbiAgICAvLyAgICAgICAgIH0pO1xuICAgIC8vICAgICB9XG4gICAgLy8gfVxufVxuXG4iXSwibWFwcGluZ3MiOiJBQUFBO0FBQUE7QUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7Iiwic291cmNlUm9vdCI6IiJ9\n//# sourceURL=webpack-internal:///./src/js/gator_components/utilities/message_passing.js\n");
 
 /***/ }),
 
@@ -407,4 +209,4 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 
 /***/ })
 
-/******/ });
+},[["./src/js/gator_components/utilities/main.js","runtime"]]]);

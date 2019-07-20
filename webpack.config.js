@@ -84,7 +84,7 @@ const config = {
     splitChunks: false,
     removeAvailableModules: true,
     removeEmptyChunks: true,
-    // runtimeChunk: 'single',
+    runtimeChunk: 'single',
   },
   module: {
     rules: [
