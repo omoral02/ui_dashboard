@@ -1,6 +1,6 @@
 
 export default class MessagePassing {
-    constructor(superToolExtensionId, gatorExtensionId) {
+    constructor(superToolExtensionId, gatorExtensionId, chrome) {
         // this.tab_id = chrome.tabs.getCurrent((identifier)=>{
         //     return identifier;
         // });

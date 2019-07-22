@@ -5,7 +5,7 @@ import ScriptsController from '../plx/controller';
 import MapsController from '../dynamic_map_modules/map/controller';
 
 export default class AppController extends AppView {
-  constructor(Util) {
+  constructor(Util, chrome) {
     super();
     this.superToolId = 'lpchobgehbffcpbknlbniafpdghdcimh';
     this.gatorId = 'mfgnkbjgianofpgdgbjdmligjdpdaekg';
@@ -13,7 +13,7 @@ export default class AppController extends AppView {
     this.cl_apiKey = ApiKey;
     this.actionButtons = [];
     this.onLoadCheckForActionButtons();
-    this.messagePassing = new MessagePassing(this.superToolId, this.gatorId); 
+    this.messagePassing = new MessagePassing(this.superToolId, this.gatorId, chrome); 
   }
 
   onLoadCheckForActionButtons() {
