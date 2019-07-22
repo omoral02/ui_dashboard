@@ -7,13 +7,12 @@ import MapsController from '../dynamic_map_modules/map/controller';
 export default class AppController extends AppView {
   constructor(Util, chrome) {
     super();
-    this.superToolId = 'lpchobgehbffcpbknlbniafpdghdcimh';
     this.gatorId = 'mfgnkbjgianofpgdgbjdmligjdpdaekg';
     this.util = new Util();
     this.cl_apiKey = ApiKey;
     this.actionButtons = [];
     this.onLoadCheckForActionButtons();
-    this.messagePassing = new MessagePassing(this.superToolId, this.gatorId, chrome); 
+    this.messagePassing = new MessagePassing(this.gatorId, chrome); 
   }
 
   onLoadCheckForActionButtons() {

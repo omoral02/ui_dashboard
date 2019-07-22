@@ -1,27 +1,28 @@
 
 export default class MessagePassing {
-    constructor(superToolExtensionId, gatorExtensionId, chrome) {
-        // this.tab_id = chrome.tabs.getCurrent((identifier)=>{
-        //     return identifier;
-        // });
-        this.superTool_id = superToolExtensionId;
-        this.superTool_port = chrome.runtime.connect(
-            this.superTool_id,
-            {name: 'GatorSPA_to_SuperToolEXT',
-            includeTlsChannelId: true,},
-            );
-        this.superTool_port.onMessage.addListener((msg)=>{
-            console.log(msg);
-        });
-
+    constructor(gatorExtensionId, chrome) {
         this.gator_id = gatorExtensionId;
-        this.gator_port = chrome.runtime.connect(
-            this.gator_id,
-            {name: 'GatorSPA_to_GatorEXT', includeTlsChannelId: true,},
-            );
-        this.gator_port.onMessage.addListener((msg)=>{
-            console.log(msg);
-        });
+        this.gatorMessage = {
+            name: 'GatorSPA_to_GatorEXT',
+            includeTlsChannelId: true,
+        };
+        this.gator_port = chrome.runtime.connect(this.gator_id, this.gatorMessage);
+        this.sendMessage();
+        this.isListening();
+  
+    }
+
+    isListening() {
+        window.onmessage = (event) => {
+            console.log(`window received message: ${event.data}`);
+        };
+        this.gator_port.onmessage = (event) => {
+            console.log(`port received message: ${event.data}`);
+        };
+    }
+
+    sendMessage () {
+        chrome.runtime.sendMessage(this.gator_id, {name: 'test'});
     }
 
     // init (supertool, gator) {
