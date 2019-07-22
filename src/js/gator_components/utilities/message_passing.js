@@ -7,15 +7,21 @@ export default class MessagePassing {
         this.superTool_id = superToolExtensionId;
         this.superTool_port = chrome.runtime.connect(
             this.superTool_id,
-            {name: 'SuperTool',
+            {name: 'GatorSPA_to_SuperToolEXT',
             includeTlsChannelId: true,},
             );
+        this.superTool_port.onMessage.addListener((msg)=>{
+            console.log(msg);
+        });
 
         this.gator_id = gatorExtensionId;
         this.gator_port = chrome.runtime.connect(
             this.gator_id,
-            {name: 'Gator', includeTlsChannelId: true,},
+            {name: 'GatorSPA_to_GatorEXT', includeTlsChannelId: true,},
             );
+        this.gator_port.onMessage.addListener((msg)=>{
+            console.log(msg);
+        });
     }
 
     // init (supertool, gator) {
