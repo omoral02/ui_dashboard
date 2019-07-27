@@ -1,14 +1,13 @@
 import MapsView from './view';
 
 export default class MapsController extends MapsView {
-    constructor (util, placeholders, mapsButton, viewPane, key, head, validate) {
+    constructor (util, placeholders, mapsButton, viewPane, key, head) {
         super(placeholders, key, viewPane);
         this.util = util;
         this.mapsButton = mapsButton;
         this.placeholders = placeholders;
         this.apiKey = key;
         this.head = head;
-        this.validator = validate;
     }
 
     init() {

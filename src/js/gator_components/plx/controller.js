@@ -1,14 +1,14 @@
 import ScriptsView from './view';
 
 export default class ScriptsController extends ScriptsView {
-  constructor( util, placeholders, viewPane, plxButton ) {
+  constructor( util, placeholders, plxButton, viewPane ) {
     super(placeholders, viewPane);
     this.plxButton = plxButton;
     this.validator = util; //input validation class
   }
 
   init() {
-    super.setInitialStateObject();
+    // super.setInitialStateObject();
     super.initializeView();
     this.isNowListeningForParametersToggle();
   }
@@ -34,18 +34,82 @@ export default class ScriptsController extends ScriptsView {
         let scriptIndex = parseInt(currentlySelectedItem.dataset.index);
         super.getNewWorkingState(scriptIndex, currentlySelectedItem);
         if ( this.secondaryParent.classList.contains('show') ){
-              super.visualManager('remove');
+              this.visualManager('remove');
               super.removeActive(super.getStateCurrentlySelectedScript());
         } else {
-              super.visualManager('insert');
+              this.visualManager('insert');
               this.innerComponentIsNowListening();
         }
     } else if ( currentlySelectedItem.id == 'resetLink' ){
-              super.secondaryParentContainsShowRemove('link');
+              this.secondaryParentContainsShowRemove('link');
     } else if ( currentlySelectedItem.id == 'reset' ){
-              super.secondaryParentContainsShowRemove('children');
+              this.secondaryParentContainsShowRemove('children');
     } else if ( currentlySelectedItem.id == 'close' ){
-              super.secondaryParentContainsShowRemove('all');
+              this.secondaryParentContainsShowRemove('all');
+    }
+  }
+
+  visualManager (value) {
+    if ( value === 'remove' ) {
+      this.secondaryParentContainsShowRemove('children');
+    } else if ( value == 'insert' ) {
+        super.insertParametersContainer();
+        super.renderParams(super.getParameterNames(super.getStateCurrentlySelectedScriptIndex()));
+        super.matchParamsTo(this.placeholders);
+    }
+    super.checkActiveOn(super.getStateCurrentlySelectedScript());
+  }
+
+  secondaryParentContainsShowRemove (level) {
+    this.resetPrimaryContainerFor(level);
+  }
+
+  resetPrimaryContainerFor (level) {
+    if ( level == 'all' ){
+      this.resetChildren('children');
+      if ( this.primaryParent ) {
+        this.parentPane.removeChild(this.primaryParent);
+      } 
+      this.primaryParent = null;
+    } else if ( level == 'children' ) {
+      this.resetChildren('children');
+    } else if ( level == 'link' ) {
+      this.resetChildren('link');
+    }
+  }
+
+  resetChildren(level) {
+    if ( level == 'children' ){
+      if ( this.myState.currentlySelectedScript ){
+           this.myState.currentlySelectedScript.classList.remove('active');
+      }
+      if ( this.plxOutputLink ){
+           this.scriptButtonContainer.removeChild(this.plxOutputLink);
+      }
+      if ( this.params ) {
+           this.parametersInnerContainer.removeChild(this.params);
+      }
+      if ( this.secondaryParent ) {
+           this.scriptsListContainer.removeChild(this.secondaryParent);
+      } 
+    } else if ( level == 'link' ){
+        if ( this.plxOutputLink ){
+             this.paramButtonContainer.removeChild(this.plxOutputLink);
+             this.setNull(this.plxOutputLink);
+        }
+    }
+    this.plxOutputLink = null;
+    this.params = null;
+    this.secondaryParent = null;
+  }
+
+  setNull (element) {
+    if ( element ){
+      if ( element.id == 'plxOutput' ){
+        element.removeAttribute('href');
+      }
+      super.setFullUrlTo(this.emptyString);
+      element = null;
     }
   }
 
@@ -75,7 +139,7 @@ export default class ScriptsController extends ScriptsView {
         let id = inputField.id;
         console.log('Input to filter :: ' + id);
         let filteredResult = eval('this.validator.is_'+ id)(inputField, this.validator.test_);
-        console.log('Does input match filter? :: ', filteredResult.isFiltered);
+        console.log('Does input match filter? :: ', filteredResult.isTested);
         this.validateOutputOn(filteredResult);
       }
   }
@@ -85,18 +149,18 @@ export default class ScriptsController extends ScriptsView {
     let input = validationCheck.input;
     let script = super.getCurrentlySelectedScript();
     // this regEx tests the input.value to ensure 
-    // there is no white-space in the filtered result. 
+    // there is no white-space in the tested result. 
     let regEx = /[^\S+]/gi;
     console.log(validationCheck);
     if ( input.value && regEx.test(input.value) == false ) {
         console.log('Do we have whitespace? ', regEx.test(input.value));
               // add the property `validationcheck.valid` 
               // to be either true or false 
-              if ( validationCheck.isFiltered === true ){
+              if ( validationCheck.isTested === true ){
                 Object.defineProperty(validationCheck, 'valid', {value:true, writable: true});
                 this.classToggleOn(validationCheck)
                 super.setParameterValue(input.id, input.value);
-                super.generateUrlBuild(script);
+                this.generateUrlBuild(script);
                 super.renderPlxUrl();
               } else {
                 Object.defineProperty(validationCheck, 'valid', {value:false, writable: true});
@@ -104,6 +168,29 @@ export default class ScriptsController extends ScriptsView {
              }
       }
   }
+
+  generateUrlBuild(script) {
+    const scriptId = `${script.id}?p=`;
+    super.setScriptIdTo(scriptId);
+    this.paramBuild();
+  }
+
+  paramBuild () {
+    const parameterEntries = Object.entries(super.getScriptParameterValues());
+    let paramBuild = '';
+    parameterEntries.forEach(( [key, value], index ) => {
+          paramBuild += `${key}` + ':' +`${value}`;
+            if ( index !== parameterEntries.length - 1 ) {
+              paramBuild += ',';
+            }
+    });
+    console.log('String representation of parameter inputs:: ', paramBuild);
+    super.setScriptParamsTo(paramBuild);
+    let URL  = super.getBasePlxUrl();
+    URL += super.getScriptId();
+    URL += super.getParameterInputs();
+    super.setFullUrlTo(URL);
+  } 
 
   classToggleOn (finalResult) {
     let final = finalResult;

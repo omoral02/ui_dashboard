@@ -1,18 +1,16 @@
 import { ApiKey } from '../utilities/api_key';
-import MessagePassing from '../utilities/message_passing';
 import AppView from './view';
 import ScriptsController from '../plx/controller';
-import MapsController from '../dynamic_map_modules/map/controller';
+import MapsController from '../dynamic_map_modules/maps_base/controller';
+import StaticWSController from '../static_map/controller';
 
 export default class AppController extends AppView {
-  constructor(Util, chrome) {
+  constructor(Util) {
     super();
-    this.gatorId = 'mfgnkbjgianofpgdgbjdmligjdpdaekg';
     this.util = new Util();
     this.cl_apiKey = ApiKey;
     this.actionButtons = [];
     this.onLoadCheckForActionButtons();
-    this.messagePassing = new MessagePassing(this.gatorId, chrome); 
   }
 
   onLoadCheckForActionButtons() {
@@ -29,19 +27,24 @@ export default class AppController extends AppView {
           super.getParametersList(), 
           this.mapsButton, 
           this.plxButton, 
+          this.staticMapButton,
           this.head, 
           this.cl_apiKey, 
           this.viewsPane,);
     this.controllerIsNowlistening();
   }
 
-  instantiateControllersWith (util, placeholders, mapsButton, plxButton, head, cl_apiKey, viewsPane) {
+  instantiateControllersWith (util, placeholders, mapsButton, plxButton, staticButton, head, cl_apiKey, viewsPane) {
     if (!this.scriptsController){
-    this.scriptsController = new ScriptsController(util, placeholders, viewsPane, plxButton);
+    this.scriptsController = new ScriptsController(util, placeholders, plxButton, viewsPane);
     }
     if (!this.mapsController){
     this.mapsController = new MapsController (util, placeholders, mapsButton, viewsPane, cl_apiKey, head);
     }
+    if (!this.StaticWSController){
+      this.staticWSController = new StaticWSController (util, placeholders, staticButton, viewsPane, cl_apiKey, head);
+    }
+
   }
 
   controllerIsNowlistening() {
@@ -76,12 +79,11 @@ export default class AppController extends AppView {
   }
 
   wsShouldLoad() {
-  
+   
   }
 
   staticMapShouldLoad() {
-
+    this.staticWSController.init();
   }
-
 }
 

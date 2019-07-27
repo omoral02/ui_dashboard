@@ -86,17 +86,6 @@ export default class ScriptsView extends ScriptsModel {
     this.secondaryParent.classList.add('show');
   }
 
-  visualManager (value) {
-    if ( value === 'remove' ) {
-      this.secondaryParentContainsShowRemove('children');
-    } else if ( value == 'insert' ) {
-        this.insertParametersContainer();
-        this.renderParams(super.getParameterNames(super.getStateCurrentlySelectedScriptIndex()));
-        this.matchParamsTo(this.placeholders);
-    }
-    this.checkActiveOn(super.getStateCurrentlySelectedScript());
-  }
-
   checkActiveOn (script) {
     const item = script
     if ( item.classList.contains('listed-item' )){
@@ -106,35 +95,6 @@ export default class ScriptsView extends ScriptsModel {
              this.resetListItems();
              item.classList.add('active');
         }
-    }
-  }
-
-  secondaryParentContainsShowRemove (level) {
-    this.resetPrimaryContainerFor(level);
-  }
-
-  resetPrimaryContainerFor (level) {
-    if ( level == 'all' ){
-      this.resetChildren('children');
-      if ( this.primaryParent ) {
-        this.parentPane.removeChild(this.primaryParent);
-      } 
-      this.primaryParent = null;
-    } else if ( level == 'children' ) {
-      this.resetChildren('children');
-    } else if ( level == 'link' ) {
-      this.resetChildren('link');
-    }
-  }
-
-
-  setNull (element) {
-    if ( element ){
-      if ( element.id == 'plxOutput' ){
-        element.removeAttribute('href');
-      }
-      super.setFullUrlTo(this.emptyString);
-      element = null;
     }
   }
 
@@ -151,31 +111,6 @@ export default class ScriptsView extends ScriptsModel {
   removeActive (onListedItem) {
     const item = onListedItem;
     item.classList.remove('active');
-  }
-
-  resetChildren(level) {
-    if ( level == 'children' ){
-      if ( this.myState.currentlySelectedScript ){
-           this.myState.currentlySelectedScript.classList.remove('active');
-      }
-      if ( this.plxOutputLink ){
-           this.scriptButtonContainer.removeChild(this.plxOutputLink);
-      }
-      if ( this.params ) {
-           this.parametersInnerContainer.removeChild(this.params);
-      }
-      if ( this.secondaryParent ) {
-           this.scriptsListContainer.removeChild(this.secondaryParent);
-      } 
-    } else if ( level == 'link' ){
-        if ( this.plxOutputLink ){
-             this.paramButtonContainer.removeChild(this.plxOutputLink);
-             this.setNull(this.plxOutputLink);
-        }
-    }
-    this.plxOutputLink = null;
-    this.params = null;
-    this.secondaryParent = null;
   }
 
   renderParams (parameters) {
@@ -203,40 +138,17 @@ export default class ScriptsView extends ScriptsModel {
     });
   }
 
-  renderInputValidity (targetFieldInput, result) {
-    let $target = targetFieldInput;
-    let validation = result;
-    if ( $target ) {
-        if ( validation.valid == false && !$target.classList.contains('invalid') ){
-            $target.classList.toggle('invalid');
-        } else if ( validation.valid == true && $target.classList.contains('invlaid') ){    
-            $target.classlist.remove('invalid');
-        } 
-    }
-  }
-
-  generateUrlBuild(script) {
-    const scriptId = `${script.id}?p=`;
-    super.setScriptIdTo(scriptId);
-    this.paramBuild();
-  }
-
-  paramBuild () {
-    const parameterEntries = Object.entries(super.getScriptParameterValues());
-    let paramBuild = '';
-    parameterEntries.forEach(( [key, value], index ) => {
-          paramBuild += `${key}` + ':' +`${value}`;
-            if ( index !== parameterEntries.length - 1 ) {
-              paramBuild += ',';
-            }
-    });
-    console.log('String representation of parameter inputs:: ', paramBuild);
-    super.setScriptParamsTo(paramBuild);
-    let URL  = super.getBasePlxUrl();
-    URL += super.getScriptId();
-    URL += super.getParameterInputs();
-    super.setFullUrlTo(URL);
-  } 
+  // renderInputValidity (targetFieldInput, result) {
+  //   let $target = targetFieldInput;
+  //   let validation = result;
+  //   if ( $target ) {
+  //       if ( validation.valid == false && !$target.classList.contains('invalid') ){
+  //           $target.classList.toggle('invalid');
+  //       } else if ( validation.valid == true && $target.classList.contains('invlaid') ){    
+  //           $target.classlist.remove('invalid');
+  //       } 
+  //   }
+  // }
 
   renderPlxUrl() {
     if (this.plxOutputLink) {

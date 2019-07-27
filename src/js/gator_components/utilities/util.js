@@ -1,4 +1,5 @@
-import Validate from './validate_input';
+import Validate from './validate_input.js';
+
 
 export default class Util extends Validate {
 	constructor () {

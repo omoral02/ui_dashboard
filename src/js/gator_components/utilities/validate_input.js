@@ -6,7 +6,7 @@ export default class Validate {
         if ( field.value || field.value && field.value.search(filterRegEx) > -1) {
             field.value = field.value.replace(filter, "");
             let result = {
-                isFiltered: match.test(field.value),
+                isTested: match.test(field.value),
                 input: field,
             };
             return result;

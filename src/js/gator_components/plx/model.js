@@ -42,6 +42,7 @@ export default class ScriptsModel {
   }
 
   setMyStateToInitialWorkingState () {
+    this.setInitialStateObject();
     this.myState = this.workingState;
   }
 
