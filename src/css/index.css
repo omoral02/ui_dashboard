@@ -40,7 +40,7 @@ html {
 }
 
 #img {
-  display: block;
+  display: flex;
   background: url('lockup.png');
   background-repeat: repeat;
   background-position: center;
@@ -59,7 +59,7 @@ html {
 }
 
 #title {
-  display: block;
+  display: flex;
   background: url('title.png');
   background-repeat: repeat;
   background-position: center;
@@ -68,7 +68,7 @@ html {
   height: 25px;
   width: 100px;
   clear: right;
-  margin: 2em;
+  margin: 1em;
   padding: 0;
   z-index: 1
 
@@ -111,7 +111,7 @@ body {
 /* Header */
 header {
   display: flex;
-    flex-basis: 1%;
+    flex-basis: 2.5%;
     flex-direction: row;
     align-items: center;
     background-color: rgb(255, 255, 255);
@@ -120,7 +120,7 @@ header {
     padding-top: 5px;
     padding-bottom: 5px;
     margin-bottom: 5px;
-    overflow: visible;
+    overflow: hidden; 
     justify-content: space-evenly;
 }
 
