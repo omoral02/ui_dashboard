@@ -1,0 +1,10 @@
+.gitmodules
+node_modules
+txt_files
+_SpecRunner.html
+BUILD
+.grunt
+doc
+.webpack.config.js
+.vscode/
+.package-lock.json
