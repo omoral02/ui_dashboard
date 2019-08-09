@@ -327,6 +327,7 @@ views_pane card containers
 
 #results {
   display: flex;
+  flex: auto;
   flex-basis: 2%;
   height: auto;
   flex-direction: row;
