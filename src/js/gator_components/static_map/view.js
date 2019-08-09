@@ -1,8 +1,8 @@
-import ScriptsModel from './model'
+import StaticWSModel from './model';
 
-export default class StaticWSView {
+export default class StaticWSView extends StaticWSModel{
     constructor (placeholders, viewPane) {
-    // super();
+    super();
     this.placeholders = placeholders;
     this.parentPane = viewPane;
     this.emptyString = '';
@@ -13,18 +13,18 @@ export default class StaticWSView {
             this.primaryParent = document.createElement('div');
             this.primaryParent.id = 'staticMapPrimaryContainer';
             this.primaryParent.classList.add('card');
-            this.primaryParentinnerHTML = ( () => { 
+            this.primaryParentinnerHTML = ( () => {
             // return super.getStaticMapParentHTML()
             })();
             this.primaryParent.innerHTML = this.primaryParentinnerHTML;
             this.parentPane.insertBefore(
-            this.primaryParent, 
+            this.primaryParent,
             this.parentPane.childNodes[0]);
             this.grabInnerComponent();
             // insert static map primary container
         } else {
                 this.resetPrimaryContainerFor('all');
-                // remove scripts primary container if it exists. 
+                // remove scripts primary container if it exists.
         }
     }
 
@@ -37,7 +37,7 @@ export default class StaticWSView {
           this.resetChildren('children');
           if ( this.primaryParent ) {
             this.parentPane.removeChild(this.primaryParent);
-          } 
+          }
           this.primaryParent = null;
         } else if ( level == 'children' ) {
           this.resetChildren('children');
@@ -48,17 +48,13 @@ export default class StaticWSView {
     resetChildren(level) {
         // if ( level == 'children' ){
         // if (  ){
-            
         // }
         // if (  ){
-            
         // }
         // if (  ) {
-            
         // }
         // if (  ) {
-           
-        // } 
+        // }
         // } else if ( level == 'link' ){
         //     if (  ){
         //         this.paramButtonContainer.removeChild();

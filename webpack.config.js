@@ -18,10 +18,10 @@ const paths = {
     htmlBuildFilename: path.resolve(__dirname, 'dist', 'public', 'index.html'),
     copyIcon: {
       to: path.resolve(__dirname, 'dist', 'public', 'favicon.ico'),
-      from: path.resolve(__dirname, 'src', 'favicon.ico'), 
+      from: path.resolve(__dirname, 'src', 'favicon.ico'),
     },
 };
- 
+
 //  Flip this boolean flag result to change development mode options
 //  development mode -> const dev_mode = (process.env.NODE_ENV !== 'production');
 //  production mdoe -> const dev_mode = (process.env.NODE_ENV == 'production');
@@ -59,7 +59,7 @@ const config = {
   },
   devtool: dev_mode ? 'cheap-module-eval-source-map' : 'hidden-source-map' ,
   output: {
-    // `jsonpScriptType:` Allows customization of the script type 
+    // `jsonpScriptType:` Allows customization of the script type
     // webpack injects script tags into the DOM to download async chunks
     // options >> `text/javascript` || `module`
     jsonpScriptType : 'text/javascript',
@@ -91,9 +91,9 @@ const config = {
       {
         enforce: 'pre',
         test: /\.js$/i,
-        //single entry point indentified for transpile performance
+        //single entry point identified for transpile performance
         include: paths.main,
-        // exclude: /node_modules/,
+        exclude: /node_modules/,
         use: [
           {
             loader: 'eslint-loader',
@@ -106,9 +106,9 @@ const config = {
       {
         test: /\.js$/i,
         use: 'babel-loader',
-        //single entry point indentified for transpile performance
+        //single entry point identified for transpile performance
         include: paths.main,
-        // exclude: /node_modules/
+        exclude: /node_modules/
       },
       {
         test: /\.pug$/i,
@@ -133,13 +133,13 @@ const config = {
       new webpack.ProgressPlugin(),
       new CopyWebpackPlugin([paths.copyIcon]),
       new HtmlWebpackPlugin(Object.assign(pluginOptions, htmlOptions)),
-      new GenerateSW({ 
+      new GenerateSW({
         chunks: ['main','runtime', 'commons', 'vendors']
       }),
       new PreloadWebpackPlugin({
          rel: 'prefetch',
         //  option/attribute for preload not used for prefetch
-        //  as: 'text/javacript',  
+        //  as: 'text/javacript',
          include: ['main', 'runtime']
        }),
   ]

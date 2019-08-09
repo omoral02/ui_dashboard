@@ -23,13 +23,13 @@ export default class AppController extends AppView {
 
   loadControllers() {
     this.instantiateControllersWith(
-          this.util, 
-          super.getParametersList(), 
-          this.mapsButton, 
-          this.plxButton, 
+          this.util,
+          super.getParametersList(),
+          this.mapsButton,
+          this.plxButton,
           this.staticMapButton,
-          this.head, 
-          this.cl_apiKey, 
+          this.head,
+          this.cl_apiKey,
           this.viewsPane,);
     this.controllerIsNowlistening();
   }
@@ -79,7 +79,6 @@ export default class AppController extends AppView {
   }
 
   wsShouldLoad() {
-   
   }
 
   staticMapShouldLoad() {

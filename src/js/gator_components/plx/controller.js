@@ -91,7 +91,7 @@ export default class ScriptsController extends ScriptsView {
       }
       if ( this.secondaryParent ) {
            this.scriptsListContainer.removeChild(this.secondaryParent);
-      } 
+      }
     } else if ( level == 'link' ){
         if ( this.plxOutputLink ){
              this.paramButtonContainer.removeChild(this.plxOutputLink);
@@ -124,7 +124,7 @@ export default class ScriptsController extends ScriptsView {
 
   onParameterInput (e) {
     e.preventDefault();
-    let target = e.target; 
+    let target = e.target;
     this.validateInput(target);
   }
 
@@ -133,7 +133,7 @@ export default class ScriptsController extends ScriptsView {
     if ( inputField.classList.contains('input') ) {
         // use eval to dynamically invoke regEx functions that filter input
         // based on target id as the ids are part of the function names.
-        // from `validate_input.js`. 
+        // from `validate_input.js`.
         // ex: `this.validator.is_project_number(value, validatorFunction)` < validate project number
         // ex: `this.validator.is_case_number(value, validatorFunction)` < validate case number
         let id = inputField.id;
@@ -148,17 +148,17 @@ export default class ScriptsController extends ScriptsView {
     let validationCheck = result;
     let input = validationCheck.input;
     let script = super.getCurrentlySelectedScript();
-    // this regEx tests the input.value to ensure 
-    // there is no white-space in the tested result. 
+    // this regEx tests the input.value to ensure
+    // there is no white-space in the tested result.
     let regEx = /[^\S+]/gi;
     console.log(validationCheck);
     if ( input.value && regEx.test(input.value) == false ) {
         console.log('Do we have whitespace? ', regEx.test(input.value));
-              // add the property `validationcheck.valid` 
-              // to be either true or false 
+              // add the property `validationcheck.valid`
+              // to be either true or false
               if ( validationCheck.isTested === true ){
                 Object.defineProperty(validationCheck, 'valid', {value:true, writable: true});
-                this.classToggleOn(validationCheck)
+                this.classToggleOn(validationCheck);
                 super.setParameterValue(input.id, input.value);
                 this.generateUrlBuild(script);
                 super.renderPlxUrl();
@@ -190,19 +190,19 @@ export default class ScriptsController extends ScriptsView {
     URL += super.getScriptId();
     URL += super.getParameterInputs();
     super.setFullUrlTo(URL);
-  } 
+  }
 
   classToggleOn (finalResult) {
     let final = finalResult;
     let field = final.input;
-    let status = final.valid;  
+    let status = final.valid;
     if ( final && status == true ) {
       console.log('This', `${field.id}`, 'meets the minimum requirements');
       this.isValid(field, status);
     } else if ( final && status == false ) {
       console.log('This does not meet the minimum requirements for a', `${field.id}`);
     // this.isInvalid(field, status);
-    } 
+    }
     // super.renderInputValidity(field, status)
   }
 

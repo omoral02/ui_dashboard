@@ -82,29 +82,29 @@ export default class AppView extends AppModel {
             }
         }
     }
-  } 
+  }
 
   checkEachViewIndex () {
     this.views.iterable_views.forEach((viewObject) => {
         let object = viewObject;
-        if( object.count == 0 ){ 
+        if( object.count == 0 ){
             object.view.classList.add('one');
-            this.listOfElementsByClass[0].classArrays[0].classList_1.push(object);                       
+            this.listOfElementsByClass[0].classArrays[0].classList_1.push(object);
           } else if ( object.count == 1 ) {
                       object.view.classList.add('two');
                       this.listOfElementsByClass[0].classArrays[0].classList_2.push(object);
           } else if ( object.count == 2 ) {
                       object.view.classList.add('three');
-                      this.listOfElementsByClass[0].classArrays[0].classList_3.push(object);                   
+                      this.listOfElementsByClass[0].classArrays[0].classList_3.push(object);
           } else {
                       object.view.classList.add('four');
-                      this.listOfElementsByClass[0].classArrays[0].classList_4.push(object)
+                      this.listOfElementsByClass[0].classArrays[0].classList_4.push(object);
         }
-        console.log('Classlist for ', 
-          object.view.id, ' is now: ', 
-          object.view.classList.value, 
+        console.log('Classlist for ',
+          object.view.id, ' is now: ',
+          object.view.classList.value,
           );
-    });    
-  } 
+    });
+  }
 }
 

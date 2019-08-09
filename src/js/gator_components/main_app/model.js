@@ -30,7 +30,7 @@ export default class AppModel {
           classList_8 : [],
       }]
     }];
-    
+
   }
 
   resetChildViews () {
@@ -50,8 +50,8 @@ export default class AppModel {
     return this.listOfElementsByClass[0];
   }
 
-  getClassListValues () { 
-    return Object.valueOf(this.listOfElementsByClass[0].classArrays);;
+  getClassListValues () {
+    return Object.valueOf(this.listOfElementsByClass[0].classArrays);
   }
 
   getClassListKeys () {
@@ -69,7 +69,7 @@ export default class AppModel {
   getParameterValues () {
     return Object.valueOf(this.placeholders[0].parameters);
   }
-  
+
   getParameterKeys () {
     return Object.keys(this.placeholders[0].parameters);
   }

@@ -1,4 +1,4 @@
-import ScriptsModel from './model'
+import ScriptsModel from './model';
 
 export default class ScriptsView extends ScriptsModel {
   constructor (placeholders, viewPane) {
@@ -17,18 +17,18 @@ export default class ScriptsView extends ScriptsModel {
           this.primaryParent = document.createElement('div');
           this.primaryParent.id = 'scriptsPrimaryContainer';
           this.primaryParent.classList.add('card');
-          this.primaryParentinnerHTML = ( () => { 
-            return super.getScriptsParentHTML()
+          this.primaryParentinnerHTML = ( () => {
+            return super.getScriptsParentHTML();
           })();
           this.primaryParent.innerHTML = this.primaryParentinnerHTML;
           this.parentPane.insertBefore(
-            this.primaryParent, 
+            this.primaryParent,
             this.parentPane.childNodes[0]);
           this.grabInnerComponent();
           // insert scripts primary container
     } else {
           this.resetPrimaryContainerFor('all');
-          // remove scripts primary container if it exists. 
+          // remove scripts primary container if it exists.
     }
   }
 
@@ -52,7 +52,7 @@ export default class ScriptsView extends ScriptsModel {
       this.scriptsListContainer.insertBefore(
         li,
         this.scriptsListContainer.childNodes[0]);
-    })
+    });
     this.toggleScriptsContainer();
   }
 
@@ -66,20 +66,19 @@ export default class ScriptsView extends ScriptsModel {
           this.secondaryParent.classList.add('card');
           this.secondaryParent.id = 'secondaryContainer';
           this.secondaryParentinnerHTML = ( () => {
-            return super.getParametersParentHTML()
+            return super.getParametersParentHTML();
           })();
           this.secondaryParent.innerHTML = this.secondaryParentinnerHTML;
           this.scriptsListContainer.insertAdjacentElement(
             'afterbegin',
             this.secondaryParent);
           this.grabSecondaryComponent();
-    } 
+    }
   }
 
   grabSecondaryComponent() {
     this.cardInner = document.getElementById('card-inner');
     this.parametersInnerContainer = document.getElementById('parameters');
- 
   }
 
   toggleParamsContainer() {
@@ -87,7 +86,7 @@ export default class ScriptsView extends ScriptsModel {
   }
 
   checkActiveOn (script) {
-    const item = script
+    const item = script;
     if ( item.classList.contains('listed-item' )){
         if ( item.classList.contains('active' )){
              this.removeActive(item);
@@ -144,20 +143,20 @@ export default class ScriptsView extends ScriptsModel {
   //   if ( $target ) {
   //       if ( validation.valid == false && !$target.classList.contains('invalid') ){
   //           $target.classList.toggle('invalid');
-  //       } else if ( validation.valid == true && $target.classList.contains('invlaid') ){    
+  //       } else if ( validation.valid == true && $target.classList.contains('invalid') ){
   //           $target.classlist.remove('invalid');
-  //       } 
+  //       }
   //   }
   // }
 
   renderPlxUrl() {
     if (this.plxOutputLink) {
-      this.plxOutputLink.href = super.getFullUrl(); 
+      this.plxOutputLink.href = super.getFullUrl();
     } else {
-      this.createLinkElement();     
+      this.createLinkElement();
       this.plxOutputLink.classList.add('showLink');
     }
-    console.log('Object representation of parameter values:: ', this.myState); 
+    console.log('Object representation of parameter values:: ', this.myState);
   }
 
   createLinkElement() {
@@ -166,11 +165,10 @@ export default class ScriptsView extends ScriptsModel {
       this.plxOutputLink.id = 'plxOutput';
       this.plxOutputLink.target = '_blank';
       this.plxOutputLink.textContent = 'Head there now!';
-      this.plxOutputLink.href = super.getFullUrl(); 
+      this.plxOutputLink.href = super.getFullUrl();
       this.scriptButtonContainer.insertBefore(
             this.plxOutputLink,
-            this.scriptButtonContainer.childNodes[2]); 
-     
+            this.scriptButtonContainer.childNodes[2]);
       }
     }
 }

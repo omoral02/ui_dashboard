@@ -7,7 +7,7 @@ export default class ScriptsModel {
 
   /**
    * Reduce lines of code with something like this:
-   * 
+   *
     Foo() {
       let _acctNum = '';
 
@@ -20,7 +20,7 @@ export default class ScriptsModel {
           },
         }
       }
-   * 
+   *
    */
 
   setInitialStateObject() {
@@ -56,7 +56,7 @@ export default class ScriptsModel {
       url: null,
       currentlySelectedScript: param1,
       currentlySelectedScriptIndex: param2,
-    }
+    };
     this.workingState = state;
     this.setMyStateToWorkingState(this.workingState);
   }
@@ -88,25 +88,24 @@ export default class ScriptsModel {
           <div id='scriptButtonContainer' class='buttonContainer'>
               <button type='button' class='exitbtn' id='close' title='Close this PLX Window.'></button>
               <button type='button' id='reset' class='exitbtn' title='Close parameters pane.'></button>
-            </div>   
-          <div class='card-inner' id='plx-InnerCard'>       
-          </div>
-          
+            </div>
+          <div class='card-inner' id='plx-InnerCard'>
+          </div
        </ul>`;
     return this.scriptsParentHtml;
   }
 
   getParametersParentHTML() {
-    this.parametersParentHTML = 
+    this.parametersParentHTML =
       `<div id='card-inner' class='card-inner'>
           <h2 class='card-header'>Parameters</h2>
           <div id='parameters'></div>
-      </div>`;  
+      </div>`;
     return this.parametersParentHTML;
   }
-  
+
   getParameterHTML (parameter) {
-    let paramaterHtml = 
+    let paramaterHtml =
     `<div class='innerParam'>
           <p class='parameter'>
               <label for='${parameter}'>${parameter}:</label>
@@ -116,8 +115,8 @@ export default class ScriptsModel {
           </p>
       </div>`;
     return paramaterHtml;
-    
-  } 
+
+  }
 
   getScripts() {
     this.scripts = [
@@ -152,7 +151,7 @@ export default class ScriptsModel {
               'project_number': '',
               'date_from_YYYY_MM_DD': '',
               'date_to_YYYY_MM_DD': '',
-            }, 
+            },
           },
           {
             title: 'Daily client-side requests per Day & API key',
