@@ -40,7 +40,8 @@ html {
 }
 
 #img {
-  display: flex;
+  display: block;
+  flex: flex-shrink;
   background: url('lockup.png');
   background-repeat: repeat;
   background-position: center;
@@ -59,7 +60,8 @@ html {
 }
 
 #title {
-  display: flex;
+  display: block;
+  flex: flex-shrink;
   background: url('title.png');
   background-repeat: repeat;
   background-position: center;
