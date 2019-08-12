@@ -1,69 +1,61 @@
-export default class Validate {
+import Test from './test';
+
+export default class Validate extends Test {
     constructor() {
+        super();
     }
 
-    test_(field, filter, match) {
-        if ( field.value || field.value && field.value.search(filterRegEx) > -1) {
-            field.value = field.value.replace(filter, "");
-            let result = {
-                isTested: match.test(field.value),
-                input: field,
-            };
-            return result;
-        }
-    }
-
-    is_client_id(input, validation) {
+    is_client_id(input) {
         console.log(input, 'Input value:: ', input.value);
         let field = input;
         let filterRegEx = /[^a-z-0-9]{1,25}/gi;
         let matchRegEx = /[a-z-0-9]{6,25}/gi;
         let test = {
-            result: validation(field, filterRegEx, matchRegEx)
+            result: super.test(field, filterRegEx, matchRegEx)
         };      
         return test.result;
     }
 
-    is_case_number(input, validation) {
+    is_case_number(input) {
         console.log(input, 'Input value:: ', input.value);
         let field = input;
         let filterRegEx = /[^0-9]{1,8}/gi;
         let matchRegEx = /[0-9]{6,8}/gi;
         let test = {
-            result: validation(field, filterRegEx, matchRegEx)
+            result: super.test(field, filterRegEx, matchRegEx)
         };      
         return test.result;
     }
 
-    is_project_number(input, validation) {
+    is_project_number(input) {
         console.log(input, 'Input value:: ', input.value);
         let field = input;
         let filterRegEx = /[^0-9]{1,12}/g;
         let matchRegEx = /[0-9]{8,12}/g;
         let test = {
-            result: validation(field, filterRegEx, matchRegEx)
+            result: super.test(field, filterRegEx, matchRegEx)
         };      
         return test.result;
     }
 
-    is_date_from_YYYY_MM_DD(input, validation) {
+    is_date_from_YYYY_MM_DD(input) {
         console.log(input, 'Input value:: ', input.value);
         let field = input;
         let filterRegEx = /[^-0-9]{1,10}/g;
         let matchRegEx = /[-0-9]{10,10}/g;
         let test = {
-            result: validation(field, filterRegEx, matchRegEx)
+            result: super.test(field, filterRegEx, matchRegEx)
         };      
         return test.result;
     }
 
-    is_date_to_YYYY_MM_DD(input, validation) {
+    is_date_to_YYYY_MM_DD(input) {
         console.log(input, 'Input value:: ', input.value);
         let field = input;
         let filterRegEx = /[^-0-9]{1,10}/g;
         let matchRegEx = /[-0-9]{10,10}/g;
         let test = {
-            result: validation(field, filterRegEx, matchRegEx)
+            result: super.test(field, filterRegEx, matchRegEx)
         };      
         return test.result;
     }

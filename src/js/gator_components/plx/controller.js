@@ -86,7 +86,7 @@ export default class ScriptsController extends ScriptsView {
         // ex: `this.validator.is_case_number(value, validatorFunction)` < validate case number
         let id = inputField.id;
         console.log('Input to filter :: ' + id);
-        let filteredResult = eval('this.validator.is_'+ id)(inputField, this.validator.test_);
+        let filteredResult = eval('this.validator.is_'+ id)(inputField);
         console.log('Does input match filter? :: ', filteredResult.isTested);
         this.validateOutputOn(filteredResult);
       }
