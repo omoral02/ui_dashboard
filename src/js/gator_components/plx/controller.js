@@ -61,56 +61,7 @@ export default class ScriptsController extends ScriptsView {
   }
 
   secondaryParentContainsShowRemove (level) {
-    this.resetPrimaryContainerFor(level);
-  }
-
-  resetPrimaryContainerFor (level) {
-    if ( level == 'all' ){
-      this.resetChildren('children');
-      if ( this.primaryParent ) {
-        this.parentPane.removeChild(this.primaryParent);
-      } 
-      this.primaryParent = null;
-    } else if ( level == 'children' ) {
-      this.resetChildren('children');
-    } else if ( level == 'link' ) {
-      this.resetChildren('link');
-    }
-  }
-
-  resetChildren(level) {
-    if ( level == 'children' ){
-      if ( this.myState.currentlySelectedScript ){
-           this.myState.currentlySelectedScript.classList.remove('active');
-      }
-      if ( this.plxOutputLink ){
-           this.scriptButtonContainer.removeChild(this.plxOutputLink);
-      }
-      if ( this.params ) {
-           this.parametersInnerContainer.removeChild(this.params);
-      }
-      if ( this.secondaryParent ) {
-           this.scriptsListContainer.removeChild(this.secondaryParent);
-      }
-    } else if ( level == 'link' ){
-        if ( this.plxOutputLink ){
-             this.paramButtonContainer.removeChild(this.plxOutputLink);
-             this.setNull(this.plxOutputLink);
-        }
-    }
-    this.plxOutputLink = null;
-    this.params = null;
-    this.secondaryParent = null;
-  }
-
-  setNull (element) {
-    if ( element ){
-      if ( element.id == 'plxOutput' ){
-        element.removeAttribute('href');
-      }
-      super.setFullUrlTo(this.emptyString);
-      element = null;
-    }
+    super.resetContainerFor(level);
   }
 
   innerComponentIsNowListening() {
@@ -173,8 +124,8 @@ export default class ScriptsController extends ScriptsView {
   }
 
   paramBuild () {
-    const parameterEntries = Object.entries(super.getScriptParameterValues());
     let paramBuild = '';
+    const parameterEntries = Object.entries(super.getScriptParameterValues());
     parameterEntries.forEach(( [key, value], index ) => {
           paramBuild += `${key}` + ':' +`${value}`;
             if ( index !== parameterEntries.length - 1 ) {

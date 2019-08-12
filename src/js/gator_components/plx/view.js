@@ -27,7 +27,7 @@ export default class ScriptsView extends ScriptsModel {
           this.grabInnerComponent();
           // insert scripts primary container
     } else {
-          this.resetPrimaryContainerFor('all');
+          this.resetContainerFor('all');
           // remove scripts primary container if it exists.
     }
   }
@@ -58,6 +58,55 @@ export default class ScriptsView extends ScriptsModel {
 
   toggleScriptsContainer() {
     this.primaryParent.classList.add('show');
+  }
+
+  resetContainerFor (level) {
+    if ( level == 'all' ){
+      this.resetChildren('children');
+      if ( this.primaryParent ) {
+        this.parentPane.removeChild(this.primaryParent);
+      } 
+      this.primaryParent = null;
+    } else if ( level == 'children' ) {
+      this.resetChildren('children');
+    } else if ( level == 'link' ) {
+      this.resetChildren('link');
+    }
+  }
+
+  resetChildren(level) {
+    if ( level == 'children' ){
+      if ( this.myState.currentlySelectedScript ){
+           this.myState.currentlySelectedScript.classList.remove('active');
+      }
+      if ( this.plxOutputLink ){
+           this.scriptButtonContainer.removeChild(this.plxOutputLink);
+      }
+      if ( this.params ) {
+           this.parametersInnerContainer.removeChild(this.params);
+      }
+      if ( this.secondaryParent ) {
+           this.scriptsListContainer.removeChild(this.secondaryParent);
+      }
+    } else if ( level == 'link' ){
+        if ( this.plxOutputLink ){
+             this.paramButtonContainer.removeChild(this.plxOutputLink);
+             this.setNull(this.plxOutputLink);
+        }
+    }
+    this.plxOutputLink = null;
+    this.params = null;
+    this.secondaryParent = null;
+  }
+
+  setNull (element) {
+    if ( element ){
+      if ( element.id == 'plxOutput' ){
+        element.removeAttribute('href');
+      }
+      super.setFullUrlTo(this.emptyString);
+      element = null;
+    }
   }
 
   insertParametersContainer () {
