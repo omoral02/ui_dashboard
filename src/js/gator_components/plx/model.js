@@ -202,6 +202,20 @@ export default class ScriptsModel {
               'date_to_YYYY_MM_DD': '',
             },
           },
+          {
+            title: 'GeoStats w/ IP obfuscation',
+            id: 'geo_stats',
+            parameters:{
+              'client_id': '',
+              'project_number': '',
+              // 'url': '',
+              // 'api_key': '',
+              // 'domain': '',
+              'date_from_YYYY_MM_DD': '',
+              'date_to_YYYY_MM_DD': '',
+
+            },
+          },
     ];
     return this.scripts;
   }
