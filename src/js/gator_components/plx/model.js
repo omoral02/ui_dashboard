@@ -203,7 +203,7 @@ export default class ScriptsModel {
             },
           },
           {
-            title: 'GeoStats w/ IP obfuscation',
+            title: 'GeoStats Domain & W/S Stats w/ IP obfuscation',
             id: 'geo_stats',
             parameters:{
               'client_id': '',
