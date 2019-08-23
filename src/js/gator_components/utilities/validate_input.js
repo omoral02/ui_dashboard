@@ -9,7 +9,7 @@ export default class Validate extends Test {
         console.log(input, 'Input value:: ', input.value);
         let field = input;
         let filterRegEx = /[^a-z-0-9]{1,25}/gi;
-        let matchRegEx = /[a-z-0-9]{6,25}/gi;
+        let matchRegEx = /[a-z]{3}-[a-z0-9]{6,25}/gi;
         let test = {
             result: super.test(field, filterRegEx, matchRegEx)
         };      
