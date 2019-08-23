@@ -42,7 +42,7 @@ export default class Validate extends Test {
         console.log(input, 'Input value:: ', input.value);
         let field = input;
         let filterRegEx = /[^-0-9]{1,10}/g;
-        let matchRegEx = /[-0-9]{10,10}/g;
+        let matchRegEx = /[0-9]{4}-[0-9]{2}-[0-9]{2}/g;
         let test = {
             result: super.test(field, filterRegEx, matchRegEx)
         };      
@@ -53,7 +53,7 @@ export default class Validate extends Test {
         console.log(input, 'Input value:: ', input.value);
         let field = input;
         let filterRegEx = /[^-0-9]{1,10}/g;
-        let matchRegEx = /[-0-9]{10,10}/g;
+        let matchRegEx = /[0-9]{4}-[0-9]{2}-[0-9]{2}/g;
         let test = {
             result: super.test(field, filterRegEx, matchRegEx)
         };      
