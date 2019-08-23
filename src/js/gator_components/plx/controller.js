@@ -66,7 +66,7 @@ export default class ScriptsController extends ScriptsView {
 
   innerComponentIsNowListening() {
     this.parametersInnerContainer.addEventListener(
-      'input', this.onParameterInput.bind(this),
+      'oninput', this.onParameterInput.bind(this),
       false);
   }
 
