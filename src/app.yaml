@@ -1,0 +1,16 @@
+runtime: nodejs
+instance_class: F1
+service: default
+# env: flex
+
+# Use only a single instance, so that this local-memory-only chat app will work
+# consistently with multiple users. To work across multiple instances, an
+# extra-instance messaging system or data store would be needed.
+# automatic_scaling:
+#   max_instances: 11
+#   target_cpu_utilization: 0.7
+handlers:
+- url: /.*
+  secure: always
+  redirect_http_response_code: 301
+  script: auto

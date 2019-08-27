@@ -9,7 +9,7 @@ export default class Validate extends Test {
         console.log(input, 'Input value:: ', input.value);
         let field = input;
         let filterRegEx = /[^a-z-0-9]{1,25}/gi;
-        let matchRegEx = /[a-z]{3}-[a-z0-9]{6,25}/gi;
+        let matchRegEx = /[a-z]{3}-[a-z0-9]{2,25}/gi;
         let test = {
             result: super.test(field, filterRegEx, matchRegEx)
         };      
@@ -19,8 +19,8 @@ export default class Validate extends Test {
     is_case_number(input) {
         console.log(input, 'Input value:: ', input.value);
         let field = input;
-        let filterRegEx = /[^0-9]{1,8}/gi;
-        let matchRegEx = /[0-9]{6,8}/gi;
+        let filterRegEx = /[^0-9]{1,8}/g;
+        let matchRegEx = /[0-9]{6,8}/g;
         let test = {
             result: super.test(field, filterRegEx, matchRegEx)
         };      
