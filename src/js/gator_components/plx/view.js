@@ -39,6 +39,8 @@ export default class ScriptsView extends ScriptsModel {
     this.reset.textContent = 'Reset';
     this.close = document.getElementById('close');
     this.close.textContent = 'Close';
+    this.generate = document.getElementById('generate');
+    this.generate.textContent = 'Go to PLX';
     this.insert(super.getScripts());
   }
 
@@ -198,6 +200,13 @@ export default class ScriptsView extends ScriptsModel {
   //   }
   // }
 
+  // renderPlxUrl() {
+  //   if (this.generate) {
+  //     this.generate.href = super.getFullUrl();
+  //   } 
+  //   console.log('Object representation of parameter values:: ', this.myState);
+  // }
+
   renderPlxUrl() {
     if (this.plxOutputLink) {
       this.plxOutputLink.href = super.getFullUrl();
@@ -217,7 +226,7 @@ export default class ScriptsView extends ScriptsModel {
       this.plxOutputLink.href = super.getFullUrl();
       this.scriptButtonContainer.insertBefore(
             this.plxOutputLink,
-            this.scriptButtonContainer.childNodes[2]);
+            this.scriptButtonContainer.childNodes[6]);
       }
     }
 }

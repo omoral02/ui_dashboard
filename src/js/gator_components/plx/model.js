@@ -88,6 +88,7 @@ export default class ScriptsModel {
           <div id='scriptButtonContainer' class='buttonContainer'>
               <button type='button' class='exitbtn' id='close' title='Close this PLX Window.'></button>
               <button type='button' id='reset' class='exitbtn' title='Close parameters pane.'></button>
+              <button type='button' id='generate' class='exitbtn' title='Generate URL for PLX with case info.'></button>
             </div>
           <div class='card-inner' id='plx-InnerCard'>
           </div
@@ -111,7 +112,7 @@ export default class ScriptsModel {
               <label for='${parameter}'>${parameter}:</label>
           </p>
           <p>
-            <input type='text' size='40' class='input' id='${parameter}' placeholder=''>
+            <input type='text' size='28' class='input' id='${parameter}' placeholder=''>
           </p>
       </div>`;
     return paramaterHtml;
@@ -216,6 +217,7 @@ export default class ScriptsModel {
 
             },
           },
+          // script_5d._5f020f_0000_2cfb_9763_001a11c0ea40 // seth provided sscript - user-agent script
     ];
     return this.scripts;
   }

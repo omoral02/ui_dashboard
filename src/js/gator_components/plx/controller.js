@@ -65,15 +65,22 @@ export default class ScriptsController extends ScriptsView {
   }
 
   innerComponentIsNowListening() {
-    this.parametersInnerContainer.addEventListener(
-      'input', this.onParameterInput.bind(this),
+    this.generate.addEventListener(
+      'click', this.onParameterInput.bind(this),
       false);
   }
 
   onParameterInput (e) {
     e.preventDefault();
-    let target = e.target;
-    this.validateInput(target);
+    let childnodes = document.getElementsByTagName('input');
+    console.log(childnodes);
+    for(let n=0; n < childnodes.length; n++){
+      let node = childnodes[n];
+      if (node.value){
+        this.validateInput(node); 
+        console.log(node);
+      }
+    }
   }
 
   validateInput (target) {
