@@ -188,31 +188,18 @@ export default class ScriptsView extends ScriptsModel {
     });
   }
 
-  // renderInputValidity (targetFieldInput, result) {
-  //   let $target = targetFieldInput;
-  //   let validation = result;
-  //   if ( $target ) {
-  //       if ( validation.valid == false && !$target.classList.contains('invalid') ){
-  //           $target.classList.toggle('invalid');
-  //       } else if ( validation.valid == true && $target.classList.contains('invalid') ){
-  //           $target.classlist.remove('invalid');
-  //       }
-  //   }
-  // }
-
-  // renderPlxUrl() {
-  //   if (this.generate) {
-  //     this.generate.href = super.getFullUrl();
-  //   } 
-  //   console.log('Object representation of parameter values:: ', this.myState);
-  // }
-
-  renderPlxUrl() {
+  clickPlxUrl() {
     if (this.plxOutputLink) {
       this.plxOutputLink.href = super.getFullUrl();
     } else {
       this.createLinkElement();
-      this.plxOutputLink.classList.add('showLink');
+      const event = new MouseEvent('click', {
+        view: window,
+        bubbles: false,
+        cancelable: true
+      });
+      this.plxOutputLink.dispatchEvent(event);
+      // this.plxOutputLink.classList.add('showLink');
     }
     console.log('Object representation of parameter values:: ', this.myState);
   }

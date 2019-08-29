@@ -116,7 +116,7 @@ export default class ScriptsController extends ScriptsView {
                 this.classToggleOn(validationCheck);
                 super.setParameterValue(input.id, input.value);
                 this.generateUrlBuild(script);
-                super.renderPlxUrl();
+                super.clickPlxUrl();
               } else {
                 Object.defineProperty(validationCheck, 'valid', {value:false, writable: true});
                 this.classToggleOn(validationCheck);
