@@ -5,6 +5,7 @@ export default class ScriptsController extends ScriptsView {
     super(placeholders, viewPane);
     this.plxButton = plxButton;
     this.validator = util; //input validation class
+    this.paramBuild;
   }
 
   init() {
@@ -43,8 +44,10 @@ export default class ScriptsController extends ScriptsView {
     } else if ( currentlySelectedItem.id == 'resetLink' ){
               this.secondaryParentContainsShowRemove('link');
     } else if ( currentlySelectedItem.id == 'reset' ){
+               this.paramBuild = '';
               this.secondaryParentContainsShowRemove('children');
     } else if ( currentlySelectedItem.id == 'close' ){
+              this.paramBuild = '';
               this.secondaryParentContainsShowRemove('all');
     }
   }
@@ -65,9 +68,17 @@ export default class ScriptsController extends ScriptsView {
   }
 
   innerComponentIsNowListening() {
+    let script = super.getCurrentlySelectedScript();
+    this.generateUrlBuild(script);
     this.generate.addEventListener(
       'click', this.onParameterInput.bind(this),
       false);
+  }
+
+  generateUrlBuild(script) {
+    const scriptId = `${script.id}?p=`;
+    super.setScriptIdTo(scriptId);
+    this.paramBuild = '';
   }
 
   onParameterInput (e) {
@@ -77,13 +88,14 @@ export default class ScriptsController extends ScriptsView {
     for(let n=0; n < childnodes.length; n++){
       let node = childnodes[n];
       if (node.value){
-        this.validateInput(node); 
+        this.validateInputOn(node); 
         console.log(node);
       }
     }
+    this.build();
   }
 
-  validateInput (target) {
+  validateInputOn (target) {
     let inputField = target;
     if ( inputField.classList.contains('input') ) {
         // use eval to dynamically invoke regEx functions that filter input
@@ -102,12 +114,13 @@ export default class ScriptsController extends ScriptsView {
   validateOutputOn (result) {
     let validationCheck = result;
     let input = validationCheck.input;
-    let script = super.getCurrentlySelectedScript();
     // this regEx tests the input.value to ensure
     // there is no white-space in the tested result.
     let regEx = /[^\S+]/gi;
     console.log(validationCheck);
-    if ( input.value && regEx.test(input.value) == false ) {
+  
+    // super.createLinkElement();
+    if ( input.value && regEx.test(input.value) === false ) {
         console.log('Do we have whitespace? ', regEx.test(input.value));
               // add the property `validationcheck.valid`
               // to be either true or false
@@ -115,36 +128,33 @@ export default class ScriptsController extends ScriptsView {
                 Object.defineProperty(validationCheck, 'valid', {value:true, writable: true});
                 this.classToggleOn(validationCheck);
                 super.setParameterValue(input.id, input.value);
-                this.generateUrlBuild(script);
-                super.clickPlxUrl();
               } else {
                 Object.defineProperty(validationCheck, 'valid', {value:false, writable: true});
                 this.classToggleOn(validationCheck);
-             }
+             }    
       }
   }
 
-  generateUrlBuild(script) {
-    const scriptId = `${script.id}?p=`;
-    super.setScriptIdTo(scriptId);
-    this.paramBuild();
-  }
-
-  paramBuild () {
-    let paramBuild = '';
-    const parameterEntries = Object.entries(super.getScriptParameterValues());
-    parameterEntries.forEach(( [key, value], index ) => {
-          paramBuild += `${key}` + ':' +`${value}`;
-            if ( index !== parameterEntries.length - 1 ) {
-              paramBuild += ',';
-            }
-    });
-    console.log('String representation of parameter inputs:: ', paramBuild);
-    super.setScriptParamsTo(paramBuild);
+  setScriptLinkTo(link){
+    super.setScriptParamsTo(link);
     let URL  = super.getBasePlxUrl();
     URL += super.getScriptId();
     URL += super.getParameterInputs();
     super.setFullUrlTo(URL);
+    super.clickPlxUrl();
+  }
+
+ build () {
+    const parameterEntries = Object.entries(super.getScriptParameterValues());
+    parameterEntries.forEach(( [key, value], index ) => {
+
+          this.paramBuild += `${key}` + ':' +`${value}`;
+            if ( index !== parameterEntries.length - 1 ) {
+              this.paramBuild += ',';
+            }
+    });
+    console.log('String representation of parameter inputs:: ', this.paramBuild);
+    this.setScriptLinkTo(this.paramBuild);    
   }
 
   classToggleOn (finalResult) {
@@ -152,7 +162,7 @@ export default class ScriptsController extends ScriptsView {
     let field = final.input;
     let status = final.valid;
     if ( final && status == true ) {
-      console.log('This', `${field.id}`, 'meets the minimum requirements');
+      console.log('This', `${field.id}`, 'meets the minimum requirements'); 
       this.isValid(field, status);
     } else if ( final && status == false ) {
       console.log('This does not meet the minimum requirements for a', `${field.id}`);

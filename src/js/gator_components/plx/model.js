@@ -204,7 +204,7 @@ export default class ScriptsModel {
             },
           },
           {
-            title: 'GeoStats Domain & W/S Stats w/ IP obfuscation',
+            title: 'GeoStats Domain & Web-services w/ IP obfuscation',
             id: 'script_5d._5ef884_0000_2398_b5bf_089e082dbdd4',
             parameters:{
               'client_id': '',
