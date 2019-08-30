@@ -202,11 +202,13 @@ export default class ScriptsView extends ScriptsModel {
   // }
 
   clickPlxUrl() {
-
-      let url = super.getFullUrl();
-      console.log(url);
+    let url = super.getFullUrl();
+    console.log(url, '\n');
+     async function open (url){
       window.open(url, '_blank');
-    console.log('Object representation of parameter values:: ', this.myState);
+     }
+    console.log('Object representation of current state :: ', this.myState);
+    open(url);
   }
 }
 

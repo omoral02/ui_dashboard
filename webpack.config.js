@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { GenerateSW } = require('workbox-webpack-plugin');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const paths = {
     dir: path.resolve(__dirname),
     node_modules: path.resolve(__dirname, 'node_modules'),
@@ -117,7 +118,17 @@ const config = {
       {
         test: /\.css$/i,
         use: [
-          { loader: 'style-loader'},
+          // { loader: 'style-loader'},
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              // you can specify a publicPath here
+              // by default it uses publicPath in webpackOptions.output
+              publicPath: paths.public,
+              hmr: dev_mode ? 'development' : 'production',
+              reloadAll: true,
+            },
+          },
           { loader: 'css-loader'}
         ]
       },
@@ -131,6 +142,13 @@ const config = {
   },
   plugins: [
       new webpack.ProgressPlugin(),
+      new MiniCssExtractPlugin({
+        // Options similar to the same options in webpackOptions.output
+        // all options are optional
+        filename: '[name].css',
+        chunkFilename: '[id].css',
+        ignoreOrder: false, // Enable to remove warnings about conflicting order
+      }),
       new CopyWebpackPlugin([paths.copyIcon]),
       new HtmlWebpackPlugin(Object.assign(pluginOptions, htmlOptions)),
       new GenerateSW({

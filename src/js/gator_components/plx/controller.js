@@ -87,14 +87,16 @@ export default class ScriptsController extends ScriptsView {
     e.preventDefault();
     let childnodes = document.getElementsByTagName('input');
     console.log(childnodes);
-    for(let n=0; n < childnodes.length; n++){
-      let node = childnodes[n];
-      if (node.value){
-        this.validateInputOn(node); 
-        console.log(node);
+    if(childnodes){
+      for(let n=0; n < childnodes.length; n++){
+        let node = childnodes[n];
+        if (node.value){
+          this.validateInputOn(node); 
+          console.log(node);
+        }
       }
+      this.build();
     }
-    this.build();
   }
 
   validateInputOn (target) {
@@ -123,7 +125,7 @@ export default class ScriptsController extends ScriptsView {
   
     // super.createLinkElement();
     if ( input.value && regEx.test(input.value) === false ) {
-        console.log('Do we have whitespace? ', regEx.test(input.value));
+        console.log('Whitespace in input? :: ', regEx.test(input.value));
               // add the property `validationcheck.valid`
               // to be either true or false
               if ( validationCheck.isTested === true ){
@@ -149,15 +151,17 @@ export default class ScriptsController extends ScriptsView {
  build () {
    this.paramBuild = '';
     const parameterEntries = Object.entries(super.getScriptParameterValues());
-    parameterEntries.forEach(( [key, value], index ) => {
-
-          this.paramBuild += `${key}` + ':' +`${value}`;
-            if ( index !== parameterEntries.length - 1 ) {
-              this.paramBuild += ',';
-            }
-    });
-    console.log('String representation of parameter inputs:: ', this.paramBuild);
-    this.setScriptLinkTo(this.paramBuild);    
+    console.log(parameterEntries);
+    if(parameterEntries.length >= 1){
+        parameterEntries.forEach(( [key, value], index ) => {
+              this.paramBuild += `${key}` + ':' +`${value}`;
+                if ( index !== parameterEntries.length - 1 ) {
+                  this.paramBuild += ',';
+                }
+        });
+        console.log('String representation of parameter inputs :: ', this.paramBuild, '\n');
+        this.setScriptLinkTo(this.paramBuild);    
+    }
   }
 
   classToggleOn (finalResult) {
@@ -176,7 +180,7 @@ export default class ScriptsController extends ScriptsView {
 
   isValid (input, status) {
     let field = input;
-    console.log('Is ', field.id, 'valid? ', status, ':: ', field.value);
+    console.log('Is ', field.id, 'valid? ', status, ' ===', field.value);
   }
 
   //   isInvalid (input, status) {

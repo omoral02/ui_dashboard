@@ -1,5 +1,5 @@
 
-import '../../.././css/dyn_map.css';
+// import '../../.././css/dyn_map.css';
 import '../../.././css/index.css';
 import Util from './util';
 import AppController from '../main_app/controller';
