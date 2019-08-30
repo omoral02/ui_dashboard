@@ -188,37 +188,24 @@ export default class ScriptsView extends ScriptsModel {
     });
   }
   
-  createLinkElement() {
-    if ( !this.plxOutputLink ){
-      this.plxOutputLink = document.createElement('a');
-      this.plxOutputLink.id = 'plxOutput';
-      this.plxOutputLink.target = '_blank';
-      this.plxOutputLink.textContent = 'Head there now!';
-      // this.plxOutputLink.href = super.getFullUrl();
-      this.scriptButtonContainer.insertBefore(
-            this.plxOutputLink,
-            this.scriptButtonContainer.childNodes[6]);
-      }
-  }
+  // createLinkElement() {
+  //   if ( !this.plxOutputLink ){
+  //     this.plxOutputLink = document.createElement('a');
+  //     this.plxOutputLink.id = 'plxOutput';
+  //     this.plxOutputLink.target = '_blank';
+  //     this.plxOutputLink.textContent = 'Head there now!';
+  //     // this.plxOutputLink.href = super.getFullUrl();
+  //     this.scriptButtonContainer.insertBefore(
+  //           this.plxOutputLink,
+  //           this.scriptButtonContainer.childNodes[6]);
+  //     }
+  // }
 
   clickPlxUrl() {
-    // this.plxOutputLink.href = '';
-    // let event = new MouseEvent('click', {
-    //     view: window,
-    //     bubbles: false,
-    //     cancelable: true
-    //   });
-      console.log(super.getFullUrl());
+
       let url = super.getFullUrl();
-      // this.plxOutputLink.href = super.getFullUrl();
-      // window.setTimeout(this.plxOutputLink.dispatchEvent(event),5000);
-     async function change (context){
-       if(url)
-      window.open(context.getFullUrl(), '_blank');
-     }
-     let self = this;
-     change(self);
-      // this.plxOutputLink.classList.add('showLink');
+      console.log(url);
+      window.open(url, '_blank');
     console.log('Object representation of parameter values:: ', this.myState);
   }
 }
