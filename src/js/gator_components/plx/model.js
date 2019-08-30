@@ -112,7 +112,7 @@ export default class ScriptsModel {
               <label for='${parameter}'>${parameter}:</label>
           </p>
           <p>
-            <input type='text' size='28' class='input' id='${parameter}' placeholder=''>
+            <input type='text' size='20' class='input' id='${parameter}' placeholder=''>
           </p>
       </div>`;
     return paramaterHtml;

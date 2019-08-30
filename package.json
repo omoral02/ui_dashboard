@@ -5,8 +5,8 @@
   "main": "main.js",
   "private:": true,
   "scripts": {
-    "dev:server": "./warning.sh && ./node_modules/.bin/webpack-dev-server --open --watch-poll",
-    "webpack": "rm ./dist/public/ -rf | webpack --progress"
+    "dev:server": "./warning.sh && NODE_ENV=production ./node_modules/.bin/webpack-dev-server --open --watch-poll",
+    "webpack": "rm ./dist/public/ -rf | NODE_ENV=production webpack --progress"
   },
   "author": "Omar M. | Google Maps Platform Technical Support (AMER)",
   "license": "",
