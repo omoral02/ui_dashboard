@@ -209,9 +209,11 @@ export default class ScriptsView extends ScriptsModel {
     //     cancelable: true
     //   });
       console.log(super.getFullUrl());
+      let url = super.getFullUrl();
       // this.plxOutputLink.href = super.getFullUrl();
       // window.setTimeout(this.plxOutputLink.dispatchEvent(event),5000);
      async function change (context){
+       if(url)
       window.open(context.getFullUrl(), '_blank');
      }
      let self = this;

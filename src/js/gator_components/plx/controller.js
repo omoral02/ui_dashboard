@@ -39,15 +39,18 @@ export default class ScriptsController extends ScriptsView {
               super.removeActive(super.getStateCurrentlySelectedScript());
         } else {
               this.visualManager('insert');
+              this.generateUrlBuild();
               this.innerComponentIsNowListening();
         }
-    } else if ( currentlySelectedItem.id == 'resetLink' ){
-              this.secondaryParentContainsShowRemove('link');
     } else if ( currentlySelectedItem.id == 'reset' ){
                this.paramBuild = '';
+               super.setFullUrlTo(this.paramBuild);
+               super.setMyStateToInitialWorkingState();
               this.secondaryParentContainsShowRemove('children');
     } else if ( currentlySelectedItem.id == 'close' ){
               this.paramBuild = '';
+              super.setFullUrlTo(this.paramBuild);
+               super.setMyStateToInitialWorkingState();
               this.secondaryParentContainsShowRemove('all');
     }
   }
@@ -67,18 +70,17 @@ export default class ScriptsController extends ScriptsView {
     super.resetContainerFor(level);
   }
 
-  innerComponentIsNowListening() {
+  generateUrlBuild() {
     let script = super.getCurrentlySelectedScript();
-    this.generateUrlBuild(script);
-    this.generate.addEventListener(
-      'click', this.onParameterInput.bind(this),
-      false);
-  }
-
-  generateUrlBuild(script) {
     const scriptId = `${script.id}?p=`;
     super.setScriptIdTo(scriptId);
     this.paramBuild = '';
+  }
+
+  innerComponentIsNowListening() {
+    this.generate.addEventListener(
+      'click', this.onParameterInput.bind(this),
+      false);
   }
 
   onParameterInput (e) {
@@ -145,6 +147,7 @@ export default class ScriptsController extends ScriptsView {
   }
 
  build () {
+   this.paramBuild = '';
     const parameterEntries = Object.entries(super.getScriptParameterValues());
     parameterEntries.forEach(( [key, value], index ) => {
 
