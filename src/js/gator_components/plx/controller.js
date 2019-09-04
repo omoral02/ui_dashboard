@@ -35,24 +35,35 @@ export default class ScriptsController extends ScriptsView {
         let scriptIndex = parseInt(currentlySelectedItem.dataset.index);
         super.getNewWorkingState(scriptIndex, currentlySelectedItem);
         if ( this.secondaryParent.classList.contains('show') ){
+              this.removeTitleListener();
               this.visualManager('remove');
               super.removeActive(super.getStateCurrentlySelectedScript());
+              this.init();
         } else {
+              this.removeTitleListener();
               this.visualManager('insert');
               this.generateUrlBuild();
               this.innerComponentIsNowListening();
         }
     } else if ( currentlySelectedItem.id == 'reset' ){
-               this.paramBuild = '';
-               super.setFullUrlTo(this.paramBuild);
-               super.setMyStateToInitialWorkingState();
-              this.secondaryParentContainsShowRemove('children');
-    } else if ( currentlySelectedItem.id == 'close' ){
+              this.removeTitleListener();
               this.paramBuild = '';
               super.setFullUrlTo(this.paramBuild);
-               super.setMyStateToInitialWorkingState();
+              super.setMyStateToInitialWorkingState();
+              this.secondaryParentContainsShowRemove('children');
+    } else if ( currentlySelectedItem.id == 'close' ){
+              this.removeTitleListener();
+              this.paramBuild = '';
+              super.setFullUrlTo(this.paramBuild);
+              super.setMyStateToInitialWorkingState();
               this.secondaryParentContainsShowRemove('all');
     }
+  }
+
+  removeTitleListener(){
+    this.scriptsListContainer.removeEventListener(
+      'click', this.onScriptTitleClick.bind(this),
+       false); 
   }
 
   visualManager (value) {
