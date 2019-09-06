@@ -49,14 +49,14 @@ export default class ScriptsController extends ScriptsView {
               this.removeTitleListener();
               this.paramBuild = '';
               super.setFullUrlTo(this.paramBuild);
-              super.setMyStateToInitialWorkingState();
               this.secondaryParentContainsShowRemove('children');
+              super.setMyStateToInitialWorkingState();
     } else if ( currentlySelectedItem.id == 'close' ){
               this.removeTitleListener();
               this.paramBuild = '';
               super.setFullUrlTo(this.paramBuild);
-              super.setMyStateToInitialWorkingState();
               this.secondaryParentContainsShowRemove('all');
+              super.setMyStateToInitialWorkingState();
     }
   }
 
