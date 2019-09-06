@@ -217,7 +217,26 @@ export default class ScriptsModel {
 
             },
           },
-          // script_5d._5f020f_0000_2cfb_9763_001a11c0ea40 // seth provided sscript - user-agent script
+          // {
+          //   title: 'Places Autocomplete Sessions V2',
+          //   id: 'maps_support_recent_places_autocomplete_sessions2',
+          //   parameters: {
+          //     'client_id': '',
+          //     'project_number': '',
+          //     'date_from_YYYY_MM_DD': '',
+          //     'date_to_YYYY_MM_DD': '',
+          //   },
+          // },
+          // {
+          //   title: 'User-Agent script - provided by Seth S.',
+          //   id: 'script_5d._5f020f_0000_2cfb_9763_001a11c0ea40 ',
+          //   parameters: {
+          //     'client_id': '',
+          //     'project_number': '',
+          //     'date_from_YYYY_MM_DD': '',
+          //     'date_to_YYYY_MM_DD': '',
+          //   },
+          // },
     ];
     return this.scripts;
   }
