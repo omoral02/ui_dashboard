@@ -90,11 +90,11 @@ export default class ScriptsController extends ScriptsView {
 
   innerComponentIsNowListening() {
     this.generate.addEventListener(
-      'click', this.onParameterInput.bind(this),
+      'click', this.onPlxClick.bind(this),
       false);
   }
 
-  onParameterInput (e) {
+  onPlxClick (e) {
     e.preventDefault();
     let childnodes = document.getElementsByTagName('input');
     console.log(childnodes);
@@ -141,11 +141,11 @@ export default class ScriptsController extends ScriptsView {
               // to be either true or false
               if ( validationCheck.isTested === true ){
                 Object.defineProperty(validationCheck, 'valid', {value:true, writable: true});
-                this.classToggleOn(validationCheck);
+                this.final(validationCheck);
                 super.setParameterValue(input.id, input.value);
               } else {
                 Object.defineProperty(validationCheck, 'valid', {value:false, writable: true});
-                this.classToggleOn(validationCheck);
+                this.final(validationCheck);
              }    
       }
   }
@@ -175,7 +175,7 @@ export default class ScriptsController extends ScriptsView {
     }
   }
 
-  classToggleOn (finalResult) {
+  final (finalResult) {
     let final = finalResult;
     let field = final.input;
     let status = final.valid;
