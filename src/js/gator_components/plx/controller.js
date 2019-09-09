@@ -11,10 +11,10 @@ export default class ScriptsController extends ScriptsView {
   init() {
     // super.setInitialStateObject();
     super.initializeView();
-    this.isNowListeningForParametersToggle();
+    this.scriptTitleParametersToggle();
   }
 
-  isNowListeningForParametersToggle() {
+  scriptTitleParametersToggle() {
     super.setMyStateToInitialWorkingState();
     this.scriptsListContainer.addEventListener(
       'click', this.onScriptTitleClick.bind(this),
@@ -66,6 +66,12 @@ export default class ScriptsController extends ScriptsView {
        false); 
   }
 
+  removePlxClickListener(){
+    this.generate.removeEventListener(
+      'click', this.onPlxClick.bind(this),
+      false);
+  }
+
   visualManager (value) {
     if ( value === 'remove' ) {
       this.secondaryParentContainsShowRemove('children');
@@ -86,33 +92,64 @@ export default class ScriptsController extends ScriptsView {
     const scriptId = `${script.id}?p=`;
     super.setScriptIdTo(scriptId);
     this.paramBuild = '';
+    super.setScriptParamsTo(this.paramBuild);
   }
 
   innerComponentIsNowListening() {
+    let childnodes = document.getElementsByTagName('input');
+    console.log(childnodes);
+    // listen for field inputs
+    // if values are typed in
+    if(childnodes){
+      for(let n=0; n < childnodes.length; n++){
+        let node = childnodes[n];
+        if (node){
+          node.addEventListener(
+          'input', this.onParameterInput.bind(this), 
+          false)
+        }
+      }
+    }
+    // listen for click trigger
+    // if values programmatically inserted
     this.generate.addEventListener(
       'click', this.onPlxClick.bind(this),
       false);
   }
 
+  onParameterInput (e) {
+    e.preventDefault();
+    let node = e.target;
+    this.inputDetectedOn(node);
+  }
+
   onPlxClick (e) {
     e.preventDefault();
+    this.removePlxClickListener();
     let childnodes = document.getElementsByTagName('input');
     console.log(childnodes);
     if(childnodes){
       for(let n=0; n < childnodes.length; n++){
         let node = childnodes[n];
         if (node.value){
-          this.validateInputOn(node); 
+          this.inputDetectedOn(node); 
           console.log(node);
         }
       }
       this.build();
     }
+    this.innerComponentIsNowListening();
+  }
+
+  inputDetectedOn(target){
+    let inputField = target
+    if ( inputField.classList.contains('input') && inputField.value ) {
+      this.validateInputOn(inputField);
+    }
   }
 
   validateInputOn (target) {
     let inputField = target;
-    if ( inputField.classList.contains('input') ) {
         // use eval to dynamically invoke regEx functions that filter input
         // based on target id as the ids are part of the function names.
         // from `validate_input.js`.
@@ -123,7 +160,6 @@ export default class ScriptsController extends ScriptsView {
         let filteredResult = eval('this.validator.is_'+ id)(inputField);
         console.log('Does input match filter? :: ', filteredResult.isTested);
         this.validateOutputOn(filteredResult);
-      }
   }
 
   validateOutputOn (result) {
@@ -150,15 +186,6 @@ export default class ScriptsController extends ScriptsView {
       }
   }
 
-  setScriptLinkTo(link){
-    super.setScriptParamsTo(link);
-    let URL  = super.getBasePlxUrl();
-    URL += super.getScriptId();
-    URL += super.getParameterInputs();
-    super.setFullUrlTo(URL);
-    super.clickPlxUrl();
-  }
-
  build () {
    this.paramBuild = '';
     const parameterEntries = Object.entries(super.getScriptParameterValues());
@@ -173,6 +200,15 @@ export default class ScriptsController extends ScriptsView {
         console.log('String representation of parameter inputs :: ', this.paramBuild, '\n');
         this.setScriptLinkTo(this.paramBuild);    
     }
+  }
+
+  setScriptLinkTo(link){
+    super.setScriptParamsTo(link);
+    let URL  = super.getBasePlxUrl();
+    URL += super.getScriptId();
+    URL += super.getParameterInputs();
+    super.setFullUrlTo(URL);
+    super.clickPlxUrl();
   }
 
   final (finalResult) {
