@@ -9,7 +9,7 @@ export default class ScriptsController extends ScriptsView {
   }
 
   init() {
-    // super.setInitialStateObject();
+    super.setInitialStateObject();
     super.initializeView();
     this.scriptTitleParametersToggle();
   }
@@ -22,9 +22,9 @@ export default class ScriptsController extends ScriptsView {
     this.close.addEventListener(
       'click', this.onScriptTitleClick.bind(this),
        false);
-    this.reset.addEventListener(
-      'click', this.onScriptTitleClick.bind(this),
-       false);
+    // this.reset.addEventListener(
+    //   'click', this.onScriptTitleClick.bind(this),
+    //    false);
   }
 
   onScriptTitleClick (e) {
@@ -45,19 +45,16 @@ export default class ScriptsController extends ScriptsView {
               this.generateUrlBuild();
               this.innerComponentIsNowListening();
         }
-    } else if ( currentlySelectedItem.id == 'reset' ){
+    }else if ( currentlySelectedItem.id == 'close' ){
               this.removeTitleListener();
-              this.paramBuild = '';
-              super.setFullUrlTo(this.paramBuild);
-              this.secondaryParentContainsShowRemove('children');
-              super.setMyStateToInitialWorkingState();
-    } else if ( currentlySelectedItem.id == 'close' ){
-              this.removeTitleListener();
-              this.paramBuild = '';
-              super.setFullUrlTo(this.paramBuild);
-              this.secondaryParentContainsShowRemove('all');
+              this.visualManager('all');
               super.setMyStateToInitialWorkingState();
     }
+    // else if ( currentlySelectedItem.id == 'reset' ){
+    //   this.removeTitleListener();
+    //   this.visualManager('remove');
+    //   super.setMyStateToInitialWorkingState();
+    // }
   }
 
   removeTitleListener(){
@@ -75,12 +72,15 @@ export default class ScriptsController extends ScriptsView {
   visualManager (value) {
     if ( value === 'remove' ) {
       this.secondaryParentContainsShowRemove('children');
+      super.checkActiveOn(super.getStateCurrentlySelectedScript());
+    } else if ( value === 'all' ) {
+      this.secondaryParentContainsShowRemove('all');
     } else if ( value == 'insert' ) {
         super.insertParametersContainer();
         super.renderParams(super.getParameterNames(super.getStateCurrentlySelectedScriptIndex()));
         super.matchParamsTo(this.placeholders);
+        super.checkActiveOn(super.getStateCurrentlySelectedScript());
     }
-    super.checkActiveOn(super.getStateCurrentlySelectedScript());
   }
 
   secondaryParentContainsShowRemove (level) {

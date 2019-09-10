@@ -82,12 +82,24 @@ export default class ScriptsModel {
   }
 
   getScriptsParentHTML() {
-    this.scriptsParentHtml =
-      `<ul id='scriptList' rel='plxScriptWindow' class=''>
+    // debugging on reset button needed 
+    
+    // this.scriptsParentHtml =
+    //   `<ul id='scriptList' rel='plxScriptWindow' class=''>
+    //       <h2 class='card-header'>Scripts</h2>
+    //       <div id='scriptButtonContainer' class='buttonContainer'>
+    //           <button type='button' class='exitbtn' id='close' title='Close this PLX Window.'></button>
+    //           <button type='button' id='reset' class='exitbtn' title='Close parameters pane.'></button>
+    //           <button type='button' id='generate' class='exitbtn' title='Generate URL for PLX with case info.'></button>
+    //         </div>
+    //       <div class='card-inner' id='plx-InnerCard'>
+    //       </div
+    //    </ul>`;
+       this.scriptsParentHtml =
+       `<ul id='scriptList' rel='plxScriptWindow' class=''>
           <h2 class='card-header'>Scripts</h2>
           <div id='scriptButtonContainer' class='buttonContainer'>
               <button type='button' class='exitbtn' id='close' title='Close this PLX Window.'></button>
-              <button type='button' id='reset' class='exitbtn' title='Close parameters pane.'></button>
               <button type='button' id='generate' class='exitbtn' title='Generate URL for PLX with case info.'></button>
             </div>
           <div class='card-inner' id='plx-InnerCard'>

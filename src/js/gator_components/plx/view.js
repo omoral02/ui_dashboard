@@ -35,8 +35,8 @@ export default class ScriptsView extends ScriptsModel {
   grabInnerComponent() {
     this.scriptsListContainer = document.getElementById('plx-InnerCard');
     this.scriptButtonContainer = document.getElementById('scriptButtonContainer');
-    this.reset = document.getElementById('reset');
-    this.reset.textContent = 'Reset';
+    // this.reset = document.getElementById('reset');
+    // this.reset.textContent = 'Reset';
     this.close = document.getElementById('close');
     this.close.textContent = 'Close';
     this.generate = document.getElementById('generate');
@@ -78,25 +78,27 @@ export default class ScriptsView extends ScriptsModel {
 
   resetChildren(level) {
     if ( level == 'children' ){
-      if ( this.myState.currentlySelectedScript ){
-           this.myState.currentlySelectedScript.classList.remove('active');
+      if ( super.getCurrentlySelectedScript === Element ){
+        this.removeActive(super.getCurrentlySelectedScript);
+          //  this.myState.currentlySelectedScript.classList.remove('active');
       }
-      if ( this.plxOutputLink ){
-           this.scriptButtonContainer.removeChild(this.plxOutputLink);
-      }
+      // if ( this.plxOutputLink ){
+      //      this.scriptButtonContainer.removeChild(this.plxOutputLink);
+      // }
       if ( this.params ) {
            this.parametersInnerContainer.removeChild(this.params);
       }
       if ( this.secondaryParent ) {
            this.scriptsListContainer.removeChild(this.secondaryParent);
       }
-    } else if ( level == 'link' ){
-        if ( this.plxOutputLink ){
-             this.paramButtonContainer.removeChild(this.plxOutputLink);
-             this.setNull(this.plxOutputLink);
-        }
     }
-    this.plxOutputLink = null;
+    //  else if ( level == 'link' ){
+    //     if ( this.plxOutputLink ){
+    //          this.paramButtonContainer.removeChild(this.plxOutputLink);
+    //          this.setNull(this.plxOutputLink);
+    //     }
+    // }
+    // this.plxOutputLink = null;
     this.params = null;
     this.secondaryParent = null;
   }
@@ -138,7 +140,7 @@ export default class ScriptsView extends ScriptsModel {
 
   checkActiveOn (script) {
     const item = script;
-    if ( item.classList.contains('listed-item' )){
+    if ( item && item.classList.contains('listed-item' )){
         if ( item.classList.contains('active' )){
              this.removeActive(item);
         } else {
