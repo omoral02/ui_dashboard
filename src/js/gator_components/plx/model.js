@@ -83,7 +83,7 @@ export default class ScriptsModel {
 
   getScriptsParentHTML() {
     // debugging on reset button needed 
-    
+
     // this.scriptsParentHtml =
     //   `<ul id='scriptList' rel='plxScriptWindow' class=''>
     //       <h2 class='card-header'>Scripts</h2>
@@ -133,29 +133,29 @@ export default class ScriptsModel {
 
   getScripts() {
     this.scripts = [
-      //  {
-          // title: 'API usage for specified mafe_weblog API by IP',
-          // id: 'script_5b._a15f62_0000_2cc9_bcc5_001a11404b34',
-          // parameters: {
-          //   'case_number': '',
-          //   'ip_range': '',
-          //   'query_type': '',
-          //   'api_endpoint_type': '',
-          //   'table_suffix': '',
-          //   'project_number': '',
-          //   'client_id': '',
-          //   },
-          // },
-        //   {
-        //     title: 'QPS breakdown from Web-Service',
-        //     id: 'script_5b._a16102_0000_254d_940f_089e0822b400',
-        //     parameters: {
-        //       'table_column': '',
-        //       'project_number': '',
-        //       'date_from_YYYY_MM_DD': '',
-        //       'date_to_YYYY_MM_DD': '',
-        //     },
-        // },
+       {
+          title: 'API usage for specified mafe_weblog API by IP',
+          id: 'script_5b._a15f62_0000_2cc9_bcc5_001a11404b34',
+          parameters: {
+            'case_number': '',
+            'ip_range': '',
+            'query_type': '',
+            'api_endpoint_type': '',
+            'table_suffix': '',
+            'project_number': '',
+            'client_id': '',
+            },
+          },
+          {
+            title: 'QPS breakdown from Web-Service',
+            id: 'script_5b._a16102_0000_254d_940f_089e0822b400',
+            parameters: {
+              'table_column': '',
+              'project_number': '',
+              'date_from_YYYY_MM_DD': '',
+              'date_to_YYYY_MM_DD': '',
+            },
+        },
           {
             title: 'Daily client and web service requests project and API key',
             id: 'script_5b._4e734f_0000_2d6d_af2d_94eb2c05a52e',
@@ -228,6 +228,16 @@ export default class ScriptsModel {
               'date_to_YYYY_MM_DD': '',
 
             },
+          },
+          {
+            title: 'Historic Maps APIs: Daily client and web service requests',
+            id: 'script_5d._7814be_0000_2f72_80a4_001a11405cb4',
+            parameters: {
+                    'client_id': '',
+                    'project_number': '',
+                    'date_from_YYYY_MM_DD': '',
+                    'date_to_YYYY_MM_DD': '',
+                  },
           },
           // {
           //   title: 'Places Autocomplete Sessions V2',

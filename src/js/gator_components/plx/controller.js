@@ -3,6 +3,7 @@ import ScriptsView from './view';
 export default class ScriptsController extends ScriptsView {
   constructor( util, placeholders, plxButton, viewPane ) {
     super(placeholders, viewPane);
+    this.currentlySelectedItem;
     this.plxButton = plxButton;
     this.validator = util; //input validation class
     this.paramBuild;
@@ -28,32 +29,28 @@ export default class ScriptsController extends ScriptsView {
   }
 
   onScriptTitleClick (e) {
-    e.preventDefault();
-    let currentlySelectedItem = e.target;
-    if ( currentlySelectedItem.classList.contains('listed-item') ) {
+    this.currentlySelectedItem;
+    // if ( e === Event ) {
+    //   e.preventDefault();
+    //   this.currentlySelectedItem = e.target;
+    // } else if ( e === Element ) {
+    //   this.currentlySelectedItem = e;
+    // }
+    this.currentlySelectedItem = e.target;
+    if ( this.currentlySelectedItem.classList.contains('listed-item') ) {
         super.insertParametersContainer();
-        let scriptIndex = parseInt(currentlySelectedItem.dataset.index);
-        super.getNewWorkingState(scriptIndex, currentlySelectedItem);
-        if ( this.secondaryParent.classList.contains('show') ){
-              this.removeTitleListener();
-              this.visualManager('remove');
-              super.removeActive(super.getStateCurrentlySelectedScript());
-              this.init();
-        } else {
-              this.removeTitleListener();
-              this.visualManager('insert');
-              this.generateUrlBuild();
-              this.innerComponentIsNowListening();
-        }
-    }else if ( currentlySelectedItem.id == 'close' ){
-              this.removeTitleListener();
+        let scriptIndex = parseInt(this.currentlySelectedItem.dataset.index);
+        super.getNewWorkingState(scriptIndex, this.currentlySelectedItem);
+        this.removeTitleListener();
+        this.checkShowOn(this.secondaryParent);
+    }else if ( this.currentlySelectedItem.id == 'close' ){
               this.visualManager('all');
               super.setMyStateToInitialWorkingState();
     }
     // else if ( currentlySelectedItem.id == 'reset' ){
     //   this.removeTitleListener();
-    //   this.visualManager('remove');
     //   super.setMyStateToInitialWorkingState();
+    //   this.visualManager('remove');
     // }
   }
 
@@ -67,6 +64,24 @@ export default class ScriptsController extends ScriptsView {
     this.generate.removeEventListener(
       'click', this.onPlxClick.bind(this),
       false);
+  }
+
+  checkShowOn (secondaryParent) {
+    if ( secondaryParent.classList.contains('show') ){
+      this.removeTitleListener();
+      this.removePlxClickListener();
+      this.visualManager('remove');
+      super.removeActive(super.getStateCurrentlySelectedScript());
+      super.setMyStateToInitialWorkingState();
+      super.insertScriptsContainer();
+      this.init();
+      // // this.onScriptTitleClick(super.getCurrentlySelectedScript);
+    } else {
+          // this.removeTitleListener();
+          this.visualManager('insert');
+          // this.generateScriptId();
+          this.innerComponentIsNowListening();
+    }
   }
 
   visualManager (value) {
@@ -87,14 +102,6 @@ export default class ScriptsController extends ScriptsView {
     super.resetContainerFor(level);
   }
 
-  generateUrlBuild() {
-    let script = super.getCurrentlySelectedScript();
-    const scriptId = `${script.id}?p=`;
-    super.setScriptIdTo(scriptId);
-    this.paramBuild = '';
-    super.setScriptParamsTo(this.paramBuild);
-  }
-
   innerComponentIsNowListening() {
     let childnodes = document.getElementsByTagName('input');
     console.log(childnodes);
@@ -102,9 +109,9 @@ export default class ScriptsController extends ScriptsView {
     // if values are typed in
     if(childnodes){
       for(let n=0; n < childnodes.length; n++){
-        let node = childnodes[n];
-        if (node){
-          node.addEventListener(
+        let inputNode = childnodes[n];
+        if (inputNode){
+          inputNode.addEventListener(
           'input', this.onParameterInput.bind(this), 
           false)
         }
@@ -136,9 +143,9 @@ export default class ScriptsController extends ScriptsView {
           console.log(node);
         }
       }
-      this.build();
+      this.buildClick();
     }
-    this.innerComponentIsNowListening();
+    // this.innerComponentIsNowListening();
   }
 
   inputDetectedOn(target){
@@ -186,8 +193,10 @@ export default class ScriptsController extends ScriptsView {
       }
   }
 
- build () {
+ buildClick () {
+   this.generateScriptId();
    this.paramBuild = '';
+   super.setScriptParamsTo(this.paramBuild);
     const parameterEntries = Object.entries(super.getScriptParameterValues());
     console.log(parameterEntries);
     if(parameterEntries.length >= 1){
@@ -200,6 +209,13 @@ export default class ScriptsController extends ScriptsView {
         console.log('String representation of parameter inputs :: ', this.paramBuild, '\n');
         this.setScriptLinkTo(this.paramBuild);    
     }
+    super.clickPlxUrl();
+  }
+
+  generateScriptId() {
+    let script = super.getCurrentlySelectedScript();
+    const scriptId = `${script.id}?p=`;
+    super.setScriptIdTo(scriptId);
   }
 
   setScriptLinkTo(link){
@@ -208,7 +224,6 @@ export default class ScriptsController extends ScriptsView {
     URL += super.getScriptId();
     URL += super.getParameterInputs();
     super.setFullUrlTo(URL);
-    super.clickPlxUrl();
   }
 
   final (finalResult) {

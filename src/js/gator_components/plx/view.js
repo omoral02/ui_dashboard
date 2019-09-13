@@ -103,15 +103,15 @@ export default class ScriptsView extends ScriptsModel {
     this.secondaryParent = null;
   }
 
-  setNull (element) {
-    if ( element ){
-      if ( element.id == 'plxOutput' ){
-        element.removeAttribute('href');
-      }
-      super.setFullUrlTo(this.emptyString);
-      element = null;
-    }
-  }
+  // setNull (element) {
+  //   if ( element ){
+  //     if ( element.id == 'plxOutput' ){
+  //       element.removeAttribute('href');
+  //     }
+  //     super.setFullUrlTo(this.emptyString);
+  //     element = null;
+  //   }
+  // }
 
   insertParametersContainer () {
     if ( !this.secondaryParent ){
@@ -173,9 +173,9 @@ export default class ScriptsView extends ScriptsModel {
     this.parametersHtml = '';
     parameters.forEach( (parameter) => {
       this.parametersHtml += super.getParameterHTML(parameter);
-      this.params.innerHTML = this.parametersHtml;
-      this.parametersInnerContainer.insertBefore(this.params, this.parametersInnerContainer.childNodes[0]);
     });
+    this.params.innerHTML = this.parametersHtml;
+    this.parametersInnerContainer.insertBefore(this.params, this.parametersInnerContainer.childNodes[0]);
     this.secondaryParent.classList.toggle('show');
   }
 
@@ -189,19 +189,6 @@ export default class ScriptsView extends ScriptsModel {
       }
     });
   }
-  
-  // createLinkElement() {
-  //   if ( !this.plxOutputLink ){
-  //     this.plxOutputLink = document.createElement('a');
-  //     this.plxOutputLink.id = 'plxOutput';
-  //     this.plxOutputLink.target = '_blank';
-  //     this.plxOutputLink.textContent = 'Head there now!';
-  //     // this.plxOutputLink.href = super.getFullUrl();
-  //     this.scriptButtonContainer.insertBefore(
-  //           this.plxOutputLink,
-  //           this.scriptButtonContainer.childNodes[6]);
-  //     }
-  // }
 
   clickPlxUrl() {
     let url = super.getFullUrl();
