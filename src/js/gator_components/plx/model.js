@@ -112,23 +112,58 @@ export default class ScriptsModel {
     this.parametersParentHTML =
       `<div id='card-inner' class='card-inner'>
           <h2 class='card-header'>Parameters</h2>
-          <div id='parameters'></div>
+          <div id='parameters'><form></form></div>
       </div>`;
     return this.parametersParentHTML;
   }
 
   getParameterHTML (parameter) {
-    let paramaterHtml =
-    `<div class='innerParam'>
-          <p class='parameter'>
-              <label for='${parameter}'>${parameter}:</label>
-          </p>
-          <p>
-            <input type='text' size='20' class='input' id='${parameter}' placeholder=''>
-          </p>
-      </div>`;
+    let paramaterHtml;
+    if (parameter == 'date_from_YYYY_MM_DD' || parameter == 'date_to_YYYY_MM_DD'){
+      if (parameter == 'date_from_YYYY_MM_DD'){
+        paramaterHtml =
+        `<div class='innerParam'>
+              <p class='parameter'>
+                  <label for='${parameter}'>Date From</label>
+              </p>
+              <p>
+                <input type='text' size='20' maxlength='10' class='input' id='${parameter}' placeholder=''required>
+              </p>
+          </div>`;
+      }
+      else {
+        paramaterHtml =
+        `<div class='innerParam'>
+              <p class='parameter'>
+                  <label for='${parameter}'>Date To</label>
+              </p>
+              <p>
+                <input type='text' size='20' maxlength='10' class='input' id='${parameter}' placeholder='' required>
+              </p>
+          </div>`;
+      }
+    } else if (parameter == 'project_number') {
+      paramaterHtml =
+        `<div class='innerParam'>
+              <p class='parameter'>
+                  <label for='${parameter}'>Project</label>
+              </p>
+              <p>
+                <input type='text' name='project' size='20' class='input' id='${parameter}' placeholder='' autofocus required>
+              </p>
+          </div>`;
+    } else {
+      paramaterHtml =
+        `<div class='innerParam'>
+              <p class='parameter'>
+                  <label for='${parameter}'>ClientID (if applicable)</label>
+              </p>
+              <p>
+                <input type='text' name='clientID' size='20' class='input' id='${parameter}' placeholder='' required>
+              </p>
+          </div>`;
+    }
     return paramaterHtml;
-
   }
 
   getScripts() {
@@ -182,8 +217,8 @@ export default class ScriptsModel {
             title: 'Daily requests by API key & Channel',
             id: 'script_5b._4e734f_0000_2d6d_af2d_94eb2c05a52e',
             parameters: {
-              'client_id': '',
               'project_number': '',
+              'client_id': '',
               // 'api_key': '',
               // 'domain': '',
               'date_from_YYYY_MM_DD': '',
@@ -206,8 +241,8 @@ export default class ScriptsModel {
             title: 'Total URL STATS(redacted ) by URL, Domain, Project & Days Used',
             id: 'script_5d._07f69f_0000_21a9_b028_f403043e7540',
             parameters: {
-              'client_id': '',
               'project_number': '',
+              'client_id': '',
               // 'url': '',
               // 'api_key': '',
               // 'domain': '',
@@ -219,8 +254,8 @@ export default class ScriptsModel {
             title: 'GeoStats Domain & Web-services w/ IP obfuscation',
             id: 'script_5d._5ef884_0000_2398_b5bf_089e082dbdd4',
             parameters:{
-              'client_id': '',
               'project_number': '',
+              'client_id': '',
               // 'url': '',
               // 'api_key': '',
               // 'domain': '',
@@ -233,8 +268,8 @@ export default class ScriptsModel {
             title: 'Historic Maps APIs: Daily client and web service requests',
             id: 'script_5d._7814be_0000_2f72_80a4_001a11405cb4',
             parameters: {
-                    'client_id': '',
                     'project_number': '',
+                    'client_id': '',
                     'date_from_YYYY_MM_DD': '',
                     'date_to_YYYY_MM_DD': '',
                   },

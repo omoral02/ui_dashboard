@@ -693,19 +693,19 @@ label {
   flex-basis: 100%
 } 
 
-input {
+.input {
   display: flex;
   flex-basis: 100%;
   height: auto;
-  overflow: scr;
-}
-
-input::placeholder {
-  font-size: 1em;
   overflow: visible;
 }
 
-input::placeholder {
+.input::placeholder {
+  font-size: 1.3em;
+  overflow: visible;
+}
+
+.input::placeholder {
   color:red;
 }
 

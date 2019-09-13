@@ -1,8 +1,8 @@
 // import { ApiKey } from '../utilities/api_key';
 import AppView from './view';
 import ScriptsController from '../plx/controller';
-import MapsController from '../dynamic_map_modules/maps_base/controller';
-import StaticWSController from '../static_map/controller';
+// import MapsController from '../dynamic_map_modules/maps_base/controller';
+// import StaticWSController from '../static_map/controller';
 
 export default class AppController extends AppView {
   constructor(Util) {

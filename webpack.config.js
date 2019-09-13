@@ -24,8 +24,8 @@ const paths = {
 };
 
 //  Flip this boolean flag result to change development mode options
-//  development mode -> const dev_mode = (process.env.NODE_ENV !== 'production');
-//  production mdoe -> const dev_mode = (process.env.NODE_ENV == 'production');
+//  production mode -> const dev_mode = (process.env.NODE_ENV !== 'production');
+//  dev mdoe -> const dev_mode = (process.env.NODE_ENV == 'production');
 
 const dev_mode = (process.env.NODE_ENV !== 'production');
 
@@ -54,6 +54,7 @@ const config = {
   watchOptions: {
     ignored: /node_modules/
   },
+  stats: 'verbose',
   context: paths.dir,
   entry:{
     main: paths.main,
@@ -69,7 +70,7 @@ const config = {
     // options >> `text/javascript` || `module`
     jsonpScriptType : 'text/javascript',
     filename: dev_mode ? 'js/[name].bundle.js' : 'js/[name].[hash:6].js',
-    chunkFilename: dev_mode ? 'js/[id].bundle.js' : 'js/[id].[chunkhash:8].js',
+    chunkFilename: dev_mode ? 'js/[id].bundle.js' : 'js/[name].[id].[chunkhash:8].js',
     devtoolModuleFilenameTemplate: 'webpack://[resource-path]?[loaders]',
     path: paths.public,
     publicPath: '/',
