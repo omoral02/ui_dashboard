@@ -136,16 +136,21 @@ export default class ScriptsController extends ScriptsView {
     let childnodes = document.getElementsByTagName('input');
     console.log(childnodes);
     if(childnodes){
+      let inputCount = [];
       for(let n=0; n < childnodes.length; n++){
         let node = childnodes[n];
-        if (node.value){
+        if (node.value.length > 0){
+          inputCount.push(node);
           this.inputDetectedOn(node); 
           console.log(node);
         }
       }
-      this.buildClick();
+      if( inputCount.length >= 4){
+        this.buildClick();
+      } else {
+        alert('Please ensure all fields have data to validate!')
+      }
     }
-    // this.innerComponentIsNowListening();
   }
 
   inputDetectedOn(target){
