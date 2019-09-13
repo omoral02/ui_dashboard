@@ -390,7 +390,11 @@ views_pane card containers
 }
 
 .invalid {
-  border-color: red;
+  border-color: #F44260;
+}
+
+.valid {
+  border-color: #47E88C;
 }
 
 #ws_map {

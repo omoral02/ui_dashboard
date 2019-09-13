@@ -171,7 +171,7 @@ export default class ScriptsController extends ScriptsView {
         let id = inputField.id;
         console.log('Input to filter :: ' + id);
         let filteredResult = eval('this.validator.is_'+ id)(inputField);
-        console.log('Does input match filter? :: ', filteredResult.isTested);
+        console.log('Does input match filter? :: ', filteredResult.matchesFilter);
         this.validateOutputOn(filteredResult);
   }
 
@@ -188,7 +188,7 @@ export default class ScriptsController extends ScriptsView {
         console.log('Whitespace in input? :: ', regEx.test(input.value));
               // add the property `validationcheck.valid`
               // to be either true or false
-              if ( validationCheck.isTested === true ){
+              if ( validationCheck.matchesFilter === true ){
                 Object.defineProperty(validationCheck, 'valid', {value:true, writable: true});
                 this.final(validationCheck);
                 super.setParameterValue(input.id, input.value);
@@ -240,6 +240,7 @@ export default class ScriptsController extends ScriptsView {
       console.log('This', `${field.id}`, 'meets the minimum requirements'); 
       this.isValid(field, status);
     } else if ( final && status == false ) {
+      this.isInvalid(field, status);
       console.log('This does not meet the minimum requirements for a', `${field.id}`);
     // this.isInvalid(field, status);
     }
@@ -249,10 +250,31 @@ export default class ScriptsController extends ScriptsView {
   isValid (input, status) {
     let field = input;
     console.log('Is ', field.id, 'valid? ', status, ' ===', field.value);
+    if( field && field.classList.contains('valid')){
+      console.log('Input is already marked as valid...');
+      } else if ( field && field.classList.contains('invalid')){
+          console.log('Input is now valid!');
+          field.classList.toggle('invalid');
+          field.classList.toggle('valid');
+      } else if ( field && !field.classList.toggle('valid')) {
+          console.log('Input has been initially marked as valid, great!');
+          field.classList.toggle('valid');
+      }
   }
 
-  //   isInvalid (input, status) {
-  //   const field = input;
-  // }
+  isInvalid (input, status) {
+    let field = input;
+    console.log('Is ', field.id, 'valid? ', status, ' ===', field.value);
+    if( field && field.classList.contains('invalid')){
+        console.log('Input is already marked as invalid...');
+    } else if ( field && field.classList.contains('valid')){
+        console.log('Input is no longer valid!');
+        field.classList.toggle('valid');
+        field.classList.toggle('invalid');
+    } else if ( field && !field.classList.toggle('invalid')) {
+        console.log('Input has been initially marked as invalid...');
+        field.classList.toggle('invalid');
+    }
+  }
 }
 
