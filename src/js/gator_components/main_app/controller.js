@@ -1,4 +1,4 @@
-import { ApiKey } from '../utilities/api_key';
+// import { ApiKey } from '../utilities/api_key';
 import AppView from './view';
 import ScriptsController from '../plx/controller';
 import MapsController from '../dynamic_map_modules/maps_base/controller';
@@ -8,7 +8,7 @@ export default class AppController extends AppView {
   constructor(Util) {
     super();
     this.util = new Util();
-    this.cl_apiKey = ApiKey;
+    // this.cl_apiKey = ApiKey;
     this.actionButtons = [];
     this.onLoadCheckForActionButtons();
   }
@@ -38,13 +38,17 @@ export default class AppController extends AppView {
     if (!this.scriptsController){
     this.scriptsController = new ScriptsController(util, placeholders, plxButton, viewsPane);
     }
-    if (!this.mapsController){
-    this.mapsController = new MapsController (util, placeholders, mapsButton, viewsPane, cl_apiKey, head);
-    }
-    if (!this.StaticWSController){
-      this.staticWSController = new StaticWSController (util, placeholders, staticButton, viewsPane, cl_apiKey, head);
-    }
+    // if (!this.mapsController){
+    // this.mapsController = new MapsController (util, placeholders, mapsButton, viewsPane, cl_apiKey, head);
+    // }
+    // if (!this.StaticWSController){
+    //   this.staticWSController = new StaticWSController (util, placeholders, staticButton, viewsPane, cl_apiKey, head);
+    // }
 
+  }
+
+  plxShouldLoad() {
+    this.scriptsController.init();
   }
 
   controllerIsNowlistening() {
@@ -53,36 +57,33 @@ export default class AppController extends AppView {
         'click', this.oneButtonWasClicked.bind(this),
         true);
     });
-    console.log(this);
   }
 
   oneButtonWasClicked (e) {
     e.preventDefault();
     if (e.target.id == 'plx_button'){
         this.plxShouldLoad();
-    } else if (e.target.id == 'map_button'){
-        this.mapShouldLoad();
-    } else if (e.target.id == 'ws_button') {
-        this.wsShouldLoad();
-    } else if (e.target.id == 'static_map_button') {
-        this.staticMapShouldLoad();
-    }
+    } 
+    // else if (e.target.id == 'map_button'){
+    //     this.mapShouldLoad();
+    // } else if (e.target.id == 'ws_button') {
+    //     this.wsShouldLoad();
+    // } else if (e.target.id == 'static_map_button') {
+    //     this.staticMapShouldLoad();
+    // }
     super.checkAttachedPanes();
+    console.log(this);
   }
+  
+  // mapShouldLoad() {
+  //   this.mapsController.init();
+  // }
 
-  plxShouldLoad() {
-    this.scriptsController.init();
-  }
+  // wsShouldLoad() {
+  // }
 
-  mapShouldLoad() {
-    this.mapsController.init();
-  }
-
-  wsShouldLoad() {
-  }
-
-  staticMapShouldLoad() {
-    this.staticWSController.init();
-  }
+  // staticMapShouldLoad() {
+  //   this.staticWSController.init();
+  // }
 }
 

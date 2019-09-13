@@ -156,16 +156,16 @@ export default class ScriptsModel {
       //         'date_to_YYYY_MM_DD': '',
       //       },
       //   },
-          {
-            title: 'Daily client and web service requests project and API key',
-            id: 'script_5b._4e734f_0000_2d6d_af2d_94eb2c05a52e',
-            parameters: {
-              'client_id': '',
-              'project_number': '',
-              'date_from_YYYY_MM_DD': '',
-              'date_to_YYYY_MM_DD': '',
-            },
-          },
+          // {
+          //   title: 'Daily client and web service requests project and API key',
+          //   id: 'script_5b._4e734f_0000_2d6d_af2d_94eb2c05a52e',
+          //   parameters: {
+          //     'client_id': '',
+          //     'project_number': '',
+          //     'date_from_YYYY_MM_DD': '',
+          //     'date_to_YYYY_MM_DD': '',
+          //   },
+          // },
           // {
           //   title: 'Daily client-side requests per Day & API key',
           //   id: 'script_5d._03c800_0000_2a6b_85d2_883d24f8e3d4',

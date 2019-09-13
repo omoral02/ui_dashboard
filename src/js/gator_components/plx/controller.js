@@ -148,7 +148,8 @@ export default class ScriptsController extends ScriptsView {
       if( inputCount.length >= 4){
         this.buildClick();
       } else {
-        alert('Please ensure all fields have data to validate!')
+        console.log('We only have these entries: ', inputCount);
+        alert('Please ensure all fields have valid data!')
       }
     }
   }

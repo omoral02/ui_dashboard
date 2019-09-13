@@ -58,14 +58,18 @@ const config = {
   entry:{
     main: paths.main,
   },
+  performance: {
+    maxEntrypointSize: 400000,
+    maxAssetSize: 250000
+  },
   devtool: dev_mode ? 'cheap-module-eval-source-map' : 'hidden-source-map' ,
   output: {
     // `jsonpScriptType:` Allows customization of the script type
     // webpack injects script tags into the DOM to download async chunks
     // options >> `text/javascript` || `module`
     jsonpScriptType : 'text/javascript',
-    filename: dev_mode ? 'js/[name].bundle.js' : 'js/[hash:6].js',
-    chunkFilename: dev_mode ? 'js/[id].bundle.js' : 'js/[chunkhash:8].js',
+    filename: dev_mode ? 'js/[name].bundle.js' : 'js/[name].[hash:6].js',
+    chunkFilename: dev_mode ? 'js/[id].bundle.js' : 'js/[id].[chunkhash:8].js',
     devtoolModuleFilenameTemplate: 'webpack://[resource-path]?[loaders]',
     path: paths.public,
     publicPath: '/',
@@ -81,6 +85,7 @@ const config = {
     compress: dev_mode ? false : true,
   },
   optimization: {
+    minimize: true,
     noEmitOnErrors: true,
     splitChunks: false,
     removeAvailableModules: true,
@@ -146,7 +151,7 @@ const config = {
         // Options similar to the same options in webpackOptions.output
         // all options are optional
         filename: '[name].css',
-        chunkFilename: '[id].css',
+        chunkFilename: '[name].[id].css',
         ignoreOrder: false, // Enable to remove warnings about conflicting order
       }),
       new CopyWebpackPlugin([paths.copyIcon]),
