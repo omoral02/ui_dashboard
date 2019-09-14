@@ -199,5 +199,35 @@ export default class ScriptsView extends ScriptsModel {
     console.log('Object representation of current state :: ', this.myState);
     open(url);
   }
+
+  isValid (input, status) {
+    let field = input;
+    console.log('Is ', field.id, 'valid? ', status, ' ===', field.value);
+    if( field && field.classList.contains('valid')){
+      console.log('Input is already marked as valid...');
+      } else if ( field && field.classList.contains('invalid')){
+          console.log('Input is now valid!');
+          field.classList.toggle('invalid');
+          field.classList.toggle('valid');
+      } else if ( field && !field.classList.toggle('valid')) {
+          console.log('Input has been initially marked as valid, great!');
+          field.classList.toggle('valid');
+      }
+  }
+
+  isInvalid (input, status) {
+    let field = input;
+    console.log('Is ', field.id, 'valid? ', status, ' ===', field.value);
+    if( field && field.classList.contains('invalid')){
+        console.log('Input is already marked as invalid...');
+    } else if ( field && field.classList.contains('valid')){
+        console.log('Input is no longer valid!');
+        field.classList.toggle('valid');
+        field.classList.toggle('invalid');
+    } else if ( field && !field.classList.toggle('invalid')) {
+        console.log('Input has been initially marked as invalid...');
+        field.classList.toggle('invalid');
+    }
+  }
 }
 

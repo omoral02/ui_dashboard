@@ -7,6 +7,7 @@ export default class ScriptsController extends ScriptsView {
     this.plxButton = plxButton;
     this.validator = util; //input validation class
     this.paramBuild;
+    this.inputCount = [];
   }
 
   init() {
@@ -133,6 +134,7 @@ export default class ScriptsController extends ScriptsView {
   onPlxClick (e) {
     e.preventDefault();
     this.removePlxClickListener();
+    this.inputCount = [];
     let childnodes = document.getElementsByTagName('input');
     console.log(childnodes);
     if(childnodes){
@@ -150,9 +152,30 @@ export default class ScriptsController extends ScriptsView {
       } else {
         console.log('We only have these entries: ', inputCount);
         alert('Please ensure all fields have valid data!')
+    
       }
     }
+    // this.checkInputs();
   }
+
+  // checkInputs(){
+  //   let count = [];
+  //   if( count.length == 4){
+  //     this.buildClick();
+  //   } else {
+  //     if(this.inputCount){
+  //       this.inputCount.forEach((item)=>{
+  //         let isCounted = this.final(item);
+  //         if (isCounted == true){
+  //           count.push(item);
+  //         }
+  //    });
+  //    console.log('We only have these entries: ', count);
+  //    alert('Please ensure all fields have valid data!')
+  //   //  this.checkInputs();
+  //     }
+    // }
+  // }
 
   inputDetectedOn(target){
     let inputField = target
@@ -188,12 +211,14 @@ export default class ScriptsController extends ScriptsView {
         console.log('Whitespace in input? :: ', regEx.test(input.value));
               // add the property `validationcheck.valid`
               // to be either true or false
+              super.setParameterValue(input.id, input.value);
               if ( validationCheck.matchesFilter === true ){
                 Object.defineProperty(validationCheck, 'valid', {value:true, writable: true});
+                this.inputCount.push(validationCheck);
                 this.final(validationCheck);
-                super.setParameterValue(input.id, input.value);
               } else {
                 Object.defineProperty(validationCheck, 'valid', {value:false, writable: true});
+                this.inputCount.push(validationCheck);
                 this.final(validationCheck);
              }    
       }
@@ -238,43 +263,14 @@ export default class ScriptsController extends ScriptsView {
     let status = final.valid;
     if ( final && status == true ) {
       console.log('This', `${field.id}`, 'meets the minimum requirements'); 
-      this.isValid(field, status);
+      super.isValid(field, status);
+      return true;
     } else if ( final && status == false ) {
-      this.isInvalid(field, status);
+      super.isInvalid(field, status);
       console.log('This does not meet the minimum requirements for a', `${field.id}`);
-    // this.isInvalid(field, status);
+      return false;
     }
-    // super.renderInputValidity(field, status)
-  }
-
-  isValid (input, status) {
-    let field = input;
-    console.log('Is ', field.id, 'valid? ', status, ' ===', field.value);
-    if( field && field.classList.contains('valid')){
-      console.log('Input is already marked as valid...');
-      } else if ( field && field.classList.contains('invalid')){
-          console.log('Input is now valid!');
-          field.classList.toggle('invalid');
-          field.classList.toggle('valid');
-      } else if ( field && !field.classList.toggle('valid')) {
-          console.log('Input has been initially marked as valid, great!');
-          field.classList.toggle('valid');
-      }
-  }
-
-  isInvalid (input, status) {
-    let field = input;
-    console.log('Is ', field.id, 'valid? ', status, ' ===', field.value);
-    if( field && field.classList.contains('invalid')){
-        console.log('Input is already marked as invalid...');
-    } else if ( field && field.classList.contains('valid')){
-        console.log('Input is no longer valid!');
-        field.classList.toggle('valid');
-        field.classList.toggle('invalid');
-    } else if ( field && !field.classList.toggle('invalid')) {
-        console.log('Input has been initially marked as invalid...');
-        field.classList.toggle('invalid');
-    }
+      return false;
   }
 }
 
