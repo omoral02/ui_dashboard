@@ -96,15 +96,14 @@ export default class ScriptsModel {
     //       </div
     //    </ul>`;
        this.scriptsParentHtml =
-       `<ul id='scriptList' rel='plxScriptWindow' class=''>
+       `<div id='scriptList' rel='plxScriptWindow' class=''>
           <h2 class='card-header'>Scripts</h2>
-          <div id='scriptButtonContainer' class='buttonContainer'>
+          <ul id='scriptButtonContainer' class='buttonContainer'>
               <button type='button' class='exitbtn' id='close' title='Close this PLX Window.'></button>
               <button type='button' id='generate' class='exitbtn' title='Generate URL for PLX with case info.'></button>
-            </div>
-          <div class='card-inner' id='plx-InnerCard'>
-          </div
-       </ul>`;
+          </ul>
+          <ul class='card-inner' id='plx-InnerCard'></ul>
+        </div>`;
     return this.scriptsParentHtml;
   }
 

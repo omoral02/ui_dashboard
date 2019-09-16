@@ -2,7 +2,7 @@
 import AppView from './view';
 import ScriptsController from '../plx/controller';
 // import MapsController from '../dynamic_map_modules/maps_base/controller';
-// import StaticWSController from '../static_map/controller';
+import StaticWSController from '../static_map/controller';
 
 export default class AppController extends AppView {
   constructor(Util) {
@@ -36,7 +36,7 @@ export default class AppController extends AppView {
 
   instantiateControllersWith (util, placeholders, mapsButton, plxButton, staticButton, head, cl_apiKey, viewsPane) {
     if (!this.scriptsController){
-    this.scriptsController = new ScriptsController(util, placeholders, plxButton, viewsPane);
+        this.scriptsController = new ScriptsController(util, placeholders, plxButton, viewsPane);
     }
     // if (!this.mapsController){
     // this.mapsController = new MapsController (util, placeholders, mapsButton, viewsPane, cl_apiKey, head);
@@ -47,12 +47,11 @@ export default class AppController extends AppView {
 
   }
 
-  plxShouldLoad() {
-    this.scriptsController.init();
-  }
-
   controllerIsNowlistening() {
     this.actionButtons.forEach( (button) => {
+      if (button.id == 'plx_button'){
+        button.focus();
+      }
       button.addEventListener(
         'click', this.oneButtonWasClicked.bind(this),
         true);
@@ -63,16 +62,20 @@ export default class AppController extends AppView {
     e.preventDefault();
     if (e.target.id == 'plx_button'){
         this.plxShouldLoad();
-    } 
+    
     // else if (e.target.id == 'map_button'){
     //     this.mapShouldLoad();
     // } else if (e.target.id == 'ws_button') {
     //     this.wsShouldLoad();
-    // } else if (e.target.id == 'static_map_button') {
-    //     this.staticMapShouldLoad();
-    // }
+    } else if (e.target.id == 'static_map_button') {
+        this.staticMapShouldLoad();
+    }
     super.checkAttachedPanes();
-    console.log(this);
+    console.log('SPA App-level controller :: ', this);
+  }
+
+  plxShouldLoad() {
+    this.scriptsController.init();
   }
   
   // mapShouldLoad() {

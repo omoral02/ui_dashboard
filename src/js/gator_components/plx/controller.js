@@ -42,9 +42,8 @@ export default class ScriptsController extends ScriptsView {
         super.insertParametersContainer();
         let scriptIndex = parseInt(this.currentlySelectedItem.dataset.index);
         super.getNewWorkingState(scriptIndex, this.currentlySelectedItem);
-        this.removeTitleListener();
         this.checkShowOn(this.secondaryParent);
-    }else if ( this.currentlySelectedItem.id == 'close' ){
+    } else if ( this.currentlySelectedItem.id == 'close' ){
               this.visualManager('all');
               super.setMyStateToInitialWorkingState();
     }
@@ -74,13 +73,10 @@ export default class ScriptsController extends ScriptsView {
       this.visualManager('remove');
       super.removeActive(super.getStateCurrentlySelectedScript());
       super.setMyStateToInitialWorkingState();
-      super.insertScriptsContainer();
+      super.checkForScriptsContainer();
       this.init();
-      // // this.onScriptTitleClick(super.getCurrentlySelectedScript);
     } else {
-          // this.removeTitleListener();
           this.visualManager('insert');
-          // this.generateScriptId();
           this.innerComponentIsNowListening();
     }
   }
@@ -119,7 +115,7 @@ export default class ScriptsController extends ScriptsView {
       }
     }
     // listen for click trigger
-    // if values programmatically inserted
+    // if values are dynamically inserted
     this.generate.addEventListener(
       'click', this.onPlxClick.bind(this),
       false);
@@ -141,41 +137,29 @@ export default class ScriptsController extends ScriptsView {
       let inputCount = [];
       for(let n=0; n < childnodes.length; n++){
         let node = childnodes[n];
+        this.inputDetectedOn(node); 
+          console.log(node);
         if (node.value.length > 0){
           inputCount.push(node);
           this.inputDetectedOn(node); 
           console.log(node);
         }
       }
+
+      // if( this.inputCount.length >= 4){
+      //   this.buildClick();
+      // } else {
+      //   console.log('We only have these entries: ', inputCount);
+      //   alert('Please ensure all fields have valid data!')
+
       if( inputCount.length >= 4){
         this.buildClick();
       } else {
         console.log('We only have these entries: ', inputCount);
-        alert('Please ensure all fields have valid data!')
-    
+        alert('Please ensure all fields have valid data!');
       }
     }
-    // this.checkInputs();
   }
-
-  // checkInputs(){
-  //   let count = [];
-  //   if( count.length == 4){
-  //     this.buildClick();
-  //   } else {
-  //     if(this.inputCount){
-  //       this.inputCount.forEach((item)=>{
-  //         let isCounted = this.final(item);
-  //         if (isCounted == true){
-  //           count.push(item);
-  //         }
-  //    });
-  //    console.log('We only have these entries: ', count);
-  //    alert('Please ensure all fields have valid data!')
-  //   //  this.checkInputs();
-  //     }
-    // }
-  // }
 
   inputDetectedOn(target){
     let inputField = target
@@ -205,8 +189,6 @@ export default class ScriptsController extends ScriptsView {
     // there is no white-space in the tested result.
     let regEx = /[^\S+]/gi;
     console.log(validationCheck);
-  
-    // super.createLinkElement();
     if ( input.value && regEx.test(input.value) === false ) {
         console.log('Whitespace in input? :: ', regEx.test(input.value));
               // add the property `validationcheck.valid`
@@ -224,53 +206,65 @@ export default class ScriptsController extends ScriptsView {
       }
   }
 
- buildClick () {
-   this.generateScriptId();
-   this.paramBuild = '';
-   super.setScriptParamsTo(this.paramBuild);
-    const parameterEntries = Object.entries(super.getScriptParameterValues());
-    console.log(parameterEntries);
-    if(parameterEntries.length >= 1){
-        parameterEntries.forEach(( [key, value], index ) => {
-              this.paramBuild += `${key}` + ':' +`${value}`;
-                if ( index !== parameterEntries.length - 1 ) {
-                  this.paramBuild += ',';
-                }
-        });
-        console.log('String representation of parameter inputs :: ', this.paramBuild, '\n');
-        this.setScriptLinkTo(this.paramBuild);    
-    }
-    super.clickPlxUrl();
-  }
-
-  generateScriptId() {
-    let script = super.getCurrentlySelectedScript();
-    const scriptId = `${script.id}?p=`;
-    super.setScriptIdTo(scriptId);
-  }
-
-  setScriptLinkTo(link){
-    super.setScriptParamsTo(link);
-    let URL  = super.getBasePlxUrl();
-    URL += super.getScriptId();
-    URL += super.getParameterInputs();
-    super.setFullUrlTo(URL);
-  }
-
   final (finalResult) {
-    let final = finalResult;
-    let field = final.input;
-    let status = final.valid;
-    if ( final && status == true ) {
-      console.log('This', `${field.id}`, 'meets the minimum requirements'); 
-      super.isValid(field, status);
-      return true;
-    } else if ( final && status == false ) {
-      super.isInvalid(field, status);
-      console.log('This does not meet the minimum requirements for a', `${field.id}`);
-      return false;
-    }
-      return false;
+      let final = finalResult;
+      let field = final.input;
+      let status = final.valid;
+      if ( final && status == true ) {
+        console.log('This', `${field.id}`, 'meets the minimum requirements'); 
+        super.isValid(field, status);
+        return true;
+      } else if ( final && status == false ) {
+        super.isInvalid(field, status);
+        console.log('This does not meet the minimum requirements for a', `${field.id}`);
+        return false;
+      }
+        return false;
   }
+
+  buildClick () {
+    this.generateScriptId();
+    this.paramBuild = '';
+    super.setScriptParamsTo(this.paramBuild);
+     const parameterEntries = Object.entries(super.getScriptParameterValues());
+     console.log(parameterEntries);
+     if(parameterEntries.length >= 1){
+         parameterEntries.forEach(( [key, value], index ) => {
+               this.paramBuild += `${key}` + ':' +`${value}`;
+                 if ( index !== parameterEntries.length - 1 ) {
+                   this.paramBuild += ',';
+                 }
+         });
+         console.log('String representation of parameter inputs :: ', this.paramBuild, '\n');
+         this.setScriptLinkTo(this.paramBuild);    
+     }
+     this.clickPlxUrl();
+   }
+ 
+   generateScriptId() {
+     let script = super.getCurrentlySelectedScript();
+     const scriptId = `${script.id}?p=`;
+     super.setScriptIdTo(scriptId);
+   }
+ 
+   setScriptLinkTo(link){
+     super.setScriptParamsTo(link);
+     let URL  = super.getBasePlxUrl();
+     URL += super.getScriptId();
+     URL += super.getParameterInputs();
+     super.setFullUrlTo(URL);
+   }
+ 
+   clickPlxUrl() {
+     let url = super.getFullUrl();
+     function open (url){
+        let _window = window.open(url, '_blank');
+        _window.focus();
+ 
+      }
+     console.log(url, '\n');
+     console.log('Object representation of current state :: ', this.myState);
+     open(url);
+   }
 }
 

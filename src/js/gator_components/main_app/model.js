@@ -18,18 +18,18 @@ export default class AppModel {
       },
     }];
     this.views = {};
-    this.listOfElementsByClass = [{
-      classArrays : [{
-          classList_1 : [],
-          classList_2 : [],
-          classList_3 : [],
-          classList_4 : [],
-          classList_5 : [],
-          classList_6 : [],
-          classList_7 : [],
-          classList_8 : [],
-      }]
-    }];
+    // this.listOfElementsByClass = [{
+    //   classArrays : [{
+    //       classList_1 : [],
+    //       classList_2 : [],
+    //       classList_3 : [],
+    //       classList_4 : [],
+    //       classList_5 : [],
+    //       classList_6 : [],
+    //       classList_7 : [],
+    //       classList_8 : [],
+    //   }]
+    // }];
 
   }
 

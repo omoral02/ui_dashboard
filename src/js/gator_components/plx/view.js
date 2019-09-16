@@ -9,10 +9,10 @@ export default class ScriptsView extends ScriptsModel {
   }
 
   initializeView() {
-    this.insertScriptsContainer();
+    this.checkForScriptsContainer();
   }
 
-  insertScriptsContainer () {
+  checkForScriptsContainer () {
     if ( !this.primaryParent ) {
           this.primaryParent = document.createElement('div');
           this.primaryParent.id = 'scriptsPrimaryContainer';
@@ -45,7 +45,7 @@ export default class ScriptsView extends ScriptsModel {
   }
 
   insert (scripts) {
-    console.log('Scripts ::', scripts);
+    console.log('Plx scripts ::', scripts);
     scripts.forEach( (script, index ) => {
       const li = document.createElement('li');
       li.textContent = script.title;
@@ -188,16 +188,6 @@ export default class ScriptsView extends ScriptsModel {
         parameterExample.setAttribute('placeholder', `${value}`);
       }
     });
-  }
-
-  clickPlxUrl() {
-    let url = super.getFullUrl();
-    console.log(url, '\n');
-     async function open (url){
-      window.open(url, '_blank');
-     }
-    console.log('Object representation of current state :: ', this.myState);
-    open(url);
   }
 
   isValid (input, status) {

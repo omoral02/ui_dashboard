@@ -5,7 +5,7 @@ export default class AppView extends AppModel {
     super ();
     this.head = document.getElementsByTagName('head')[0];
     this.viewsButtons = document.getElementsByClassName('dropbtn');
-    this.mainMenu = document.getElementsByTagName('main')[0];
+    this.mainMenu = document.getElementById('main_menu');
     this.plxButton = document.getElementById('plx_button');
     this.plxButton.textContent = 'PLX';
     // this.mapsButton = document.getElementById('map_button');
@@ -31,7 +31,6 @@ export default class AppView extends AppModel {
   }
 
   viewsListHasChildNodes() {
-    this.clearClassesOnChildNodes();
     super.resetChildViews();
     let views = this.viewsPane.childNodes;
     this.checkAndListChildNodes(views);
@@ -50,61 +49,17 @@ export default class AppView extends AppModel {
     }
   }
 
-  clearClassesOnChildNodes () {
-    let values = super.getChildViews ();
-    if(values){
-        for(let i = 0; i < values.length; i++){
-          let $elInArray = values[i];
-          if ($elInArray.view.classList.contains('one')) {
-              $elInArray.view.classList.toggle('one');
-              this.listOfElementsByClass[0].classArrays[0].classList_1.pop($elInArray);
-            } else if ($elInArray.view.classList.contains('two')){
-                $elInArray.view.classList.toggle('two');
-                this.listOfElementsByClass[0].classArrays[0].classList_2.pop($elInArray);
-            } else if ($elInArray.view.classList.contains('three')){
-                $elInArray.view.classList.toggle('three');
-                this.listOfElementsByClass[0].classArrays[0].classList_3.pop($elInArray);
-            } else if  ($elInArray.view.classList.contains('four')){
-                $elInArray.view.classList.toggle('four');
-                this.listOfElementsByClass[0].classArrays[0].classList_4.pop($elInArray);
-            } else if  ($elInArray.view.classList.contains('five')){
-                $elInArray.view.classList.toggle('five');
-                this.listOfElementsByClass[0].classArrays[0].classList_5.pop($elInArray);
-            } else if  ($elInArray.view.classList.contains('six')){
-                $elInArray.view.classList.toggle('six');
-                this.listOfElementsByClass[0].classArrays[0].classList_6.pop($elInArray);
-            } else if  ($elInArray.view.classList.contains('seven')){
-                $elInArray.view.classList.toggle('seven');
-                this.listOfElementsByClass[0].classArrays[0].classList_7.pop($elInArray);
-            } else {
-                $elInArray.view.classList.toggle('eight');
-                this.listOfElementsByClass[0].classArrays[0].classList_8.pop($elInArray);
-            }
-        }
+  checkEachViewIndex () {
+    if (this.views.iterable_views.length > 0){
+      console.table('Child componenets of the SPA :: ', this.views.iterable_views);
+      this.views.iterable_views.forEach(this.setOrder);
     }
   }
 
-  checkEachViewIndex () {
-    this.views.iterable_views.forEach((viewObject) => {
-        let object = viewObject;
-        if( object.count == 0 ){
-            object.view.classList.add('one');
-            this.listOfElementsByClass[0].classArrays[0].classList_1.push(object);
-          } else if ( object.count == 1 ) {
-                      object.view.classList.add('two');
-                      this.listOfElementsByClass[0].classArrays[0].classList_2.push(object);
-          } else if ( object.count == 2 ) {
-                      object.view.classList.add('three');
-                      this.listOfElementsByClass[0].classArrays[0].classList_3.push(object);
-          } else {
-                      object.view.classList.add('four');
-                      this.listOfElementsByClass[0].classArrays[0].classList_4.push(object);
-        }
-        console.log('Classlist for ',
-          object.view.id, ' is now: ',
-          object.view.classList.value,
-          );
-    });
+  setOrder(viewObject, i, arr){
+      let object = viewObject;
+          object.view.style.order = `${i}`;
+          object.count = [i];
   }
 }
 
