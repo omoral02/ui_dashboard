@@ -5,6 +5,7 @@ const { GenerateSW } = require('workbox-webpack-plugin');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const JavaScriptObfuscator = require('webpack-obfuscator');
 const paths = {
     dir: path.resolve(__dirname),
     node_modules: path.resolve(__dirname, 'node_modules'),
@@ -69,8 +70,8 @@ const config = {
     // webpack injects script tags into the DOM to download async chunks
     // options >> `text/javascript` || `module`
     jsonpScriptType : 'text/javascript',
-    filename: dev_mode ? 'js/[name].bundle.js' : 'js/[name].[hash:6].js',
-    chunkFilename: dev_mode ? 'js/[id].bundle.js' : 'js/[name].[id].[chunkhash:8].js',
+    filename: dev_mode ? 'js/[name].bundle.js' : 'js/[name].js',
+    chunkFilename: dev_mode ? 'js/[id].bundle.js' : 'js/[name].js',
     devtoolModuleFilenameTemplate: 'webpack://[resource-path]?[loaders]',
     path: paths.public,
     publicPath: '/',
@@ -166,6 +167,9 @@ const config = {
         //  as: 'text/javacript',
          include: ['main', 'runtime']
        }),
+       new JavaScriptObfuscator ({
+        rotateUnicodeArray: true
+    }, ['runtime.js'])
   ]
 };
 //output main config options

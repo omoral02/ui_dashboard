@@ -63,6 +63,7 @@
     "webpack": "^4.31.0",
     "webpack-cleanup-plugin": "^0.5.1",
     "webpack-cli": "^3.3.2",
+    "webpack-obfuscator": "^0.18.3",
     "workbox-webpack-plugin": "^4.3.0"
   },
   "presets": "@babel/preset-env"
