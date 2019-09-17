@@ -111,6 +111,9 @@ export default class ScriptsController extends ScriptsView {
           inputNode.addEventListener(
           'input', this.onParameterInput.bind(this), 
           false)
+          inputNode.addEventListener(
+          'onkeydown', this.onParameterInput.bind(this),
+          false)
         }
       }
     }
@@ -137,8 +140,8 @@ export default class ScriptsController extends ScriptsView {
       let inputCount = [];
       for(let n=0; n < childnodes.length; n++){
         let node = childnodes[n];
-        this.inputDetectedOn(node); 
-          console.log(node);
+        // this.inputDetectedOn(node); 
+        //   console.log(node);
         if (node.value.length > 0){
           inputCount.push(node);
           this.inputDetectedOn(node); 
@@ -152,7 +155,7 @@ export default class ScriptsController extends ScriptsView {
       //   console.log('We only have these entries: ', inputCount);
       //   alert('Please ensure all fields have valid data!')
 
-      if( inputCount.length >= 4){
+      if( inputCount.length >= 3){
         this.buildClick();
       } else {
         console.log('We only have these entries: ', inputCount);
@@ -189,12 +192,12 @@ export default class ScriptsController extends ScriptsView {
     // there is no white-space in the tested result.
     let regEx = /[^\S+]/gi;
     console.log(validationCheck);
-    if ( input.value && regEx.test(input.value) === false ) {
+    if ( input.value ) {
         console.log('Whitespace in input? :: ', regEx.test(input.value));
               // add the property `validationcheck.valid`
               // to be either true or false
               super.setParameterValue(input.id, input.value);
-              if ( validationCheck.matchesFilter === true ){
+              if ( validationCheck.matchesFilter === true && regEx.test(input.value) === false ){
                 Object.defineProperty(validationCheck, 'valid', {value:true, writable: true});
                 this.inputCount.push(validationCheck);
                 this.final(validationCheck);
