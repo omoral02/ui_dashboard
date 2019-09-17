@@ -25,10 +25,8 @@ export default class ScriptsView extends ScriptsModel {
             this.primaryParent,
             this.parentPane.childNodes[0]);
           this.grabInnerComponent();
-          // insert scripts primary container
     } else {
           this.resetContainerFor('all');
-          // remove scripts primary container if it exists.
     }
   }
 
@@ -45,7 +43,7 @@ export default class ScriptsView extends ScriptsModel {
   }
 
   insert (scripts) {
-    console.log('Plx scripts ::', scripts);
+    console.log('Plx scripts :: ', scripts);
     scripts.forEach( (script, index ) => {
       const li = document.createElement('li');
       li.textContent = script.title;
@@ -80,11 +78,7 @@ export default class ScriptsView extends ScriptsModel {
     if ( level == 'children' ){
       if ( super.getCurrentlySelectedScript === Element ){
         this.removeActive(super.getCurrentlySelectedScript);
-          //  this.myState.currentlySelectedScript.classList.remove('active');
       }
-      // if ( this.plxOutputLink ){
-      //      this.scriptButtonContainer.removeChild(this.plxOutputLink);
-      // }
       if ( this.params ) {
            this.parametersInnerContainer.removeChild(this.params);
       }
@@ -92,26 +86,9 @@ export default class ScriptsView extends ScriptsModel {
            this.scriptsListContainer.removeChild(this.secondaryParent);
       }
     }
-    //  else if ( level == 'link' ){
-    //     if ( this.plxOutputLink ){
-    //          this.paramButtonContainer.removeChild(this.plxOutputLink);
-    //          this.setNull(this.plxOutputLink);
-    //     }
-    // }
-    // this.plxOutputLink = null;
     this.params = null;
     this.secondaryParent = null;
   }
-
-  // setNull (element) {
-  //   if ( element ){
-  //     if ( element.id == 'plxOutput' ){
-  //       element.removeAttribute('href');
-  //     }
-  //     super.setFullUrlTo(this.emptyString);
-  //     element = null;
-  //   }
-  // }
 
   insertParametersContainer () {
     if ( !this.secondaryParent ){
@@ -192,7 +169,7 @@ export default class ScriptsView extends ScriptsModel {
 
   isValid (input, status) {
     let field = input;
-    console.log('Is ', field.id, 'valid? ', status, ' ===', field.value);
+    console.log('Is ', field.id, 'valid? ', status, ' === ', field.value);
     if( field && field.classList.contains('valid')){
       console.log('Input is already marked as valid...');
       } else if ( field && field.classList.contains('invalid')){
