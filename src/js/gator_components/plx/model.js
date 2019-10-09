@@ -82,25 +82,12 @@ export default class ScriptsModel {
   }
 
   getScriptsParentHTML() {
-    // debugging on reset button needed 
-
-    // this.scriptsParentHtml =
-    //   `<ul id='scriptList' rel='plxScriptWindow' class=''>
-    //       <h2 class='card-header'>Scripts</h2>
-    //       <div id='scriptButtonContainer' class='buttonContainer'>
-    //           <button type='button' class='exitbtn' id='close' title='Close this PLX Window.'></button>
-    //           <button type='button' id='reset' class='exitbtn' title='Close parameters pane.'></button>
-    //           <button type='button' id='generate' class='exitbtn' title='Generate URL for PLX with case info.'></button>
-    //         </div>
-    //       <div class='card-inner' id='plx-InnerCard'>
-    //       </div
-    //    </ul>`;
        this.scriptsParentHtml =
-       `<div id='scriptList' rel='plxScriptWindow' class=''>
-          <h2 class='card-header'>Scripts</h2>
+       `<div id='scriptList' rel='plxScriptWindow' class='component'>
+          <h2 class='card-header'>PLX Scripts</h2>
           <ul id='scriptButtonContainer' class='buttonContainer'>
-              <button type='button' class='exitbtn' id='close' title='Close this PLX Window.'></button>
-              <button type='button' id='generate' class='exitbtn' title='Generate URL for PLX with case info.'></button>
+              <button type='button' class='exitbtn' id='close_plx' title='Close this PLX Window.'></button>
+              <button type='button' id='gen_plx' class='exitbtn' title='Generate URL for PLX with case info.'></button>
           </ul>
           <ul class='card-inner' id='plx-InnerCard' autofocus></ul>
         </div>`;
@@ -118,8 +105,8 @@ export default class ScriptsModel {
 
   getParameterHTML (parameter) {
     let paramaterHtml;
-    if (parameter == 'date_from_YYYY_MM_DD' || parameter == 'date_to_YYYY_MM_DD'){
-      if (parameter == 'date_from_YYYY_MM_DD'){
+    if (parameter === 'date_from_YYYY_MM_DD' || parameter === 'date_to_YYYY_MM_DD'){
+      if (parameter === 'date_from_YYYY_MM_DD'){
         paramaterHtml =
         `<div class='innerParam'>
               <p class='parameter'>
@@ -130,7 +117,7 @@ export default class ScriptsModel {
               </p>
           </div>`;
       }
-      else {
+      else if (parameter === 'date_to_YYYY_MM_DD') {
         paramaterHtml =
         `<div class='innerParam'>
               <p class='parameter'>
@@ -141,7 +128,7 @@ export default class ScriptsModel {
               </p>
           </div>`;
       }
-    } else if (parameter == 'project_number') {
+    } else if (parameter === 'project_number') {
       paramaterHtml =
         `<div class='innerParam'>
               <p class='parameter'>
@@ -151,7 +138,7 @@ export default class ScriptsModel {
                 <input type='text' name='project' size='20' class='input' id='${parameter}' placeholder='' autofocus required>
               </p>
           </div>`;
-    } else {
+    } else if (parameter === 'client_id') {
       paramaterHtml =
         `<div class='innerParam'>
               <p class='parameter'>

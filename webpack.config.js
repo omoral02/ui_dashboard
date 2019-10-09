@@ -13,7 +13,7 @@ const paths = {
     css: path.resolve(__dirname, 'src', 'css'),
     main: path.resolve(__dirname, 'src', 'js', 'gator_components', 'utilities', 'main.js'),
     favicon: path.resolve(__dirname, 'src', 'favicon.ico'),
-    html:path.resolve(__dirname, 'src', 'pug_views', 'index.pug'),
+    html:path.resolve(__dirname, 'src', 'pug_views', 'main_app', 'index.pug'),
     dist: path.resolve(__dirname, 'dist'),
     bin: path.resolve(__dirname, 'dist', 'bin'),
     public: path.resolve(__dirname, 'dist', 'public'),

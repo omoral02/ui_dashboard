@@ -18,19 +18,6 @@ export default class AppModel {
       },
     }];
     this.views = {};
-    // this.listOfElementsByClass = [{
-    //   classArrays : [{
-    //       classList_1 : [],
-    //       classList_2 : [],
-    //       classList_3 : [],
-    //       classList_4 : [],
-    //       classList_5 : [],
-    //       classList_6 : [],
-    //       classList_7 : [],
-    //       classList_8 : [],
-    //   }]
-    // }];
-
   }
 
   resetChildViews () {
@@ -44,18 +31,6 @@ export default class AppModel {
 
   setNewChildView (view) {
     this.views.iterable_views.push(view);
-  }
-
-  getClassList () {
-    return this.listOfElementsByClass[0];
-  }
-
-  getClassListValues () {
-    return Object.valueOf(this.listOfElementsByClass[0].classArrays);
-  }
-
-  getClassListKeys () {
-    return Object.keys(this.listOfElementsByClass[0].classArrays);
   }
 
   getFieldSamples () {

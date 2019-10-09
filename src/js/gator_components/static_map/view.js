@@ -14,7 +14,7 @@ export default class StaticWSView extends StaticWSModel{
             this.primaryParent.id = 'staticMapPrimaryContainer';
             this.primaryParent.classList.add('card');
             this.primaryParentinnerHTML = ( () => {
-            // return super.getStaticMapParentHTML()
+                return super.getStaticMapParentHTML()
             })();
             this.primaryParent.innerHTML = this.primaryParentinnerHTML;
             this.parentPane.insertBefore(
@@ -29,19 +29,18 @@ export default class StaticWSView extends StaticWSModel{
     }
 
     grabInnerComponent(){
-
     }
 
     resetPrimaryContainerFor (level) {
-        if ( level == 'all' ){
+        if ( level === 'all' ){
           this.resetChildren('children');
           if ( this.primaryParent ) {
             this.parentPane.removeChild(this.primaryParent);
           }
           this.primaryParent = null;
-        } else if ( level == 'children' ) {
+        } else if ( level === 'children' ) {
           this.resetChildren('children');
-        } else if ( level == 'link' ) {
+        } else if ( level === 'link' ) {
           this.resetChildren('link');
         }
       }
@@ -54,20 +53,16 @@ export default class StaticWSView extends StaticWSModel{
         // if (  ) {
         // }
         // if (  ) {
-        // }
-        // } else if ( level == 'link' ){
-        //     if (  ){
-        //         this.paramButtonContainer.removeChild();
-        //         this.setNull();
+        //
+        // } else if (  ){
+        //     if (  ){       
         //     }
         // }
-        // this.params = null;
-        // this.secondaryParent = null;
     }
 
     setNull (element) {
         if ( element ){
-        if ( element.id == 'srcOutput' ){
+        if ( element.id == '' ){
             element.removeAttribute('href');
         }
         super.setFullUrlTo(this.emptyString);

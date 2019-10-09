@@ -43,7 +43,7 @@ export default class ScriptsController extends ScriptsView {
         let scriptIndex = parseInt(this.currentlySelectedItem.dataset.index);
         super.getNewWorkingState(scriptIndex, this.currentlySelectedItem);
         this.checkShowOn(this.secondaryParent);
-    } else if ( this.currentlySelectedItem.id == 'close' ){
+    } else if ( this.currentlySelectedItem.id === 'close_plx' ){
               this.visualManager('all');
               super.setMyStateToInitialWorkingState();
     }

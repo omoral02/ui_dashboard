@@ -33,13 +33,12 @@ body {
 } */
 
 #map{
+  display: none;
   visibility: hidden;
   align-self: center;
-  flex-basis: auto;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
-  position: relative;
   padding: 8px;
   margin: 5px;
   z-index: 1;
@@ -59,10 +58,11 @@ body {
 }
 
 #map.show{
-  visibility: visible;
   display: flex;
+  visibility: visible;
   text-align: center;
-  position: relative;
+  width: 300px;
+  height: 100%;
 }
 
 #bars{ 

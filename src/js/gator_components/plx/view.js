@@ -35,9 +35,9 @@ export default class ScriptsView extends ScriptsModel {
     this.scriptButtonContainer = document.getElementById('scriptButtonContainer');
     // this.reset = document.getElementById('reset');
     // this.reset.textContent = 'Reset';
-    this.close = document.getElementById('close');
+    this.close = document.getElementById('close_plx');
     this.close.textContent = 'Close';
-    this.generate = document.getElementById('generate');
+    this.generate = document.getElementById('gen_plx');
     this.generate.textContent = 'Go to PLX';
     this.insert(super.getScripts());
   }
@@ -61,16 +61,14 @@ export default class ScriptsView extends ScriptsModel {
   }
 
   resetContainerFor (level) {
-    if ( level == 'all' ){
+    if ( level === 'all' ){
       this.resetChildren('children');
       if ( this.primaryParent ) {
         this.parentPane.removeChild(this.primaryParent);
       } 
       this.primaryParent = null;
-    } else if ( level == 'children' ) {
+    } else if ( level === 'children' ) {
       this.resetChildren('children');
-    } else if ( level == 'link' ) {
-      this.resetChildren('link');
     }
   }
 
