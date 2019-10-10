@@ -15,7 +15,7 @@ export default class MapsView extends MapsModel {
       this.map.id = "map";
       this.map.classList.add('card');
       this.parentPane.insertBefore(this.map, this.parentPane.childNodes[0]);
-      this.toggleMapContainer();
+      this.map.classList.toggle('show');
       }  else {
         console.log('else');
       this.toggleMapContainer();
@@ -24,10 +24,9 @@ export default class MapsView extends MapsModel {
     }
 
     toggleMapContainer () {
-      if ( !this.map.classList.contains('show') ){
-           this.map.classList.add('show');
-      } else {
+      if ( this.map.classList.contains('show') ){
            this.map.classList.toggle('show');
+           this.parentPane.removeChild(this.map);
       }
     }
   }

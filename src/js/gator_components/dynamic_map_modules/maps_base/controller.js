@@ -30,8 +30,8 @@ export default class MapsController extends MapsView {
                    
     }
 
-    instantiateMapModule (event) {
-        console.log('This ', event.target.getAttribute('rel'), ' has loaded!');
+    instantiateMapModule () {
+        // console.log('This ', event.target.getAttribute('rel'), ' has loaded!');
         if (!this.styled_map){
             const { default: DynamicMapController } = require('./dynamic/controller');
             this.styled_map = new DynamicMapController(this.util, this.map, super.getMapsGlobals());

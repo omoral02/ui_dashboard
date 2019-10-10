@@ -46,11 +46,13 @@ body {
 #container {
   display: flex;
   flex-basis: 100%;
+  flex: auto;
   flex-direction: column;
   justify-content: flex-start;
   margin: 0;
   padding: 0;
-  overflow: auto;
+  overflow: visible;
+  overflow-wrap: wrap;
   background-color: #fff;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
   top: 0;
@@ -222,16 +224,19 @@ header #right_menu {
 #menu_options {
   display: none;
   margin-left: 0;
+  align-self: flex-start;
+  flex-basis: 100%;
   background-color: #4285f4;
   opacity: .60;
   /* background-color: rgb(27, 127, 170); */
-  border-right: 1em double white;
+  border-bottom: .5em double white;
+  border-right: .5em double white;
 }
 
 #menu_options ul {
   display: flex;
   flex: auto;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: space-around;
   text-align: center;
@@ -240,6 +245,7 @@ header #right_menu {
   text-decoration: none;
   outline: none;
   color: white;
+  padding: 1em;
 }
 
 /* #menu_options ul li :last-child :not(.menuTitle) {
@@ -281,10 +287,10 @@ header #right_menu {
   height: 100vh;
   margin-top: 0;
   margin-bottom: 0;
-  flex-direction: row;
+  flex-direction: column;
   overflow: auto;
   align-self: auto;
-  justify-content: center;
+  justify-content: space-between;
   order: 2;
   margin-left: 0;
   margin-right: 0;
@@ -293,13 +299,14 @@ header #right_menu {
 #firstHalf {
   display: none;
   visibility: hidden;
-  flex-basis: 8%;
-  flex:auto;
+  flex-basis: 10%;
+  flex: auto;
   justify-content: center;
-  position: relative;
+  position: fixed;
   order: 1;
   margin-left: auto;
   margin-right: auto;
+  z-index: 10;
 }
 
 #secondHalf {
@@ -307,7 +314,7 @@ header #right_menu {
   flex-wrap: wrap;
   flex-direction: column;
   position: relative;
-  flex-basis: 100%;
+  flex-basis: 90%;
   order: 2;
   margin-left: auto;
   margin-right: auto;
@@ -358,7 +365,7 @@ views_pane card containers
   position: relative;
   height: auto;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-evenly;
   overflow: visible;
   order: 3;
@@ -396,6 +403,7 @@ views_pane card containers
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
   text-align: center;
   opacity: 1.8;
   background-color: #fff;
