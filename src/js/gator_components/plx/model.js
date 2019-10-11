@@ -224,7 +224,7 @@ export default class ScriptsModel {
           //   },
           // },
           {
-            title: 'Total URL STATS(redacted ) by URL, Domain, Project & Days Used',
+            title: 'Total URL Stats(redacted ) by URL, Domain, Project & Days Used',
             id: 'script_5d._07f69f_0000_21a9_b028_f403043e7540',
             parameters: {
               'project_number': '',

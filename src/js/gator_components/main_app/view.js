@@ -14,10 +14,10 @@ export default class AppView extends AppModel {
     // this.mapsButton.textContent = 'Dynamic Map Testing';
     // this.dremelButton = document.getElementById('dremel_button');
     // this.dremelButton.textContent = 'Dremel';
-    // // this.wsButton = document.getElementById('ws_button');
-    // // this.wsButton.textContent = 'WS Tester';
     // this.staticMapButton = document.getElementById('static_map_button');
     // this.staticMapButton.textContent = 'Static Map W/S Tester';
+    // this.wsButton = document.getElementById('ws_button');
+    // this.wsButton.textContent = 'WS Tester';
     this.firstHalf = document.getElementById('firstHalf');
     this.secondHalf = document.getElementById('secondHalf');
     this.results = document.getElementById('results');

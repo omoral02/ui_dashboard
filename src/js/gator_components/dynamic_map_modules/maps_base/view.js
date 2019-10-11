@@ -14,6 +14,7 @@ export default class MapsView extends MapsModel {
       this.map = document.createElement('div');
       this.map.id = "map";
       this.map.classList.add('card');
+      this.map.classList.add('show');
       this.parentPane.insertBefore(this.map, this.parentPane.childNodes[0]);
       }  else {
         console.log('else');

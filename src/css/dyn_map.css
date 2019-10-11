@@ -44,9 +44,9 @@
 #map.show{
   display: flex;
   visibility: visible;
-  /* text-align: center; */
+  text-align: center;
   min-width: 400px;
-  height: auto;
+  min-height: 50%;
   overflow: inherit !important;
   align-self: center !important;
 }
