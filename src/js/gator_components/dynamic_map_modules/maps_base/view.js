@@ -15,17 +15,15 @@ export default class MapsView extends MapsModel {
       this.map.id = "map";
       this.map.classList.add('card');
       this.parentPane.insertBefore(this.map, this.parentPane.childNodes[0]);
-      this.map.classList.toggle('show');
       }  else {
         console.log('else');
-      this.toggleMapContainer();
+        this.toggleMapContainer();
         // remove scripts primary container if it exists. 
      }
     }
 
     toggleMapContainer () {
       if ( this.map.classList.contains('show') ){
-           this.map.classList.toggle('show');
            this.parentPane.removeChild(this.map);
       }
     }

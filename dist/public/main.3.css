@@ -1,20 +1,4 @@
 @import url(https://fonts.googleapis.com/css?family=Oxygen&display=swap);
-*{
-      margin: 0;
-      padding: 0;
-}
-
-html,
-body {
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  flex-basis: 100%;
-  height: 100vh;
-  margin:0;
-  padding: 0;
-  overflow: hidden;
-}
 
 /* #map {
   display: flex;
@@ -33,7 +17,7 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 } */
 
-#map{
+/* #map{
   display: none;
   visibility: hidden;
   align-self: center;
@@ -56,14 +40,16 @@ body {
   outline: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
   transition: all 0s;
-}
+} */
 
 #map.show{
   display: flex;
   visibility: visible;
-  text-align: center;
-  width: 300px;
-  height: 100%;
+  /* text-align: center; */
+  min-width: 400px;
+  height: auto;
+  overflow: inherit !important;
+  align-self: center !important;
 }
 
 #bars{ 
@@ -246,7 +232,6 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  overflow: hidden;
 }
 
 @media screen and (min-width:550px) and (max-width: 650px){
@@ -466,10 +451,10 @@ header #right_menu {
 #menu_options {
   display: none;
   margin-left: 0;
-  align-self: flex-start;
+  /* align-self: flex-start; */
   flex-basis: 100%;
   background-color: #4285f4;
-  opacity: .60;
+  opacity: .75;
   /* background-color: rgb(27, 127, 170); */
   border-bottom: .5em double white;
   border-right: .5em double white;
@@ -478,16 +463,35 @@ header #right_menu {
 #menu_options ul {
   display: flex;
   flex: auto;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: space-around;
   text-align: center;
+  flex: auto;
 }
-#menu_options ul li a {
+#menu_options * {
+  display: flex;
   text-decoration: none;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
   outline: none;
   color: white;
+  min-width: 100%;
+
+}
+
+#menu_options ul li a {
   padding: 1em;
+  flex: auto;
+  min-width: 100%;
+  flex-basis: 100%;
+}
+
+#menu_options ul li {
+  flex: auto;
+  min-width: 100%;
+  flex-basis: 100%;
 }
 
 /* #menu_options ul li :last-child :not(.menuTitle) {
@@ -503,7 +507,7 @@ header #right_menu {
     color: #0d64bc;
     justify-content: center;
     text-align: center;
-    padding: 1em;
+    padding: 1.5em;
 }
 
 
@@ -541,7 +545,8 @@ header #right_menu {
 #firstHalf {
   display: none;
   visibility: hidden;
-  flex-basis: 10%;
+  flex-basis: 15%;
+  height: 100%vh;
   flex: auto;
   justify-content: center;
   position: fixed;
@@ -549,17 +554,23 @@ header #right_menu {
   margin-left: auto;
   margin-right: auto;
   z-index: 10;
+  transition: all 2s;
 }
 
 #secondHalf {
   display: flex;
-  flex-wrap: wrap;
+  /* flex: auto;
+  flex-wrap: wrap; */
   flex-direction: column;
   position: relative;
-  flex-basis: 90%;
+  justify-content: flex-start;
+  /* align-items: center; */
+  flex-basis: 100%;
   order: 2;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0;
+  margin-left: 0;
+  margin-right: 0;
+  z-index: 9;
 }
 
 /*  Button container for component close/exit buttons 
@@ -608,11 +619,11 @@ views_pane card containers
   height: auto;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   overflow: visible;
   order: 3;
-  margin-left: auto;
-  margin-right: auto;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 @keyframes nodeInserted { 
@@ -641,6 +652,7 @@ views_pane card containers
     inserted containers of list items
 */
 .card {
+  display: flex;
   flex-basis: auto !important;
   flex-direction: column;
   align-items: center;
@@ -652,7 +664,10 @@ views_pane card containers
   border-bottom: 2px solid rgba(0, 0, 0, 0.12);
   border-radius: 12px;
   box-shadow: 0 1.5px 2px 0 rgba(60, 64, 67, 0.30), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
-  overflow: scroll;
+  /* overflow: scroll; */
+  min-width: 25%;
+  max-width: 50%;
+  min-height: 90%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -660,17 +675,28 @@ views_pane card containers
 .card-header {
   display: flex;
   flex: auto;
+  flex-basis: auto !important;
+  flex-direction: row;
   border-style: hidden;
   align-self: center;
   justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .card-inner {
   display: flex;
-  flex: auto;
-  flex-direction: column;
+  flex-direction: column-reverse;
+  visibility: visible;
+  display: flex;
+  position: relative;
+  text-align: center;
+  font-size: 1em;
+  align-items: center;
   justify-content: center;
-  align-content: space-between;
+  min-width: 100%;
+  flex-basis: 100%;
+  text-align: center;
   color: black;
   margin: 3px;
   text-align: center;
@@ -678,14 +704,16 @@ views_pane card containers
   margin-right: auto;
 }
 
-#card-inner {
-  flex: auto;
-  flex-direction: row !important;
-}
-
 .card:last-child {
   margin-bottom: 0px;
   margin-right: auto;
+}
+
+#plx-InnerCard li {
+  min-width: 100%;
+  align-items: center;
+  justify-content: center;
+  flex-basis: 100%;
 }
 
 /* scriptWindow and Links inside the inserted cards */
@@ -743,10 +771,11 @@ views_pane card containers
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    text-align: center;
     position: relative;
     text-align: center;
     visibility: visible;
-    padding: 8px;
+    padding: 2px;
     margin-left: auto;
     margin-right: auto;
     z-index: 1;
@@ -761,6 +790,7 @@ views_pane card containers
 
 label {
   display: flex;
+  text-align: center;
   font-size: 1.7em;
   flex-basis: 100%
 }
@@ -828,29 +858,31 @@ p {
 #scriptsPrimaryContainer.show {
   visibility: visible;
   display: flex;
-  text-align: center;
   position: relative;
+  text-align: center;
+  font-size: 1em;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 #scriptList {
   display: flex;
+  flex-basis: auto !important;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  align-self: center;
+  justify-content: center;
 }
 
 /* Start of Parameters Div*/
 
 #secondaryContainer {
-  visibility: hidden;
   display: flex;
-  height: auto; 
-  justify-content: space-between;
+  min-width: 40%;
+  justify-content: center;
   align-items: center;
   position: relative;
   list-style-type: none;
-  flex-basis: 100%;
+  flex-basis: auto !important;
   z-index: 1;
   opacity: 1.7;
   margin-top: 5px;
@@ -858,16 +890,29 @@ p {
   border-radius: 8px;
   box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.30), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
   transition: all 0s;
+  margin-left: auto;
+  margin-right: auto;
+
+  flex-direction: column;
+  padding: 8px;
+  z-index: 1;
+  opacity: 1.7;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.30), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
+  transition: all 0s;
+  order: 1;
+  overflow: hidden;
 }
 
 #secondaryContainer.show {
-    visibility: visible;
-    display: flex;
-    position: relative;
-    text-align: center;
-    font-size: .5em;
-    align-items: center;
-    justify-content: center;
+  visibility: visible;
+  display: flex;
+  position: relative;
+  text-align: center;
+  font-size: .5em;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 .innerParam {
@@ -876,7 +921,8 @@ p {
   justify-content: center;
 }
 
-#params {
+#params, #parameters {
+  min-width: auto;
   justify-content: center;
   align-self: center;
   text-align: center;
