@@ -49,6 +49,7 @@ export default class ScriptsView extends ScriptsModel {
       li.textContent = script.title;
       li
       li.classList.add('listed-item');
+      li.title = 'Click this title name to select the script or to reset your script selection.';
       li.dataset.index = index;
       this.scriptsListContainer.insertBefore(
         li,
