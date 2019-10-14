@@ -89,7 +89,7 @@ export default class ScriptsModel {
               <button type='button' class='exitbtn' id='close_plx' title='Close this PLX Window.'></button>
               <button type='button' id='gen_plx' class='exitbtn' title='Generate URL for PLX with case info.'></button>
           </ul>
-          <ul class='card-inner' id='plx-InnerCard' autofocus></ul>
+          <ul class='card-inner' id='plx-InnerCard'></ul>
         </div>`;
     return this.scriptsParentHtml;
   }

@@ -47,13 +47,10 @@ export default class ScriptsView extends ScriptsModel {
     scripts.forEach( (script, index ) => {
       const li = document.createElement('li');
       li.textContent = script.title;
-      li
       li.classList.add('listed-item');
       li.title = 'Click this title name to select the script or to reset your script selection.';
       li.dataset.index = index;
-      this.scriptsListContainer.insertBefore(
-        li,
-        this.scriptsListContainer.childNodes[0]);
+      this.scriptsListContainer.appendChild(li);
     });
     this.toggleScriptsContainer();
   }
@@ -123,6 +120,7 @@ export default class ScriptsView extends ScriptsModel {
         } else {
              this.resetListItems();
              item.classList.add('active');
+             item.focus();
         }
     }
   }
