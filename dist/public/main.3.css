@@ -240,7 +240,7 @@
   }
 } */
 
-@keyframes borderColors { 
+/* @keyframes borderColors { 
   0%   {border-color: green; border: 5px solid !important;}
   25%  {border-color: yellow; border: 5px solid !important;}
   50%  {border-color: blue; border: 5px solid !important;}
@@ -253,14 +253,14 @@
   animation-name: borderColors;
   animation-timing-function: ease-in-out;
   /* animation-iteration-count: infinite; */
- }
+ /* }
 
  .footer{
   animation-duration: 1s;
   animation-name: borderColors;
   animation-timing-function: ease-in-out;
-  /* animation-iteration-count: infinite; */
- }
+  animation-iteration-count: infinite; 
+ } */
 
 input:focus {
   outline: 2px;
@@ -484,6 +484,11 @@ header #right_menu {
   /* background-color: rgb(27, 127, 170); */
   border-bottom: .5em double white;
   border-right: .5em double white;
+}
+
+#menu_button {
+  outline: none;
+  text-decoration: none;
 }
 
 #menu_options ul {
@@ -891,13 +896,13 @@ p {
 
 #scriptsPrimaryContainer li:active {
   background-color: purple;
-  color:rgb(27, 127, 170);
+  color: white;
   box-shadow: 0 3px 4px 0 rgba(60, 64, 67, 0.30), 0 5px 12px 2px rgba(60, 64, 67, 0.15);
 }
 
 #scriptsPrimaryContainer li:focus-within li:hover {
   background-color: purple;
-  color: rgb(27, 127, 170);
+  color: white(27, 127, 170);
   opacity: .65;
   box-shadow: 0 3px 4px 0 rgba(60, 64, 67, 0.30), 0 5px 12px 2px rgba(60, 64, 67, 0.15);
 }

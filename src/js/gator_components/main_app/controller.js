@@ -48,7 +48,7 @@ export default class AppController extends AppView {
 
   controllerIsNowlistening() {
     this.actionButtons.forEach( (button) => {
-      if (button.id === 'menu_title'){
+      if (button.id === 'menu_button'){
         button.focus();
       }
       button.addEventListener(
