@@ -47,6 +47,7 @@ export default class ScriptsView extends ScriptsModel {
     scripts.forEach( (script, index ) => {
       const li = document.createElement('li');
       li.textContent = script.title;
+      li
       li.classList.add('listed-item');
       li.dataset.index = index;
       this.scriptsListContainer.insertBefore(
@@ -73,7 +74,7 @@ export default class ScriptsView extends ScriptsModel {
   }
 
   resetChildren(level) {
-    if ( level == 'children' ){
+    if ( level === 'children' ){
       if ( super.getCurrentlySelectedScript === Element ){
         this.removeActive(super.getCurrentlySelectedScript);
       }
@@ -125,6 +126,16 @@ export default class ScriptsView extends ScriptsModel {
     }
   }
 
+  hideInactive(){
+    let items = document.getElementsByClassName('listed-item');
+    for(let i=0; i < items.length; i++){
+      let item = items[i];
+      if( !item.classList.contains('active')){
+        item.classList.toggle('inactive');
+      }
+    }
+  }
+
   resetListItems() {
     const items = document.getElementsByClassName('listed-item');
     for ( let i = 0; i < items.length; i++ ){
@@ -132,12 +143,20 @@ export default class ScriptsView extends ScriptsModel {
       if ( item.classList.contains('active' )){
            this.removeActive(item);
       }
+      if ( item.classList.contains('inactive')){
+           this.removeInactive(item);
+      }
     }
   }
 
   removeActive (onListedItem) {
     const item = onListedItem;
     item.classList.remove('active');
+  }
+
+  removeInactive (onListedItem) {
+    const item = onListedItem;
+    item.classList.remove('inactive');
   }
 
   renderParams (parameters) {

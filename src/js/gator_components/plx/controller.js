@@ -77,6 +77,7 @@ export default class ScriptsController extends ScriptsView {
       this.init();
     } else {
           this.visualManager('insert');
+          super.hideInactive();
           this.innerComponentIsNowListening();
     }
   }

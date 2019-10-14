@@ -467,6 +467,10 @@ views_pane card containers
   min-width: auto;
   margin-left: auto;
   margin-right: auto;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 /* .card #map {
@@ -538,12 +542,18 @@ views_pane card containers
   margin-right: auto;
 }
 
+#plx-InnerCard {
+  flex-direction: column-reverse !important;
+}
+
 #plx-InnerCard li {
   min-width: 100%;
   align-items: center;
   justify-content: center;
   flex-basis: 100%;
 }
+
+
 
 /* scriptWindow and Links inside the inserted cards */
 
@@ -554,6 +564,16 @@ views_pane card containers
   background-color: rgb(27, 127, 170);
   opacity: .65;
   color: white !important;
+}
+
+.active:hover {
+  background-color:  #ddd !important;
+  color:  rgb(27, 127, 170) !important;
+}
+
+.inactive {
+  display: none !important;
+  visibility: hidden !important;
 }
 
 .invalid {
@@ -597,6 +617,7 @@ views_pane card containers
 #scriptsPrimaryContainer {
     visibility: hidden;
     flex-basis: auto;
+    min-width: auto;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -656,6 +677,10 @@ p {
   display: flex;
   align-items: flex-start;
   overflow: hidden;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
 }
 
 /* Change color of dropdown li items on hover */
@@ -679,14 +704,11 @@ p {
   box-shadow: 0 3px 4px 0 rgba(60, 64, 67, 0.30), 0 5px 12px 2px rgba(60, 64, 67, 0.15);
 }
 
-/*Wrap the list with curves*/
+/*Wrap the list items with curves*/
 
-#scriptsPrimaryContainer li:first-child {
+#scriptsPrimaryContainer {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-}
-
-#scriptsPrimaryContainer li:last-child {
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
 }
