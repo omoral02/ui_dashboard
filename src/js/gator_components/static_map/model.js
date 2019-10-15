@@ -16,4 +16,28 @@ export default class StaticWSModel {
     return this.scriptsParentHtml;
   }
 
+  getStaticSecondaryHTML(){
+    this.secondaryHTML = 
+      `<div id="staticInner" class="card">
+          <p>https://maps.googleapis.com/maps/api/staticmap?</p>
+          <p>
+              <label for="center">Center:</label>
+              <input id="center" size='40' placeholder=" Austin, TX ">
+          </p>
+          <p>
+              <label for="zoom">Zoom:</label>
+              <input id="zoom" size='40' maxlength='2'placeholder=" 14 (Accepts 1-20)">
+          </p>
+          <p>
+              <label for="size">Size:</label>
+              <input id="size" size='40' maxlength='9' placeholder=" 400x400 || 2048x2048(PP) ">
+          </p>
+          <p>
+            <label for="scale">Scale:</label>
+            <input id="scale" size='40' maxlength='2' placeholder=" 2 || 4 (default is 1) ">
+          </p>
+      </div>`;
+    return this.secondaryHTML;
+  }
+
 }

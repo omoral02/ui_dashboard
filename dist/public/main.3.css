@@ -262,11 +262,23 @@
   animation-iteration-count: infinite; 
  } */
 
+* li {
+  list-style: none;
+}
+
 input:focus {
   outline: 2px;
   outline-color: white;
   background-color: aliceblue;
 }
+
+input {
+  overflow-x: overlay;
+}
+
+/* input::-webkit-scrollbar {
+  display: none !important;
+} */
 
 body,
 html {
@@ -396,6 +408,15 @@ header #left_menu {
   order: 1;
 }
 
+.header {
+  top: 0;
+  padding: 1em;
+  box-shadow: 2PX 2px 2px 0 white, 0 1px 6px 2px black;
+  /* border: .2em solid rgb(27, 127, 170) !important; */
+  /* border-bottom: none !important;
+  border-top: .2em solid !important; */
+}
+
 #main_menu {
   display: flex;
   flex: auto;
@@ -476,7 +497,8 @@ header #right_menu {
 
 #menu_options {
   display: none;
-  margin-left: 0;
+  margin-left: 5;
+  padding: 1em;
   /* align-self: flex-start; */
   flex-basis: 100%;
   background-color:  rgb(27, 127, 170);
@@ -582,7 +604,7 @@ header #right_menu {
   justify-content: center;
   position: fixed;
   order: 1;
-  margin-left: auto;
+  padding-left: .2em;
   margin-right: auto;
   z-index: 10;
   /* overflow: hidden; */
@@ -687,10 +709,9 @@ views_pane card containers
   text-align: center;
   opacity: 1.8;
   background-color: #fff;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.12);
-  border-radius: 12px;
-  box-shadow: 0 1.5px 2px 0 rgba(60, 64, 67, 0.30), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
-  /* overflow: scroll; */
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 8px;
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.30), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
   min-height: auto;
   min-width: auto;
   margin-left: auto;
@@ -815,7 +836,7 @@ views_pane card containers
 #staticMapPrimaryContainer {
   display: flex;
   flex-basis: auto;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
   position: relative;
@@ -832,6 +853,15 @@ views_pane card containers
   transition: all 0s;
   order: 1;
   overflow: hidden;
+}
+
+#staticInner {
+  /* align-self: center; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: auto !important;
+  /* flex-basis: 100%; */
 }
 
 #embedMap {
@@ -874,9 +904,10 @@ label {
 }
 
 p {
+  display:flex;
+  flex-direction: row;
   margin: 5px;
   padding: .5em;
-  display: flex;
   align-items: center;
   text-align: center;
   clear: right;
@@ -896,7 +927,7 @@ p {
 }
 
 #scriptsPrimaryContainer li {
-  margin: 5px;
+  /* margin: 5px; */
   cursor: pointer;
   font-size: 1.1em;
   text-align: center;

@@ -29,6 +29,13 @@ export default class StaticWSView extends StaticWSModel{
     }
 
     grabInnerComponent(){
+      this.secondaryParent = document.createElement('div');
+      this.secondaryParent.id = 'staticSecondary';
+      this.secondaryParentInnerHTML =( ()=>{
+        return super.getStaticSecondaryHTML();
+      })();
+      this.secondaryParent.innerHTML= this.secondaryParentInnerHTML;
+      this.primaryParent.appendChild(this.secondaryParent);
     }
 
     resetPrimaryContainerFor (level) {

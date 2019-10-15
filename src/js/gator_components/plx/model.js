@@ -110,9 +110,7 @@ export default class ScriptsModel {
         paramaterHtml =
         `<div class='innerParam'>
               <p class='parameter'>
-                  <label for='${parameter}'>Date From</label>
-              </p>
-              <p>
+                <label for='${parameter}'>Date From</label>
                 <input type='text' size='20' maxlength='10' class='input' id='${parameter}' placeholder=''required>
               </p>
           </div>`;
