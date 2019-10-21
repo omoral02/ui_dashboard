@@ -1,8 +1,9 @@
-import { cl_ApiKey } from '../utilities/api_key';
-import AppView from './view';
-import ScriptsController from '../plx/controller';
-import MapsController from '../dynamic_map_modules/maps_base/controller';
-import StaticWSController from '../static_map/controller';
+import { cl_ApiKey } from '../utilities/api_key.js';
+import AppView from './view.js';
+import ScriptsController from '../plx/controller.js';
+import MapsController from '../dynamic_map_modules/maps_base/controller.js';
+import StaticWSController from '../static_map/controller.js';
+import DremelController from '../dremel/controller.js'
 
 export default class AppController extends AppView {
   constructor(Util) {
@@ -28,12 +29,13 @@ export default class AppController extends AppView {
           this.mapsButton,
           this.plxButton,
           this.staticMapButton,
+          this.dremelButton,
           this.head,
           this.cl_apiKey,
           this.viewsPane,);
   }
 
-  instantiateControllersWith (util, placeholders, mapsButton, plxButton, staticButton, head, cl_apiKey, viewsPane) {
+  instantiateControllersWith (util, placeholders, mapsButton, plxButton, staticButton, dremelButton, head, cl_apiKey, viewsPane) {
     if (!this.scriptsController){
         this.scriptsController = new ScriptsController(util, placeholders, plxButton, viewsPane);
     }
@@ -43,10 +45,15 @@ export default class AppController extends AppView {
     if (!this.mapsController){
     this.mapsController = new MapsController (util, placeholders, mapsButton, viewsPane, cl_apiKey, head);
     }
+
+    if (!this.dremelController){
+      this.dremelController = new DremelController(util, placeholders, dremelButton, viewsPane);
+    }
     this.controllerIsNowlistening();
   }
 
   controllerIsNowlistening() {
+    window.addEventListener('resize', super.resizeToMinimum, false);
     this.actionButtons.forEach( (button) => {
       if (button.id === 'menu_button'){
         button.focus();
@@ -68,7 +75,7 @@ export default class AppController extends AppView {
         this.mapShouldLoad();
         super.menuItemClicked();
     } else if (e.target.id === 'dremel_button') {
-        
+        this.dremelShouldLoad();
         super.menuItemClicked();
     } else if (e.target.id === 'static_map_button') {
         this.staticMapShouldLoad();
@@ -94,8 +101,9 @@ export default class AppController extends AppView {
     this.mapsController.init();
   }
 
-  // wsShouldLoad() {
-  // }
+  dremelShouldLoad() {
+    this.dremelController.init();
+  }
 
 }
 

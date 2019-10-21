@@ -1,32 +1,80 @@
+import MapModel from './model';
 
-import MapsModel from './model';
-
-export default class MapsView extends MapsModel {
-    constructor (placeholders, apiKey, viewPane) {
-      super();
-      this.placeholders = placeholders;
-      this.parentPane = viewPane;
-      this.api_key = apiKey;
-    }
-  
-    initializeMapView() {
-      if ( !this.map ){
-      this.map = document.createElement('div');
-      this.map.id = "map";
-      this.map.classList.add('card');
-      this.map.classList.add('show');
-      this.parentPane.insertBefore(this.map, this.parentPane.childNodes[0]);
-      }  else {
-        console.log('else');
-        this.toggleMapContainer();
-        // remove scripts primary container if it exists. 
-     }
-    }
-
-    toggleMapContainer () {
-      if ( this.map.classList.contains('show') ){
-           this.parentPane.removeChild(this.map);
-      }
-    }
+export default class MapView extends MapModel{
+    constructor (placeholders, viewPane) {
+    super();
+    this.placeholders = placeholders;
+    this.parentPane = viewPane;
+    this.emptyString = '';
   }
-  
+
+    initializeView(){
+        if ( !this.primaryParent ) {
+            this.primaryParent = document.createElement('div');
+            this.primaryParent.id = 'mapPrimaryContainer';
+            this.primaryParent.classList.add('card');
+            this.primaryParent.classList.add('component');
+            this.primaryParentinnerHTML = ( () => {
+                return super.getMapParentHTML()
+            })();
+            this.primaryParent.innerHTML = this.primaryParentinnerHTML;
+            this.parentPane.insertBefore(
+            this.primaryParent,
+            this.parentPane.childNodes[0]);
+            this.grabInnerComponent();
+            // insert static map primary container
+        } else {
+                this.resetPrimaryContainerFor('all');
+                // remove scripts primary container if it exists.
+        }
+    }
+
+    grabInnerComponent(){
+      this.secondaryParent = document.createElement('div');
+      this.secondaryParent.id = 'mapSecondary';
+      this.secondaryParentInnerHTML =( ()=>{
+        return super.getMapSecondaryHTML();
+      })();
+      this.secondaryParent.innerHTML= this.secondaryParentInnerHTML;
+      this.primaryParent.appendChild(this.secondaryParent);
+    }
+
+    resetPrimaryContainerFor (level) {
+        if ( level === 'all' ){
+          this.resetChildren('children');
+          if ( this.primaryParent ) {
+            this.parentPane.removeChild(this.primaryParent);
+          }
+          this.primaryParent = null;
+        } else if ( level === 'children' ) {
+          this.resetChildren('children');
+        } else if ( level === 'link' ) {
+          this.resetChildren('link');
+        }
+      }
+    resetChildren(level) {
+        // if ( level == 'children' ){
+        // if (  ){
+        // }
+        // if (  ){
+        // }
+        // if (  ) {
+        // }
+        // if (  ) {
+        //
+        // } else if (  ){
+        //     if (  ){       
+        //     }
+        // }
+    }
+
+    setNull (element) {
+        if ( element ){
+        if ( element.id == '' ){
+            element.removeAttribute('href');
+        }
+        super.setFullUrlTo(this.emptyString);
+        element = null;
+        }
+    }
+}

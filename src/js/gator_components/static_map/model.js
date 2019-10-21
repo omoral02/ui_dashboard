@@ -5,20 +5,20 @@ export default class StaticWSModel {
 
   getStaticMapParentHTML(){
     this.scriptsParentHtml =
-       `<div id='staticMain' rel='wsTester' class='component'>
+       `<div id='staticMain' rel='staticTester' class=''>
           <h2 class='card-header'>Static Map W/S Testing</h2>
           <ul id='wsButtonContainer' class='buttonContainer'>
               <button type='button' class='exitbtn' id='close_static' title='Close this Static Window.'></button>
               <button type='button' id='gen_static' class='exitbtn' title='Generate URL for Static Map testing.'></button>
           </ul>
-          <ul class='card-inner' id='plx-InnerCard' autofocus></ul>
+          <ul class='card-inner' id='static-InnerCard'></ul>
         </div>`;
     return this.scriptsParentHtml;
   }
 
   getStaticSecondaryHTML(){
     this.secondaryHTML = 
-      `<div id="staticInner" class="card">
+      `<div id="staticInner" class="card component">
           <p>https://maps.googleapis.com/maps/api/staticmap?</p>
           <p>
               <label for="center">Center:</label>

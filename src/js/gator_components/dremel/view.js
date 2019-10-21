@@ -1,6 +1,6 @@
-import StaticWSModel from './model';
+import DremelModel from './model';
 
-export default class StaticWSView extends StaticWSModel{
+export default class DremelView extends DremelModel{
     constructor (placeholders, viewPane) {
     super();
     this.placeholders = placeholders;
@@ -11,11 +11,11 @@ export default class StaticWSView extends StaticWSModel{
     initializeView(){
         if ( !this.primaryParent ) {
             this.primaryParent = document.createElement('div');
-            this.primaryParent.id = 'staticMapPrimaryContainer';
+            this.primaryParent.id = 'dremelPrimaryContainer';
             this.primaryParent.classList.add('card');
             this.primaryParent.classList.add('component');
             this.primaryParentinnerHTML = ( () => {
-                return super.getStaticMapParentHTML()
+                return super.getDremelParentHTML()
             })();
             this.primaryParent.innerHTML = this.primaryParentinnerHTML;
             this.parentPane.insertBefore(
@@ -31,9 +31,9 @@ export default class StaticWSView extends StaticWSModel{
 
     grabInnerComponent(){
       this.secondaryParent = document.createElement('div');
-      this.secondaryParent.id = 'staticSecondary';
+      this.secondaryParent.id = 'dremelSecondary';
       this.secondaryParentInnerHTML =( ()=>{
-        return super.getStaticSecondaryHTML();
+        return super.getDremelSecondaryHTML();
       })();
       this.secondaryParent.innerHTML= this.secondaryParentInnerHTML;
       this.primaryParent.appendChild(this.secondaryParent);

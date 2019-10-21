@@ -80,5 +80,19 @@ export default class AppView extends AppModel {
           object.view.style.order = `${i}`;
           object.count = [i];
   }
+
+  resizeToMinimum(){
+    console.log('Window resize');
+    let minimum    = [550, 440];
+    let current    = [window.innderWidth, window.innerHeight];
+    let restricted = [];
+    let i          = 2;
+  
+    while(i-- > 0){
+      restricted[i] = minimum[i] > current[i] ? minimum[i] : current[i];
+    }
+  
+    window.resizeTo(current[0], current[1]);
+  }
 }
 

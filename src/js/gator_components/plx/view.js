@@ -17,6 +17,7 @@ export default class ScriptsView extends ScriptsModel {
           this.primaryParent = document.createElement('div');
           this.primaryParent.id = 'scriptsPrimaryContainer';
           this.primaryParent.classList.add('card');
+          this.primaryParent.classList.add('component');
           this.primaryParentinnerHTML = ( () => {
             return super.getScriptsParentHTML();
           })();

@@ -1,26 +1,24 @@
-export default class MapModel {
+export default class DremelModel {
   constructor(){
 
   }
 
-  getMapParentHTML(){
+  getDremelParentHTML(){
     this.scriptsParentHtml =
-       `<div id='mapMain' rel='mapTester' class=''>
-          <h2 class='card-header'>Dynamic Map Testing</h2>
-          <ul id='mapButtonContainer' class='buttonContainer'>
-              <button type='button' class='exitbtn' id='close_static' title='Close this Map Window.'></button>
-              <button type='button' id='gen_map' class='exitbtn' title='Generate Map w/ options config.'></button>
+       `<div id='dremelMain' rel='dremel' class=''>
+          <h2 class='card-header'>Dremel Scripts</h2>
+          <ul id='dremelButtonContainer' class='buttonContainer'>
+              <button type='button' class='exitbtn' id='close_dremel' title='Close this Dremel Window.'></button>
+              <button type='button' id='gen_dremel' class='exitbtn' title='Generate URL for Dremel query.'></button>
           </ul>
-          
+          <ul class='card-inner' id='dremel-InnerCard'></ul>
         </div>`;
     return this.scriptsParentHtml;
   }
 
-  getMapSecondaryHTML(){
+  getDremelSecondaryHTML(){
     this.secondaryHTML = 
-      `<div id="mapInner" class="card-inner">
-          <ul class="card">
-          <p>JS API V3</p>
+      `<div id="dremelInner" class="card">
           <p>
               <label for="center">Center:</label>
               <input id="center" size='40' placeholder=" Austin, TX ">
@@ -37,7 +35,6 @@ export default class MapModel {
             <label for="scale">Scale:</label>
             <input id="scale" size='40' maxlength='2' placeholder=" 2 || 4 (default is 1) ">
           </p>
-          </ul>
       </div>`;
     return this.secondaryHTML;
   }

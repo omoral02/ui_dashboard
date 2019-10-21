@@ -64,7 +64,8 @@ body {
   display: flex;
   flex: 0 0 auto;
   flex-basis: 100%;
-  height: 100%vh;
+  min-width:640;
+  min-height:480;
   flex-direction: row;
   font-family: 'Oxygen', sans-serif;
   font-weight: 200;
@@ -78,8 +79,9 @@ body {
 
 #container {
   display: flex;
-  flex-basis: 100%;
-  flex: auto;
+  min-width:640;
+  min-height:480;
+  /* flex: auto; */
   flex-direction: column;
   justify-content: flex-start;
   margin: 0;
@@ -114,25 +116,29 @@ body {
  }
 
 ::-webkit-scrollbar {
-  height: 10px;
+  height: 8px;
   overflow: visible;
   background: white;
-  width: 12px;
+  width: 8px;
 }
 ::-webkit-scrollbar-button {
   height: 0;
   width: 0;
+  visibility: hidden;
 }
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
+  display:flex;
+  align-items: center;
+  justify-content: center;
   background-color: rgb(27, 127, 170);
   opacity: .65;
   background-clip: padding-box;
   border: solid transparent;
-  border-width: 1px 1px 1px 6px;
-  min-height: 28px;
+  border-width: 1px 2px 2px 4px;
+  min-height: auto;
   padding: 100px 0 0;
   -webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1), inset 0 -1px 0 rgba(0,0,0,.07);
   box-shadow: inset 1px 1px 0 rgba(0,0,0,.1), inset 0 -1px 0 rgba(0,0,0,.07);
@@ -150,7 +156,9 @@ body {
 /* Header */
 header {
   display: flex;
-  flex: auto;
+  position: relative;
+  /* flex: auto; */
+  flex-wrap: nowrap;
   flex-basis: 10%;
   flex-direction: row;
   justify-content: space-between;
@@ -158,6 +166,7 @@ header {
   overflow: hidden;
   background-color: rgb(255, 255, 255);
   order: 1;
+  z-index: 500;
 }
 
 header * {
@@ -359,7 +368,8 @@ header #right_menu {
   margin-top: 0;
   margin-bottom: 0;
   flex-direction: column;
-  overflow: overlay;
+  overflow-y: auto;
+  overflow-x: auto;
   align-self: auto;
   justify-content: space-between;
   order: 2;
@@ -378,25 +388,27 @@ header #right_menu {
   order: 1;
   padding-left: .2em;
   margin-right: auto;
-  z-index: 10;
+  z-index: 499; /* 1 minus the header which is at 500*/
   /* overflow: hidden; */
   transition: all 2s;
 }
 
 #secondHalf {
   display: flex;
-  /* flex: auto;
-  flex-wrap: wrap; */
-  flex-direction: column;
+  /* flex: auto; */
+  flex-wrap: wrap; 
+  flex-direction: row;
   position: relative;
-  justify-content: flex-start;
-  /* align-items: center; */
+  justify-content: center;
+  align-items: center;
   flex-basis: 100%;
   order: 2;
-  margin: 0;
+  padding: .5em;
   margin-left: 0;
   margin-right: 0;
-  /* overflow: hidden; */
+  min-width: auto;
+  overflow-x: auto;
+  overflow-y: auto;
   z-index: 9;
 }
 
@@ -405,10 +417,10 @@ header #right_menu {
 */
 .buttonContainer {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   position: relative;
   flex-direction: row;
-  flex-basis: 100%;
+  flex-basis: auto;
   height: auto;
   overflow: visible;
 }
@@ -435,41 +447,42 @@ header #right_menu {
 
 /*
 
-views_pane card containers
+views_pane & card/component containers
 
 */
 
 #views_pane {
   display: flex;
-  flex: auto;
+  /* flex: auto; */
+  flex-wrap: wrap;
+  flex-basis: 100%;
   position: relative;
   height: auto;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   order: 3;
-  overflow-x: overlay;
-  margin-left: 0;
-  margin-right: 0;
+  /* overflow-y: auto !important;
+  overflow-x: auto !important; */
+  margin: .5em;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  /* min-width: 100%;
+  min-height: 100%; */
 }
 
 #views_pane .card::-webkit-scrollbar {
   display: none !important;
-} */
+} 
 
-#results {
-  display: flex;
-  flex: auto;
-  flex-basis: 2%;
-  height: auto;
-  flex-direction: row;
-  justify-content: center;
-  overflow: wrap;
-  order: 4;
-}
+#views_pane ::-webkit-scrollbar {
+  display: none !important;
+} 
+/* 
 
-/*  Card Styling that styles the dynamically
-    inserted containers of list items
+/* 
+    Card Styling that styles the dynamically
+    inserted component containers
 */
 .card {
   display: flex;
@@ -486,8 +499,8 @@ views_pane card containers
   box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.30), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
   min-height: auto;
   min-width: auto;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 5px;
+  padding: 5px;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -536,7 +549,7 @@ views_pane card containers
 .card-inner {
   display: flex;
     flex-direction: column;
-    align-content: space-between;
+    align-content: center;
     color: black;
     margin: 10px;
     text-align: center;
@@ -548,7 +561,7 @@ views_pane card containers
 #card-inner {
   display: flex;
     flex-direction: column;
-    align-content: space-between;
+    align-content: center;
     color: black;
     margin: 25px;
     padding: 1em;
@@ -568,7 +581,7 @@ views_pane card containers
 }
 
 #plx-InnerCard li {
-  min-width: 100%;
+  min-width: auto;
   align-items: center;
   justify-content: center;
   flex-basis: 100%;
@@ -605,9 +618,9 @@ views_pane card containers
   border-color: #47E88C;
 }
 
-#staticMapPrimaryContainer {
+/* #staticMapPrimaryContainer {
   display: flex;
-  flex-basis: auto;
+  flex-basis: 100%;
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -625,18 +638,17 @@ views_pane card containers
   transition: all 0s;
   order: 1;
   overflow: hidden;
-}
-
-#staticInner {
+} */
+/* 
+/* #staticInner {
   /* align-self: center; */
-  display: flex;
+  /* display: flex;
   align-items: center;
   justify-content: center;
-  min-width: auto !important;
+  min-width: auto !important; */
   /* flex-basis: 100%; */
-}
 
-#embedMap {
+/* #embedMap {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -644,7 +656,9 @@ views_pane card containers
   align-self: center;
 }
 
-#scriptsPrimaryContainer {
+*/
+
+.component {
     visibility: hidden;
     flex-basis: auto;
     min-width: auto;
@@ -666,7 +680,7 @@ views_pane card containers
     transition: all 0s;
     order: 1;
     overflow: hidden;
-}
+} 
 
 label {
   display: flex;
@@ -698,7 +712,7 @@ p {
   color:red;
 }
 
-#scriptsPrimaryContainer li {
+.component li {
   /* margin: 5px; */
   cursor: pointer;
   font-size: 1.1em;
@@ -716,35 +730,35 @@ p {
 
 /* Change color of dropdown li items on hover */
 
-#scriptsPrimaryContainer li:hover {
+.component li:hover {
   background-color: #ddd;
   color:  rgb(27, 127, 170);
   box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.30), 0 2px 6px 2px rgba(60, 64, 67, 0.15);
 }
 
-#scriptsPrimaryContainer li:active {
+.component li:active {
   background-color: purple;
   color: white;
   box-shadow: 0 3px 4px 0 rgba(60, 64, 67, 0.30), 0 5px 12px 2px rgba(60, 64, 67, 0.15);
 }
 
-#scriptsPrimaryContainer li:focus-within li:hover {
+.component li:focus-within li:hover {
   background-color: purple;
   color: white(27, 127, 170);
   opacity: .65;
   box-shadow: 0 3px 4px 0 rgba(60, 64, 67, 0.30), 0 5px 12px 2px rgba(60, 64, 67, 0.15);
 }
 
-/*Wrap the list items with curves*/
+/*Wrap components curves*/
 
-#scriptsPrimaryContainer {
+.component {
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
   border-bottom-left-radius: 5px;
 }
 
-#scriptsPrimaryContainer.show {
+.component.show {
   visibility: visible;
   display: flex;
   position: relative;
@@ -752,15 +766,14 @@ p {
   font-size: 1em;
 }
 
-#scriptList {
+/* #scriptList {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   align-self: center;
-}
+} */
 
-/* Start of Parameters Div*/
 
 #secondaryContainer {
   visibility: hidden;
@@ -777,7 +790,7 @@ p {
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 8px;
   box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.30), 0 2px 6px 2px rg
-}
+} 
 
 #secondaryContainer.show {
   visibility: visible;
@@ -786,23 +799,63 @@ p {
   text-align: center;
   font-size: .5em;
   flex-basis: 100%;
-  min-width: 100%;
-  /* align-items: flex-end; */
+  min-width: auto;
   justify-content: space-between;
 }
 
+#mapSecondary {
+  visibility: visible;
+  display: flex;
+  position: relative;
+  text-align: center;
+  font-size: .5em;
+  flex-basis: 100%;
+  min-width: auto;
+  justify-content: space-between;
+}
+
+#mapInner {
+  display: flex;
+  flex-basis: 100%;
+  min-width: auto;
+  align-items: center;
+  justify-content: center;
+}
+/* Start of Parameters Div */
+
+
 .innerParam {
   display: flex;
-  align-items: flex-start;
+  flex-basis: 100%;
+  min-width: auto;
+  align-items: center;
   justify-content: center;
 }
 
 #params, #parameters {
+  display: flex;
+  flex-basis: 100%;
+  min-width: auto;
+  align-items: center;
+  min-width: auto;
+  flex-direction: column;
   min-width: auto;
   justify-content: center;
-  align-self: center;
   text-align: center;
 }
+
+/*
+
+#results {
+  display: flex;
+  flex: auto;
+  flex-basis: 2%;
+  height: auto;
+  flex-direction: row;
+  justify-content: center;
+  overflow: wrap;
+  order: 4;
+} 
 
 /* Footer */
 

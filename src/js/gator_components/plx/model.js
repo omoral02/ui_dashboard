@@ -83,7 +83,7 @@ export default class ScriptsModel {
 
   getScriptsParentHTML() {
        this.scriptsParentHtml =
-       `<div id='scriptList' rel='plxScriptWindow' class='component'>
+       `<div id='scriptList' rel='plxScriptWindow' class=''>
           <h2 class='card-header'>PLX Scripts</h2>
           <ul id='scriptButtonContainer' class='buttonContainer'>
               <button type='button' class='exitbtn' id='close_plx' title='Close this PLX Window.'></button>
