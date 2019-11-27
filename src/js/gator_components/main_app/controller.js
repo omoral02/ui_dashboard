@@ -53,7 +53,7 @@ export default class AppController extends AppView {
   }
 
   controllerIsNowlistening() {
-    window.addEventListener('resize', super.resizeToMinimum, false);
+    window.addEventListener('resize', this.windowEvent, false);
     this.actionButtons.forEach( (button) => {
       if (button.id === 'menu_button'){
         button.focus();
@@ -62,6 +62,11 @@ export default class AppController extends AppView {
         'click', this.oneButtonWasClicked.bind(this),
         true);
     });
+  }
+
+  windowEvent() {
+    super.resize();
+    super.logView();
   }
 
   oneButtonWasClicked (e) {

@@ -108,45 +108,73 @@ export default class ScriptsModel {
     if (parameter === 'date_from_YYYY_MM_DD' || parameter === 'date_to_YYYY_MM_DD'){
       if (parameter === 'date_from_YYYY_MM_DD'){
         paramaterHtml =
-        `<div class='innerParam'>
-              <p class='parameter'>
+        `<div class='parameter'>
                 <label for='${parameter}'>Date From</label>
                 <input type='text' size='20' maxlength='10' class='input' id='${parameter}' placeholder=''required>
-              </p>
-          </div>`;
+        </div>`;
       }
       else if (parameter === 'date_to_YYYY_MM_DD') {
         paramaterHtml =
-        `<div class='innerParam'>
-              <p class='parameter'>
-                  <label for='${parameter}'>Date To</label>
-              </p>
-              <p>
-                <input type='text' size='20' maxlength='10' class='input' id='${parameter}' placeholder='' required>
-              </p>
-          </div>`;
+        `<div class='parameter'>
+              <label for='${parameter}'>Date To</label>
+              <input type='text' size='20' maxlength='10' class='input' id='${parameter}' placeholder='' required>
+        </div>`;
       }
     } else if (parameter === 'project_number') {
       paramaterHtml =
-        `<div class='innerParam'>
-              <p class='parameter'>
-                  <label for='${parameter}'>Project</label>
-              </p>
-              <p>
-                <input type='text' name='project' size='20' class='input' id='${parameter}' placeholder='' autofocus required>
-              </p>
-          </div>`;
+        `<div class='parameter'>
+              <label for='${parameter}'>Project</label>
+              <input type='text' name='project' size='20' class='input' id='${parameter}' placeholder='' autofocus required>
+        </div>`;
     } else if (parameter === 'client_id') {
       paramaterHtml =
-        `<div class='innerParam'>
-              <p class='parameter'>
-                  <label for='${parameter}'>ClientID (if applicable)</label>
-              </p>
-              <p>
-                <input type='text' name='clientID' size='20' class='input' id='${parameter}' placeholder='' required>
-              </p>
-          </div>`;
+        `<div class='parameter'>
+              <label for='${parameter}'>ClientID (if applicable)</label>  
+              <input type='text' name='clientID' size='20' class='input' id='${parameter}' placeholder='' required>
+        </div>`;
     }
+    // if (parameter === 'date_from_YYYY_MM_DD' || parameter === 'date_to_YYYY_MM_DD'){
+    //   if (parameter === 'date_from_YYYY_MM_DD'){
+    //     paramaterHtml =
+    //     `<div class='innerParam'>
+    //           <p class='parameter'>
+    //             <label for='${parameter}'>Date From</label>
+    //             <input type='text' size='20' maxlength='10' class='input' id='${parameter}' placeholder=''required>
+    //           </p>
+    //       </div>`;
+    //   }
+    //   else if (parameter === 'date_to_YYYY_MM_DD') {
+    //     paramaterHtml =
+    //     `<div class='innerParam'>
+    //           <p class='parameter'>
+    //               <label for='${parameter}'>Date To</label>
+    //           </p>
+    //           <p>
+    //             <input type='text' size='20' maxlength='10' class='input' id='${parameter}' placeholder='' required>
+    //           </p>
+    //       </div>`;
+    //   }
+    // } else if (parameter === 'project_number') {
+    //   paramaterHtml =
+    //     `<div class='innerParam'>
+    //           <p class='parameter'>
+    //               <label for='${parameter}'>Project</label>
+    //           </p>
+    //           <p>
+    //             <input type='text' name='project' size='20' class='input' id='${parameter}' placeholder='' autofocus required>
+    //           </p>
+    //       </div>`;
+    // } else if (parameter === 'client_id') {
+    //   paramaterHtml =
+    //     `<div class='innerParam'>
+    //           <p class='parameter'>
+    //               <label for='${parameter}'>ClientID (if applicable)</label>
+    //           </p>
+    //           <p>
+    //             <input type='text' name='clientID' size='20' class='input' id='${parameter}' placeholder='' required>
+    //           </p>
+    //       </div>`;
+    // }
     return paramaterHtml;
   }
 

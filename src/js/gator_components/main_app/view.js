@@ -10,27 +10,29 @@ export default class AppView extends AppModel {
     this.menuButtons = document.getElementById('menu_options');
     this.plxButton = document.getElementById('plx_button');
     this.plxButton.textContent = 'PLX Scripts';
-    // this.mapsButton = document.getElementById('maps_button');
-    // this.mapsButton.textContent = 'Dynamic Map Testing';
-    // this.dremelButton = document.getElementById('dremel_button');
-    // this.dremelButton.textContent = 'Dremel';
-    // this.staticMapButton = document.getElementById('static_map_button');
-    // this.staticMapButton.textContent = 'Static Map W/S Tester';
-    // this.wsButton = document.getElementById('ws_button');
-    // this.wsButton.textContent = 'WS Tester';
+    this.mapsButton = document.getElementById('maps_button');
+    this.mapsButton.textContent = 'Dynamic Map Testing';
+    this.dremelButton = document.getElementById('dremel_button');
+    this.dremelButton.textContent = 'Dremel';
+    this.staticMapButton = document.getElementById('static_map_button');
+    this.staticMapButton.textContent = 'Static Map W/S Tester';
     this.firstHalf = document.getElementById('firstHalf');
     this.secondHalf = document.getElementById('secondHalf');
     this.results = document.getElementById('results');
-    this.viewsPane = document.getElementById('views_pane')
-   
+    this.viewsPane = document.getElementById('views_pane');
+    // this.wsButton = document.getElementById('ws_button');
+    // this.wsButton.textContent = 'WS Tester';
     this.secondHalf.insertBefore(this.viewsPane, this.secondHalf.childNodes[0]);
+    this.viewportWidth;
+    this.viewportHeight
+    this.minimumWindow;
   }
 
   menuClicked() {
     this.menuButtons.classList.toggle('visible');
     this.firstHalf.classList.toggle('visible');
-    if ( this.actionButtons[1]){
-         this.actionButtons[1].focus();
+    if ( this.actionButtons[0]){
+         this.actionButtons[0].focus();
     }
   }
 
@@ -81,18 +83,31 @@ export default class AppView extends AppModel {
           object.count = [i];
   }
 
-  resizeToMinimum(){
-    console.log('Window resize');
-    let minimum    = [550, 440];
-    let current    = [window.innderWidth, window.innerHeight];
-    let restricted = [];
-    let i          = 2;
-  
+  resize(){
+    // console.log('Window resize');
+    this.viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+    this.viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+    this.minimumWindow = [700, 520];
+    let current = [this.viewportWidth, this.viewportHeight];
+    let ceiling = [];
+    let i = 2;
     while(i-- > 0){
-      restricted[i] = minimum[i] > current[i] ? minimum[i] : current[i];
+      ceiling[i] = this.minimumWindow[i] > current[i] ? this.minimumWindow[i] : current[i];
     }
-  
-    window.resizeTo(current[0], current[1]);
+    console.log(`Ceiling:: W=${ceiling[0]}, H=${ceiling[1]}`)
+    if (this.viewportWidth > 640) {
+      console.log('Current width:: ', current[0], 'Current Height:: ', current[1]);
+    }else {
+      console.log('Width to restrict by:: ', current[0], 'Height to restrict by:: ', current[1]);
+    }
+  }
+
+  logView(){
+    // console.log(this.minimum);
+    if (this.viewportWidth > 640){
+      console.log(`WIDE :: W=${this.viewportWidth}, H=${this.viewportHeight}`);
+    } else {
+      console.log(`SMALL :: W=${this.viewportWidth}, H=${this.viewportHeight}`);
+    }
   }
 }
-

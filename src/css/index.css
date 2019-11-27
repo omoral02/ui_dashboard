@@ -62,10 +62,11 @@ html {
 
 body {
   display: flex;
+  align-content: flex-start;
   flex: 0 0 auto;
-  flex-basis: 100%;
-  min-width:640;
-  min-height:480;
+  /* flex-basis: 100%; */
+  /* min-width:640;
+  min-height:480; */
   flex-direction: row;
   font-family: 'Oxygen', sans-serif;
   font-weight: 200;
@@ -79,8 +80,9 @@ body {
 
 #container {
   display: flex;
-  min-width:640;
-  min-height:480;
+  height: calc(100vw * (9/16));
+  /* min-width:640;
+  min-height:480; */
   /* flex: auto; */
   flex-direction: column;
   justify-content: flex-start;
@@ -161,8 +163,9 @@ header {
   flex-wrap: nowrap;
   flex-basis: 10%;
   flex-direction: row;
-  justify-content: space-between;
-  align-content: center;
+  justify-content: flex-start;
+  align-items: center;
+  align-content: flex-start;
   overflow: hidden;
   background-color: rgb(255, 255, 255);
   order: 1;
@@ -180,8 +183,9 @@ header #left_menu {
   flex: auto;
   flex-direction: row;
   flex-basis: 20%;
+  flex-grow: 1;
   align-items: center;
-  align-content: center;
+  align-content: flex-start;
   justify-content: center;
   text-decoration: none;
   margin-left: auto;
@@ -218,12 +222,14 @@ header #left_menu {
 header #right_menu {
   display: flex;
   flex: auto;
-  flex-basis: 50%;
+  flex-grow: 3;
+  flex-wrap: initial;
+  /* flex-basis: 100%; */
   flex-direction: row;
   overflow-wrap: normal;
-  align-content: center;
+  align-content: flex-start;
   align-items: center;
-  justify-content: space-around;
+  justify-content: flex-end;
   align-self: center;
   margin-left: auto;
   margin-right: auto;
@@ -278,8 +284,11 @@ header #right_menu {
 
 #menu_options {
   display: none;
-  margin-left: 5;
-  padding: 1em;
+  min-height: 100%vh;
+  /* margin-left: 5; */
+  padding: 3em;
+  align-items: baseline;
+  justify-content: start;
   /* align-self: flex-start; */
   flex-basis: 100%;
   background-color:  rgb(27, 127, 170);
@@ -301,8 +310,8 @@ header #right_menu {
   align-items: center;
   justify-content: space-around;
   text-align: center;
-  flex: auto;
 }
+
 #menu_options * {
   display: flex;
   text-decoration: none;
@@ -459,7 +468,7 @@ views_pane & card/component containers
   position: relative;
   height: auto;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   order: 3;
   /* overflow-y: auto !important;
@@ -549,7 +558,6 @@ views_pane & card/component containers
 .card-inner {
   display: flex;
     flex-direction: column;
-    align-content: center;
     color: black;
     margin: 10px;
     text-align: center;
@@ -560,8 +568,10 @@ views_pane & card/component containers
 }
 #card-inner {
   display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-content: center;
+    align-items: center;
+    justify-content: space-around;
     color: black;
     margin: 25px;
     padding: 1em;
@@ -583,7 +593,7 @@ views_pane & card/component containers
 #plx-InnerCard li {
   min-width: auto;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-basis: 100%;
 }
 
@@ -712,16 +722,36 @@ p {
   color:red;
 }
 
+/*Wrap components curves*/
+
+.component {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.component.show {
+  height: calc(100%vw * (9/16));
+  visibility: visible;
+  display: flex;
+  position: relative;
+  text-align: center;
+  font-size: calc(10px + .2vw);
+}
+
 .component li {
   /* margin: 5px; */
   cursor: pointer;
-  font-size: 1.1em;
+  /* font-size: 1.1em; */
   text-align: center;
   padding: 12px 16px;
+  margin-left: auto;
+  margin-right: auto;
   text-decoration: none;
   display: flex;
-  align-items: flex-start;
-  overflow: hidden;
+  align-items: center;
+  overflow: auto;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
@@ -749,23 +779,6 @@ p {
   box-shadow: 0 3px 4px 0 rgba(60, 64, 67, 0.30), 0 5px 12px 2px rgba(60, 64, 67, 0.15);
 }
 
-/*Wrap components curves*/
-
-.component {
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-bottom-right-radius: 5px;
-  border-bottom-left-radius: 5px;
-}
-
-.component.show {
-  visibility: visible;
-  display: flex;
-  position: relative;
-  text-align: center;
-  font-size: 1em;
-}
-
 /* #scriptList {
   display: flex;
   flex-direction: column;
@@ -778,7 +791,7 @@ p {
 #secondaryContainer {
   visibility: hidden;
   display: flex;
-  height: auto;
+  /* height: auto; */
   justify-content: space-between;
   align-items: center;
   position: relative;
@@ -797,9 +810,9 @@ p {
   display: flex;
   position: relative;
   text-align: center;
-  font-size: .5em;
+  /* font-size: calc(6px + .2vw); */
   flex-basis: 100%;
-  min-width: auto;
+  /* min-width: auto; */
   justify-content: space-between;
 }
 
@@ -808,7 +821,7 @@ p {
   display: flex;
   position: relative;
   text-align: center;
-  font-size: .5em;
+  /* font-size: .5em; */
   flex-basis: 100%;
   min-width: auto;
   justify-content: space-between;
@@ -840,7 +853,7 @@ p {
   min-width: auto;
   flex-direction: column;
   min-width: auto;
-  justify-content: center;
+  justify-content: space-between;
   text-align: center;
 }
 
