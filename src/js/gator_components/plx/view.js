@@ -1,8 +1,9 @@
 import ScriptsModel from './model';
 
 export default class ScriptsView extends ScriptsModel {
-  constructor (placeholders, viewPane) {
-    super();
+  constructor (util, placeholders, viewPane) {
+    super(util);
+    // this.utility = super.util;
     this.placeholders = placeholders;
     this.parentPane = viewPane;
     this.emptyString = '';

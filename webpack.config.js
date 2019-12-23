@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const nodeExternals = require('webpack-node-externals');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { GenerateSW } = require('workbox-webpack-plugin');
 const PreloadWebpackPlugin = require('preload-webpack-plugin');
@@ -11,16 +12,25 @@ const paths = {
     node_modules: path.resolve(__dirname, 'node_modules'),
     src: path.resolve(__dirname, 'src'),
     css: path.resolve(__dirname, 'src', 'css'),
+    utilities: path.resolve(__dirname, 'src', 'js', 'gator_components', 'utilities'),
+    require: path.resolve(__dirname, 'src', 'js', 'gator_components', 'utilities', 'require.js'),
     main: path.resolve(__dirname, 'src', 'js', 'gator_components', 'utilities', 'main.js'),
     favicon: path.resolve(__dirname, 'src', 'favicon.ico'),
-    html:path.resolve(__dirname, 'src', 'pug_views', 'main_app', 'index.pug'),
+    html: path.resolve(__dirname, 'src', 'pug_views', 'main_app', 'index.pug'),
+    plxPugTemplate: path.resolve(__dirname, 'src', 'js', 'gator_components', 'plx', 'pug', 'higher_order_component.pug'),
     dist: path.resolve(__dirname, 'dist'),
     bin: path.resolve(__dirname, 'dist', 'bin'),
     public: path.resolve(__dirname, 'dist', 'public'),
+    jsPublic: path.resolve(__dirname, 'dist', 'public', 'js'),
     htmlBuildFilename: path.resolve(__dirname, 'dist', 'public', 'index.html'),
+    plxHtmlTemplateFileName: path.resolve(__dirname, 'dist', 'public', 'plxhigherOrder.html'),
     copyIcon: {
       to: path.resolve(__dirname, 'dist', 'public', 'favicon.ico'),
       from: path.resolve(__dirname, 'src', 'favicon.ico'),
+    },
+    copyRequire: {
+      to: path.resolve(__dirname, 'dist', 'public', 'js', 'require.js'),
+      from: path.resolve(__dirname, 'src', 'js', 'gator_components', 'utilities', 'require.js')
     },
 };
 
@@ -30,15 +40,15 @@ const paths = {
 
 const dev_mode = (process.env.NODE_ENV !== 'production');
 
-const pluginOptions = {
+const indexPluginOptions = {
   filename: paths.htmlBuildFilename,
   excludeChunks: ['vendors~main'],
   disable: false,
 };
-const htmlOptions = {
+const indexHtmlOptions = {
   template: paths.html,
   inject: true,
-  hash: true,
+  hash: false,
   minify: {
     removeComments: dev_mode ? false : true,
     collapseWhitespace: dev_mode ? false : true,
@@ -47,6 +57,25 @@ const htmlOptions = {
     useShortDoctype: dev_mode ? false : true,
   },
   appMountId: 'app',
+};
+
+const plxTemplatePluginOptions = {
+  filename: paths.plxHtmlTemplateFileName,
+  excludeChunks: ['vendors~main'],
+  disable: true,
+};
+const plxTemplateHtmlOptions = {
+  template: paths.plxPugTemplate,
+  inject: true,
+  hash: false,
+  minify: {
+    removeComments: dev_mode ? false : true,
+    collapseWhitespace: dev_mode ? false : true,
+    minifyJS: dev_mode ? false : true,
+    minifyCSS: dev_mode ? false : true,
+    useShortDoctype: dev_mode ? true : true,
+  },
+  appMountId: 'template',
 };
 
 const config = {
@@ -65,14 +94,21 @@ const config = {
     maxAssetSize: 250000
   },
   devtool: dev_mode ? 'cheap-module-eval-source-map' : 'hidden-source-map' ,
+  // externals: [nodeExternals()
+    // {'require': 'require'},{'strip-ansi':'strip-ansi'}
+  // ],
   output: {
     // `jsonpScriptType:` Allows customization of the script type
     // webpack injects script tags into the DOM to download async chunks
     // options >> `text/javascript` || `module`
     jsonpScriptType : 'text/javascript',
-    filename: dev_mode ? 'js/[name].bundle.js' : 'js/[name].js',
-    chunkFilename: dev_mode ? 'js/[id].bundle.js' : 'js/[name].js',
+    // filename: dev_mode ? 'js/[name].bundle.js' : 'js/[name].js',
+    // chunkFilename: dev_mode ? 'js/[id].bundle.js' : 'js/[name].js',
+    filename: dev_mode ? 'js/[name].js' : 'js/[name].js',
+    chunkFilename: dev_mode ? 'js/[name].js' : 'js/[name].js',
     devtoolModuleFilenameTemplate: 'webpack://[resource-path]?[loaders]',
+    // library: 'require',
+    // libraryTarget: 'amd',
     path: paths.public,
     publicPath: '/',
     pathinfo: false,
@@ -99,7 +135,7 @@ const config = {
       {
         enforce: 'pre',
         test: /\.js$/i,
-        //single entry point identified for transpile performance
+        //single pre-entry point identified for transpile performance
         include: paths.main,
         exclude: /node_modules/,
         use: [
@@ -114,9 +150,20 @@ const config = {
       {
         test: /\.js$/i,
         use: 'babel-loader',
-        //single entry point identified for transpile performance
+        //entry point identified for transpile performance
         include: paths.main,
         exclude: /node_modules/
+      },
+      {
+        test: /\.html$/i,
+        use: [ 
+            {
+              loader: 'file-loader',
+              options: {
+                minimize: true
+              }
+            }
+        ]
       },
       {
         test: /\.pug$/i,
@@ -157,7 +204,9 @@ const config = {
         ignoreOrder: false, // Enable to remove warnings about conflicting order
       }),
       new CopyWebpackPlugin([paths.copyIcon]),
-      new HtmlWebpackPlugin(Object.assign(pluginOptions, htmlOptions)),
+      new CopyWebpackPlugin([paths.copyRequire]),
+      new HtmlWebpackPlugin(Object.assign(indexPluginOptions, indexHtmlOptions)),
+      new HtmlWebpackPlugin(Object.assign(plxTemplatePluginOptions, plxTemplateHtmlOptions)),
       new GenerateSW({
         chunks: ['main','runtime', 'commons', 'vendors']
       }),
@@ -166,10 +215,10 @@ const config = {
         //  option/attribute for preload not used for prefetch
         //  as: 'text/javacript',
          include: ['main', 'runtime']
-       }),
-      new JavaScriptObfuscator(
-         {rotateUnicodeArray: true}, ['runtime.*']
-      )
+       })
+      // new JavaScriptObfuscator(
+      //    {rotateUnicodeArray: true}, ['runtime.*']
+      // )
   ]
 };
 //output main config options

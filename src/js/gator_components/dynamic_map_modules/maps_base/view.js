@@ -36,6 +36,11 @@ export default class MapView extends MapModel{
         return super.getMapSecondaryHTML();
       })();
       this.secondaryParent.innerHTML= this.secondaryParentInnerHTML;
+      this.iframe = document.createElement('iframe');
+      this.iframe.id = 'testIframe';
+      this.iframe.src = require('./index.html');
+      console.log(this.iframe.src);
+      this.secondaryParent.appendChild(this.iframe);
       this.primaryParent.appendChild(this.secondaryParent);
     }
 

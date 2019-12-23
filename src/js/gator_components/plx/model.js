@@ -1,5 +1,6 @@
 export default class ScriptsModel {
-  constructor() {
+  constructor(Util) {
+    this.util = new Util();
     this.initialState = {};
     this.workingState = this.initialState;
     this.myState = {};
@@ -82,7 +83,7 @@ export default class ScriptsModel {
   }
 
   getScriptsParentHTML() {
-       this.scriptsParentHtml =
+    this.scriptsParentHtml =
        `<div id='scriptList' rel='plxScriptWindow' class=''>
           <h2 class='card-header'>PLX Scripts</h2>
           <ul id='scriptButtonContainer' class='buttonContainer'>
@@ -92,6 +93,26 @@ export default class ScriptsModel {
           <ul class='card-inner' id='plx-InnerCard'></ul>
         </div>`;
     return this.scriptsParentHtml;
+    // const higher_order_template = require('./pug/higher_order_component.pug');
+    // async function template(fileTemplate){
+    //   this.inserts = {
+    //     parentId: 'scriptsParentHtml',
+    //     rel: 'plxScriptWindow',
+    //     secondaryId: 'scriptButtonContainer'
+    //   };
+      
+    //   const pugModule = import(/* webpackChunkName: "pug" */ 'pug').then(module => {
+    //      const pug = module.default;
+    //      async function generateTemplate(pug){
+    //       const file = pug.compileFile(fileTemplate);
+    //       return file;
+    //      }
+    //      return template = generateTemplate(pug);
+    //     });
+      
+    //   };
+
+    // return template(higher_order_template);
   }
 
   getParametersParentHTML() {

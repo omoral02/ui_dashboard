@@ -161,7 +161,7 @@ header {
   position: relative;
   /* flex: auto; */
   flex-wrap: nowrap;
-  flex-basis: 10%;
+  flex-basis: 6%;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
@@ -195,8 +195,9 @@ header #left_menu {
 
 .header {
   top: 0;
-  padding: 1em;
-  box-shadow: 2PX 2px 2px 0 white, 0 1px 6px 2px black;
+  bottom: 0;
+  padding: .8em .2em 0em 0em;
+  box-shadow: 0px 0px 0px 0 white, 0px 4px 6px 2px gray, 2px 2px 2px 0 black;
   /* border: .2em solid rgb(27, 127, 170) !important; */
   /* border-bottom: none !important;
   border-top: .2em solid !important; */
@@ -284,6 +285,7 @@ header #right_menu {
 
 #menu_options {
   display: none;
+  
   min-height: 100%vh;
   /* margin-left: 5; */
   padding: 3em;
@@ -899,5 +901,5 @@ footer p {
   align-content: center;
   justify-content: center;
   text-align: center;
-  box-shadow: 2PX 2px 2px 0 white, 0 1px 6px 2px white;
+  box-shadow: 2px 2px 2px 0 white, 0 1px 6px 2px white;
 }
