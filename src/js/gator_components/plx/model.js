@@ -130,27 +130,27 @@ export default class ScriptsModel {
       if (parameter === 'date_from_YYYY_MM_DD'){
         paramaterHtml =
         `<div class='parameter'>
-                <label for='${parameter}'>Date From</label>
+                <label for='${parameter}'>Date From:</label>
                 <input type='text' size='20' maxlength='10' class='input' id='${parameter}' placeholder=''required>
         </div>`;
       }
       else if (parameter === 'date_to_YYYY_MM_DD') {
         paramaterHtml =
         `<div class='parameter'>
-              <label for='${parameter}'>Date To</label>
+              <label for='${parameter}'>Date To:</label>
               <input type='text' size='20' maxlength='10' class='input' id='${parameter}' placeholder='' required>
         </div>`;
       }
     } else if (parameter === 'project_number') {
       paramaterHtml =
         `<div class='parameter'>
-              <label for='${parameter}'>Project</label>
+              <label for='${parameter}'>Project:</label>
               <input type='text' name='project' size='20' class='input' id='${parameter}' placeholder='' autofocus required>
         </div>`;
     } else if (parameter === 'client_id') {
       paramaterHtml =
         `<div class='parameter'>
-              <label for='${parameter}'>ClientID (if applicable)</label>  
+              <label for='${parameter}'>ClientID: (if applicable)</label>  
               <input type='text' name='clientID' size='20' class='input' id='${parameter}' placeholder='' required>
         </div>`;
     }

@@ -390,6 +390,8 @@ header {
   /* flex: auto; */
   flex-wrap: nowrap;
   flex-basis: 6%;
+  min-height: 35px;
+  max-height: 50px;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
@@ -401,7 +403,7 @@ header {
 }
 
 header * {
-  font-size: 20px;
+  font-size: 15px;
 }
 
 header #left_menu {
@@ -424,7 +426,7 @@ header #left_menu {
 .header {
   top: 0;
   bottom: 0;
-  padding: .8em .2em 0em 0em;
+  padding: .2em .2em .2em .2em;
   box-shadow: 0px 0px 0px 0 white, 0px 4px 6px 2px gray, 2px 2px 2px 0 black;
   /* border: .2em solid rgb(27, 127, 170) !important; */
   /* border-bottom: none !important;
@@ -513,10 +515,9 @@ header #right_menu {
 
 #menu_options {
   display: none;
-  
   min-height: 100%vh;
   /* margin-left: 5; */
-  padding: 3em;
+  padding: 1em;
   align-items: baseline;
   justify-content: start;
   /* align-self: flex-start; */
@@ -765,27 +766,29 @@ views_pane & card/component containers
   margin-right: auto;
 }
 
-/* .card-inner {
+.card-inner {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   visibility: visible;
   display: flex;
   position: relative;
   text-align: center;
-  font-size: 1em;
+  font-size: calc(150%vw * (9/16));
+  min-height: auto;
+  min-width: auto;
   align-items: center;
-  justify-content: center;
+  justify-content: space-around;
   min-width: 100%;
   flex-basis: 100%;
   text-align: center;
   color: black;
-  margin: 3px;
+  padding: .3em;
   text-align: center;
   margin-left: auto;
   margin-right: auto;
-} */
+}
 
-.card-inner {
+/* .card-inner {
   display: flex;
     flex-direction: column;
     color: black;
@@ -793,17 +796,19 @@ views_pane & card/component containers
     text-align: center;
     min-height: auto;
     min-width: auto;
-    /* margin-left: auto;
-    margin-right: auto; */
+    margin-left: auto;
+    margin-right: auto;
 }
-#card-inner {
+*/  
+
+#plx-card-inner {
   display: flex;
     flex-direction: row;
     align-content: center;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     color: black;
-    margin: 25px;
+    margin: .5em;
     padding: 1em;
     text-align: center;
     min-height: auto;
@@ -811,6 +816,7 @@ views_pane & card/component containers
     margin-left: auto;
     margin-right: auto;
 }
+
 .card:last-child {
   margin-bottom: 0px;
   margin-right: auto;
@@ -821,10 +827,9 @@ views_pane & card/component containers
 }
 
 #plx-InnerCard li {
-  min-width: auto;
-  align-items: center;
+  min-width: 150px;
+  align-items: left;
   justify-content: flex-start;
-  flex-basis: 100%;
 }
 
 
@@ -925,7 +930,7 @@ views_pane & card/component containers
 label {
   display: flex;
   text-align: center;
-  font-size: 1.7em;
+  font-size: calc(90%vw * (9/16))px;
   flex-basis: 100%
 }
 
@@ -962,7 +967,7 @@ p {
 }
 
 .component.show {
-  height: calc(100%vw * (9/16));
+  height: calc(90%vw * (9/16));
   visibility: visible;
   display: flex;
   position: relative;
@@ -1066,6 +1071,17 @@ p {
 }
 /* Start of Parameters Div */
 
+#parameters {
+  display: flex;
+  min-width: 320px;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  align-self: baseline;
+  align-items: baseline;
+  flex-direction: row;
+  justify-content: center;
+}
 
 .innerParam {
   display: flex;
@@ -1075,17 +1091,15 @@ p {
   justify-content: center;
 }
 
-#params, #parameters {
+/* #params {
   display: flex;
-  flex-basis: 100%;
   min-width: auto;
+  max-width: auto;
+  align-self: baseline;
   align-items: center;
-  min-width: auto;
   flex-direction: column;
-  min-width: auto;
-  justify-content: space-between;
   text-align: center;
-}
+} */
 
 /*
 

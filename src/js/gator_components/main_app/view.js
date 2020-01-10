@@ -10,12 +10,12 @@ export default class AppView extends AppModel {
     this.menuButtons = document.getElementById('menu_options');
     this.plxButton = document.getElementById('plx_button');
     this.plxButton.textContent = 'PLX Scripts';
-    this.mapsButton = document.getElementById('maps_button');
-    this.mapsButton.textContent = 'Dynamic Map Testing';
-    this.dremelButton = document.getElementById('dremel_button');
-    this.dremelButton.textContent = 'Dremel';
-    this.staticMapButton = document.getElementById('static_map_button');
-    this.staticMapButton.textContent = 'Static Map W/S Tester';
+    // this.mapsButton = document.getElementById('maps_button');
+    // this.mapsButton.textContent = 'Dynamic Map Testing';
+    // this.dremelButton = document.getElementById('dremel_button');
+    // this.dremelButton.textContent = 'Dremel';
+    // this.staticMapButton = document.getElementById('static_map_button');
+    // this.staticMapButton.textContent = 'Static Map W/S Tester';
     this.firstHalf = document.getElementById('firstHalf');
     this.secondHalf = document.getElementById('secondHalf');
     this.results = document.getElementById('results');
@@ -97,7 +97,7 @@ export default class AppView extends AppModel {
     console.log(`Ceiling:: W=${ceiling[0]}, H=${ceiling[1]}`)
     if (this.viewportWidth > 640) {
       console.log('Current width:: ', current[0], 'Current Height:: ', current[1]);
-    }else {
+    } else {
       console.log('Width to restrict by:: ', current[0], 'Height to restrict by:: ', current[1]);
     }
   }

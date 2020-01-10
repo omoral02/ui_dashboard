@@ -17,7 +17,7 @@ const paths = {
     main: path.resolve(__dirname, 'src', 'js', 'gator_components', 'utilities', 'main.js'),
     favicon: path.resolve(__dirname, 'src', 'favicon.ico'),
     html: path.resolve(__dirname, 'src', 'pug_views', 'main_app', 'index.pug'),
-    plxPugTemplate: path.resolve(__dirname, 'src', 'js', 'gator_components', 'plx', 'pug', 'higher_order_component.pug'),
+    plxPugTemplate: path.resolve(__dirname, 'src', 'js', 'gator_components', 'plx', 'templates', 'higher_order_component.pug'),
     dist: path.resolve(__dirname, 'dist'),
     bin: path.resolve(__dirname, 'dist', 'bin'),
     public: path.resolve(__dirname, 'dist', 'public'),
@@ -94,7 +94,7 @@ const config = {
     maxAssetSize: 250000
   },
   devtool: dev_mode ? 'cheap-module-eval-source-map' : 'hidden-source-map' ,
-  // externals: [nodeExternals()
+  // externals: [nodeExternals()  // nodeExternals()- externalizes core Node pkgs for client-side use
     // {'require': 'require'},{'strip-ansi':'strip-ansi'}
   // ],
   output: {
@@ -107,8 +107,8 @@ const config = {
     filename: dev_mode ? 'js/[name].js' : 'js/[name].js',
     chunkFilename: dev_mode ? 'js/[name].js' : 'js/[name].js',
     devtoolModuleFilenameTemplate: 'webpack://[resource-path]?[loaders]',
-    // library: 'require',
-    // libraryTarget: 'amd',
+    // library: 'require',    // define here your client-side external lib packages 
+    // libraryTarget: 'amd', // is your exported script going to be considered an AMD module? 
     path: paths.public,
     publicPath: '/',
     pathinfo: false,
