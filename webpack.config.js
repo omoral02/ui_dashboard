@@ -104,8 +104,8 @@ const config = {
     jsonpScriptType : 'text/javascript',
     // filename: dev_mode ? 'js/[name].[id].js' : 'js/[name].[id].js',
     // chunkFilename: dev_mode ? 'js/[name].[chunk].js' : 'js/[name].js',
-    filename: dev_mode ? 'js/[name].[0].bundle.js' : 'js/[name].[chunkhash:8].js',
-    chunkFilename: dev_mode ? 'js/[name].[0].bundle.js' : 'js/[name].[chunkhash:8].js',
+    filename: dev_mode ? 'js/[name].[id].bundle.js' : 'js/[name].[hash].js',
+    chunkFilename: dev_mode ? 'js/[name].[id].bundle.js' : 'js/[name].[hash].js',
     devtoolModuleFilenameTemplate: 'webpack://[resource-path]?[loaders]',
     // library: 'require',    // define here your client-side external lib packages 
     // libraryTarget: 'amd', // is your exported script going to be considered an AMD module? 
