@@ -1,6 +1,6 @@
 export default class ScriptsModel {
-  constructor(Util) {
-    this.util = new Util();
+  constructor(util) {
+    this.util = util;
     this.initialState = {};
     this.workingState = this.initialState;
     this.myState = {};

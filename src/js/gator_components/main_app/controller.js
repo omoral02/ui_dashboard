@@ -6,9 +6,9 @@ import StaticWSController from '../static_map/controller.js';
 import DremelController from '../dremel/controller.js'
 
 export default class AppController extends AppView {
-  constructor(util, require) {
+  constructor(Util, require) {
     super();
-    this.util = util;
+    this.util = new Util();
     this.require = require;
     this.cl_apiKey = cl_ApiKey;
     this.actionButtons = [];

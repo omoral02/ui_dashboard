@@ -5,7 +5,7 @@ export default class ScriptsController extends ScriptsView {
     super( util, placeholders, viewPane);
     this.currentlySelectedItem;
     this.plxButton = plxButton;
-    this.validator = super.util; //input validation class
+    this.validator = util; //input validation class
     this.paramBuild;
     this.inputCount = [];
   }

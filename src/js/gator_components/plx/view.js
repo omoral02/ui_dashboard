@@ -3,7 +3,7 @@ import ScriptsModel from './model';
 export default class ScriptsView extends ScriptsModel {
   constructor (util, placeholders, viewPane) {
     super(util);
-    // this.utility = super.util;
+    this.utility = super.util;
     this.placeholders = placeholders;
     this.parentPane = viewPane;
     this.emptyString = '';

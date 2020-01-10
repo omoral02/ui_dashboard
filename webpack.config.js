@@ -102,10 +102,10 @@ const config = {
     // webpack injects script tags into the DOM to download async chunks
     // options >> `text/javascript` || `module`
     jsonpScriptType : 'text/javascript',
-    // filename: dev_mode ? 'js/[name].bundle.js' : 'js/[name].js',
-    // chunkFilename: dev_mode ? 'js/[id].bundle.js' : 'js/[name].js',
-    filename: dev_mode ? 'js/[name].js' : 'js/[name].js',
-    chunkFilename: dev_mode ? 'js/[name].js' : 'js/[name].js',
+    // filename: dev_mode ? 'js/[name].[id].js' : 'js/[name].[id].js',
+    // chunkFilename: dev_mode ? 'js/[name].[chunk].js' : 'js/[name].js',
+    filename: dev_mode ? 'js/[name].[0].bundle.js' : 'js/[name].[chunkhash:8].js',
+    chunkFilename: dev_mode ? 'js/[name].[0].bundle.js' : 'js/[name].[chunkhash:8].js',
     devtoolModuleFilenameTemplate: 'webpack://[resource-path]?[loaders]',
     // library: 'require',    // define here your client-side external lib packages 
     // libraryTarget: 'amd', // is your exported script going to be considered an AMD module? 
@@ -204,7 +204,7 @@ const config = {
         ignoreOrder: false, // Enable to remove warnings about conflicting order
       }),
       new CopyWebpackPlugin([paths.copyIcon]),
-      new CopyWebpackPlugin([paths.copyRequire]),
+      // new CopyWebpackPlugin([paths.copyRequire]),
       new HtmlWebpackPlugin(Object.assign(indexPluginOptions, indexHtmlOptions)),
       new HtmlWebpackPlugin(Object.assign(plxTemplatePluginOptions, plxTemplateHtmlOptions)),
       new GenerateSW({
