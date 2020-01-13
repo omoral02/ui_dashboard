@@ -16,15 +16,20 @@
 >`./dist/`:  Production server-side Gator w/ Express. Client-side resources are found in `./dist/public/`.
 
 
-        Start production script from `./dist/`: `npm run start` 
+        Start production script from './dist/': `npm run start` 
 
 >`./src/`: Development source files(active builds in development) and vendor modules/plugins. 
- >> Build script(set webpack config `watch:` property to either boolean > `false || true`): `npm run webpack`. 
- >> Dev script with `watch:` set to true in development mode. 
- >> Start development script from project's root DIR: `npm run dev:server`.
- >> Proceed to monitor changes on http://localhost:8080
-
  
+ 
+        Build script(set webpack's config `watch:` property to either boolean > `false || true`): `npm run webpack`. 
+        Dev script with `watch:` set to true in development mode. 
+  
+        
+        Start development script from project's root DIR: `npm run dev:server`.
+ 
+        Proceed to monitor changes on http://localhost:8080
+
+
 ***
 
 NOTE: Changing the `const dev_mode` comparative operator using `process.env.NODE_ENV (!== || ==) production` boolean result will toggle ternary operator `config.mode: dev_mode ? ’development’ : ‘production’` mode and output is logged on compile.  
