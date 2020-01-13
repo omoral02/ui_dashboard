@@ -1,12 +1,12 @@
 >Welcome to Project Gator
 >> Description: Project Gator is meant to help aggregate troubleshooting worflow modules meant to aide front-line agents in their troubleshooting processes by providing:
 
->>> Simple way to generate URL queries (PLX/Dremel Scripts) for internal tool querying by saving case data in only place and making that data usable without the hassle of copying and pasting information from one tool to the other. (PLX COMPLETE/ Dremel WIP)
->>> Allow agents to use a team GCP project for Google Maps APIs testing with retrievable troubleshooting sessions. (WIP)
->>> Allow you to test a customer's project API responses with retrievable troubleshooting sessions. (WIP)
->>> Allow agents to customize and test dynamic and static map rendering on different JS lib versions and browsers through storeable sessions. (WIP)
->>> Give agents a centralized dashboard to review or acknowledge new and existing KB changes found in changelogs. (WIP)
->>> Allow TSEs or TLs to broadcast announcements in one place with retreivable announcement logs. (WIP)
+-- Simple way to generate URL queries (PLX/Dremel Scripts) for internal tool querying by saving case data in only place and making that data usable without the hassle of copying and pasting information from one tool to the other. (PLX COMPLETE/ Dremel WIP)
+-- Allow agents to use a team GCP project for Google Maps APIs testing with retrievable troubleshooting sessions. (WIP)
+-- Allow you to test a customer's project API responses with retrievable troubleshooting sessions. (WIP)
+-- Allow agents to customize and test dynamic and static map rendering on different JS lib versions and browsers through storeable sessions. (WIP)
+-- Give agents a centralized dashboard to review or acknowledge new and existing KB changes found in changelogs. (WIP)
+-- Allow TSEs or TLs to broadcast announcements in one place with retreivable announcement logs. (WIP)
 
 >`./dist/`:  Production server-side Gator w/ Express. Client-side resources are found in `./dist/public/`.
  >> Start production script from `./dist/`: `npm run start` 
