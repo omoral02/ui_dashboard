@@ -25,33 +25,33 @@ Description: Project Gator is meant to help aggregate troubleshooting worflow mo
 
 ## Build script:
     
-    - Start build script from root DIR: 
+     Start build script from root DIR: 
         
         `npm run webpack`
 
-    - Production server-side Gator w/ Express are found in `./dist/`.
+     Production Server-side source files are found in `./dist/`.
 
-    - Client-side source files are found in `./dist/public`.
+     Production Client-side source files are found in `./dist/public`.
 
 ## Dev script: 
     
-    - Set Webpack's config `watch:` property to either boolean: `false || true.
+     Set Webpack's config `watch:` property to either boolean: `false || true`.
  
-    - Dev script `watch:` property in webpack config file is set to true when running dev:server script. 
+     Dev script `watch:` property in webpack config file is set to true when running dev:server script. 
     
-    - Start development script from project's root DIR:
+     Start development script from project's root DIR:
         
         `npm run dev:server`.
 
-    - Proceed to monitor dev changes on `http://localhost:8080`.
+     Proceed to monitor dev changes on `http://localhost:8080`.
 
 ## Production  script:
 
-    - Manually start production script from `./dist/`: 
+     Manually start production script from `./dist/`: 
     
         `npm run start` 
 
-    - Inspect live production files on `http://localhost:3000`
+     Inspect live production files on `http://localhost:3000`
 
 ***
 
@@ -59,12 +59,13 @@ Description: Project Gator is meant to help aggregate troubleshooting worflow mo
 
 There are two ways to change Webpack's environment from `development` to `production` mode. 
 
-    - Changing the `const dev_mode` comperative operator using `process.env.NODE_ENV (!== || ==) production` boolean result will toggle the ternary operator found in the property `config.mode:` to `dev_mode ? development : production`. Mode and output is logged on compile.  
+     Changing the `const dev_mode` comperative operator using `process.env.NODE_ENV (!== || ==) production` boolean result will toggle the ternary operator found in the property `config.mode:` to `dev_mode ? development : production`. Mode and output is logged on compile.  
 
-    - You can also remove or change the `NODE_ENV=` environment variable argument used in the package.json script declarations.
+     You can also remove or change the `NODE_ENV=` environment variable argument used in the package.json script declarations.
         `"scripts": {
     "dev:server": "./warning.sh && NODE_ENV=development ./node_modules/.bin/webpack-dev-server --open --watch-poll",
-    "webpack": "rm ./dist/public/ -rf | NODE_ENV=production webpack --progress"}` 
+    "webpack": "rm ./dist/public/ -rf | NODE_ENV=production webpack --progress"
+        }` 
 
 ## MVC Modules in development listed below:
 
