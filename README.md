@@ -65,8 +65,11 @@ _There are two ways to change Webpack's environment from `development` to `produ
 
 2. You can also remove or change the `NODE_ENV=` environment variable argument used in the package.json script declarations.
 `"scripts": {
+
 "dev:server": "./warning.sh && NODE_ENV=development ./node_modules/.bin/webpack-dev-server --open --watch-poll",
+
 "webpack": "rm ./dist/public/ -rf | NODE_ENV=production webpack --progress"
+
 }` 
 
 #### _MVC Modules in development listed below:_
