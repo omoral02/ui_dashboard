@@ -1,19 +1,14 @@
-# Welcome to Project Gator
+#                                        Welcome to Project Gator
 
 
-<dt>  Description: Project Gator is meant to help aggregate troubleshooting worflow modules meant to aide front-line agents in their troubleshooting processes by providing:</dt>
+<dl><dt>  Description: Project Gator is meant to help aggregate troubleshooting worflow modules meant to aide front-line agents in their troubleshooting processes by providing:</dt>
 
 <dd> Simple way to generate URL queries (PLX/Dremel Scripts) for internal tool querying by saving case data in only place and making that data usable without the hassle of copying and pasting information from one tool to the other. (PLX COMPLETE/ Dremel WIP) </dd>
-
-    <dd> Allow agents to use a team GCP project for Google Maps APIs testing with retrievable troubleshooting sessions. (WIP) </dd>
-
+    <dd> Allow agents to use a team GCP project for Google Maps APIs testing with retrievable troubleshooting sessions. (WIP)</dd>
     <dd> Allow you to test a customer's project API responses with retrievable troubleshooting sessions. (WIP) </dd>
-
-    <dd> Allow agents to customize and test dynamic and static map rendering on different JS lib versions and browsers through storeable sessions. (WIP) </dd>
-
-    <dd> Give agents a centralized dashboard to review or acknowledge new and existing KB changes found in changelogs. (WIP) </dd>
-    
-    <dd> Allow TSEs or TLs to broadcast announcements in one place with retreivable announcement logs. (WIP) </dd>
+    <dd> Allow agents to customize and test dynamic and static map rendering on different JS lib versions and browsers through storeable sessions. (WIP)</dd>
+    <dd> Give agents a centralized dashboard to review or acknowledge new and existing KB changes found in changelogs. (WIP)</dd>
+    <dd> Allow TSEs or TLs to broadcast announcements in one place with retreivable announcement logs. (WIP)</dd>
 </dl>
 
 ***
@@ -21,18 +16,21 @@
 >`./dist/`:  Production server-side Gator w/ Express. Client-side resources are found in `./dist/public/`.
 
 
-        Start production script from './dist/': `npm run start` 
+        __Start production script from './dist/':__ `npm run start` 
 
 >`./src/`: Development source files(active builds in development) and vendor modules/plugins. 
  
  
-        Build script(set webpack's config `watch:` property to either boolean > `false || true`): `npm run webpack`. 
+        Build script(set webpack's config `watch:` property to either boolean > `false || true`): 
+        
+        __Start build script from root DIR:__ `npm run webpack`.
+
         Dev script with `watch:` set to true in development mode. 
   
         
-        Start development script from project's root DIR: `npm run dev:server`.
+        __Start development script from project's root DIR:__ `npm run dev:server`.
  
-        Proceed to monitor changes on http://localhost:8080
+        *Proceed to monitor dev changes on `http://localhost:8080`*
 
 
 ***
