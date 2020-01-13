@@ -34,11 +34,7 @@ const paths = {
     },
 };
 
-//  Flip this boolean flag result to change development mode options
-//  production mode -> const dev_mode = (process.env.NODE_ENV !== 'production');
-//  dev mdoe -> const dev_mode = (process.env.NODE_ENV == 'production');
-
-const dev_mode = (process.env.NODE_ENV !== 'production');
+const dev_mode = process.env.NODE_ENV !== 'production';
 
 const indexPluginOptions = {
   filename: paths.htmlBuildFilename,
@@ -104,8 +100,8 @@ const config = {
     jsonpScriptType : 'text/javascript',
     // filename: dev_mode ? 'js/[name].[id].js' : 'js/[name].[id].js',
     // chunkFilename: dev_mode ? 'js/[name].[chunk].js' : 'js/[name].js',
-    filename: dev_mode ? 'js/[name].[id].bundle.js' : 'js/[name].[hash].js',
-    chunkFilename: dev_mode ? 'js/[name].[id].bundle.js' : 'js/[name].[hash].js',
+    filename: dev_mode ? 'js/[name].dev.bundle.js' : 'js/[name].[hash].js',
+    chunkFilename: dev_mode ? 'js/[name].dev.bundle.js' : 'js/[name].[hash].js',
     devtoolModuleFilenameTemplate: 'webpack://[resource-path]?[loaders]',
     // library: 'require',    // define here your client-side external lib packages 
     // libraryTarget: 'amd', // is your exported script going to be considered an AMD module? 
