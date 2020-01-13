@@ -160,7 +160,7 @@ export default class ScriptsController extends ScriptsView {
         this.buildClick();
       } else {
         console.log('We only have these entries: ', inputCount);
-        alert('Please ensure all fields have valid data!');
+        alert('Please ensure the following fields have valid inputs in the form: \n\n\nProject: 123456789 \nDate From: YYYY-MM-DD \nDate To: YYYY-MM-DD');
       }
     }
   }

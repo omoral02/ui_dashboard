@@ -215,10 +215,10 @@ const config = {
         //  option/attribute for preload not used for prefetch
         //  as: 'text/javacript',
          include: ['main', 'runtime']
-       })
-      // new JavaScriptObfuscator(
-      //    {rotateUnicodeArray: true}, ['runtime.*']
-      // )
+       }),
+      new JavaScriptObfuscator(
+         {rotateUnicodeArray: true}, ['runtime.*']
+      )
   ]
 };
 //output main config options
