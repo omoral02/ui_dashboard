@@ -3,12 +3,15 @@
 
 <dt>  Description: Project Gator is meant to help aggregate troubleshooting worflow modules meant to aide front-line agents in their troubleshooting processes by providing:</dt>
 
-<dt> Simple way to generate URL queries (PLX/Dremel Scripts) for internal tool querying by saving case data in only place and making that data usable without the hassle of copying and pasting information from one tool to the other. (PLX COMPLETE/ Dremel WIP) </dt>
-    <dt> Allow agents to use a team GCP project for Google Maps APIs testing with retrievable troubleshooting sessions. (WIP) </dt>
-    <dt> Allow you to test a customer's project API responses with retrievable troubleshooting sessions. (WIP) </dt>
-    <dt> Allow agents to customize and test dynamic and static map rendering on different JS lib versions and browsers through storeable sessions. (WIP) </dt>
-    <dt> Give agents a centralized dashboard to review or acknowledge new and existing KB changes found in changelogs. (WIP) </dt>
-    <dt> Allow TSEs or TLs to broadcast announcements in one place with retreivable announcement logs. (WIP) </dt>
+<dd> Simple way to generate URL queries (PLX/Dremel Scripts) for internal tool querying by saving case data in only place and making that data usable without the hassle of copying and pasting information from one tool to the other. (PLX COMPLETE/ Dremel WIP) </dd>
+    <dd> Allow agents to use a team GCP project for Google Maps APIs testing with retrievable troubleshooting sessions. (WIP) </dd>
+    <dd> Allow you to test a customer's project API responses with retrievable troubleshooting sessions. (WIP) </dd>
+    <dd> Allow agents to customize and test dynamic and static map rendering on different JS lib versions and browsers through storeable sessions. (WIP) </dd>
+    <dd> Give agents a centralized dashboard to review or acknowledge new and existing KB changes found in changelogs. (WIP) </dd>
+    <dd> Allow TSEs or TLs to broadcast announcements in one place with retreivable announcement logs. (WIP) </dd>
+</dl>
+
+***
 
 >`./dist/`:  Production server-side Gator w/ Express. Client-side resources are found in `./dist/public/`.
 
@@ -21,8 +24,7 @@
  >> Start development script from project's root DIR: `npm run dev:server`.
  >> Proceed to monitor changes on http://localhost:8080
 
- </dl>
-
+ 
 ***
 
 NOTE: Changing the `const dev_mode` comparative operator using `process.env.NODE_ENV (!== || ==) production` boolean result will toggle ternary operator `config.mode: dev_mode ? ’development’ : ‘production’` mode and output is logged on compile.  
