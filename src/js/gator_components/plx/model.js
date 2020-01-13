@@ -150,7 +150,7 @@ export default class ScriptsModel {
     } else if (parameter === 'client_id') {
       paramaterHtml =
         `<div class='parameter'>
-              <label for='${parameter}'>ClientID: (if applicable)</label>  
+              <label for='${parameter}'>ClientID (if applicable):</label>  
               <input type='text' name='clientID' size='20' class='input' id='${parameter}' placeholder='' required>
         </div>`;
     }

@@ -703,7 +703,9 @@ label {
   display: flex;
   text-align: center;
   font-size: calc(90%vw * (9/16))px;
-  flex-basis: 100%
+  flex-basis: 100%;
+  margin: 2 2 2 2;
+  padding: 0 1em 0 0;
 }
 
 p {
@@ -809,7 +811,8 @@ p {
   margin-top: 5px;
   border: 1px solid rgba(0, 0, 0, 0.12);
   border-radius: 8px;
-  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.30), 0 2px 6px 2px rg
+  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.30), 0 2px 6px 2px rgbg;
+  overflow-wrap: wrap;
 } 
 
 #secondaryContainer.show {
@@ -843,16 +846,37 @@ p {
 }
 /* Start of Parameters Div */
 
+#params {
+  display: flex;
+  box-sizing: border-box;
+  justify-content: space-around;
+  overflow-wrap: wrap;
+  flex-direction: column;
+  padding: .15em;
+}
+
 #parameters {
   display: flex;
-  min-width: 320px;
+  min-width: 300px;
   max-width: auto;
-  padding: 0;
+  padding: .2em;
   margin: 0;
-  align-self: baseline;
-  align-items: baseline;
+  align-self: center;
+  align-items: center;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
+}
+
+.parameter {
+  display: flex;
+  padding: .5em;
+  margin: 0;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  box-sizing: border-box;
+  text-align: center;
+  overflow-wrap: wrap;
 }
 
 .innerParam {
