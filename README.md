@@ -45,7 +45,7 @@ Description: Project Gator is meant to help aggregate troubleshooting worflow mo
 
      Proceed to monitor dev changes on `http://localhost:8080`.
 
-## Production  script:
+## _Production  script:_
 
      Manually start production script from `./dist/`: 
     
