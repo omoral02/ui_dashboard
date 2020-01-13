@@ -1,7 +1,7 @@
 #                                        Welcome to Project Gator
 
 
-Description: Project Gator is meant to help aggregate troubleshooting worflow modules meant to aide front-line agents in their troubleshooting processes by providing:
+## _Description_: Project Gator is meant to help aggregate troubleshooting worflow modules meant to aide front-line agents in their troubleshooting processes by providing:
 
         * A Simple way to generate URL queries (PLX/Dremel Scripts) for internal tool querying by saving case data in only one place. 
           This makes that data re-usable without the hassle of copying and pasting information from one tool to the other, 
@@ -23,7 +23,7 @@ Description: Project Gator is meant to help aggregate troubleshooting worflow mo
 
 ***
 
-## Build script:
+### _Build script:_
     
      Start build script from root DIR: 
         
@@ -33,7 +33,7 @@ Description: Project Gator is meant to help aggregate troubleshooting worflow mo
 
      Production Client-side source files are found in `./dist/public`.
 
-## Dev script: 
+### _Dev script:_ 
     
      Set Webpack's config `watch:` property to either boolean: `false || true`.
  
@@ -45,7 +45,7 @@ Description: Project Gator is meant to help aggregate troubleshooting worflow mo
 
      Proceed to monitor dev changes on `http://localhost:8080`.
 
-## _Production  script:_
+### _Production  script:_
 
      Manually start production script from `./dist/`: 
     
@@ -55,7 +55,7 @@ Description: Project Gator is meant to help aggregate troubleshooting worflow mo
 
 ***
 
-### NOTE: 
+## _NOTE:_ 
 
 There are two ways to change Webpack's environment from `development` to `production` mode. 
 
@@ -67,7 +67,7 @@ There are two ways to change Webpack's environment from `development` to `produc
     "webpack": "rm ./dist/public/ -rf | NODE_ENV=production webpack --progress"
         }` 
 
-## MVC Modules in development listed below:
+#### _MVC Modules in development listed below:_
 
 
 
