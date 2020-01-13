@@ -3,13 +3,9 @@
 
 ## _Description_: 
 
-Project Gator is meant to help aggregate troubleshooting worflow modules meant to aide 
-front-line agents in their troubleshooting processes by providing:
+Project Gator is meant to help aggregate troubleshooting worflow modules meant to aide front-line agents in their troubleshooting processes by providing:
 
-1. A Simple way to generate URL queries (PLX/Dremel Scripts) for internal tool querying 
-by saving case data in only one place. 
-This makes that data re-usable without the hassle of copying and pasting information 
-from one tool to the other, reducing the chances that an error or mistake will happen. 
+1. A Simple way to generate URL queries (PLX/Dremel Scripts) for internal tool querying by saving case data in only one place. This makes that data re-usable without the hassle of copying and pasting information from one tool to the other, reducing the chances that an error or mistake will happen. 
     - PLX: COMPLETE
     - Dremel: WIP 
 
@@ -30,34 +26,34 @@ with retreivable announcement/ack logs. (WIP)
 ***
 
 ### _Build script:_
-    
-     Start build script from root DIR: 
-        
-        `npm run webpack`
 
-     Production Server-side source files are found in `./dist/`.
+Start build script from root DIR: 
 
-     Production Client-side source files are found in `./dist/public`.
+`npm run webpack`
+
+Production Server-side source files are found in `./dist/`.
+
+Production Client-side source files are found in `./dist/public`.
 
 ### _Dev script:_ 
     
-     Set Webpack's config `watch:` property to either boolean: `false || true`.
- 
-     Dev script `watch:` property in webpack config file is set to true when running dev:server script. 
-    
-     Start development script from project's root DIR:
-        
-        `npm run dev:server`.
+Set Webpack's config `watch:` property to either boolean: `false || true`.
 
-     Proceed to monitor dev changes on `http://localhost:8080`.
+Dev script `watch:` property in webpack config file is set to true when running dev:server script. 
+
+Start development script from project's root DIR:
+
+`npm run dev:server`.
+
+Proceed to monitor dev changes on `http://localhost:8080`.
 
 ### _Production  script:_
 
-     Manually start production script from `./dist/`: 
-    
-        `npm run start` 
+Manually start production script from `./dist/`: 
 
-     Inspect live production files on `http://localhost:3000`
+`npm run start` 
+
+Inspect live production files on `http://localhost:3000`
 
 ***
 
@@ -65,51 +61,50 @@ with retreivable announcement/ack logs. (WIP)
 
 There are two ways to change Webpack's environment from `development` to `production` mode. 
 
-     Changing the `const dev_mode` comperative operator using `process.env.NODE_ENV (!== || ==) production` boolean result will toggle the ternary operator found in the property `config.mode:` to `dev_mode ? development : production`. Mode and output is logged on compile.  
+Changing the `const dev_mode` comperative operator using `process.env.NODE_ENV (!== || ==) production` boolean result will toggle the ternary operator found in the property `config.mode:` to `dev_mode ? development : production`. Mode and output is logged on compile.  
 
-     You can also remove or change the `NODE_ENV=` environment variable argument used in the package.json script declarations.
-        `"scripts": {
-    "dev:server": "./warning.sh && NODE_ENV=development ./node_modules/.bin/webpack-dev-server --open --watch-poll",
-    "webpack": "rm ./dist/public/ -rf | NODE_ENV=production webpack --progress"
-        }` 
+You can also remove or change the `NODE_ENV=` environment variable argument used in the package.json script declarations.
+`"scripts": {
+"dev:server": "./warning.sh && NODE_ENV=development ./node_modules/.bin/webpack-dev-server --open --watch-poll",
+"webpack": "rm ./dist/public/ -rf | NODE_ENV=production webpack --progress"
+}` 
 
 #### _MVC Modules in development listed below:_
 
 
+`./src/js/chat/`
 
-    `./src/js/chat/`
+controller.js
 
-    controller.js
+model.js
 
-    model.js
-
-    view.js
-
-
-    `./src/js/gator_components/dynamic_map_modules/map/dynamic/`
-
-    controller.js
-
-    initialize_dynamic_map.js
-
-    view.js
-
-    model.js
+view.js
 
 
-    `./src/js/gator_components/dremel`
+`./src/js/gator_components/dynamic_map_modules/map/dynamic/`
 
-    controller.js
+controller.js
 
-    view.js
+initialize_dynamic_map.js
 
-    model.js
+view.js
+
+model.js
 
 
-    `./src/js/gator_components/todo`
+`./src/js/gator_components/dremel`
 
-    controller.js
+controller.js
 
-    view.js
+view.js
 
-    model.js
+model.js
+
+
+`./src/js/gator_components/todo`
+
+controller.js
+
+view.js
+
+model.js
