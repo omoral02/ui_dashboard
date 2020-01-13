@@ -13,7 +13,7 @@ Project Gator is meant to help aggregate troubleshooting worflow modules meant t
 
 * A tool to test web-services responses on a customer's project with retrievable troubleshooting sessions. (WIP)
 
-* Agents a tool to to customize and test dynamic and static map rendering on different JS lib versions 
+* Agents a tool to customize and test dynamic and static map rendering on different JS lib versions 
 and browsers through storeable sessions. (WIP)
 
 * A centralized dashboard that agents can use in order to review 
@@ -27,7 +27,7 @@ with retreivable announcement/ack logs. (WIP)
 
 ### _Build script:_
 
-Start build script from root DIR: 
+Start build script from root DIR `./`: 
 
 `npm run webpack`
 
@@ -63,10 +63,12 @@ _There are two ways to change Webpack's environment from `development` to `produ
 
 1. Changing the `const dev_mode` comperative operator using `process.env.NODE_ENV (!== || ==) production` boolean result will toggle the ternary operator found in the property `config.mode:` to `dev_mode ? development : production`. Mode and output is logged on compile.  
 
-2. You can also remove or change the `NODE_ENV=` environment variable argument used in the package.json script declarations:
+OR
+
+2. You can remove or change the `NODE_ENV=` environment variable argument used in the package.json script declarations:
 
         "scripts": {
-            "dev:server": "./warning.sh && NODE_ENV=development ./node_modules/.bin/webpack-dev-server --open --watch-poll",
+            "dev:server": "./warning.sh && NODE_ENV=development ./node_modules/.bin/webpack-dev-server",
             "webpack": "rm ./dist/public/ -rf | NODE_ENV=production webpack --progress"
         } 
 
