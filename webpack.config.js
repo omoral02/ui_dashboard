@@ -76,7 +76,7 @@ const plxTemplateHtmlOptions = {
 
 const config = {
   mode: dev_mode ? 'development' : 'production',
-  watch: false,
+  watch: dev_mode ? true : false,
   watchOptions: {
     ignored: /node_modules/
   },

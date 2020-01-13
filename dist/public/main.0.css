@@ -925,7 +925,7 @@ views_pane & card/component containers
     transition: all 0s;
     order: 1;
     overflow: hidden;
-} 
+}  
 
 label {
   display: flex;
