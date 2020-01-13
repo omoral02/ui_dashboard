@@ -1,11 +1,16 @@
 #                                        Welcome to Project Gator
 
 
-## _Description_: Project Gator is meant to help aggregate troubleshooting worflow modules meant to aide front-line agents in their troubleshooting processes by providing:
+## _Description_: 
 
-        * A Simple way to generate URL queries (PLX/Dremel Scripts) for internal tool querying by saving case data in only one place. 
-          This makes that data re-usable without the hassle of copying and pasting information from one tool to the other, 
-          reducing the chances that an error or mistake will happen. (PLX COMPLETE/ Dremel WIP) 
+    Project Gator is meant to help aggregate troubleshooting worflow modules meant to aide front-line agents in their troubleshooting processes by providing:
+
+        * A Simple way to generate URL queries (PLX/Dremel Scripts) for internal tool querying 
+          by saving case data in only one place. 
+          This makes that data re-usable without the hassle of copying and pasting information 
+          from one tool to the other, reducing the chances that an error or mistake will happen. 
+            - PLX: COMPLETE
+            - Dremel: WIP 
 
         * A team GCP project for Google Maps APIs testing with retrievable troubleshooting sessions. (WIP)
 
