@@ -23,7 +23,7 @@ Project Gator is meant to help aggregate troubleshooting-workflow modules meant 
 * A centralized dashboard that agents can use in order to review or acknowledge new and existing KB changes found in changelogs.
 (WIP)
 
-* TSEs,TLs, and Agents a tool to broadcast changes and issues in one place with retreivable announcement/ack logs.
+* TSEs, TLs, and agents a tool to broadcast changes and issues in one place with retreivable announcement/ack logs.
 (WIP)
 
 
