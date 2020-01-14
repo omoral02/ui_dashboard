@@ -3,7 +3,7 @@
 
 ## Description: 
 
-Project Gator is meant to help aggregate troubleshooting-workflow modules meant to aide front-line agents in their troubleshooting processes by providing TSEs, TLs, and agent a tool to:
+Project Gator is meant to help aggregate troubleshooting-workflow modules meant to aide front-line agents in their troubleshooting processes by providing TSEs, TLs, and agents a tool to:
 
 * generate URL queries (PLX/Dremel Scripts) for internal tool querying by saving case data in only one place. This makes that data re-usable without the hassle of copying and pasting information from one tool to the other, reducing the chances that an error or mistake will occur. 
     - PLX: COMPLETE
