@@ -1,7 +1,7 @@
 #                                        Welcome to project Gator
 
 
-## _Description_: 
+## Description: 
 
 Project Gator is meant to help aggregate troubleshooting-workflow modules meant to aide front-line agents in their troubleshooting processes by providing:
 
@@ -76,7 +76,7 @@ OR
             "webpack": "rm ./dist/public/ -rf | NODE_ENV=production webpack --progress"
         } 
 
-#### _MVC Modules in development listed below:_
+#### _MVC modules in development listed below:_
 
 
 `./src/js/chat/`
