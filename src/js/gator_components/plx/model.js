@@ -284,6 +284,16 @@ export default class ScriptsModel {
             },
           },
           {
+            title: 'F1 - Historic Maps APIs: Daily client and web service requests',
+            id: 'script_5e._1f6a23_0000_2fff_b6b3_30fd381779c0',
+            parameters: {
+                    'project_number': '',
+                    'client_id': '',
+                    'date_from_YYYY_MM_DD': '',
+                    'date_to_YYYY_MM_DD': '',
+                  },
+          },
+          {
             title: 'GeoStats Domain & Web-services w/ IP obfuscation',
             id: 'script_5d._5ef884_0000_2398_b5bf_089e082dbdd4',
             parameters:{
@@ -296,16 +306,6 @@ export default class ScriptsModel {
               'date_to_YYYY_MM_DD': '',
 
             },
-          },
-          {
-            title: 'F1 - Historic Maps APIs: Daily client and web service requests',
-            id: 'script_5e._1f6a23_0000_2fff_b6b3_30fd381779c0',
-            parameters: {
-                    'project_number': '',
-                    'client_id': '',
-                    'date_from_YYYY_MM_DD': '',
-                    'date_to_YYYY_MM_DD': '',
-                  },
           },
           // {
           //   title: 'Places Autocomplete Sessions V2',
