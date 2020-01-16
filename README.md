@@ -7,7 +7,7 @@ Project Gator is meant to help aggregate troubleshooting-workflow modules meant 
 
 * generate URL queries (PLX/Dremel Scripts) for internal tool querying by saving case data in only one place. This makes that data re-usable without the hassle of copying and pasting information from one tool to the other, reducing the chances that an error or mistake will occur. 
     - PLX: COMPLETE
-    - Dremel: WIP 
+    - Dremel: (Part of DuperTool now)
 
 * test Google Maps APIs with a team GCP project with retrievable troubleshooting sessions.
 (WIP)
@@ -56,7 +56,7 @@ Proceed to monitor dev changes on `http://localhost:8080`.
 
 Manually start production script from `./dist/`: 
 
-`npm run start` 
+`npm run start`
 
 Inspect live production files on `http://localhost:3000`.
 
@@ -66,11 +66,11 @@ Inspect live production files on `http://localhost:3000`.
 
 _There are two ways to change Webpack's environment from `development` to `production` mode._ 
 
-1. Changing the `const dev_mode` comperative operator using `process.env.NODE_ENV (!== || ==) production` boolean result will toggle the ternary operator found in the property `config.mode:` to `dev_mode ? development : production`. Mode and output is logged on compile.  
+1. Changing the comperative operator using `const dev_mode = process.env.NODE_ENV (!== || ==) production` boolean result will toggle the ternary operator found in the property to `config.mode: dev_mode ? 'development' : 'production'`. Mode and output is logged on compile.  
 
 OR
 
-2. You can remove or change the `NODE_ENV=` environment variable argument used in the package.json script declarations:
+2. You can remove or change the `NODE_ENV=` environment variable argument used in the package.json script declarations so that Webpack defaults to initial config:
 
         "scripts": {
             "dev:server": "./warning.sh && NODE_ENV=development ./node_modules/.bin/webpack-dev-server",

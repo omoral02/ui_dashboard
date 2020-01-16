@@ -201,29 +201,29 @@ export default class ScriptsModel {
 
   getScripts() {
     this.scripts = [
-      //  {
-      //     title: 'API usage for specified mafe_weblog API by IP',
-      //     id: 'script_5b._a15f62_0000_2cc9_bcc5_001a11404b34',
-      //     parameters: {
-      //       'case_number': '',
-      //       'ip_range': '',
-      //       'query_type': '',
-      //       'api_endpoint_type': '',
-      //       'table_suffix': '',
-      //       'project_number': '',
-      //       'client_id': '',
-      //       },
-      //     },
-      //     {
-      //       title: 'QPS breakdown from Web-Service',
-      //       id: 'script_5b._a16102_0000_254d_940f_089e0822b400',
-      //       parameters: {
-      //         'table_column': '',
-      //         'project_number': '',
-      //         'date_from_YYYY_MM_DD': '',
-      //         'date_to_YYYY_MM_DD': '',
-      //       },
-      //   },
+          // {
+          //    title: 'API usage for specified mafe_weblog API by IP',
+          //    id: 'script_5b._a15f62_0000_2cc9_bcc5_001a11404b34',
+          //    parameters: {
+          //      'case_number': '',
+          //      'ip_range': '',
+          //      'query_type': '',
+          //      'api_endpoint_type': '',
+          //      'table_suffix': '',
+          //      'project_number': '',
+          //      'client_id': '',
+          //      },
+          //    },
+          //    {
+          //      title: 'QPS breakdown from Web-Service',
+          //      id: 'script_5b._a16102_0000_254d_940f_089e0822b400',
+          //      parameters: {
+          //        'table_column': '',
+          //        'project_number': '',
+          //        'date_from_YYYY_MM_DD': '',
+          //        'date_to_YYYY_MM_DD': '',
+          //      },
+          // },
           // {
           //   title: 'Daily client and web service requests project and API key',
           //   id: 'script_5b._4e734f_0000_2d6d_af2d_94eb2c05a52e',
@@ -246,18 +246,18 @@ export default class ScriptsModel {
           //     'date_to_YYYY_MM_DD': '',
           //   },
           // },
-          {
-            title: 'Daily requests by API key & Channel',
-            id: 'script_5b._4e734f_0000_2d6d_af2d_94eb2c05a52e',
-            parameters: {
-              'project_number': '',
-              'client_id': '',
-              // 'api_key': '',
-              // 'domain': '',
-              'date_from_YYYY_MM_DD': '',
-              'date_to_YYYY_MM_DD': '',
-            },
-          },
+          // {
+          //   title: 'Daily requests by API key & Channel',
+          //   id: 'script_5b._4e734f_0000_2d6d_af2d_94eb2c05a52e',
+          //   parameters: {
+          //     'project_number': '',
+          //     'client_id': '',
+          //     // 'api_key': '',
+          //     // 'domain': '',
+          //     'date_from_YYYY_MM_DD': '',
+          //     'date_to_YYYY_MM_DD': '',
+          //   },
+          // },
           // {
           //   title: 'Total client-side requests by Domain, API key & Days Used',
           //   id: 'script_5d._03c5d4_0000_2961_9985_24058873f66c',
@@ -271,7 +271,7 @@ export default class ScriptsModel {
           //   },
           // },
           {
-            title: 'Total URL Stats(redacted ) by URL, Domain, Project & Days Used',
+            title: 'Total URL Stats(redacted) by URL, Domain, Project & Days Used',
             id: 'script_5d._07f69f_0000_21a9_b028_f403043e7540',
             parameters: {
               'project_number': '',
@@ -298,8 +298,8 @@ export default class ScriptsModel {
             },
           },
           {
-            title: 'Historic Maps APIs: Daily client and web service requests',
-            id: 'script_5d._7814be_0000_2f72_80a4_001a11405cb4',
+            title: 'F1 - Historic Maps APIs: Daily client and web service requests',
+            id: 'script_5e._1f6a23_0000_2fff_b6b3_30fd381779c0',
             parameters: {
                     'project_number': '',
                     'client_id': '',
@@ -316,6 +316,16 @@ export default class ScriptsModel {
           //     'date_from_YYYY_MM_DD': '',
           //     'date_to_YYYY_MM_DD': '',
           //   },
+          // },
+          // {
+          //   title: 'Historic Maps APIs: Daily client and web service requests',
+          //   id: 'script_5d._7814be_0000_2f72_80a4_001a11405cb4',
+          //   parameters: {
+          //           'project_number': '',
+          //           'client_id': '',
+          //           'date_from_YYYY_MM_DD': '',
+          //           'date_to_YYYY_MM_DD': '',
+          //         },
           // },
           // {
           //   title: 'User-Agent script - provided by Seth S.',
