@@ -86,10 +86,6 @@ export default class ScriptsModel {
     this.scriptsParentHtml =
        `<div id='scriptList' rel='plxScriptWindow' class=''>
           <h2 class='card-header'>PLX Scripts</h2>
-          <ul id='scriptButtonContainer' class='buttonContainer'>
-              <button type='button' class='exitbtn' id='close_plx' title='Close this PLX Window.'></button>
-              <button type='button' id='gen_plx' class='exitbtn' title='Generate URL for PLX with case info.'></button>
-          </ul>
           <ul class='card-inner' id='plx-InnerCard'></ul>
         </div>`;
     return this.scriptsParentHtml;
@@ -119,7 +115,15 @@ export default class ScriptsModel {
     this.parametersParentHTML =
       `<div id='card-inner' class='card-inner'>
           <h2 class='card-header'>Parameters</h2>
-          <div id='parameters'><form></form></div>
+          <div id='parametersForm'>
+            <form id="plxForm" name="plx_form">
+              <ul id='scriptButtonContainer' class='buttonContainer'>
+                <button type='button' class='exitbtn' id='close_plx' title='Close this PLX Window.'></button>
+                <button type='button' class='exitbtn' id='reset_plx' title='Reset this script selection.'></button>
+                <input type='submit' id='gen_plx' class='exitbtn' title='Generate URL for PLX with case info.'>
+              </ul>
+            </form>
+         </div>
       </div>`;
     return this.parametersParentHTML;
   }

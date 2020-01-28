@@ -72,7 +72,7 @@ export default class AppView extends AppModel {
 
   checkEachViewIndex () {
     if (this.views.iterable_views.length > 0){
-      console.table('Child componenets of the SPA :: ', this.views.iterable_views);
+      console.table('Child components of the SPA :: ', this.views.iterable_views);
       this.views.iterable_views.forEach(this.setOrder);
     }
   }

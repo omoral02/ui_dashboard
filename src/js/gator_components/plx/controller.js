@@ -21,12 +21,6 @@ export default class ScriptsController extends ScriptsView {
     this.scriptsListContainer.addEventListener(
       'click', this.onScriptTitleClick.bind(this),
        false);
-    this.close.addEventListener(
-      'click', this.onScriptTitleClick.bind(this),
-       false);
-    // this.reset.addEventListener(
-    //   'click', this.onScriptTitleClick.bind(this),
-    //    false);
   }
 
   onScriptTitleClick (e) {
@@ -37,21 +31,22 @@ export default class ScriptsController extends ScriptsView {
     // } else if ( e === Element ) {
     //   this.currentlySelectedItem = e;
     // }
+
+    //primary container
     this.currentlySelectedItem = e.target;
     if ( this.currentlySelectedItem.classList.contains('listed-item') ) {
         super.insertParametersContainer();
         let scriptIndex = parseInt(this.currentlySelectedItem.dataset.index);
         super.getNewWorkingState(scriptIndex, this.currentlySelectedItem);
         this.checkShowOn(this.secondaryParent);
+    // secondary form container
     } else if ( this.currentlySelectedItem.id === 'close_plx' ){
               this.visualManager('all');
               super.setMyStateToInitialWorkingState();
+    } else if ( this.currentlySelectedItem.id === 'reset_plx' ){
+              this.checkShowOn(this.secondaryParent);
+              super.setMyStateToInitialWorkingState();
     }
-    // else if ( currentlySelectedItem.id == 'reset' ){
-    //   this.removeTitleListener();
-    //   super.setMyStateToInitialWorkingState();
-    //   this.visualManager('remove');
-    // }
   }
 
   removeTitleListener(){
@@ -101,25 +96,52 @@ export default class ScriptsController extends ScriptsView {
   }
 
   innerComponentIsNowListening() {
+    /** formData test  **/
+    // this.parametersInnerContainer.addEventListener('submit', (e) => {
+    //   console.log('Form data event fired: ', e);
+    //   // on form submission, prevent default
+    //   e.preventDefault();
+
+    //   // grab input nodes
+    //   let childnodes = document.getElementsByTagName('input');
+    //   console.log(childnodes);
+    //   if(childnodes){
+    //       for(let n=0; n < childnodes.length; n++){
+    //           let inputNode = childnodes[n];
+    //           if (inputNode){
+    //             this.onParameterInput(inputNode); 
+    //             // inputNode.addEventListener(
+    //             // 'onkeydown', this.onParameterInput.bind(this),
+    //             // false)
+    //           }
+    //         }
+    //   }
+     
+    // construct a FormData object, which fires the formdata event
+    //  let data = new FormData(this.parametersInnerContainer);
+    //  console.log(data);
+    // });
+
+    /** input listener setup **/
     let childnodes = document.getElementsByTagName('input');
     console.log(childnodes);
-    // listen for field inputs
-    // if values are typed in
+    /** listen for field inputs:
+     - if values are typed in
+     - listen for click trigger
+      */
     if(childnodes){
       for(let n=0; n < childnodes.length; n++){
-        let inputNode = childnodes[n];
-        if (inputNode){
-          inputNode.addEventListener(
-          'input', this.onParameterInput.bind(this), 
-          false)
-          inputNode.addEventListener(
-          'onkeydown', this.onParameterInput.bind(this),
-          false)
+          let inputNode = childnodes[n];
+          if (inputNode){
+            inputNode.addEventListener(
+            'input', this.onParameterInput.bind(this), 
+            false);
+            // inputNode.addEventListener(
+            // 'onkeydown', this.onParameterInput.bind(this),
+            // false)
+          }
         }
       }
-    }
-    // listen for click trigger
-    // if values are dynamically inserted
     this.generate.addEventListener(
       'click', this.onPlxClick.bind(this),
       false);

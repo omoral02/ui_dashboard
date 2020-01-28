@@ -35,12 +35,6 @@ export default class ScriptsView extends ScriptsModel {
   grabInnerComponent() {
     this.scriptsListContainer = document.getElementById('plx-InnerCard');
     this.scriptButtonContainer = document.getElementById('scriptButtonContainer');
-    // this.reset = document.getElementById('reset');
-    // this.reset.textContent = 'Reset';
-    this.close = document.getElementById('close_plx');
-    this.close.textContent = 'Close';
-    this.generate = document.getElementById('gen_plx');
-    this.generate.textContent = 'Go to PLX';
     this.insert(super.getScripts());
   }
 
@@ -79,7 +73,7 @@ export default class ScriptsView extends ScriptsModel {
         this.removeActive(super.getCurrentlySelectedScript);
       }
       if ( this.params ) {
-           this.parametersInnerContainer.removeChild(this.params);
+           this.formContainer.removeChild(this.params);
       }
       if ( this.secondaryParent ) {
            this.scriptsListContainer.removeChild(this.secondaryParent);
@@ -107,7 +101,13 @@ export default class ScriptsView extends ScriptsModel {
 
   grabSecondaryComponent() {
     this.cardInner = document.getElementById('card-inner');
-    this.parametersInnerContainer = document.getElementById('parameters');
+    this.parametersInnerContainer = document.getElementById('parametersForm');
+    this.close = document.getElementById('close_plx');
+    this.close.textContent = 'Close';
+    this.generate = document.getElementById('gen_plx');
+    this.generate.textContent = 'Submit PLX params';
+    this.reset = document.getElementById('reset_plx');
+    this.reset.textContent = 'Reset';
   }
 
   toggleParamsContainer() {
@@ -170,7 +170,8 @@ export default class ScriptsView extends ScriptsModel {
       this.parametersHtml += super.getParameterHTML(parameter);
     });
     this.params.innerHTML = this.parametersHtml;
-    this.parametersInnerContainer.insertBefore(this.params, this.parametersInnerContainer.childNodes[0]);
+    this.formContainer = document.getElementById('plxForm');
+    this.formContainer.insertBefore(this.params, this.formContainer.childNodes[0]);
     this.secondaryParent.classList.toggle('show');
   }
 

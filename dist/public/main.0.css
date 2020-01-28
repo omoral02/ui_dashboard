@@ -760,6 +760,8 @@ views_pane & card/component containers
   border-style: hidden;
   align-self: center;
   justify-content: center;
+  text-align: center;
+  color: rgb(27, 127, 170);
   min-height: auto;
   min-width: auto;
   margin-left: auto;
@@ -1074,16 +1076,16 @@ p {
 }
 /* Start of Parameters Div */
 
-#params {
+/* #params {
   display: flex;
   box-sizing: border-box;
   justify-content: space-around;
   overflow-wrap: wrap;
   flex-direction: column;
   padding: .15em;
-}
+} */
 
-#parameters {
+#parametersForm {
   display: flex;
   min-width: 300px;
   max-width: auto;
