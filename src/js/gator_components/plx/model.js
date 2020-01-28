@@ -115,7 +115,7 @@ export default class ScriptsModel {
     this.parametersParentHTML =
       `<div id='card-inner' class='card-inner'>
           <h2 class='card-header'>Parameters</h2>
-          <div id='parametersForm'>
+          <div id='plxParametersForm' class='parametersForm'>
             <form id="plxForm" name="plx_form">
               <ul id='scriptButtonContainer' class='buttonContainer'>
                 <button type='button' class='exitbtn' id='close_plx' title='Close this PLX Window.'></button>

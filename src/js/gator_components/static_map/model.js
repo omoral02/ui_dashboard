@@ -4,15 +4,19 @@ export default class StaticWSModel {
   }
 
   getStaticMapParentHTML(){
-    this.scriptsParentHtml =
-       `<div id='staticMain' rel='staticTester' class=''>
-          <h2 class='card-header'>Static Map W/S Testing</h2>
-          <ul id='wsButtonContainer' class='buttonContainer'>
-              <button type='button' class='exitbtn' id='close_static' title='Close this Static Window.'></button>
-              <button type='button' id='gen_static' class='exitbtn' title='Generate URL for Static Map testing.'></button>
-          </ul>
-          <ul class='card-inner' id='static-InnerCard'></ul>
-        </div>`;
+    this.scriptsParentHtml =     
+       `<div id='staticMain' rel='staticTester' class='card-inner'>
+          <h2 class='card-header'>Static Map W/S Tester</h2>
+            <div id='staticParametersForm' class='parametersForm'>
+                <form id="staticForm" name="static_form">
+                    <ul id='wsButtonContainer' class='buttonContainer'>
+                      <button type='button' class='exitbtn' id='close_static' title='Close this Static Maps Window.'></button>
+                      <button type='button' class='exitbtn' id='reset_static' title='Reset form.'></button>
+                      <input type='submit' id='gen_static' class='exitbtn' title='Generate URL for Static Map.'>
+                    </ul>
+                  </form>
+             </div>
+         </div>`;
     return this.scriptsParentHtml;
   }
 

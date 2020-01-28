@@ -111,7 +111,7 @@ export default class ScriptsController extends ScriptsView {
     //           if (inputNode){
     //             this.onParameterInput(inputNode); 
     //             // inputNode.addEventListener(
-    //             // 'onkeydown', this.onParameterInput.bind(this),
+    //             // 'input', this.onParameterInput.bind(this),
     //             // false)
     //           }
     //         }

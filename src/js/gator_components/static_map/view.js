@@ -25,7 +25,7 @@ export default class StaticWSView extends StaticWSModel{
             // insert static map primary container
         } else {
                 this.resetPrimaryContainerFor('all');
-                // remove scripts primary container if it exists.
+                // remove static map primary container if it exists.
         }
     }
 
@@ -36,7 +36,9 @@ export default class StaticWSView extends StaticWSModel{
         return super.getStaticSecondaryHTML();
       })();
       this.secondaryParent.innerHTML= this.secondaryParentInnerHTML;
-      this.primaryParent.appendChild(this.secondaryParent);
+      this.staticForm = document.getElementById('staticForm');
+      console.log(this.staticForm);
+      this.staticForm.insertBefore(this.secondaryParent, this.staticForm.childNodes[0]);
     }
 
     resetPrimaryContainerFor (level) {

@@ -10,18 +10,18 @@ export default class AppView extends AppModel {
     this.menuButtons = document.getElementById('menu_options');
     this.plxButton = document.getElementById('plx_button');
     this.plxButton.textContent = 'PLX Scripts';
-    // this.mapsButton = document.getElementById('maps_button');
-    // this.mapsButton.textContent = 'Dynamic Map Testing';
-    // this.dremelButton = document.getElementById('dremel_button');
-    // this.dremelButton.textContent = 'Dremel';
-    // this.staticMapButton = document.getElementById('static_map_button');
-    // this.staticMapButton.textContent = 'Static Map W/S Tester';
+    this.mapsButton = document.getElementById('maps_button');
+    this.mapsButton.textContent = 'Dynamic Map Testing';
+    this.dremelButton = document.getElementById('dremel_button');
+    this.dremelButton.textContent = 'Dremel';
+    this.staticMapButton = document.getElementById('static_map_button');
+    this.staticMapButton.textContent = 'Static Map W/S Tester';
     this.firstHalf = document.getElementById('firstHalf');
     this.secondHalf = document.getElementById('secondHalf');
     this.results = document.getElementById('results');
     this.viewsPane = document.getElementById('views_pane');
-    // this.wsButton = document.getElementById('ws_button');
-    // this.wsButton.textContent = 'WS Tester';
+    this.wsButton = document.getElementById('ws_button');
+    this.wsButton.textContent = 'WS Tester';
     this.secondHalf.insertBefore(this.viewsPane, this.secondHalf.childNodes[0]);
     this.viewportWidth;
     this.viewportHeight

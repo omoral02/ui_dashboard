@@ -101,7 +101,7 @@ export default class ScriptsView extends ScriptsModel {
 
   grabSecondaryComponent() {
     this.cardInner = document.getElementById('card-inner');
-    this.parametersInnerContainer = document.getElementById('parametersForm');
+    this.parametersInnerContainer = document.getElementById('plxParametersForm');
     this.close = document.getElementById('close_plx');
     this.close.textContent = 'Close';
     this.generate = document.getElementById('gen_plx');
