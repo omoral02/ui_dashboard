@@ -407,12 +407,12 @@ header #right_menu {
 
 #secondHalf {
   display: flex;
-  /* flex: auto; */
+  flex: auto;
   flex-wrap: wrap; 
   flex-direction: row;
   position: relative;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
   flex-basis: 100%;
   order: 2;
   padding: .5em;
@@ -465,15 +465,15 @@ views_pane & card/component containers
 
 #views_pane {
   display: flex;
-  /* flex: auto; */
+  flex: auto;
   flex-wrap: wrap;
   flex-basis: 100%;
   position: relative;
   height: auto;
-  flex-direction: row;
+  flex-direction: row !important;
   align-items: flex-start;
   justify-content: center;
-  order: 3;
+  order: 1;
   /* overflow-y: auto !important;
   overflow-x: auto !important; */
   margin: .5em;
@@ -899,20 +899,20 @@ p {
   text-align: center;
 } */
 
-/*
 
-#results {
+
+#results_pane {
   display: flex;
-  flex: auto;
-  flex-basis: 2%;
-  height: auto;
-  flex-direction: row;
+  flex-wrap: wrap;
+  flex-basis: 100%;
+  height: 100%vh;
+  flex-direction: row !important;
   justify-content: center;
   overflow: wrap;
   order: 4;
 } 
 
-/* Footer */
+/* Footer2*/
 
 footer {
   display: flex;

@@ -158,7 +158,7 @@ export default class ScriptsController extends ScriptsView {
     this.removePlxClickListener();
     this.inputCount = [];
     let childnodes = document.getElementsByTagName('input');
-    console.log(childnodes);
+    // console.log(childnodes);
     if(childnodes){
       let inputCount = [];
       for(let n=0; n < childnodes.length; n++){

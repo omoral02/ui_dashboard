@@ -21,7 +21,8 @@ export default class StaticWSView extends StaticWSModel{
             this.parentPane.insertBefore(
             this.primaryParent,
             this.parentPane.childNodes[0]);
-            this.grabInnerComponent();
+            this.grabKeySelector();
+            // this.grabInnerComponent();
             // insert static map primary container
         } else {
                 this.resetPrimaryContainerFor('all');
@@ -29,16 +30,27 @@ export default class StaticWSView extends StaticWSModel{
         }
     }
 
+    grabKeySelector(){
+      this.keySelection = document.createElement('div');
+      this.keySelection.id = 'primary_static_key_selector';
+      this.keySelectionInnerHTML = (()=>{
+        return super.getKeyChooser();
+      })();
+      this.keySelection.innerHTML = this.keySelectionInnerHTML;
+      this.primaryParent.insertBefore(this.keySelection, this.primaryParent.childNodes[0]);
+      this.grabInnerComponent();
+    }
+
     grabInnerComponent(){
       this.secondaryParent = document.createElement('div');
       this.secondaryParent.id = 'staticSecondary';
-      this.secondaryParentInnerHTML =( ()=>{
+      this.secondaryParentInnerHTML = (()=>{
         return super.getStaticSecondaryHTML();
       })();
       this.secondaryParent.innerHTML= this.secondaryParentInnerHTML;
       this.staticForm = document.getElementById('staticForm');
       console.log(this.staticForm);
-      this.staticForm.insertBefore(this.secondaryParent, this.staticForm.childNodes[0]);
+      this.staticForm.insertBefore(this.secondaryParent, this.staticForm.childNodes[1]);
     }
 
     resetPrimaryContainerFor (level) {

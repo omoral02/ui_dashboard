@@ -1,44 +1,54 @@
 export default class MapModel {
   constructor(){
-
+    this.america = {
+      lat:30.2672,
+      lng:-97.7431};
   }
 
   getMapParentHTML(){
-    this.scriptsParentHtml =
+    this.mapParentHtml =
        `<div id='mapMain' rel='mapTester' class=''>
           <h2 class='card-header'>Dynamic Map Testing</h2>
-          <ul id='mapButtonContainer' class='buttonContainer'>
-              <button type='button' class='exitbtn' id='close_static' title='Close this Map Window.'></button>
-              <button type='button' id='gen_map' class='exitbtn' title='Generate Map w/ options config.'></button>
-          </ul>
-          
         </div>`;
-    return this.scriptsParentHtml;
+    return this.mapParentHtml;
   }
 
   getMapSecondaryHTML(){
+    // this.secondaryHTML = 
+    //   `<div id="mapInner" class="card-inner">
+    //       <ul class="card">
+    //       <p>JS API V3</p>
+    //       <p>
+    //           <label for="center">Center:</label>
+    //           <input id="center" size='40' placeholder=" Austin, TX ">
+    //       </p>
+    //       <p>
+    //           <label for="zoom">Zoom:</label>
+    //           <input id="zoom" size='40' maxlength='2'placeholder=" 14 (Accepts 1-20)">
+    //       </p>
+    //       <p>
+    //           <label for="size">Size:</label>
+    //           <input id="size" size='40' maxlength='9' placeholder=" 400x400 || 2048x2048(PP) ">
+    //       </p>
+    //       <p>
+    //         <label for="scale">Scale:</label>
+    //         <input id="scale" size='40' maxlength='2' placeholder=" 2 || 4 (default is 1) ">
+    //       </p>
+    //       </ul>
+    //   </div>`;
     this.secondaryHTML = 
-      `<div id="mapInner" class="card-inner">
-          <ul class="card">
-          <p>JS API V3</p>
-          <p>
-              <label for="center">Center:</label>
-              <input id="center" size='40' placeholder=" Austin, TX ">
-          </p>
-          <p>
-              <label for="zoom">Zoom:</label>
-              <input id="zoom" size='40' maxlength='2'placeholder=" 14 (Accepts 1-20)">
-          </p>
-          <p>
-              <label for="size">Size:</label>
-              <input id="size" size='40' maxlength='9' placeholder=" 400x400 || 2048x2048(PP) ">
-          </p>
-          <p>
-            <label for="scale">Scale:</label>
-            <input id="scale" size='40' maxlength='2' placeholder=" 2 || 4 (default is 1) ">
-          </p>
-          </ul>
-      </div>`;
+        `<div id='mapInner' class='card-inner'>
+          <form name='jsgeo_api_form'>
+            <ul>
+              <label>Search:</label>
+              <input type='text' size='42' class='input' id='search' placeholder='autocomplete | placeID | latlng' required>
+            </ul>
+            <ul id='mapButtonContainer' class='buttonContainer'>
+              <button type='button' class='exitbtn' id='close_dyn' title='Close this map window'>Close</button>
+              <button type='button' class='exitbtn' id='gen_map' title='Reset map selections'>Reset</button>
+            </ul>
+          </form>
+        </div>`;
     return this.secondaryHTML;
   }
 

@@ -12,17 +12,18 @@ export default class AppView extends AppModel {
     this.plxButton.textContent = 'PLX Scripts';
     this.mapsButton = document.getElementById('maps_button');
     this.mapsButton.textContent = 'Dynamic Map Testing';
-    this.dremelButton = document.getElementById('dremel_button');
-    this.dremelButton.textContent = 'Dremel';
-    this.staticMapButton = document.getElementById('static_map_button');
-    this.staticMapButton.textContent = 'Static Map W/S Tester';
+    // this.wsButton = document.getElementById('ws_button');
+    // this.wsButton.textContent = 'WS Tester';
+    // this.dremelButton = document.getElementById('dremel_button');
+    // this.dremelButton.textContent = 'Dremel';
+    // this.staticMapButton = document.getElementById('static_map_button');
+    // this.staticMapButton.textContent = 'Static Map W/S Tester';
     this.firstHalf = document.getElementById('firstHalf');
     this.secondHalf = document.getElementById('secondHalf');
     this.results = document.getElementById('results');
     this.viewsPane = document.getElementById('views_pane');
-    this.wsButton = document.getElementById('ws_button');
-    this.wsButton.textContent = 'WS Tester';
     this.secondHalf.insertBefore(this.viewsPane, this.secondHalf.childNodes[0]);
+    this.resultsPane = document.getElementById('results_pane');
     this.viewportWidth;
     this.viewportHeight
     this.minimumWindow;
@@ -31,9 +32,9 @@ export default class AppView extends AppModel {
   menuClicked() {
     this.menuButtons.classList.toggle('visible');
     this.firstHalf.classList.toggle('visible');
-    if ( this.actionButtons[0]){
-         this.actionButtons[0].focus();
-    }
+    // if ( this.actionButtons[0]){
+    //      this.actionButtons[0].focus();
+    // }
   }
 
   menuItemClicked() {
@@ -72,7 +73,7 @@ export default class AppView extends AppModel {
 
   checkEachViewIndex () {
     if (this.views.iterable_views.length > 0){
-      console.table('Child components of the SPA :: ', this.views.iterable_views);
+      console.log('Child components of the SPA :: ', this.views.iterable_views);
       this.views.iterable_views.forEach(this.setOrder);
     }
   }
