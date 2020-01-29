@@ -80,7 +80,7 @@ body {
 
 #container {
   display: flex;
-  height: calc(100vw * (9/16));
+  /* height: calc(100vw * (9/16)); */
   /* min-width:640;
   min-height:480; */
   /* flex: auto; */

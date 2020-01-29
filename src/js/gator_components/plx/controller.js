@@ -124,7 +124,7 @@ export default class ScriptsController extends ScriptsView {
 
     /** input listener setup **/
     let childnodes = document.getElementsByTagName('input');
-    console.log(childnodes);
+    // console.log(childnodes);
     /** listen for field inputs:
      - if values are typed in
      - listen for click trigger
@@ -132,7 +132,7 @@ export default class ScriptsController extends ScriptsView {
     if(childnodes){
       for(let n=0; n < childnodes.length; n++){
           let inputNode = childnodes[n];
-          if (inputNode){
+          if (inputNode.getAttribute('rel') === 'plxInput'){
             inputNode.addEventListener(
             'input', this.onParameterInput.bind(this), 
             false);
@@ -161,16 +161,18 @@ export default class ScriptsController extends ScriptsView {
     // console.log(childnodes);
     if(childnodes){
       let inputCount = [];
-      for(let n=0; n < childnodes.length; n++){
+      for(let n=0; n < childnodes.length; n++){  
         let node = childnodes[n];
-        // this.inputDetectedOn(node); 
-        //   console.log(node);
-        if (node.value.length > 0){
-          inputCount.push(node);
-          this.inputDetectedOn(node); 
-          console.log(node);
-        }
-      }
+          if (node.getAttribute('rel') === 'plxInput'){
+            // this.inputDetectedOn(node); 
+            //   console.log(node);
+            if (node.value.length > 0){
+              inputCount.push(node);
+              this.inputDetectedOn(node); 
+              console.log(node);
+            }
+          }
+       }
 
       // if( this.inputCount.length >= 4){
       //   this.buildClick();

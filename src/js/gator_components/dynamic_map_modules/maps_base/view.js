@@ -64,7 +64,7 @@ export default class MapView extends MapModel{
 
     mapsReady(){
       this._map = new google.maps.Map(this.mapContainer, {
-        zoom: 14,
+        zoom: 17,
         center: new google.maps.LatLng(this.america.lat, this.america.lng),
         trafficLayer: true,
         mapTypeControlOptions: {
@@ -74,7 +74,7 @@ export default class MapView extends MapModel{
       this.infoWindow = new google.maps.InfoWindow({
           content: null,
         });
-      this.autocomplete = new google.maps.AutocompleteService(this.search, {})
+      this.autocomplete = new google.maps.places.Autocomplete(this.search);
     }
 
     resetPrimaryContainerFor (level) {

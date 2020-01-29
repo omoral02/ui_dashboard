@@ -4,7 +4,7 @@
   flex-wrap:wrap;
   position: relative;
   justify-content: center;
-  height: 100%vh;
+  height: 675px;
   flex-basis: 100%;
   order: 1;
   font-family: 'Roboto','sans-serif';
@@ -15,6 +15,7 @@
   -moz-box-sizing: border-box;
   outline: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  overflow: none;
 }
 
 /* #map{
@@ -42,7 +43,7 @@
   transition: all 0s;
 } */
 
-#map.show{
+/* #map.show{
   display: flex;
   visibility: visible;
   text-align: center;
@@ -226,4 +227,4 @@
   padding: 6px;
 }
 
-
+ */
