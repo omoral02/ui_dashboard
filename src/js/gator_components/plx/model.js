@@ -135,7 +135,7 @@ export default class ScriptsModel {
         paramaterHtml =
         `<div class='parameter'>
                 <label for='${parameter}'>Date From:</label>
-                <input type='text' size='20' maxlength='10' rel='plxInput' class='input' id='${parameter}' placeholder=''required>
+                <input type='text' size='20' maxlength='10' rel='plxInput' class='input' id='${parameter}' placeholder='' required>
         </div>`;
       }
       else if (parameter === 'date_to_YYYY_MM_DD') {
@@ -155,7 +155,7 @@ export default class ScriptsModel {
       paramaterHtml =
         `<div class='parameter'>
               <label for='${parameter}'>ClientID (if applicable):</label>  
-              <input type='text' name='clientID' size='20' rel='plxInput' class='input' id='${parameter}' placeholder='' required>
+              <input type='text' name='clientID' size='20' rel='plxInput' class='input' id='${parameter}' placeholder='' >
         </div>`;
     }
     // if (parameter === 'date_from_YYYY_MM_DD' || parameter === 'date_to_YYYY_MM_DD'){

@@ -13,4 +13,16 @@ export default class Test {
             return result;
         }
     }
+
+    searchTest(field, filter, match, inputType){
+        if ( field.value || field.value && field.value.search(filterRegEx) > -1) {
+            // field.value = field.value.replace(filter, "");
+            let result = {
+                matchesTest: match.test(field.value),
+                input: field,
+                dataType: inputType,
+            };
+            return result;
+        }
+    }
 }

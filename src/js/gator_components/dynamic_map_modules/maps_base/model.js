@@ -2,7 +2,14 @@ export default class MapModel {
   constructor(){
     this.america = {
       lat:30.2672,
-      lng:-97.7431};
+      lng:-97.7431
+    };
+    this.markerBank = {
+      markers: [],
+      geocodes: [],
+      ids: []
+    };
+    this.uniqueId = 0;
   }
 
   getMapParentHTML(){
@@ -38,18 +45,37 @@ export default class MapModel {
     //   </div>`;
     this.secondaryHTML = 
         `<div id='mapInner' class='card-inner'>
-          <form name='jsgeo_api_form'>
+          <form name='jsgeo_api_form' id='js_form'>
             <ul>
               <label>Search:</label>
-              <input type='text' size='42' class='input' id='search' placeholder='autocomplete | placeID | latlng' required>
+              <input type='text' size='42' class='input' id='search' placeholder='autocomplete | placeID | latlng' autofocus required>
             </ul>
             <ul id='mapButtonContainer' class='buttonContainer'>
               <button type='button' class='exitbtn' id='close_dyn' title='Close this map window'>Close</button>
-              <button type='button' class='exitbtn' id='gen_map' title='Reset map selections'>Reset</button>
+              <button type='button' class='exitbtn' id='res_map' title='Reset map selections'>Reset</button>
+              <button type='button' class='exitbtn' id='submit_search' title='Search entry'>Search</button>
             </ul>
           </form>
         </div>`;
+
+    // this.secondaryHTML = 
+    //     `<div id='mapInner' class='card-inner'>
+    //       <form name='jsgeo_api_form' id='js_form'>
+    //         <ul>
+    //           <label>Search:</label>
+    //           <input type='text' size='42' class='input' id='search' placeholder='autocomplete | placeID' autofocus required>
+    //         </ul>
+    //         <ul id='mapButtonContainer' class='buttonContainer'>
+    //           <button type='button' class='exitbtn' id='close_dyn' title='Close this map window'>Close</button>
+    //           <button type='button' class='exitbtn' id='res_map' title='Reset map selections'>Reset</button>
+    //         </ul>
+    //       </form>
+    //     </div>`;
     return this.secondaryHTML;
+  }
+
+  setMarker(marker){
+    this.markerBank.markers.push(marker);
   }
 
 }

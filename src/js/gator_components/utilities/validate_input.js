@@ -6,7 +6,7 @@ export default class Validate extends Test {
     }
 
     is_client_id(input) {
-        console.log(input, 'Input value:: ', input.value);
+        console.log(input, 'Input value:: ', field.value);
         let field = input;
         let filterRegEx = /[^a-z-0-9]{1,25}/gi;
         let matchRegEx = /[a-z]{3}-[a-z0-9]{2,25}/gi;
@@ -17,8 +17,8 @@ export default class Validate extends Test {
     }
 
     is_case_number(input) {
-        console.log(input, 'Input value:: ', input.value);
         let field = input;
+        console.log(field, 'Input value:: ', field.value);
         let filterRegEx = /[^0-9]{1,8}/g;
         let matchRegEx = /[0-9]{6,8}/g;
         let test = {
@@ -28,8 +28,8 @@ export default class Validate extends Test {
     }
 
     is_project_number(input) {
-        console.log(input, 'Input value:: ', input.value);
         let field = input;
+        console.log(field, 'Input value:: ', field.value);
         let filterRegEx = /[^0-9]{1,12}/g;
         let matchRegEx = /[0-9]{8,12}/g;
         let test = {
@@ -39,8 +39,8 @@ export default class Validate extends Test {
     }
 
     is_date_from_YYYY_MM_DD(input) {
-        console.log(input, 'Input value:: ', input.value);
         let field = input;
+        console.log(field, 'Input value:: ', field.value);
         let filterRegEx = /[^-0-9]{1,10}/g;
         let matchRegEx = /[0-9]{4}-[0-9]{2}-[0-9]{2}/g;
         let test = {
@@ -50,14 +50,51 @@ export default class Validate extends Test {
     }
 
     is_date_to_YYYY_MM_DD(input) {
-        console.log(input, 'Input value:: ', input.value);
         let field = input;
+        console.log(field, 'Input value:: ', field.value);
         let filterRegEx = /[^-0-9]{1,10}/g;
         let matchRegEx = /[0-9]{4}-[0-9]{2}-[0-9]{2}/g;
         let test = {
             result: super.test(field, filterRegEx, matchRegEx)
         };      
         return test.result;
+    }
+
+    is_search(input){
+        let field = input;
+        console.log(field, 'Input value:: ', field.value);
+        let matchOpenInputRegEx = /[^a-z,-_0-9]+$[^\S+][^a-z,-_0-9]+$/gi;
+        let matchPlaceIdRegEx = /[^Ch]+$/gi;
+        let matchLatLngRegEx = /[0-9.]+$[0-9]+$,[0-9.]+$[0-9]+$/g;
+        let filterRegEx = /[^0-9-.a-z]+$/gi;
+        // let elseFilterRegEx = /[^a-z,-_0-9]+$[^\S+][^a-z,-_0-9]/gi;
+        /**
+         * Does input have what the filter is looking for?
+         * if not, treat it as a place id or lat lng
+         * 
+         */
+            if (field.value.search(matchPlaceIdRegEx) > 1 && field.value.search(matchPlaceIdRegEx) < 3 ){
+                console.log('placeIdmatch');  
+                let test = {
+                    result: super.searchTest(field, filterRegEx, matchPlaceIdRegEx, 'placeId')
+                };    
+                return test.result;
+            } else if (field.value.search(matchLatLngRegEx) > 1){
+                console.log('latlngmatch');  
+                let test = {
+                    result: super.searchTest(field, filterRegEx, matchLatLngRegEx, 'latlng')
+                };    
+                return test.result;
+            } else {
+                console.log('search query');
+                if(field.value.search(filterRegEx)){
+                    console.log('elsematch');   
+                    let test = {
+                        result: super.searchTest(field, filterRegEx, matchOpenInputRegEx, 'text')
+                    };   
+                    return test.result;
+                }
+            }
     }
 }
 
@@ -67,7 +104,7 @@ export default class Validate extends Test {
     //     let limit = `{${min}},${max}}`;
     //     let filterRegEx = `/[^0-9]${limit}+$/g;`
     //     let matchRegEx = `/[0-9]${limit}+$/g`;
-    //     console.log(input, input.value);
+    //     console.log(input, field.value);
     //     let field = input;
     //     let result = {
     //         isFiltered: matchRegEx.test(field.value),
@@ -89,7 +126,7 @@ export default class Validate extends Test {
     //     let max = maxLimit;
     //     let limit = `{${min}},${max}}`;
     //     let filterRegEx = `/[^a-z0-9]${limit}/gi`;
-    //     console.log(input, input.value);
+    //     console.log(input, field.value);
     //     let field = input;
     //     let result = {
     //         isFiltered: matchRegEx.test(field.value),

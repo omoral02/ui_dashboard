@@ -83,7 +83,7 @@ export default class ScriptsController extends ScriptsView {
       super.checkActiveOn(super.getStateCurrentlySelectedScript());
     } else if ( value === 'all' ) {
       this.secondaryParentContainsShowRemove('all');
-    } else if ( value == 'insert' ) {
+    } else if ( value === 'insert' ) {
         super.insertParametersContainer();
         super.renderParams(super.getParameterNames(super.getStateCurrentlySelectedScriptIndex()));
         super.matchParamsTo(this.placeholders);

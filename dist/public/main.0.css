@@ -1,10 +1,11 @@
 @import url(https://fonts.googleapis.com/css?family=Oxygen&display=swap);
 
-/* #map {
+#map {
   display: flex;
+  flex-wrap:wrap;
   position: relative;
   justify-content: center;
-  height: 100%;
+  height: 675px;
   flex-basis: 100%;
   order: 1;
   font-family: 'Roboto','sans-serif';
@@ -15,7 +16,8 @@
   -moz-box-sizing: border-box;
   outline: none;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-} */
+  overflow: none;
+}
 
 /* #map{
   display: none;
@@ -42,7 +44,7 @@
   transition: all 0s;
 } */
 
-#map.show{
+/* #map.show{
   display: flex;
   visibility: visible;
   text-align: center;
@@ -226,7 +228,7 @@
   padding: 6px;
 }
 
-
+ */
 
 * {
   margin: 0;
@@ -308,7 +310,7 @@ body {
 
 #container {
   display: flex;
-  height: calc(100vw * (9/16));
+  /* height: calc(100vw * (9/16)); */
   /* min-width:640;
   min-height:480; */
   /* flex: auto; */
@@ -635,12 +637,12 @@ header #right_menu {
 
 #secondHalf {
   display: flex;
-  /* flex: auto; */
+  flex: auto;
   flex-wrap: wrap; 
   flex-direction: row;
   position: relative;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
   flex-basis: 100%;
   order: 2;
   padding: .5em;
@@ -693,15 +695,15 @@ views_pane & card/component containers
 
 #views_pane {
   display: flex;
-  /* flex: auto; */
+  flex: auto;
   flex-wrap: wrap;
   flex-basis: 100%;
   position: relative;
   height: auto;
-  flex-direction: row;
+  flex-direction: row !important;
   align-items: flex-start;
   justify-content: center;
-  order: 3;
+  order: 1;
   /* overflow-y: auto !important;
   overflow-x: auto !important; */
   margin: .5em;
@@ -1127,20 +1129,20 @@ p {
   text-align: center;
 } */
 
-/*
 
-#results {
+
+#results_pane {
   display: flex;
-  flex: auto;
-  flex-basis: 2%;
-  height: auto;
-  flex-direction: row;
+  flex-wrap: wrap;
+  flex-basis: 100%;
+  height: 100%vh;
+  flex-direction: row !important;
   justify-content: center;
   overflow: wrap;
   order: 4;
 } 
 
-/* Footer */
+/* Footer2*/
 
 footer {
   display: flex;
