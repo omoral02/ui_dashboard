@@ -90,7 +90,7 @@ export default class MapView extends MapModel{
 
       google.maps.event.addListener(this._map,'click', (e)=>{
           let marker = new google.maps.Marker({
-            pisition: e.latLng,
+            place: {location: e.latLng},
             map: this._map,
             title: 'Marker Click',
           });

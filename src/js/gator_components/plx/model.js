@@ -298,6 +298,19 @@ export default class ScriptsModel {
                   },
           },
           {
+            title: 'Dremel - Historic Maps APIs: Daily client and web service requests',
+            id: 'script_5e._44a39a_0000_24b9_a898_f4f5e8077214',
+            parameters: {
+              'project_number': '',
+              'client_id': '',
+              // 'url': '',
+              // 'api_key': '',
+              // 'domain': '',
+              'date_from_YYYY_MM_DD': '',
+              'date_to_YYYY_MM_DD': '',
+            },
+          },
+          {
             title: 'GeoStats Domain & Web-services w/ IP obfuscation',
             id: 'script_5d._5ef884_0000_2398_b5bf_089e082dbdd4',
             parameters:{
