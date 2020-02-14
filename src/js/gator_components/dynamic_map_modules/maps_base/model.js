@@ -78,4 +78,16 @@ export default class MapModel {
     this.markerBank.markers.push(marker);
   }
 
+  getMarkers (){
+    this.markerBank.markers.forEach((marker)=>{
+      console.log(marker.id);
+    });
+    return this.markerBank.markers;
+  }
+
+  clearMarkers (){
+    this.uniqueId = 0;
+    this.markerBank.markers = [];
+  }
+
 }

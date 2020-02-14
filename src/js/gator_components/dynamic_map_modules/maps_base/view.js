@@ -90,14 +90,16 @@ export default class MapView extends MapModel{
 
       google.maps.event.addListener(this._map,'click', (e)=>{
           let marker = new google.maps.Marker({
-            place: {location: e.latLng},
+            position: e.latLng,
             map: this._map,
             title: 'Marker Click',
           });
           this._map.panTo(e.latLng);
+          this._map.setZoom(12);
           marker.id = this.uniqueId++
           marker.setMap(this._map);
           super.setMarker(marker);
+          console.log(super.getMarkers());
           });
     }
 

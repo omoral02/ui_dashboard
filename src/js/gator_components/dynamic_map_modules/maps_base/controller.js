@@ -85,9 +85,9 @@ export default class MapController extends MapView {
     //   'submit', this.searchEntrySubmission,
     //   false);
 
-    // this.reset.addEventListener(
-    //   'click',  this.reset, 
-    //   false);
+    this.reset.addEventListener(
+      'click',  this.mapReset.bind(this), 
+      false);
 
     this.searchSubmit.addEventListener(
       'click', this.searchEntrySubmission.bind(this),
@@ -142,10 +142,10 @@ export default class MapController extends MapView {
     });
   }
 
-  reset (){
+  mapReset (){
     this.markerBank.markers.forEach((marker)=>{
       marker.setMap(null);
-      this.markerBank.markers.pop(marker);
+      super.clearMarkers();
     })
   }
 

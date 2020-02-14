@@ -10,8 +10,8 @@ export default class AppView extends AppModel {
     this.menuButtons = document.getElementById('menu_options');
     this.plxButton = document.getElementById('plx_button');
     this.plxButton.textContent = 'PLX Scripts';
-    // this.mapsButton = document.getElementById('maps_button');
-    // this.mapsButton.textContent = 'Dynamic Map Testing';
+    this.mapsButton = document.getElementById('maps_button');
+    this.mapsButton.textContent = 'Dynamic Map Testing';
     // this.wsButton = document.getElementById('ws_button');
     // this.wsButton.textContent = 'WS Tester';
     // this.dremelButton = document.getElementById('dremel_button');

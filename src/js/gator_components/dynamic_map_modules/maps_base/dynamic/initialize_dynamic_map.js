@@ -163,7 +163,7 @@ export default class InitializeMap {
           const autocompleteHandler = new AutocompleteDirectionsHandler(_map, context.map_ctx_globals);
           autocompleteHandler.initListeners();
     }
-    directionsHandler(_map, context);
+      directionsHandler(_map, context);
 
   }
 

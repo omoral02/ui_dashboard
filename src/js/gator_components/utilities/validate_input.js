@@ -6,8 +6,8 @@ export default class Validate extends Test {
     }
 
     is_client_id(input) {
-        console.log(input, 'Input value:: ', field.value);
         let field = input;
+        console.log(input, 'Input value:: ', field.value);
         let filterRegEx = /[^a-z-0-9]{1,25}/gi;
         let matchRegEx = /[a-z]{3}-[a-z0-9]{2,25}/gi;
         let test = {
@@ -65,7 +65,7 @@ export default class Validate extends Test {
         console.log(field, 'Input value:: ', field.value);
         let matchOpenInputRegEx = /[^a-z,-_0-9]+$[^\S+][^a-z,-_0-9]+$/gi;
         let matchPlaceIdRegEx = /[^Ch]+$/gi;
-        let matchLatLngRegEx = /[0-9.]+$[0-9]+$,[0-9.]+$[0-9]+$/g;
+        let matchLatLngRegEx = /[0-9]+$.[0-9]+$,[0-9]+$.[0-9]+$/g;
         let filterRegEx = /[^0-9-.a-z]+$/gi;
         // let elseFilterRegEx = /[^a-z,-_0-9]+$[^\S+][^a-z,-_0-9]/gi;
         /**
@@ -73,13 +73,13 @@ export default class Validate extends Test {
          * if not, treat it as a place id or lat lng
          * 
          */
-            if (field.value.search(matchPlaceIdRegEx) > 1 && field.value.search(matchPlaceIdRegEx) < 3 ){
+            if (field.value.search(matchPlaceIdRegEx) > 1 && field.value.search(matchPlaceIdRegEx) < 3 && field.value.length > 26 ){
                 console.log('placeIdmatch');  
                 let test = {
                     result: super.searchTest(field, filterRegEx, matchPlaceIdRegEx, 'placeId')
                 };    
                 return test.result;
-            } else if (field.value.search(matchLatLngRegEx) > 1){
+            } else if (field.value.search(matchLatLngRegEx) > -1){
                 console.log('latlngmatch');  
                 let test = {
                     result: super.searchTest(field, filterRegEx, matchLatLngRegEx, 'latlng')
