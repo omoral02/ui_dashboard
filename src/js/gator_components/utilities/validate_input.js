@@ -65,7 +65,8 @@ export default class Validate extends Test {
         console.log(field, 'Input value:: ', field.value);
         let matchOpenInputRegEx = /[0-9-._,a-z]+$/gi;
         let matchPlaceIdRegEx = /[^Ch]/gi;
-        let matchLatLngRegEx = /(?:-)?\d{2,5}(?:[.]?\d{2,5}\s?),(?:\s?)\d{2,5}(?:[.]?\d{2,5}?)/g;
+        let matchLatLngRegEx = /(?:-)?\d{1,8}(?:[.]?\d{1,8}\s?),(?:\s?)(?:-)?\d{1,8}(?:[.]?\d{1,8}?)/g;
+        // let copy_matchLatLngRegEx = /(?:-)?[0-9]+$(?:[.]?[0-9]+$]\s?),(?:\s-)?[0-9]+$](?:[.]?[0-9]+$]?)/g;
         let filterRegEx = /[^0-9-.,a-z\s]+$/gi;
         /**
          * Does input have what the filter is looking for?
