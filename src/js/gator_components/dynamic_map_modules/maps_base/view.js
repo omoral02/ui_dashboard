@@ -41,7 +41,7 @@ export default class MapView extends MapModel{
       // console.log(this.iframe.src);
       // this.secondaryParent.appendChild(this.iframe);
       this.primaryParent.appendChild(this.secondaryParent);
-      this.jsForm = document.getElementById('js_form');
+      this.jsForm = document.getElementById('jsgeo_api_form');
       this.searchSubmit = document.getElementById('submit_search');
     }
 
@@ -71,13 +71,14 @@ export default class MapView extends MapModel{
 
     mapsReady(){
       this._map = new google.maps.Map(this.mapContainer, {
-        zoom: 17,
+        zoom: 14,
         center: new google.maps.LatLng(this.america.lat, this.america.lng),
         trafficLayer: true,
         mapTypeControlOptions: {
                 mapTypeIds: ['roadmap', 'satellite', 'hybrid', 'terrain',]
               },
-        }); 
+        });
+      // this._map.controls[google.maps.ControlPosition.TOP_LEFT].push(this.primaryParent);
       this.infoWindow = new google.maps.InfoWindow({
           content: null,
         });
@@ -95,7 +96,7 @@ export default class MapView extends MapModel{
             title: 'Marker Click',
           });
           this._map.panTo(e.latLng);
-          this._map.setZoom(12);
+          this._map.setZoom(14);
           marker.id = this.uniqueId++
           marker.setMap(this._map);
           super.setMarker(marker);
@@ -108,17 +109,48 @@ export default class MapView extends MapModel{
       let id = target.id;
       if (id === 'search'){
         if (result.dataType === 'placeId'){
-          console.log('PlaceId Value:: ', target.value);
-          this.geocoder.geocode({'placeId':target.value},(results, status)=>{
-            if (status == 'OK') {
+          console.log('PlaceId Value:: ', result.placeId);
+          this.geocoder.geocode({'placeId':result.placeId},(results, status)=>{
+            if (status === 'OK') {
               console.log(results);
+              this._map.fitBounds(results[0].geometry.viewport);
               this._map.panTo(results[0].geometry.location);
+              let marker = new google.maps.Marker({
+                position: results[0].geometry.location,
+                map: this._map,
+                title: 'Place ID client-side geocode geometry location',
+              });
+              this._map.setZoom(14);
+              marker.id = this.uniqueId++
+              marker.setMap(this._map);
+              super.setMarker(marker);
+              console.log(super.getMarkers());
             }
           })
+        } else if (result.dataType === 'latlng'){
+          console.log('LatLng:: ', result.latLng);
+          this.geocoder.geocode({'location': new google.maps.LatLng(result.latLng[0], result.latLng[1])},(results, status)=>{
+            if (status === 'OK') {
+              console.log(results);
+              this._map.fitBounds(results[0].geometry.viewport);
+              this._map.panTo(results[0].geometry.location);
+              let marker = new google.maps.Marker({
+                position: results[0].geometry.location,
+                map: this._map,
+                title: 'LatLng client-side geocode geometry location',
+              });
+              this._map.setZoom(14);
+              marker.id = this.uniqueId++
+              marker.setMap(this._map);
+              super.setMarker(marker);
+              console.log(super.getMarkers());
+            }
+          })
+          
         } else if (result.dataType === 'text') {
           console.log('Address Value:: ', target.value);
-          this.geocoder.geocode({'placeId':target.value},(results, status)=>{
-            if (status == 'OK') {
+          this.geocoder.geocode({'address':target.value},(results, status)=>{
+            if (status === 'OK') {
               console.log(results);
               this._map.panTo(results[0].geometry.location);
             }

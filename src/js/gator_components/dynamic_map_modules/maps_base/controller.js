@@ -59,7 +59,7 @@ export default class MapController extends MapView {
            return appendChild.call(this, element);
        } else if (isGMapAccessScript){
             console.log('Tokenized: ', element.src);
-            return appendChild.call(this, element);
+           return appendChild.call(this, element);
        }
    
        // Extract the callback to call it with success data
@@ -89,64 +89,84 @@ export default class MapController extends MapView {
       'click',  this.mapReset.bind(this), 
       false);
 
-    this.searchSubmit.addEventListener(
-      'click', this.searchEntrySubmission.bind(this),
-      false);
+    // this.searchSubmit.addEventListener(
+    //   'click', this.searchEntrySubmission.bind(this),
+    //   false);
     
     this.search.addEventListener(
       'input', this.onParameterInput.bind(this),
        false);
 
     this.autocomplete.addListener('place_changed', ()=>{
-      let place = this.autocomplete.getPlace();
-      console.log(place);
-      if (place && place.address_components){
-        if (place.geometry.viewport) {
-          this._map.fitBounds(place.geometry.viewport);
-          console.log('Has ViewPort Bounds');
-        } else {
-          console.log('No ViewPort Bounds');
-          this._map.setCenter(place.geometry.location);
-          this._map.setZoom(17);
+        let place = this.autocomplete.getPlace();
+        console.log('Get Place call ::', place.place_id, place);
+        if (place && place.address_components){
+          if (place.geometry.viewport) {
+            this._map.fitBounds(place.geometry.viewport);
+            console.log('Has ViewPort Bounds');
+            // restTest(place, this.key);
+            newMarker(place, this._map, this);
+          } else {
+            console.log('No ViewPort Bounds');
+            this._map.setCenter(place.geometry.location);
+            this._map.setZoom(14);
+          }
+          // this.searchEntrySubmission();
         }
-      }
 
+        function newMarker (place, map, ctx){
+          let marker = new google.maps.Marker({
+            position: place.geometry.location,
+            map: map,
+            title: 'Place ID client-side geocode geometry location',
+          });
+          // map.setZoom(8);
+          marker.id = ctx.uniqueId++
+          marker.setMap(map);
+          ctx.setMarker(marker);
+          console.log(ctx.getMarkers());
+        }
 
-      
-      // if (place.place_id){
-      //   let placeId = place.place_id;
-      //   let key = this.key;
-      //   console.log(placeId);
-      //   console.log(key);
-      //   async function getWsResponse(){
-      //     const response = await fetch('https://rest-proxy.appspot.com',{
-      //       method: 'POST',
-      //       headers: {
-      //         'Content-Type': 'application/json'
-      //       },
-      //       mode: 'no-cors',
-      //       body: {
-      //         "url":`https://maps.googleapis.com/maps/api/geocode/json?place_id=${placeId}&key=${key}`},
-      //     });
-      //   }
-      //   getWsResponse()
-      //     .then((data)=>{
-      //       const resultJson = document.createElement('div');
-      //       resultJson.innerHTML = data;
-      //       this.resultsPane.appendChild(resultJson);
+        // function restTest (place, _key){
+        //   if (place.place_id){
+        //     let placeId = place.place_id;
+        //     let key = _key;
+        //     console.log(placeId);
+        //     console.log(key);
+        //     async function getWsResponse(){
+        //       console.log('Async invoked');
+        //       const response = await fetch('https://rest-proxy.appspot.com',{
+        //         method: 'PUT',
+        //         headers: {
+        //           'Content-Type': 'application/json'
+        //         },
+        //         // mode: 'no-cors',
+        //         body: {
+        //           "url":`https://maps.googleapis.com/maps/api/geocode/json?place_id=${placeId}&key=${key}`},
+        //       });
+        //     }
+        //     getWsResponse()
+        //       .then((data)=>{
+        //         const resultJson = document.createElement('div');
+        //         resultJson.innerHTML = data;
+        //         this.resultsPane.appendChild(resultJson);
 
-      //       console.log(data)
-      //     });
-      // }
-
+        //         console.log(data)
+        //       });
+        //   }
+        // };
     });
   }
 
   mapReset (){
+    this.search.value = '';
     this.markerBank.markers.forEach((marker)=>{
       marker.setMap(null);
       super.clearMarkers();
-    })
+      // field.value = field.value.replace(filter, "");
+    });
+    this._map.panTo(new google.maps.LatLng(this.america.lat, this.america.lng));
+    this._map.setZoom(10);
   }
 
   searchEntrySubmission (){
@@ -169,14 +189,14 @@ export default class MapController extends MapView {
   validateInputOn (target) {
     let inputField = target;
         // use eval to dynamically invoke regEx functions that filter input
-        // based on target id as the ids are part of the function names.
+        // based on target's id as the ids are part of the function names.
         // from `validate_input.js`.
-        // ex: `this.validator.is_project_number(value, validatorFunction)` < validate project number
-        // ex: `this.validator.is_case_number(value, validatorFunction)` < validate case number
+        // ex: `this.validator.is_project_number(HTMLtarget)` < validate project number
+        // ex: `this.validator.is_client_id(HTMLtarget)` < validate case number
         let id = inputField.id;
         console.log('Input to filter :: ' + id);
         let filteredResult = eval('this.validator.is_'+ id)(inputField);
-        console.log('Does input match filter? :: ', filteredResult.matchesTest);
+        console.log('Does input match test? :: ', filteredResult.matchesTest);
         this.validateOutputOn(filteredResult);
   }
 
@@ -193,16 +213,16 @@ export default class MapController extends MapView {
               // add the property `validationcheck.valid`
               // to be either true or false
               // super.setParameterValue(input.id, input.value);
-              if ( validationCheck.matchesFilter){
+              if ( validationCheck.matchesTest){
                 Object.defineProperty(validationCheck, 'valid', {value:true, writable: true});
                 // this.inputCount.push(validationCheck);
                 this.final(validationCheck);
               } 
-              // else {
-              //   Object.defineProperty(validationCheck, 'valid', {value:false, writable: true});
-              //   // this.inputCount.push(validationCheck);
-              //   this.final(validationCheck);
-            //  }    
+              else {
+                Object.defineProperty(validationCheck, 'valid', {value:false, writable: true});
+                // this.inputCount.push(validationCheck);
+                this.final(validationCheck);
+             }    
       }
   }
 
@@ -211,12 +231,12 @@ export default class MapController extends MapView {
       let field = final.input;
       let status = final.valid;
       if ( final && status == true ) {
-        console.log('This', `${field.id}`, 'meets the minimum requirements'); 
+        console.log('This', `${field.id}`, 'meets the minimum requirements for a', `${final.dataType}`); 
         super.isValid(final);
         return true;
       } else if ( final && status == false ) {
         // super.isInvalid(field, status);
-        console.log('This does not meet the minimum requirements for a', `${field.id}`);
+        console.log('This does not meet the minimum requirements for a', `${final.dataType}`);
         return false;
       }
         return false;

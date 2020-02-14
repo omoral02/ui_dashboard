@@ -116,7 +116,7 @@ export default class ScriptsModel {
       `<div id='card-inner' class='card-inner'>
           <h2 class='card-header'>Parameters</h2>
           <div id='plxParametersForm' class='parametersForm'>
-            <form id="plxForm" name="plx_form">
+            <form id="plxForm" onsubmit="return false;" name="plx_form">
               <ul id='scriptButtonContainer' class='buttonContainer'>
                 <button type='button' class='exitbtn' id='close_plx' title='Close this PLX Window.'></button>
                 <button type='button' class='exitbtn' id='reset_plx' title='Reset this script selection.'></button>

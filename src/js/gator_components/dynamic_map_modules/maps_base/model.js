@@ -43,34 +43,34 @@ export default class MapModel {
     //       </p>
     //       </ul>
     //   </div>`;
-    this.secondaryHTML = 
-        `<div id='mapInner' class='card-inner'>
-          <form name='jsgeo_api_form' id='js_form'>
-            <ul>
-              <label>Search:</label>
-              <input type='text' size='42' class='input' id='search' placeholder='autocomplete | placeID | latlng' autofocus required>
-            </ul>
-            <ul id='mapButtonContainer' class='buttonContainer'>
-              <button type='button' class='exitbtn' id='close_dyn' title='Close this map window'>Close</button>
-              <button type='button' class='exitbtn' id='res_map' title='Reset map selections'>Reset</button>
-              <button type='button' class='exitbtn' id='submit_search' title='Search entry'>Search</button>
-            </ul>
-          </form>
-        </div>`;
-
     // this.secondaryHTML = 
     //     `<div id='mapInner' class='card-inner'>
     //       <form name='jsgeo_api_form' id='js_form'>
     //         <ul>
     //           <label>Search:</label>
-    //           <input type='text' size='42' class='input' id='search' placeholder='autocomplete | placeID' autofocus required>
+    //           <input type='text' size='42' class='input' id='search' placeholder='autocomplete | placeID ' autofocus required>
     //         </ul>
     //         <ul id='mapButtonContainer' class='buttonContainer'>
     //           <button type='button' class='exitbtn' id='close_dyn' title='Close this map window'>Close</button>
     //           <button type='button' class='exitbtn' id='res_map' title='Reset map selections'>Reset</button>
+    //           <button type='button' class='exitbtn' id='submit_search' title='Search entry'>Search</button>
     //         </ul>
     //       </form>
     //     </div>`;
+
+        this.secondaryHTML = 
+        `<div id='mapInner' class='card-inner'>
+          <form name='jsgeo_api_form' onsubmit="return false;" id='jsgeo_api_form'>
+            <div>
+              <label for="search">Search:</label>
+              <input type='text' name="searchField" size='48' class='input' id='search' placeholder='autocomplete | placeID | latLng ' autocomplete="on" required>
+            </div>
+            <ul id='mapButtonContainer' class='buttonContainer'>
+              <button type='button' class='exitbtn' id='close_dyn' title='Close this map window'>Close</button>
+              <button type='button' class='exitbtn' id='res_map' title='Reset map selections'>Reset</button>
+            </ul>
+          </form>
+        </div>`;
     return this.secondaryHTML;
   }
 

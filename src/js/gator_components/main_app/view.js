@@ -32,9 +32,9 @@ export default class AppView extends AppModel {
   menuClicked() {
     this.menuButtons.classList.toggle('visible');
     this.firstHalf.classList.toggle('visible');
-    // if ( this.actionButtons[0]){
-    //      this.actionButtons[0].focus();
-    // }
+    if ( this.actionButtons[0]){
+         this.actionButtons[0].focus();
+    }
   }
 
   menuItemClicked() {

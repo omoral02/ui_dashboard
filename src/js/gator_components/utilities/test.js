@@ -16,13 +16,22 @@ export default class Test {
 
     searchTest(field, filter, match, inputType){
         if ( field.value || field.value && field.value.search(filterRegEx) > -1) {
-            // field.value = field.value.replace(filter, "");
+            field.value = field.value.replace(filter, "");
             let result = {
                 matchesTest: match.test(field.value),
                 input: field,
                 dataType: inputType,
             };
-            return result;
+            if (inputType === 'latlng'){
+                Object.defineProperty(result, 'latLng', {value: field.value.split(','), writable: true });
+                return result;
+            } else if (inputType === 'placeId'){
+                Object.defineProperty(result, 'placeId', {value: field.value.replace(/\s/, ""), writable: true });
+                return result;
+            } else {
+                Object.defineProperty(result, 'address', {value: field.value, writable: true });
+                return result;
+            }
         }
     }
 }

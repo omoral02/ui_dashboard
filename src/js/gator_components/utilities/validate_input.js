@@ -63,38 +63,73 @@ export default class Validate extends Test {
     is_search(input){
         let field = input;
         console.log(field, 'Input value:: ', field.value);
-        let matchOpenInputRegEx = /[^a-z,-_0-9]+$[^\S+][^a-z,-_0-9]+$/gi;
-        let matchPlaceIdRegEx = /[^Ch]+$/gi;
-        let matchLatLngRegEx = /[0-9]+$.[0-9]+$,[0-9]+$.[0-9]+$/g;
-        let filterRegEx = /[^0-9-.a-z]+$/gi;
-        // let elseFilterRegEx = /[^a-z,-_0-9]+$[^\S+][^a-z,-_0-9]/gi;
+        let matchOpenInputRegEx = /[0-9-._,a-z]+$/gi;
+        let matchPlaceIdRegEx = /[^Ch]/gi;
+        let matchLatLngRegEx = /(?:-)?\d{2,5}(?:[.]?\d{2,5}\s?),(?:\s?)\d{2,5}(?:[.]?\d{2,5}?)/g;
+        let filterRegEx = /[^0-9-.,a-z\s]+$/gi;
         /**
          * Does input have what the filter is looking for?
          * if not, treat it as a place id or lat lng
          * 
          */
-            if (field.value.search(matchPlaceIdRegEx) > 1 && field.value.search(matchPlaceIdRegEx) < 3 && field.value.length > 26 ){
-                console.log('placeIdmatch');  
-                let test = {
-                    result: super.searchTest(field, filterRegEx, matchPlaceIdRegEx, 'placeId')
-                };    
-                return test.result;
-            } else if (field.value.search(matchLatLngRegEx) > -1){
-                console.log('latlngmatch');  
+        let lastCharacter = field.value.length -1;
+        if ( lastCharacter == /\s/){
+            console.log('whitespace at the end of input');
+            field.value[lastCharacter] = '';
+        }
+        if (field.value.search(matchPlaceIdRegEx) > -1 && matchOpenInputRegEx.test(field.value) && field.value.length > 24 ){
+            console.log('placeIdmatch');
+            let filteredField = /\s/;
+            field.value = field.value.replace(filteredField, "");  
+            let test = {
+                result: super.searchTest(field, filterRegEx, matchPlaceIdRegEx, 'placeId')
+            };    
+            return test.result;
+        } else if (field.value.search(matchLatLngRegEx) > -1){
+            console.log('latlngmatch');
+            let latLng;
+            field.value = field.value.replace(/\s/, "");
+            let _split = field.value.split(',');
+            console.log(_split);
+            _split[2] = {
+                lat: null,
+                lng: null,
+            };
+            if (_split.length >= 2) {
+                console.log('2 coordinate values received!');
+                let lat = _split[0];
+                let lng = _split[1];
+                let latLng = lat + ',' + lng;
+                console.log(latLng);
                 let test = {
                     result: super.searchTest(field, filterRegEx, matchLatLngRegEx, 'latlng')
                 };    
                 return test.result;
+                // if ( Math.abs(lat) <= 90 && Math.abs(lng) <= 180 && _split[2].lat == true && _split[2].lng == true ) {
+                //     const latLng = lat + ',' + lng;
+                //     let test = {
+                //         result: super.searchTest(latLng, filterRegEx, matchLatLngRegEx, 'latlng')
+                //     };    
+                //     return test.result;
+                // }
+
             } else {
-                console.log('search query');
-                if(field.value.search(filterRegEx)){
-                    console.log('elsematch');   
-                    let test = {
-                        result: super.searchTest(field, filterRegEx, matchOpenInputRegEx, 'text')
-                    };   
-                    return test.result;
-                }
+                console.log('split less than 2! Please ensure you pass-in a comma-delimited coordinates...');
+                // let test = {
+                //     result: super.searchTest(field, filterRegEx, matchLatLngRegEx, 'latlng')
+                // };    
+                // return test.result;
             }
+        } else {
+            console.log('search query');
+            if(field.value.search(filterRegEx)){
+                console.log('elsematch');   
+                let test = {
+                    result: super.searchTest(field, filterRegEx, matchOpenInputRegEx, 'text')
+                };   
+                return test.result;
+            }
+        }
     }
 }
 

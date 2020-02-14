@@ -60,7 +60,7 @@ export default class AppController extends AppView {
   }
 
   controllerIsNowlistening() {
-    window.addEventListener('resize', this.windowEvent, false);
+    // window.addEventListener('resize', this.windowEvent, false);
     this.actionButtons.forEach( (button) => {
       if (button.id === 'menu_button'){
         button.focus();
