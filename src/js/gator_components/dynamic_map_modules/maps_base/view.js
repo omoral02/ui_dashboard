@@ -153,6 +153,8 @@ export default class MapView extends MapModel{
             if (status === 'OK') {
               console.log(results);
               this._map.panTo(results[0].geometry.location);
+            } else {
+              console.log(status);
             }
           })
         }

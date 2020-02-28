@@ -23,10 +23,10 @@ export default class Test {
                 dataType: inputType,
             };
             if (inputType === 'latlng'){
-                Object.defineProperty(result, 'latLng', {value: field.value.split(','), writable: true });
+                Object.defineProperty(result, 'latLng', {value: field.value, writable: true });
                 return result;
             } else if (inputType === 'placeId'){
-                Object.defineProperty(result, 'placeId', {value: field.value.replace(/\s/, ""), writable: true });
+                Object.defineProperty(result, 'placeId', {value: field.value, writable: true });
                 return result;
             } else {
                 Object.defineProperty(result, 'address', {value: field.value, writable: true });

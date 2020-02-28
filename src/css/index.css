@@ -246,7 +246,7 @@ header #right_menu {
   flex: flex-shrink;
   position: relative;
   overflow-wrap: wrap;
-  background: url('title.png');
+  background: url('../images/title.png');
   background-repeat: repeat;
   background-position: center;
   background-size: cover;
@@ -267,7 +267,7 @@ header #right_menu {
   flex: flex-shrink;
   position: relative;
   overflow-wrap: wrap;
-  background: url('lockup.png');
+  background: url('../images/maps_lockup_horiz.png');
   background-repeat: repeat;
   background-position: center;
   background-size: cover;

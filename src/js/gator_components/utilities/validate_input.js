@@ -63,10 +63,12 @@ export default class Validate extends Test {
     is_search(input){
         let field = input;
         console.log(field, 'Input value:: ', field.value);
-        let matchOpenInputRegEx = /[0-9-._,a-z]+$/gi;
-        let matchPlaceIdRegEx = /[^Ch]/gi;
-        let matchLatLngRegEx = /(?:-)?\d{2,5}(?:[.]?\d{2,5}\s?),(?:\s?)\d{2,5}(?:[.]?\d{2,5}?)/g;
-        let filterRegEx = /[^0-9-.,a-z\s]+$/gi;
+        let matchOpenInputRegEx = /[\(?:0-9a-zA-Z\)\(?:\s|-|,|.|_\)?]+$/gi;
+        let searchPlaceIdRegEx = /[ChIJ]/g;
+        let matchPlaceIdRegEx = /[^a-zA-Z0-9_-]+$/gi;
+        let matchLatLngRegEx = /(?:-)?\d{1,8}(?:[.]?\d{1,8}\s?),(?:\s?)(?:-)?\d{1,8}(?:[.]?\d{1,8}?)/g;
+        // let copy_matchLatLngRegEx = /(?:-)?[0-9]+$(?:[.]?[0-9]+$]\s?),(?:\s-)?[0-9]+$](?:[.]?[0-9]+$]?)/g;
+        let filterRegEx = /[^0-9-.,a-z\s\(\)]+$/gi;
         /**
          * Does input have what the filter is looking for?
          * if not, treat it as a place id or lat lng
@@ -77,17 +79,16 @@ export default class Validate extends Test {
             console.log('whitespace at the end of input');
             field.value[lastCharacter] = '';
         }
-        if (field.value.search(matchPlaceIdRegEx) > -1 && matchOpenInputRegEx.test(field.value) && field.value.length > 24 ){
+        if (field.value.search(searchPlaceIdRegEx) > -1 && matchOpenInputRegEx.test(field.value) && field.value.length >= 27 ){
             console.log('placeIdmatch');
-            let filteredField = /\s/;
-            field.value = field.value.replace(filteredField, "");  
+            let filterField = /\s/;
+            field.value = field.value.replace(filterField, "");  
             let test = {
                 result: super.searchTest(field, filterRegEx, matchPlaceIdRegEx, 'placeId')
             };    
             return test.result;
         } else if (field.value.search(matchLatLngRegEx) > -1){
             console.log('latlngmatch');
-            let latLng;
             field.value = field.value.replace(/\s/, "");
             let _split = field.value.split(',');
             console.log(_split);
@@ -96,25 +97,27 @@ export default class Validate extends Test {
                 lng: null,
             };
             if (_split.length >= 2) {
-                console.log('2 coordinate values received!');
+                console.log('comma-delimited coordinate values received!');
                 let lat = _split[0];
                 let lng = _split[1];
-                let latLng = lat + ',' + lng;
-                console.log(latLng);
-                let test = {
-                    result: super.searchTest(field, filterRegEx, matchLatLngRegEx, 'latlng')
-                };    
-                return test.result;
-                // if ( Math.abs(lat) <= 90 && Math.abs(lng) <= 180 && _split[2].lat == true && _split[2].lng == true ) {
-                //     const latLng = lat + ',' + lng;
-                //     let test = {
-                //         result: super.searchTest(latLng, filterRegEx, matchLatLngRegEx, 'latlng')
-                //     };    
-                //     return test.result;
-                // }
-
+                console.log(lat, lng);
+                const latLng = `${lat}, ${lng}`;
+                if (Math.abs(lat) <= 90 && Math.abs(lng) <= 180) {
+                    field.value = latLng;
+                    let test = {
+                        result: super.searchTest(field, filterRegEx, matchLatLngRegEx, 'latlng')
+                    };    
+                    return test.result;
+  
+                  } else {
+                    console.log('not real coordinates...');
+                    let test = {
+                        result: super.searchTest(field, filterRegEx, matchLatLngRegEx, 'latlng')
+                    };    
+                    return test.result;
+                }
             } else {
-                console.log('split less than 2! Please ensure you pass-in a comma-delimited coordinates...');
+                console.log('split less than 2! Please ensure you pass-in comma-delimited coordinates...');
                 // let test = {
                 //     result: super.searchTest(field, filterRegEx, matchLatLngRegEx, 'latlng')
                 // };    
