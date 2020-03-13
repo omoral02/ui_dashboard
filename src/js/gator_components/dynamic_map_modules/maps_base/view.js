@@ -129,7 +129,8 @@ export default class MapView extends MapModel{
           })
         } else if (result.dataType === 'latlng'){
           console.log('LatLng:: ', result.latLng);
-          this.geocoder.geocode({'location': new google.maps.LatLng(result.latLng[0], result.latLng[1])},(results, status)=>{
+          let split = result.latLng.split(",");
+          this.geocoder.geocode({'location': new google.maps.LatLng(split[0], split[1])},(results, status)=>{
             if (status === 'OK') {
               console.log(results);
               this._map.fitBounds(results[0].geometry.viewport);

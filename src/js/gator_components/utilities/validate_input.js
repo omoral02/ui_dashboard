@@ -63,12 +63,11 @@ export default class Validate extends Test {
     is_search(input){
         let field = input;
         console.log(field, 'Input value:: ', field.value);
-        let matchOpenInputRegEx = /[\(?:0-9a-zA-Z\)\(?:\s|-|,|.|_\)?]+$/gi;
-        let searchPlaceIdRegEx = /[ChIJ]/g;
-        let matchPlaceIdRegEx = /[^a-zA-Z0-9_-]+$/gi;
+        let matchOpenInputRegEx = /[0-9-._,a-z\s]+$/gi;
+        let matchPlaceIdRegEx = /[^CHIJ]/gi;
         let matchLatLngRegEx = /(?:-)?\d{1,8}(?:[.]?\d{1,8}\s?),(?:\s?)(?:-)?\d{1,8}(?:[.]?\d{1,8}?)/g;
         // let copy_matchLatLngRegEx = /(?:-)?[0-9]+$(?:[.]?[0-9]+$]\s?),(?:\s-)?[0-9]+$](?:[.]?[0-9]+$]?)/g;
-        let filterRegEx = /[^0-9-.,a-z\s\(\)]+$/gi;
+        let filterRegEx = /[^0-9-.,a-z\s]+$/gi;
         /**
          * Does input have what the filter is looking for?
          * if not, treat it as a place id or lat lng
@@ -79,10 +78,10 @@ export default class Validate extends Test {
             console.log('whitespace at the end of input');
             field.value[lastCharacter] = '';
         }
-        if (field.value.search(searchPlaceIdRegEx) > -1 && matchOpenInputRegEx.test(field.value) && field.value.length >= 27 ){
+        if (field.value.search(matchPlaceIdRegEx) > 1 && matchOpenInputRegEx.test(field.value) && field.value.length >= 27 ){
             console.log('placeIdmatch');
-            let filterField = /\s/;
-            field.value = field.value.replace(filterField, "");  
+            let filteredField = /\s/;
+            field.value = field.value.replace(filteredField, "");  
             let test = {
                 result: super.searchTest(field, filterRegEx, matchPlaceIdRegEx, 'placeId')
             };    
