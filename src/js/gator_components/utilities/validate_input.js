@@ -63,6 +63,9 @@ export default class Validate extends Test {
     is_search(input){
         let field = input;
         console.log(field, 'Input value:: ', field.value);
+
+        ///  MISSING SYNTHETIC PLACEID /////
+        
         let matchOpenInputRegEx = /[0-9-._,a-z\s]+$/gi;
         let matchPlaceIdRegEx = /[^CHIJ]/gi;
         let matchLatLngRegEx = /(?:-)?\d{1,8}(?:[.]?\d{1,8}\s?),(?:\s?)(?:-)?\d{1,8}(?:[.]?\d{1,8}?)/g;
