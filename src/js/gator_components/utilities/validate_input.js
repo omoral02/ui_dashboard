@@ -63,8 +63,13 @@ export default class Validate extends Test {
     is_search(input){
         let field = input;
         console.log(field, 'Input value:: ', field.value);
+<<<<<<< HEAD
         let matchOpenInputRegEx = /[0-9-._,a-z\s]+$/gi;
         let matchPlaceIdRegEx = /[^CHIJ]/gi;
+=======
+        let matchOpenInputRegEx = /[0-9-._,a-z]+$/gi;
+        let matchPlaceIdRegEx = /[^Ch]/gi;
+>>>>>>> 882a78c788d288b2d2fe14343587e6efbb706391
         let matchLatLngRegEx = /(?:-)?\d{1,8}(?:[.]?\d{1,8}\s?),(?:\s?)(?:-)?\d{1,8}(?:[.]?\d{1,8}?)/g;
         // let copy_matchLatLngRegEx = /(?:-)?[0-9]+$(?:[.]?[0-9]+$]\s?),(?:\s-)?[0-9]+$](?:[.]?[0-9]+$]?)/g;
         let filterRegEx = /[^0-9-.,a-z\s]+$/gi;
